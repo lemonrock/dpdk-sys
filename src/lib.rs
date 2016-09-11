@@ -68,152 +68,35 @@ impl Default for __va_list_tag
 	}
 }
 
-
 #[link(name = "dpdk")]
-extern "C"
-{
-}
-
 #[link(name = "ethdev")]
-extern "C"
-{
-}
-
 #[link(name = "rte_acl")]
-extern "C"
-{
-}
-
 #[link(name = "rte_cfgfile")]
-extern "C"
-{
-}
-
 #[link(name = "rte_cmdline")]
-extern "C"
-{
-}
-
 #[link(name = "rte_cryptodev")]
-extern "C"
-{
-}
-
 #[link(name = "rte_distributor")]
-extern "C"
-{
-}
-
 #[link(name = "rte_eal")]
-extern "C"
-{
-}
-
 #[link(name = "rte_hash")]
-extern "C"
-{
-}
-
 #[link(name = "rte_ip_frag")]
-extern "C"
-{
-}
-
 #[link(name = "rte_jobstats")]
-extern "C"
-{
-}
-
 #[link(name = "rte_kvargs")]
-extern "C"
-{
-}
-
 #[link(name = "rte_lpm")]
-extern "C"
-{
-}
-
 #[link(name = "rte_mbuf")]
-extern "C"
-{
-}
-
 #[link(name = "rte_mempool")]
-extern "C"
-{
-}
-
 #[link(name = "rte_meter")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pdump")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pipeline")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pmd_af_packet")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pmd_bond")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pmd_null")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pmd_null_crypto")]
-extern "C"
-{
-}
-
 #[link(name = "rte_pmd_ring")]
-extern "C"
-{
-}
-
 #[link(name = "rte_port")]
-extern "C"
-{
-}
-
 #[link(name = "rte_power")]
-extern "C"
-{
-}
-
 #[link(name = "rte_reorder")]
-extern "C"
-{
-}
-
 #[link(name = "rte_ring")]
-extern "C"
-{
-}
-
 #[link(name = "rte_sched")]
-extern "C"
-{
-}
-
 #[link(name = "rte_table")]
-extern "C"
-{
-}
-
 #[link(name = "rte_timer")]
 extern "C"
 {
