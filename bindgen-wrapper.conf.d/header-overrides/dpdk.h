@@ -69,9 +69,9 @@
 #include <rte_memzone.h>
 #include <rte_meter.h>
 
-#include <rte_pci.h>
-#include <rte_pci_dev_feature_defs.h>
-#include <rte_pci_dev_features.h>
+//#include <rte_pci.h>
+//#include <rte_pci_dev_feature_defs.h>
+//#include <rte_pci_dev_features.h>
 #include <rte_pdump.h>
 #include <rte_per_lcore.h>
 #include <rte_pipeline.h>

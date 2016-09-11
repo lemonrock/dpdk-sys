@@ -630,6 +630,15 @@ pub const RTE_LPM6_MAX_DEPTH: c_int = 128;
 pub const RTE_LPM6_IPV6_ADDR_SIZE: c_int = 16;
 pub const RTE_LPM6_NAMESIZE: c_int = 32;
 pub const RTE_TABLE_HASH_LRU_STRATEGY: c_int = 1;
+pub const RTE_PORT_IN_BURST_SIZE_MAX: c_int = 64;
+pub const RTE_PIPELINE_TABLE_MAX: c_int = 64;
+pub const RTE_PIPELINE_PORT_IN_MAX: c_int = 64;
+pub const RTE_PIPELINE_PORT_OUT_MAX: c_int = 64;
+pub const RTE_SCHED_TRAFFIC_CLASSES_PER_PIPE: c_int = 4;
+pub const RTE_SCHED_QUEUES_PER_TRAFFIC_CLASS: c_int = 4;
+pub const RTE_SCHED_QUEUES_PER_PIPE: c_int = 16;
+pub const RTE_SCHED_PIPE_PROFILES_PER_PORT: c_int = 256;
+pub const RTE_SCHED_FRAME_OVERHEAD_DEFAULT: c_int = 24;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -3903,6 +3912,690 @@ impl Default for rte_meter_trtcm
 	}
 }
 
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed26
+{
+	RTE_PDUMP_FLAG_RX = 1,
+	RTE_PDUMP_FLAG_TX = 2,
+	RTE_PDUMP_FLAG_RXTX = 3,
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_pdump_socktype
+{
+	RTE_PDUMP_SOCKET_SERVER = 1,
+	RTE_PDUMP_SOCKET_CLIENT = 2,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_in_stats
+{
+	pub n_pkts_in: uint64_t,
+	pub n_pkts_drop: uint64_t,
+}
+
+impl Default for rte_port_in_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_port_in_op_create = Option<unsafe extern "C" fn(params: *mut c_void, socket_id: c_int) -> *mut c_void>;
+
+pub type rte_port_in_op_free = Option<unsafe extern "C" fn(port: *mut c_void) -> c_int>;
+
+pub type rte_port_in_op_rx = Option<unsafe extern "C" fn(port: *mut c_void, pkts: *mut *mut rte_mbuf, n_pkts: uint32_t) -> c_int>;
+
+pub type rte_port_in_op_stats_read = Option<unsafe extern "C" fn(port: *mut c_void, stats: *mut rte_port_in_stats, clear: c_int) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_in_ops
+{
+	pub f_create: rte_port_in_op_create,
+	pub f_free: rte_port_in_op_free,
+	pub f_rx: rte_port_in_op_rx,
+	pub f_stats: rte_port_in_op_stats_read,
+}
+
+impl Default for rte_port_in_ops
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_out_stats
+{
+	pub n_pkts_in: uint64_t,
+	pub n_pkts_drop: uint64_t,
+}
+
+impl Default for rte_port_out_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_port_out_op_create = Option<unsafe extern "C" fn(params: *mut c_void, socket_id: c_int) -> *mut c_void>;
+
+pub type rte_port_out_op_free = Option<unsafe extern "C" fn(port: *mut c_void) -> c_int>;
+
+pub type rte_port_out_op_tx = Option<unsafe extern "C" fn(port: *mut c_void, pkt: *mut rte_mbuf) -> c_int>;
+
+pub type rte_port_out_op_tx_bulk = Option<unsafe extern "C" fn(port: *mut c_void, pkt: *mut *mut rte_mbuf, pkts_mask: uint64_t) -> c_int>;
+
+pub type rte_port_out_op_flush = Option<unsafe extern "C" fn(port: *mut c_void) -> c_int>;
+
+pub type rte_port_out_op_stats_read = Option<unsafe extern "C" fn(port: *mut c_void, stats: *mut rte_port_out_stats, clear: c_int) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_out_ops
+{
+	pub f_create: rte_port_out_op_create,
+	pub f_free: rte_port_out_op_free,
+	pub f_tx: rte_port_out_op_tx,
+	pub f_tx_bulk: rte_port_out_op_tx_bulk,
+	pub f_flush: rte_port_out_op_flush,
+	pub f_stats: rte_port_out_op_stats_read,
+}
+
+impl Default for rte_port_out_ops
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_stats
+{
+	pub n_pkts_in: uint64_t,
+	pub n_pkts_lookup_miss: uint64_t,
+}
+
+impl Default for rte_table_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_table_op_create = Option<unsafe extern "C" fn(params: *mut c_void, socket_id: c_int, entry_size: uint32_t) -> *mut c_void>;
+
+pub type rte_table_op_free = Option<unsafe extern "C" fn(table: *mut c_void) -> c_int>;
+
+pub type rte_table_op_entry_add = Option<unsafe extern "C" fn(table: *mut c_void, key: *mut c_void, entry: *mut c_void, key_found: *mut c_int, entry_ptr: *mut *mut c_void) -> c_int>;
+
+pub type rte_table_op_entry_delete = Option<unsafe extern "C" fn(table: *mut c_void, key: *mut c_void, key_found: *mut c_int, entry: *mut c_void) -> c_int>;
+
+pub type rte_table_op_entry_add_bulk = Option<unsafe extern "C" fn(table: *mut c_void, keys: *mut *mut c_void, entries: *mut *mut c_void, n_keys: uint32_t, key_found: *mut c_int, entries_ptr: *mut *mut c_void) -> c_int>;
+
+pub type rte_table_op_entry_delete_bulk = Option<unsafe extern "C" fn(table: *mut c_void, keys: *mut *mut c_void, n_keys: uint32_t, key_found: *mut c_int, entries: *mut *mut c_void) -> c_int>;
+
+pub type rte_table_op_lookup = Option<unsafe extern "C" fn(table: *mut c_void, pkts: *mut *mut rte_mbuf, pkts_mask: uint64_t, lookup_hit_mask: *mut uint64_t, entries: *mut *mut c_void) -> c_int>;
+
+pub type rte_table_op_stats_read = Option<unsafe extern "C" fn(table: *mut c_void, stats: *mut rte_table_stats, clear: c_int) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_ops
+{
+	pub f_create: rte_table_op_create,
+	pub f_free: rte_table_op_free,
+	pub f_add: rte_table_op_entry_add,
+	pub f_delete: rte_table_op_entry_delete,
+	pub f_add_bulk: rte_table_op_entry_add_bulk,
+	pub f_delete_bulk: rte_table_op_entry_delete_bulk,
+	pub f_lookup: rte_table_op_lookup,
+	pub f_stats: rte_table_op_stats_read,
+}
+
+impl Default for rte_table_ops
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_pipeline
+{
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_params
+{
+	pub name: *const c_char,
+	pub socket_id: c_int,
+	pub offset_port_id: uint32_t,
+}
+
+impl Default for rte_pipeline_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_port_in_stats
+{
+	pub stats: rte_port_in_stats,
+	pub n_pkts_dropped_by_ah: uint64_t,
+}
+
+impl Default for rte_pipeline_port_in_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_port_out_stats
+{
+	pub stats: rte_port_out_stats,
+	pub n_pkts_dropped_by_ah: uint64_t,
+}
+
+impl Default for rte_pipeline_port_out_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_table_stats
+{
+	pub stats: rte_table_stats,
+	pub n_pkts_dropped_by_lkp_hit_ah: uint64_t,
+	pub n_pkts_dropped_by_lkp_miss_ah: uint64_t,
+	pub n_pkts_dropped_lkp_hit: uint64_t,
+	pub n_pkts_dropped_lkp_miss: uint64_t,
+}
+
+impl Default for rte_pipeline_table_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_pipeline_action
+{
+	RTE_PIPELINE_ACTION_DROP = 0,
+	RTE_PIPELINE_ACTION_PORT = 1,
+	RTE_PIPELINE_ACTION_PORT_META = 2,
+	RTE_PIPELINE_ACTION_TABLE = 3,
+	RTE_PIPELINE_ACTIONS = 4,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_table_entry
+{
+	pub action: rte_pipeline_action,
+	pub _bindgen_data_1_: [u32; 1usize],
+	pub action_data: [uint8_t; 0usize],
+}
+
+impl rte_pipeline_table_entry
+{
+	pub unsafe fn port_id(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn table_id(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_pipeline_table_entry
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_pipeline_table_action_handler_hit = Option<unsafe extern "C" fn(p: *mut rte_pipeline, pkts: *mut *mut rte_mbuf, pkts_mask: uint64_t, entries: *mut *mut rte_pipeline_table_entry, arg: *mut c_void) -> c_int>;
+
+pub type rte_pipeline_table_action_handler_miss = Option<unsafe extern "C" fn(p: *mut rte_pipeline, pkts: *mut *mut rte_mbuf, pkts_mask: uint64_t, entry: *mut rte_pipeline_table_entry, arg: *mut c_void) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_table_params
+{
+	pub ops: *mut rte_table_ops,
+	pub arg_create: *mut c_void,
+	pub f_action_hit: rte_pipeline_table_action_handler_hit,
+	pub f_action_miss: rte_pipeline_table_action_handler_miss,
+	pub arg_ah: *mut c_void,
+	pub action_data_size: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_pipeline_table_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_pipeline_port_in_action_handler = Option<unsafe extern "C" fn(p: *mut rte_pipeline, pkts: *mut *mut rte_mbuf, n: uint32_t, arg: *mut c_void) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_port_in_params
+{
+	pub ops: *mut rte_port_in_ops,
+	pub arg_create: *mut c_void,
+	pub f_action: rte_pipeline_port_in_action_handler,
+	pub arg_ah: *mut c_void,
+	pub burst_size: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_pipeline_port_in_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_pipeline_port_out_action_handler = Option<unsafe extern "C" fn(p: *mut rte_pipeline, pkts: *mut *mut rte_mbuf, pkts_mask: uint64_t, arg: *mut c_void) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_pipeline_port_out_params
+{
+	pub ops: *mut rte_port_out_ops,
+	pub arg_create: *mut c_void,
+	pub f_action: rte_pipeline_port_out_action_handler,
+	pub arg_ah: *mut c_void,
+}
+
+impl Default for rte_pipeline_port_out_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ethdev_reader_params
+{
+	pub port_id: uint8_t,
+	pub queue_id: uint16_t,
+}
+
+impl Default for rte_port_ethdev_reader_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ethdev_writer_params
+{
+	pub port_id: uint8_t,
+	pub queue_id: uint16_t,
+	pub tx_burst_sz: uint32_t,
+}
+
+impl Default for rte_port_ethdev_writer_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ethdev_writer_nodrop_params
+{
+	pub port_id: uint8_t,
+	pub queue_id: uint16_t,
+	pub tx_burst_sz: uint32_t,
+	pub n_retries: uint32_t,
+}
+
+impl Default for rte_port_ethdev_writer_nodrop_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ring_reader_frag_params
+{
+	pub ring: *mut rte_ring,
+	pub mtu: uint32_t,
+	pub metadata_size: uint32_t,
+	pub pool_direct: *mut rte_mempool,
+	pub pool_indirect: *mut rte_mempool,
+}
+
+impl Default for rte_port_ring_reader_frag_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ring_writer_ras_params
+{
+	pub ring: *mut rte_ring,
+	pub tx_burst_sz: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_port_ring_writer_ras_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ring_reader_params
+{
+	pub ring: *mut rte_ring,
+}
+
+impl Default for rte_port_ring_reader_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ring_writer_params
+{
+	pub ring: *mut rte_ring,
+	pub tx_burst_sz: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_port_ring_writer_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_ring_writer_nodrop_params
+{
+	pub ring: *mut rte_ring,
+	pub tx_burst_sz: uint32_t,
+	pub n_retries: uint32_t,
+}
+
+impl Default for rte_port_ring_writer_nodrop_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_sched_subport_params
+{
+	pub tb_rate: uint32_t,
+	pub tb_size: uint32_t,
+	pub tc_rate: [uint32_t; 4usize],
+	pub tc_period: uint32_t,
+}
+
+impl Default for rte_sched_subport_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_sched_subport_stats
+{
+	pub n_pkts_tc: [uint32_t; 4usize],
+	pub n_pkts_tc_dropped: [uint32_t; 4usize],
+	pub n_bytes_tc: [uint32_t; 4usize],
+	pub n_bytes_tc_dropped: [uint32_t; 4usize],
+}
+
+impl Default for rte_sched_subport_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_sched_pipe_params
+{
+	pub tb_rate: uint32_t,
+	pub tb_size: uint32_t,
+	pub tc_rate: [uint32_t; 4usize],
+	pub tc_period: uint32_t,
+	pub wrr_weights: [uint8_t; 16usize],
+}
+
+impl Default for rte_sched_pipe_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_sched_queue_stats
+{
+	pub n_pkts: uint32_t,
+	pub n_pkts_dropped: uint32_t,
+	pub n_bytes: uint32_t,
+	pub n_bytes_dropped: uint32_t,
+}
+
+impl Default for rte_sched_queue_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_sched_port_params
+{
+	pub name: *const c_char,
+	pub socket: c_int,
+	pub rate: uint32_t,
+	pub mtu: uint32_t,
+	pub frame_overhead: uint32_t,
+	pub n_subports_per_port: uint32_t,
+	pub n_pipes_per_subport: uint32_t,
+	pub qsize: [uint16_t; 4usize],
+	pub pipe_profiles: *mut rte_sched_pipe_params,
+	pub n_pipe_profiles: uint32_t,
+}
+
+impl Default for rte_sched_port_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_sched_port
+{
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_sched_reader_params
+{
+	pub sched: *mut rte_sched_port,
+}
+
+impl Default for rte_port_sched_reader_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_sched_writer_params
+{
+	pub sched: *mut rte_sched_port,
+	pub tx_burst_sz: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_port_sched_writer_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_source_params
+{
+	pub mempool: *mut rte_mempool,
+	pub file_name: *mut c_char,
+	pub n_bytes_per_pkt: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_port_source_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_port_sink_params
+{
+	pub file_name: *mut c_char,
+	pub max_n_pkts: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_port_sink_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
 extern "C"
 {
 	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
@@ -3919,6 +4612,23 @@ extern "C"
 	pub static mut eal_default_log_stream: *mut FILE;
 	pub static mut rte_mempool_ops_table: rte_mempool_ops_table;
 	pub static mut per_lcore__rte_errno: c_void;
+	pub static mut rte_port_ethdev_reader_ops: rte_port_in_ops;
+	pub static mut rte_port_ethdev_writer_ops: rte_port_out_ops;
+	pub static mut rte_port_ethdev_writer_nodrop_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_reader_ipv4_frag_ops: rte_port_in_ops;
+	pub static mut rte_port_ring_reader_ipv6_frag_ops: rte_port_in_ops;
+	pub static mut rte_port_ring_writer_ipv4_ras_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_writer_ipv6_ras_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_reader_ops: rte_port_in_ops;
+	pub static mut rte_port_ring_writer_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_writer_nodrop_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_multi_reader_ops: rte_port_in_ops;
+	pub static mut rte_port_ring_multi_writer_ops: rte_port_out_ops;
+	pub static mut rte_port_ring_multi_writer_nodrop_ops: rte_port_out_ops;
+	pub static mut rte_port_sched_reader_ops: rte_port_in_ops;
+	pub static mut rte_port_sched_writer_ops: rte_port_out_ops;
+	pub static mut rte_port_source_ops: rte_port_in_ops;
+	pub static mut rte_port_sink_ops: rte_port_out_ops;
 }
 
 extern "C"
@@ -4266,5 +4976,47 @@ extern "C"
 	pub fn rte_lpm6_lookup_bulk_func(lpm: *const rte_lpm6, ips: *mut [uint8_t; 16usize], next_hops: *mut int16_t, n: c_uint) -> c_int;
 	pub fn rte_meter_srtcm_config(m: *mut rte_meter_srtcm, params: *mut rte_meter_srtcm_params) -> c_int;
 	pub fn rte_meter_trtcm_config(m: *mut rte_meter_trtcm, params: *mut rte_meter_trtcm_params) -> c_int;
+	pub fn rte_pdump_init(path: *const c_char) -> c_int;
+	pub fn rte_pdump_uninit() -> c_int;
+	pub fn rte_pdump_enable(port: uint8_t, queue: uint16_t, flags: uint32_t, ring: *mut rte_ring, mp: *mut rte_mempool, filter: *mut c_void) -> c_int;
+	pub fn rte_pdump_disable(port: uint8_t, queue: uint16_t, flags: uint32_t) -> c_int;
+	pub fn rte_pdump_enable_by_deviceid(device_id: *mut c_char, queue: uint16_t, flags: uint32_t, ring: *mut rte_ring, mp: *mut rte_mempool, filter: *mut c_void) -> c_int;
+	pub fn rte_pdump_disable_by_deviceid(device_id: *mut c_char, queue: uint16_t, flags: uint32_t) -> c_int;
+	pub fn rte_pdump_set_socket_dir(path: *const c_char, type_: rte_pdump_socktype) -> c_int;
+	pub fn rte_pipeline_create(params: *mut rte_pipeline_params) -> *mut rte_pipeline;
+	pub fn rte_pipeline_free(p: *mut rte_pipeline) -> c_int;
+	pub fn rte_pipeline_check(p: *mut rte_pipeline) -> c_int;
+	pub fn rte_pipeline_run(p: *mut rte_pipeline) -> c_int;
+	pub fn rte_pipeline_flush(p: *mut rte_pipeline) -> c_int;
+	pub fn rte_pipeline_table_create(p: *mut rte_pipeline, params: *mut rte_pipeline_table_params, table_id: *mut uint32_t) -> c_int;
+	pub fn rte_pipeline_table_default_entry_add(p: *mut rte_pipeline, table_id: uint32_t, default_entry: *mut rte_pipeline_table_entry, default_entry_ptr: *mut *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_default_entry_delete(p: *mut rte_pipeline, table_id: uint32_t, entry: *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_entry_add(p: *mut rte_pipeline, table_id: uint32_t, key: *mut c_void, entry: *mut rte_pipeline_table_entry, key_found: *mut c_int, entry_ptr: *mut *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_entry_delete(p: *mut rte_pipeline, table_id: uint32_t, key: *mut c_void, key_found: *mut c_int, entry: *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_entry_add_bulk(p: *mut rte_pipeline, table_id: uint32_t, keys: *mut *mut c_void, entries: *mut *mut rte_pipeline_table_entry, n_keys: uint32_t, key_found: *mut c_int, entries_ptr: *mut *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_entry_delete_bulk(p: *mut rte_pipeline, table_id: uint32_t, keys: *mut *mut c_void, n_keys: uint32_t, key_found: *mut c_int, entries: *mut *mut rte_pipeline_table_entry) -> c_int;
+	pub fn rte_pipeline_table_stats_read(p: *mut rte_pipeline, table_id: uint32_t, stats: *mut rte_pipeline_table_stats, clear: c_int) -> c_int;
+	pub fn rte_pipeline_port_in_create(p: *mut rte_pipeline, params: *mut rte_pipeline_port_in_params, port_id: *mut uint32_t) -> c_int;
+	pub fn rte_pipeline_port_in_connect_to_table(p: *mut rte_pipeline, port_id: uint32_t, table_id: uint32_t) -> c_int;
+	pub fn rte_pipeline_port_in_enable(p: *mut rte_pipeline, port_id: uint32_t) -> c_int;
+	pub fn rte_pipeline_port_in_disable(p: *mut rte_pipeline, port_id: uint32_t) -> c_int;
+	pub fn rte_pipeline_port_in_stats_read(p: *mut rte_pipeline, port_id: uint32_t, stats: *mut rte_pipeline_port_in_stats, clear: c_int) -> c_int;
+	pub fn rte_pipeline_port_out_create(p: *mut rte_pipeline, params: *mut rte_pipeline_port_out_params, port_id: *mut uint32_t) -> c_int;
+	pub fn rte_pipeline_port_out_stats_read(p: *mut rte_pipeline, port_id: uint32_t, stats: *mut rte_pipeline_port_out_stats, clear: c_int) -> c_int;
+	pub fn rte_pipeline_port_out_packet_insert(p: *mut rte_pipeline, port_id: uint32_t, pkt: *mut rte_mbuf) -> c_int;
+	pub fn rte_pipeline_ah_packet_hijack(p: *mut rte_pipeline, pkts_mask: uint64_t) -> c_int;
+	pub fn rte_pipeline_ah_packet_drop(p: *mut rte_pipeline, pkts_mask: uint64_t) -> c_int;
+	pub fn rte_sched_port_config(params: *mut rte_sched_port_params) -> *mut rte_sched_port;
+	pub fn rte_sched_port_free(port: *mut rte_sched_port);
+	pub fn rte_sched_subport_config(port: *mut rte_sched_port, subport_id: uint32_t, params: *mut rte_sched_subport_params) -> c_int;
+	pub fn rte_sched_pipe_config(port: *mut rte_sched_port, subport_id: uint32_t, pipe_id: uint32_t, pipe_profile: int32_t) -> c_int;
+	pub fn rte_sched_port_get_memory_footprint(params: *mut rte_sched_port_params) -> uint32_t;
+	pub fn rte_sched_subport_read_stats(port: *mut rte_sched_port, subport_id: uint32_t, stats: *mut rte_sched_subport_stats, tc_ov: *mut uint32_t) -> c_int;
+	pub fn rte_sched_queue_read_stats(port: *mut rte_sched_port, queue_id: uint32_t, stats: *mut rte_sched_queue_stats, qlen: *mut uint16_t) -> c_int;
+	pub fn rte_sched_port_pkt_write(pkt: *mut rte_mbuf, subport: uint32_t, pipe: uint32_t, traffic_class: uint32_t, queue: uint32_t, color: rte_meter_color);
+	pub fn rte_sched_port_pkt_read_tree_path(pkt: *const rte_mbuf, subport: *mut uint32_t, pipe: *mut uint32_t, traffic_class: *mut uint32_t, queue: *mut uint32_t);
+	pub fn rte_sched_port_pkt_read_color(pkt: *const rte_mbuf) -> rte_meter_color;
+	pub fn rte_sched_port_enqueue(port: *mut rte_sched_port, pkts: *mut *mut rte_mbuf, n_pkts: uint32_t) -> c_int;
+	pub fn rte_sched_port_dequeue(port: *mut rte_sched_port, pkts: *mut *mut rte_mbuf, n_pkts: uint32_t) -> c_int;
 }
 
