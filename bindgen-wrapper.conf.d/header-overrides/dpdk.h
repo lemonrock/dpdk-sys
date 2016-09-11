@@ -37,7 +37,7 @@
 //#include <rte_eth_bond_8023ad.h>  Out of memory, Illegal Instruction
 //#include <rte_eth_ctrl.h>  Out of memory, Illegal Instruction
 #include <rte_eth_null.h>
-//#include <rte_eth_ring.h>
-//#include <rte_eth_vhost.h>
-//#include <rte_ethdev.h>
+#include <rte_eth_ring.h>
+#include <rte_eth_vhost.h>
+//#include <rte_ethdev.h>  Out of memory, Illegal Instruction
 #include <rte_ether.h>

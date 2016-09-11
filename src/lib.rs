@@ -572,6 +572,8 @@ pub const BONDING_MODE_ALB: c_int = 6;
 pub const BALANCE_XMIT_POLICY_LAYER2: c_int = 0;
 pub const BALANCE_XMIT_POLICY_LAYER23: c_int = 1;
 pub const BALANCE_XMIT_POLICY_LAYER34: c_int = 2;
+pub const RTE_VHOST_USER_CLIENT: c_int = 1;
+pub const RTE_VHOST_USER_NO_RECONNECT: c_int = 2;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -2863,6 +2865,53 @@ pub enum Enum_Unnamed20
 	RTE_MAX_ERRNO = 1003,
 }
 
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed21
+{
+	VIRTIO_RXQ = 0,
+	VIRTIO_TXQ = 1,
+	VIRTIO_QNUM = 2,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct virtio_net_device_ops
+{
+	pub new_device: Option<extern "C" fn(vid: c_int) -> c_int>,
+	pub destroy_device: Option<extern "C" fn(vid: c_int)>,
+	pub vring_state_changed: Option<extern "C" fn(vid: c_int, queue_id: uint16_t, enable: c_int) -> c_int>,
+	pub reserved: [*mut c_void; 5usize],
+}
+
+impl Default for virtio_net_device_ops
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_eth_vhost_queue_event
+{
+	pub queue_id: uint16_t,
+	pub rx: u8,
+	pub enable: u8,
+}
+
+impl Default for rte_eth_vhost_queue_event
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
 extern "C"
 {
 	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
@@ -3091,5 +3140,25 @@ extern "C"
 	pub fn rte_eth_bond_link_up_prop_delay_set(bonded_port_id: uint8_t, delay_ms: uint32_t) -> c_int;
 	pub fn rte_eth_bond_link_up_prop_delay_get(bonded_port_id: uint8_t) -> c_int;
 	pub fn eth_dev_null_create(name: *const c_char, numa_node: c_uint, packet_size: c_uint, packet_copy: c_uint) -> c_int;
+	pub fn rte_eth_from_rings(name: *const c_char, rx_queues: *mut *mut rte_ring, nb_rx_queues: c_uint, tx_queues: *mut *mut rte_ring, nb_tx_queues: c_uint, numa_node: c_uint) -> c_int;
+	pub fn rte_eth_from_ring(r: *mut rte_ring) -> c_int;
+	pub fn rte_vhost_feature_disable(feature_mask: uint64_t) -> c_int;
+	pub fn rte_vhost_feature_enable(feature_mask: uint64_t) -> c_int;
+	pub fn rte_vhost_feature_get() -> uint64_t;
+	pub fn rte_vhost_enable_guest_notification(vid: c_int, queue_id: uint16_t, enable: c_int) -> c_int;
+	pub fn rte_vhost_driver_register(path: *const c_char, flags: uint64_t) -> c_int;
+	pub fn rte_vhost_driver_unregister(path: *const c_char) -> c_int;
+	pub fn rte_vhost_driver_callback_register(arg1: *const virtio_net_device_ops) -> c_int;
+	pub fn rte_vhost_driver_session_start() -> c_int;
+	pub fn rte_vhost_get_numa_node(vid: c_int) -> c_int;
+	pub fn rte_vhost_get_queue_num(vid: c_int) -> uint32_t;
+	pub fn rte_vhost_get_ifname(vid: c_int, buf: *mut c_char, len: size_t) -> c_int;
+	pub fn rte_vhost_avail_entries(vid: c_int, queue_id: uint16_t) -> uint16_t;
+	pub fn rte_vhost_enqueue_burst(vid: c_int, queue_id: uint16_t, pkts: *mut *mut rte_mbuf, count: uint16_t) -> uint16_t;
+	pub fn rte_vhost_dequeue_burst(vid: c_int, queue_id: uint16_t, mbuf_pool: *mut rte_mempool, pkts: *mut *mut rte_mbuf, count: uint16_t) -> uint16_t;
+	pub fn rte_eth_vhost_feature_disable(feature_mask: uint64_t) -> c_int;
+	pub fn rte_eth_vhost_feature_enable(feature_mask: uint64_t) -> c_int;
+	pub fn rte_eth_vhost_feature_get() -> uint64_t;
+	pub fn rte_eth_vhost_get_queue_event(port_id: uint8_t, event: *mut rte_eth_vhost_queue_event) -> c_int;
 }
 
