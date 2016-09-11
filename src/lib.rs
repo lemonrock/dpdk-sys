@@ -370,7 +370,6 @@ pub const RTE_ARCH_64: c_int = 1;
 pub const RTE_TOOLCHAIN_GCC: c_int = 1;
 pub const RTE_MAGIC: c_int = 19820526;
 pub const RTE_MAX_THREAD_NAME_LEN: c_int = 16;
-pub const _RTE_RTM_H_: c_int = 1;
 pub const RTE_XBEGIN_STARTED: c_int = -1;
 pub const RTE_XABORT_EXPLICIT: c_int = 1;
 pub const RTE_XABORT_RETRY: c_int = 2;
@@ -473,7 +472,6 @@ pub const PKT_TX_VLAN_PKT: c_longlong = 144115188075855872;
 pub const PKT_TX_OUTER_IP_CKSUM: c_longlong = 288230376151711744;
 pub const PKT_TX_OUTER_IPV4: c_longlong = 576460752303423488;
 pub const PKT_TX_OUTER_IPV6: c_longlong = 1152921504606846976;
-pub const __RESERVED: c_longlong = 2305843009213693952;
 pub const IND_ATTACHED_MBUF: c_longlong = 4611686018427387904;
 pub const CTRL_MBUF_FLAG: c_longlong = -9223372036854775808;
 pub const RTE_PTYPE_UNKNOWN: c_int = 0;
@@ -561,7 +559,6 @@ pub const CFG_VALUE_LEN: c_int = 256;
 pub const RTE_DISTRIBUTOR_NAMESIZE: c_int = 32;
 pub const RTE_TAILQ_NAMESIZE: c_int = 32;
 pub const RTE_HEAP_NUM_FREELISTS: c_int = 13;
-pub const __ELASTERROR: c_int = 1000;
 pub const BONDING_MODE_ROUND_ROBIN: c_int = 0;
 pub const BONDING_MODE_ACTIVE_BACKUP: c_int = 1;
 pub const BONDING_MODE_BALANCE: c_int = 2;
@@ -1662,7 +1659,7 @@ impl Default for rte_mempool_objsz
 #[derive(Debug)]
 pub struct rte_mempool_objhdr
 {
-	pub next: Struct_Unnamed2,
+	pub next: AnonymousStruct2,
 	pub mp: *mut rte_mempool,
 	pub physaddr: phys_addr_t,
 }
@@ -1678,12 +1675,12 @@ impl Default for rte_mempool_objhdr
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed2
+pub struct AnonymousStruct2
 {
 	pub stqe_next: *mut rte_mempool_objhdr,
 }
 
-impl Default for Struct_Unnamed2
+impl Default for AnonymousStruct2
 {
 	fn default() -> Self
 	{
@@ -1732,7 +1729,7 @@ pub type rte_mempool_memchunk_free_cb_t = Option<unsafe extern "C" fn(memhdr: *m
 #[derive(Debug)]
 pub struct rte_mempool_memhdr
 {
-	pub next: Struct_Unnamed3,
+	pub next: AnonymousStruct3,
 	pub mp: *mut rte_mempool,
 	pub addr: *mut c_void,
 	pub phys_addr: phys_addr_t,
@@ -1752,12 +1749,12 @@ impl Default for rte_mempool_memhdr
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed3
+pub struct AnonymousStruct3
 {
 	pub stqe_next: *mut rte_mempool_memhdr,
 }
 
-impl Default for Struct_Unnamed3
+impl Default for AnonymousStruct3
 {
 	fn default() -> Self
 	{
@@ -1972,12 +1969,12 @@ impl Union_Unnamed4
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn fdir(&mut self) -> *mut Struct_Unnamed5
+	pub unsafe fn fdir(&mut self) -> *mut AnonymousStruct5
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn sched(&mut self) -> *mut Struct_Unnamed6
+	pub unsafe fn sched(&mut self) -> *mut AnonymousStruct6
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
@@ -2000,13 +1997,13 @@ impl Default for Union_Unnamed4
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed5
+pub struct AnonymousStruct5
 {
 	pub _bindgen_data_1_: [u32; 1usize],
 	pub hi: uint32_t,
 }
 
-impl Struct_Unnamed5
+impl AnonymousStruct5
 {
 	pub unsafe fn hash(&mut self) -> *mut uint16_t
 	{
@@ -2025,7 +2022,7 @@ impl Struct_Unnamed5
 	}
 }
 
-impl Default for Struct_Unnamed5
+impl Default for AnonymousStruct5
 {
 	fn default() -> Self
 	{
@@ -2036,13 +2033,13 @@ impl Default for Struct_Unnamed5
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed6
+pub struct AnonymousStruct6
 {
 	pub lo: uint32_t,
 	pub hi: uint32_t,
 }
 
-impl Default for Struct_Unnamed6
+impl Default for AnonymousStruct6
 {
 	fn default() -> Self
 	{
@@ -2245,7 +2242,7 @@ pub struct rte_crypto_cipher_xform
 {
 	pub op: rte_crypto_cipher_operation,
 	pub algo: rte_crypto_cipher_algorithm,
-	pub key: Struct_Unnamed7,
+	pub key: AnonymousStruct7,
 }
 
 impl Default for rte_crypto_cipher_xform
@@ -2259,13 +2256,13 @@ impl Default for rte_crypto_cipher_xform
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed7
+pub struct AnonymousStruct7
 {
 	pub data: *mut uint8_t,
 	pub length: size_t,
 }
 
-impl Default for Struct_Unnamed7
+impl Default for AnonymousStruct7
 {
 	fn default() -> Self
 	{
@@ -2319,7 +2316,7 @@ pub struct rte_crypto_auth_xform
 {
 	pub op: rte_crypto_auth_operation,
 	pub algo: rte_crypto_auth_algorithm,
-	pub key: Struct_Unnamed8,
+	pub key: AnonymousStruct8,
 	pub digest_length: uint32_t,
 	pub add_auth_data_length: uint32_t,
 }
@@ -2335,13 +2332,13 @@ impl Default for rte_crypto_auth_xform
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed8
+pub struct AnonymousStruct8
 {
 	pub data: *mut uint8_t,
 	pub length: size_t,
 }
 
-impl Default for Struct_Unnamed8
+impl Default for AnonymousStruct8
 {
 	fn default() -> Self
 	{
@@ -2415,8 +2412,8 @@ pub struct rte_crypto_sym_op
 	pub m_dst: *mut rte_mbuf,
 	pub sess_type: rte_crypto_sym_op_sess_type,
 	pub _bindgen_data_1_: [u64; 1usize],
-	pub cipher: Struct_Unnamed9,
-	pub auth: Struct_Unnamed12,
+	pub cipher: AnonymousStruct9,
+	pub auth: AnonymousStruct12,
 	_bindgen_padding_0_: [u64; 1usize],
 }
 
@@ -2445,13 +2442,13 @@ impl Default for rte_crypto_sym_op
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed9
+pub struct AnonymousStruct9
 {
-	pub data: Struct_Unnamed10,
-	pub iv: Struct_Unnamed11,
+	pub data: AnonymousStruct10,
+	pub iv: AnonymousStruct11,
 }
 
-impl Default for Struct_Unnamed9
+impl Default for AnonymousStruct9
 {
 	fn default() -> Self
 	{
@@ -2462,13 +2459,13 @@ impl Default for Struct_Unnamed9
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed10
+pub struct AnonymousStruct10
 {
 	pub offset: uint32_t,
 	pub length: uint32_t,
 }
 
-impl Default for Struct_Unnamed10
+impl Default for AnonymousStruct10
 {
 	fn default() -> Self
 	{
@@ -2479,7 +2476,7 @@ impl Default for Struct_Unnamed10
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed11
+pub struct AnonymousStruct11
 {
 	pub data: *mut uint8_t,
 	pub phys_addr: phys_addr_t,
@@ -2487,7 +2484,7 @@ pub struct Struct_Unnamed11
 	_bindgen_padding_0_: [u8; 6usize],
 }
 
-impl Default for Struct_Unnamed11
+impl Default for AnonymousStruct11
 {
 	fn default() -> Self
 	{
@@ -2498,14 +2495,14 @@ impl Default for Struct_Unnamed11
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed12
+pub struct AnonymousStruct12
 {
-	pub data: Struct_Unnamed13,
-	pub digest: Struct_Unnamed14,
-	pub aad: Struct_Unnamed15,
+	pub data: AnonymousStruct13,
+	pub digest: AnonymousStruct14,
+	pub aad: AnonymousStruct15,
 }
 
-impl Default for Struct_Unnamed12
+impl Default for AnonymousStruct12
 {
 	fn default() -> Self
 	{
@@ -2516,13 +2513,13 @@ impl Default for Struct_Unnamed12
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed13
+pub struct AnonymousStruct13
 {
 	pub offset: uint32_t,
 	pub length: uint32_t,
 }
 
-impl Default for Struct_Unnamed13
+impl Default for AnonymousStruct13
 {
 	fn default() -> Self
 	{
@@ -2533,7 +2530,7 @@ impl Default for Struct_Unnamed13
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed14
+pub struct AnonymousStruct14
 {
 	pub data: *mut uint8_t,
 	pub phys_addr: phys_addr_t,
@@ -2541,7 +2538,7 @@ pub struct Struct_Unnamed14
 	_bindgen_padding_0_: [u8; 6usize],
 }
 
-impl Default for Struct_Unnamed14
+impl Default for AnonymousStruct14
 {
 	fn default() -> Self
 	{
@@ -2552,7 +2549,7 @@ impl Default for Struct_Unnamed14
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed15
+pub struct AnonymousStruct15
 {
 	pub data: *mut uint8_t,
 	pub phys_addr: phys_addr_t,
@@ -2560,7 +2557,7 @@ pub struct Struct_Unnamed15
 	_bindgen_padding_0_: [u8; 6usize],
 }
 
-impl Default for Struct_Unnamed15
+impl Default for AnonymousStruct15
 {
 	fn default() -> Self
 	{
@@ -2675,7 +2672,7 @@ pub enum pmd_type
 #[derive(Debug)]
 pub struct rte_driver
 {
-	pub next: Struct_Unnamed16,
+	pub next: AnonymousStruct16,
 	pub type_: pmd_type,
 	pub name: *const c_char,
 	pub init: rte_dev_init_t,
@@ -2693,13 +2690,13 @@ impl Default for rte_driver
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed16
+pub struct AnonymousStruct16
 {
 	pub tqe_next: *mut rte_driver,
 	pub tqe_prev: *mut *mut rte_driver,
 }
 
-impl Default for Struct_Unnamed16
+impl Default for AnonymousStruct16
 {
 	fn default() -> Self
 	{
@@ -2758,7 +2755,7 @@ pub enum rte_distributor
 #[derive(Debug)]
 pub struct rte_tailq_entry
 {
-	pub next: Struct_Unnamed17,
+	pub next: AnonymousStruct17,
 	pub data: *mut c_void,
 }
 
@@ -2773,13 +2770,13 @@ impl Default for rte_tailq_entry
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed17
+pub struct AnonymousStruct17
 {
 	pub tqe_next: *mut rte_tailq_entry,
 	pub tqe_prev: *mut *mut rte_tailq_entry,
 }
 
-impl Default for Struct_Unnamed17
+impl Default for AnonymousStruct17
 {
 	fn default() -> Self
 	{
@@ -2827,7 +2824,7 @@ impl Default for rte_tailq_head
 pub struct rte_tailq_elem
 {
 	pub head: *mut rte_tailq_head,
-	pub next: Struct_Unnamed18,
+	pub next: AnonymousStruct18,
 	pub name: [c_char; 32usize],
 }
 
@@ -2842,13 +2839,13 @@ impl Default for rte_tailq_elem
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed18
+pub struct AnonymousStruct18
 {
 	pub tqe_next: *mut rte_tailq_elem,
 	pub tqe_prev: *mut *mut rte_tailq_elem,
 }
 
-impl Default for Struct_Unnamed18
+impl Default for AnonymousStruct18
 {
 	fn default() -> Self
 	{
@@ -2868,7 +2865,7 @@ pub enum malloc_elem
 pub struct malloc_heap
 {
 	pub lock: rte_spinlock_t,
-	pub free_head: [Struct_Unnamed19; 13usize],
+	pub free_head: [AnonymousStruct19; 13usize],
 	pub alloc_count: c_uint,
 	pub total_size: size_t,
 }
@@ -2884,12 +2881,12 @@ impl Default for malloc_heap
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed19
+pub struct AnonymousStruct19
 {
 	pub lh_first: *mut malloc_elem,
 }
 
-impl Default for Struct_Unnamed19
+impl Default for AnonymousStruct19
 {
 	fn default() -> Self
 	{
@@ -2951,7 +2948,7 @@ impl Default for rte_mem_config
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed20
+pub enum AnonymousEnum20
 {
 	RTE_MIN_ERRNO = 1000,
 	E_RTE_SECONDARY = 1001,
@@ -2962,7 +2959,7 @@ pub enum Enum_Unnamed20
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed21
+pub enum AnonymousEnum21
 {
 	VIRTIO_RXQ = 0,
 	VIRTIO_TXQ = 1,
@@ -3045,7 +3042,7 @@ impl rte_fbk_hash_entry
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn entry(&mut self) -> *mut Struct_Unnamed22
+	pub unsafe fn entry(&mut self) -> *mut AnonymousStruct22
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
@@ -3063,14 +3060,14 @@ impl Default for rte_fbk_hash_entry
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed22
+pub struct AnonymousStruct22
 {
 	pub is_entry: uint16_t,
 	pub value: uint16_t,
 	pub key: uint32_t,
 }
 
-impl Default for Struct_Unnamed22
+impl Default for AnonymousStruct22
 {
 	fn default() -> Self
 	{
@@ -3200,7 +3197,7 @@ impl Default for rte_epoll_data
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed23
+pub enum AnonymousEnum23
 {
 	RTE_EPOLL_INVALID = 0,
 	RTE_EPOLL_VALID = 1,
@@ -3333,7 +3330,7 @@ impl Default for rte_malloc_socket_stats
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed24
+pub enum AnonymousEnum24
 {
 	IP_LAST_FRAG_IDX = 0,
 	IP_FIRST_FRAG_IDX = 1,
@@ -3382,7 +3379,7 @@ impl Default for ip_frag_key
 #[derive(Debug)]
 pub struct ip_frag_pkt
 {
-	pub lru: Struct_Unnamed25,
+	pub lru: AnonymousStruct25,
 	pub key: ip_frag_key,
 	pub start: uint64_t,
 	pub total_size: uint32_t,
@@ -3402,13 +3399,13 @@ impl Default for ip_frag_pkt
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed25
+pub struct AnonymousStruct25
 {
 	pub tqe_next: *mut ip_frag_pkt,
 	pub tqe_prev: *mut *mut ip_frag_pkt,
 }
 
-impl Default for Struct_Unnamed25
+impl Default for AnonymousStruct25
 {
 	fn default() -> Self
 	{
@@ -3955,7 +3952,7 @@ pub enum rte_intr_mode
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed26
+pub enum AnonymousEnum26
 {
 	RTE_PDUMP_FLAG_RX = 1,
 	RTE_PDUMP_FLAG_TX = 2,
@@ -4808,7 +4805,7 @@ impl Default for rte_acl_field_types
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed27
+pub enum AnonymousEnum27
 {
 	RTE_ACL_FIELD_TYPE_MASK = 0,
 	RTE_ACL_FIELD_TYPE_RANGE = 1,
@@ -4879,11 +4876,11 @@ impl Default for rte_acl_field
 	}
 }
 
-pub const RTE_ACL_MAX_PRIORITY: Enum_Unnamed28 = Enum_Unnamed28::RTE_ACL_MAX_INDEX;
+pub const RTE_ACL_MAX_PRIORITY: AnonymousEnum28 = AnonymousEnum28::RTE_ACL_MAX_INDEX;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum Enum_Unnamed28
+pub enum AnonymousEnum28
 {
 	RTE_ACL_TYPE_SHIFT = 29,
 	RTE_ACL_MAX_INDEX = 536870911,
