@@ -2,13 +2,13 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-include!("statics/cmdline.rs");
-include!("statics/lcore.rs");
-include!("statics/log.rs");
-include!("statics/miscellany.rs");
-include!("statics/rte_mempool.rs");
-include!("statics/rte_port.rs");
-include!("statics/rte_power.rs");
-include!("statics/rte_red.rs");
-include!("statics/rte_table.rs");
-include!("statics/timer.rs");
+extern "C"
+{
+	pub static mut rte_power_freq_down: rte_power_freq_change_t;
+	pub static mut rte_power_freq_max: rte_power_freq_change_t;
+	pub static mut rte_power_freq_min: rte_power_freq_change_t;
+	pub static mut rte_power_freq_up: rte_power_freq_change_t;
+	pub static mut rte_power_freqs: rte_power_freqs_t;
+	pub static mut rte_power_get_freq: rte_power_get_freq_t;
+	pub static mut rte_power_set_freq: rte_power_set_freq_t;
+}

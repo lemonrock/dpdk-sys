@@ -8,7 +8,6 @@ extern "C"
 	pub fn rte_calloc_socket(type_: *const c_char, num: size_t, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;
 	pub fn rte_free(ptr: *mut c_void);
 	pub fn rte_malloc(type_: *const c_char, size: size_t, align: c_uint) -> *mut c_void;
-	pub fn rte_malloc_dump_stats(f: *mut FILE, type_: *const c_char);
 	pub fn rte_malloc_get_socket_stats(socket: c_int, socket_stats: *mut rte_malloc_socket_stats) -> c_int;
 	pub fn rte_malloc_set_limit(type_: *const c_char, max: size_t) -> c_int;
 	pub fn rte_malloc_socket(type_: *const c_char, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;

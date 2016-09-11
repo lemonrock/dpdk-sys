@@ -9,5 +9,6 @@ extern "C"
 	pub fn rte_dump_stack();
 	pub fn rte_dump_tailq(f: *mut FILE);
 	pub fn rte_hexdump(f: *mut FILE, title: *const c_char, buf: *const c_void, len: c_uint);
+	pub fn rte_malloc_dump_stats(f: *mut FILE, type_: *const c_char);
 	pub fn rte_memdump(f: *mut FILE, title: *const c_char, buf: *const c_void, len: c_uint);
 }

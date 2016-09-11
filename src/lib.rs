@@ -80,8 +80,8 @@ extern "C"
 }
 
 include!("constants.rs");
-include!("statics.rs");
 include!("types.rs");
 include!("enums.rs");
 include!("structs.rs");
+include!("statics.rs");
 include!("functions.rs");

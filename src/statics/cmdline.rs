@@ -2,13 +2,12 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-include!("statics/cmdline.rs");
-include!("statics/lcore.rs");
-include!("statics/log.rs");
-include!("statics/miscellany.rs");
-include!("statics/rte_mempool.rs");
-include!("statics/rte_port.rs");
-include!("statics/rte_power.rs");
-include!("statics/rte_red.rs");
-include!("statics/rte_table.rs");
-include!("statics/timer.rs");
+extern "C"
+{
+	pub static mut cmdline_token_etheraddr_ops: cmdline_token_ops;
+	pub static mut cmdline_token_ipaddr_ops: cmdline_token_ops;
+	pub static mut cmdline_token_num_ops: cmdline_token_ops;
+	pub static mut cmdline_token_portlist_ops: cmdline_token_ops;
+	pub static mut cmdline_token_string_ops: cmdline_token_ops;
+	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
+}
