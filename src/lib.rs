@@ -639,6 +639,35 @@ pub const RTE_SCHED_QUEUES_PER_TRAFFIC_CLASS: c_int = 4;
 pub const RTE_SCHED_QUEUES_PER_PIPE: c_int = 16;
 pub const RTE_SCHED_PIPE_PROFILES_PER_PORT: c_int = 256;
 pub const RTE_SCHED_FRAME_OVERHEAD_DEFAULT: c_int = 24;
+pub const MS_PER_S: c_int = 1000;
+pub const US_PER_S: c_int = 1000000;
+pub const NS_PER_S: c_int = 1000000000;
+pub const RTE_RED_SCALING: c_int = 10;
+pub const RTE_RED_S: c_int = 4194304;
+pub const RTE_RED_MAX_TH_MAX: c_int = 1023;
+pub const RTE_RED_WQ_LOG2_MIN: c_int = 1;
+pub const RTE_RED_WQ_LOG2_MAX: c_int = 12;
+pub const RTE_RED_MAXP_INV_MIN: c_int = 1;
+pub const RTE_RED_MAXP_INV_MAX: c_int = 255;
+pub const RTE_RED_2POW16: c_int = 65536;
+pub const RTE_RED_WQ_LOG2_NUM: c_int = 12;
+pub const RTE_ACL_MAX_CATEGORIES: c_int = 16;
+pub const RTE_ACL_MAX_LEVELS: c_int = 64;
+pub const RTE_ACL_MAX_FIELDS: c_int = 64;
+pub const RTE_ACL_INVALID_USERDATA: c_int = 0;
+pub const RTE_ACL_NAMESIZE: c_int = 32;
+pub const RTE_LPM_IPV6_ADDR_SIZE: c_int = 16;
+pub const NSEC_PER_SEC: c_int = 1000000000;
+pub const RTE_TIMER_STOP: c_int = 0;
+pub const RTE_TIMER_PENDING: c_int = 1;
+pub const RTE_TIMER_RUNNING: c_int = 2;
+pub const RTE_TIMER_CONFIG: c_int = 3;
+pub const RTE_TIMER_NO_OWNER: c_int = -2;
+pub const MAX_SKIPLIST_DEPTH: c_int = 10;
+pub const RTE_VER_YEAR: c_int = 16;
+pub const RTE_VER_MONTH: c_int = 11;
+pub const RTE_VER_MINOR: c_int = 0;
+pub const RTE_VER_RELEASE: c_int = 0;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -3915,6 +3944,17 @@ impl Default for rte_meter_trtcm
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
+pub enum rte_intr_mode
+{
+	RTE_INTR_MODE_NONE = 0,
+	RTE_INTR_MODE_LEGACY = 1,
+	RTE_INTR_MODE_MSI = 2,
+	RTE_INTR_MODE_MSIX = 3,
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
 pub enum Enum_Unnamed26
 {
 	RTE_PDUMP_FLAG_RX = 1,
@@ -4596,6 +4636,932 @@ impl Default for rte_port_sink_params
 	}
 }
 
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum power_management_env
+{
+	PM_ENV_NOT_SET = 0,
+	PM_ENV_ACPI_CPUFREQ = 1,
+	PM_ENV_KVM_VM = 2,
+}
+
+pub type rte_power_freqs_t = Option<unsafe extern "C" fn(lcore_id: c_uint, freqs: *mut uint32_t, num: uint32_t) -> uint32_t>;
+
+pub type rte_power_get_freq_t = Option<extern "C" fn(lcore_id: c_uint) -> uint32_t>;
+
+pub type rte_power_set_freq_t = Option<extern "C" fn(lcore_id: c_uint, index: uint32_t) -> c_int>;
+
+pub type rte_power_freq_change_t = Option<extern "C" fn(lcore_id: c_uint) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_reciprocal
+{
+	pub m: uint32_t,
+	pub sh1: uint8_t,
+	pub sh2: uint8_t,
+	_bindgen_padding_0_: [u8; 2usize],
+}
+
+impl Default for rte_reciprocal
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum timer_source
+{
+	EAL_TIMER_TSC = 0,
+	EAL_TIMER_HPET = 1,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_red_params
+{
+	pub min_th: uint16_t,
+	pub max_th: uint16_t,
+	pub maxp_inv: uint16_t,
+	pub wq_log2: uint16_t,
+}
+
+impl Default for rte_red_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_red_config
+{
+	pub min_th: uint32_t,
+	pub max_th: uint32_t,
+	pub pa_const: uint32_t,
+	pub maxp_inv: uint8_t,
+	pub wq_log2: uint8_t,
+	_bindgen_padding_0_: [u8; 2usize],
+}
+
+impl Default for rte_red_config
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_red
+{
+	pub avg: uint32_t,
+	pub count: uint32_t,
+	pub q_time: uint64_t,
+}
+
+impl Default for rte_red
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_reorder_buffer
+{
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct sctp_hdr
+{
+	pub src_port: uint16_t,
+	pub dst_port: uint16_t,
+	pub tag: uint32_t,
+	pub cksum: uint32_t,
+}
+
+impl Default for sctp_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_field_types
+{
+	pub _bindgen_data_: [u64; 1usize],
+}
+
+impl rte_acl_field_types
+{
+	pub unsafe fn u8_(&mut self) -> *mut uint8_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn u16_(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn u32_(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn u64_(&mut self) -> *mut uint64_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_acl_field_types
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed27
+{
+	RTE_ACL_FIELD_TYPE_MASK = 0,
+	RTE_ACL_FIELD_TYPE_RANGE = 1,
+	RTE_ACL_FIELD_TYPE_BITMASK = 2,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_field_def
+{
+	pub type_: uint8_t,
+	pub size: uint8_t,
+	pub field_index: uint8_t,
+	pub input_index: uint8_t,
+	pub offset: uint32_t,
+}
+
+impl Default for rte_acl_field_def
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_acl_config
+{
+	pub num_categories: uint32_t,
+	pub num_fields: uint32_t,
+	pub defs: [rte_acl_field_def; 64usize],
+	pub max_size: size_t,
+}
+
+impl Clone for rte_acl_config
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_acl_config
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_field
+{
+	pub value: rte_acl_field_types,
+	pub mask_range: rte_acl_field_types,
+}
+
+impl Default for rte_acl_field
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub const RTE_ACL_MAX_PRIORITY: Enum_Unnamed28 = Enum_Unnamed28::RTE_ACL_MAX_INDEX;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed28
+{
+	RTE_ACL_TYPE_SHIFT = 29,
+	RTE_ACL_MAX_INDEX = 536870911,
+	RTE_ACL_MIN_PRIORITY = 0,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_rule_data
+{
+	pub category_mask: uint32_t,
+	pub priority: int32_t,
+	pub userdata: uint32_t,
+}
+
+impl Default for rte_acl_rule_data
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_rule
+{
+	pub data: rte_acl_rule_data,
+	pub field: [rte_acl_field; 0usize],
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_acl_rule
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_acl_param
+{
+	pub name: *const c_char,
+	pub socket_id: c_int,
+	pub rule_size: uint32_t,
+	pub max_rule_num: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_acl_param
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_acl_ctx
+{
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_acl_classify_alg
+{
+	RTE_ACL_CLASSIFY_DEFAULT = 0,
+	RTE_ACL_CLASSIFY_SCALAR = 1,
+	RTE_ACL_CLASSIFY_SSE = 2,
+	RTE_ACL_CLASSIFY_AVX2 = 3,
+	RTE_ACL_CLASSIFY_NEON = 4,
+	RTE_ACL_CLASSIFY_ALTIVEC = 5,
+	RTE_ACL_CLASSIFY_NUM = 6,
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_table_acl_params
+{
+	pub name: *const c_char,
+	pub n_rules: uint32_t,
+	pub n_rule_fields: uint32_t,
+	pub field_format: [rte_acl_field_def; 64usize],
+}
+
+impl Clone for rte_table_acl_params
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_table_acl_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_table_acl_rule_add_params
+{
+	pub priority: int32_t,
+	pub field_value: [rte_acl_field; 64usize],
+}
+
+impl Clone for rte_table_acl_rule_add_params
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_table_acl_rule_add_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_table_acl_rule_delete_params
+{
+	pub field_value: [rte_acl_field; 64usize],
+}
+
+impl Clone for rte_table_acl_rule_delete_params
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_table_acl_rule_delete_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_array_params
+{
+	pub n_entries: uint32_t,
+	pub offset: uint32_t,
+}
+
+impl Default for rte_table_array_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_array_key
+{
+	pub pos: uint32_t,
+}
+
+impl Default for rte_table_array_key
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_table_hash_op_hash = Option<unsafe extern "C" fn(key: *mut c_void, key_size: uint32_t, seed: uint64_t) -> uint64_t>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_ext_params
+{
+	pub key_size: uint32_t,
+	pub n_keys: uint32_t,
+	pub n_buckets: uint32_t,
+	pub n_buckets_ext: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+}
+
+impl Default for rte_table_hash_ext_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_lru_params
+{
+	pub key_size: uint32_t,
+	pub n_keys: uint32_t,
+	pub n_buckets: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+}
+
+impl Default for rte_table_hash_lru_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key8_lru_params
+{
+	pub n_entries: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+	pub key_mask: *mut uint8_t,
+}
+
+impl Default for rte_table_hash_key8_lru_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key8_ext_params
+{
+	pub n_entries: uint32_t,
+	pub n_entries_ext: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+	pub key_mask: *mut uint8_t,
+}
+
+impl Default for rte_table_hash_key8_ext_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key16_lru_params
+{
+	pub n_entries: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+	pub key_mask: *mut uint8_t,
+}
+
+impl Default for rte_table_hash_key16_lru_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key16_ext_params
+{
+	pub n_entries: uint32_t,
+	pub n_entries_ext: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+	pub key_mask: *mut uint8_t,
+}
+
+impl Default for rte_table_hash_key16_ext_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key32_lru_params
+{
+	pub n_entries: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+}
+
+impl Default for rte_table_hash_key32_lru_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_hash_key32_ext_params
+{
+	pub n_entries: uint32_t,
+	pub n_entries_ext: uint32_t,
+	pub f_hash: rte_table_hash_op_hash,
+	pub seed: uint64_t,
+	pub signature_offset: uint32_t,
+	pub key_offset: uint32_t,
+}
+
+impl Default for rte_table_hash_key32_ext_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_lpm_params
+{
+	pub name: *const c_char,
+	pub n_rules: uint32_t,
+	pub number_tbl8s: uint32_t,
+	pub flags: c_int,
+	pub entry_unique_size: uint32_t,
+	pub offset: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_table_lpm_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_lpm_key
+{
+	pub ip: uint32_t,
+	pub depth: uint8_t,
+	_bindgen_padding_0_: [u8; 3usize],
+}
+
+impl Default for rte_table_lpm_key
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_lpm_ipv6_params
+{
+	pub name: *const c_char,
+	pub n_rules: uint32_t,
+	pub number_tbl8s: uint32_t,
+	pub entry_unique_size: uint32_t,
+	pub offset: uint32_t,
+}
+
+impl Default for rte_table_lpm_ipv6_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_table_lpm_ipv6_key
+{
+	pub ip: [uint8_t; 16usize],
+	pub depth: uint8_t,
+}
+
+impl Default for rte_table_lpm_ipv6_key
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct tcp_hdr
+{
+	pub src_port: uint16_t,
+	pub dst_port: uint16_t,
+	pub sent_seq: uint32_t,
+	pub recv_ack: uint32_t,
+	pub data_off: uint8_t,
+	pub tcp_flags: uint8_t,
+	pub rx_win: uint16_t,
+	pub cksum: uint16_t,
+	pub tcp_urp: uint16_t,
+}
+
+impl Default for tcp_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_ipv4_tuple
+{
+	pub src_addr: uint32_t,
+	pub dst_addr: uint32_t,
+	pub _bindgen_data_1_: [u32; 1usize],
+}
+
+impl rte_ipv4_tuple
+{
+	pub unsafe fn dport(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn sport(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(2))
+	}
+	pub unsafe fn sctp_tag(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_ipv4_tuple
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_ipv6_tuple
+{
+	pub src_addr: [uint8_t; 16usize],
+	pub dst_addr: [uint8_t; 16usize],
+	pub _bindgen_data_1_: [u32; 1usize],
+}
+
+impl rte_ipv6_tuple
+{
+	pub unsafe fn dport(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn sport(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(2))
+	}
+	pub unsafe fn sctp_tag(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_ipv6_tuple
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_thash_tuple
+{
+	pub _bindgen_data_: [u32; 9usize],
+}
+
+impl rte_thash_tuple
+{
+	pub unsafe fn v4(&mut self) -> *mut rte_ipv4_tuple
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn v6(&mut self) -> *mut rte_ipv6_tuple
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_thash_tuple
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_timecounter
+{
+	pub cycle_last: uint64_t,
+	pub nsec: uint64_t,
+	pub nsec_mask: uint64_t,
+	pub nsec_frac: uint64_t,
+	pub cc_mask: uint64_t,
+	pub cc_shift: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_timecounter
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_timer_type
+{
+	SINGLE = 0,
+	PERIODICAL = 1,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_timer_status
+{
+	pub _bindgen_data_: [u32; 1usize],
+}
+
+impl rte_timer_status
+{
+	pub unsafe fn state(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn owner(&mut self) -> *mut int16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(2))
+	}
+	pub unsafe fn u32_(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_timer_status
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_timer_cb_t = Option<unsafe extern "C" fn(arg1: *mut rte_timer, arg2: *mut c_void)>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_timer
+{
+	pub expire: uint64_t,
+	pub sl_next: [*mut rte_timer; 10usize],
+	pub status: rte_timer_status,
+	pub period: uint64_t,
+	pub f: rte_timer_cb_t,
+	pub arg: *mut c_void,
+}
+
+impl Default for rte_timer
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct udp_hdr
+{
+	pub src_port: uint16_t,
+	pub dst_port: uint16_t,
+	pub dgram_len: uint16_t,
+	pub dgram_cksum: uint16_t,
+}
+
+impl Default for udp_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
 extern "C"
 {
 	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
@@ -4629,6 +5595,38 @@ extern "C"
 	pub static mut rte_port_sched_writer_ops: rte_port_out_ops;
 	pub static mut rte_port_source_ops: rte_port_in_ops;
 	pub static mut rte_port_sink_ops: rte_port_out_ops;
+	pub static mut rte_power_freqs: rte_power_freqs_t;
+	pub static mut rte_power_get_freq: rte_power_get_freq_t;
+	pub static mut rte_power_set_freq: rte_power_set_freq_t;
+	pub static mut rte_power_freq_up: rte_power_freq_change_t;
+	pub static mut rte_power_freq_down: rte_power_freq_change_t;
+	pub static mut rte_power_freq_max: rte_power_freq_change_t;
+	pub static mut rte_power_freq_min: rte_power_freq_change_t;
+	pub static mut eal_timer_source: timer_source;
+	pub static mut rte_cycles_vmware_tsc_map: c_int;
+	pub static mut rte_red_rand_val: uint32_t;
+	pub static mut rte_red_rand_seed: uint32_t;
+	pub static mut rte_red_log2_1_minus_Wq: [uint16_t; 12usize];
+	pub static mut rte_red_pow2_frac_inv: [uint16_t; 16usize];
+	pub static mut rte_table_acl_ops: rte_table_ops;
+	pub static mut rte_table_array_ops: rte_table_ops;
+	pub static mut rte_table_hash_ext_ops: rte_table_ops;
+	pub static mut rte_table_hash_ext_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_lru_ops: rte_table_ops;
+	pub static mut rte_table_hash_lru_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_key8_lru_ops: rte_table_ops;
+	pub static mut rte_table_hash_key8_lru_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_key8_ext_ops: rte_table_ops;
+	pub static mut rte_table_hash_key8_ext_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_key16_lru_ops: rte_table_ops;
+	pub static mut rte_table_hash_key16_lru_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_key16_ext_ops: rte_table_ops;
+	pub static mut rte_table_hash_key16_ext_dosig_ops: rte_table_ops;
+	pub static mut rte_table_hash_key32_lru_ops: rte_table_ops;
+	pub static mut rte_table_hash_key32_ext_ops: rte_table_ops;
+	pub static mut rte_table_lpm_ops: rte_table_ops;
+	pub static mut rte_table_lpm_ipv6_ops: rte_table_ops;
+	pub static mut rte_table_stub_ops: rte_table_ops;
 }
 
 extern "C"
@@ -5018,5 +6016,44 @@ extern "C"
 	pub fn rte_sched_port_pkt_read_color(pkt: *const rte_mbuf) -> rte_meter_color;
 	pub fn rte_sched_port_enqueue(port: *mut rte_sched_port, pkts: *mut *mut rte_mbuf, n_pkts: uint32_t) -> c_int;
 	pub fn rte_sched_port_dequeue(port: *mut rte_sched_port, pkts: *mut *mut rte_mbuf, n_pkts: uint32_t) -> c_int;
+	pub fn rte_strsplit(string: *mut c_char, stringlen: c_int, tokens: *mut *mut c_char, maxtokens: c_int, delim: c_char) -> c_int;
+	pub fn rte_power_set_env(env: power_management_env) -> c_int;
+	pub fn rte_power_unset_env();
+	pub fn rte_power_get_env() -> power_management_env;
+	pub fn rte_power_init(lcore_id: c_uint) -> c_int;
+	pub fn rte_power_exit(lcore_id: c_uint) -> c_int;
+	pub fn rte_reciprocal_value(d: uint32_t) -> rte_reciprocal;
+	pub fn rte_get_tsc_hz() -> uint64_t;
+	pub fn rte_delay_us(us: c_uint);
+	pub fn rte_red_rt_data_init(red: *mut rte_red) -> c_int;
+	pub fn rte_red_config_init(red_cfg: *mut rte_red_config, wq_log2: uint16_t, min_th: uint16_t, max_th: uint16_t, maxp_inv: uint16_t) -> c_int;
+	pub fn rte_reorder_create(name: *const c_char, socket_id: c_uint, size: c_uint) -> *mut rte_reorder_buffer;
+	pub fn rte_reorder_init(b: *mut rte_reorder_buffer, bufsize: c_uint, name: *const c_char, size: c_uint) -> *mut rte_reorder_buffer;
+	pub fn rte_reorder_find_existing(name: *const c_char) -> *mut rte_reorder_buffer;
+	pub fn rte_reorder_reset(b: *mut rte_reorder_buffer);
+	pub fn rte_reorder_free(b: *mut rte_reorder_buffer);
+	pub fn rte_reorder_insert(b: *mut rte_reorder_buffer, mbuf: *mut rte_mbuf) -> c_int;
+	pub fn rte_reorder_drain(b: *mut rte_reorder_buffer, mbufs: *mut *mut rte_mbuf, max_mbufs: c_uint) -> c_uint;
+	pub fn rte_acl_create(param: *const rte_acl_param) -> *mut rte_acl_ctx;
+	pub fn rte_acl_find_existing(name: *const c_char) -> *mut rte_acl_ctx;
+	pub fn rte_acl_free(ctx: *mut rte_acl_ctx);
+	pub fn rte_acl_add_rules(ctx: *mut rte_acl_ctx, rules: *const rte_acl_rule, num: uint32_t) -> c_int;
+	pub fn rte_acl_reset_rules(ctx: *mut rte_acl_ctx);
+	pub fn rte_acl_build(ctx: *mut rte_acl_ctx, cfg: *const rte_acl_config) -> c_int;
+	pub fn rte_acl_reset(ctx: *mut rte_acl_ctx);
+	pub fn rte_acl_classify(ctx: *const rte_acl_ctx, data: *mut *const uint8_t, results: *mut uint32_t, num: uint32_t, categories: uint32_t) -> c_int;
+	pub fn rte_acl_classify_alg(ctx: *const rte_acl_ctx, data: *mut *const uint8_t, results: *mut uint32_t, num: uint32_t, categories: uint32_t, alg: rte_acl_classify_alg) -> c_int;
+	pub fn rte_acl_set_ctx_classify(ctx: *mut rte_acl_ctx, alg: rte_acl_classify_alg) -> c_int;
+	pub fn rte_acl_dump(ctx: *const rte_acl_ctx);
+	pub fn rte_acl_list_dump();
+	pub fn rte_timer_subsystem_init();
+	pub fn rte_timer_init(tim: *mut rte_timer);
+	pub fn rte_timer_reset(tim: *mut rte_timer, ticks: uint64_t, type_: rte_timer_type, tim_lcore: c_uint, fct: rte_timer_cb_t, arg: *mut c_void) -> c_int;
+	pub fn rte_timer_reset_sync(tim: *mut rte_timer, ticks: uint64_t, type_: rte_timer_type, tim_lcore: c_uint, fct: rte_timer_cb_t, arg: *mut c_void);
+	pub fn rte_timer_stop(tim: *mut rte_timer) -> c_int;
+	pub fn rte_timer_stop_sync(tim: *mut rte_timer);
+	pub fn rte_timer_pending(tim: *mut rte_timer) -> c_int;
+	pub fn rte_timer_manage();
+	pub fn rte_timer_dump_stats(f: *mut FILE);
 }
 

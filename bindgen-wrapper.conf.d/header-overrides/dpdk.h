@@ -68,9 +68,9 @@
 #include <rte_mempool.h>
 #include <rte_memzone.h>
 #include <rte_meter.h>
-//#include <rte_pci.h>  Out of memory, Illegal Instruction?
-//#include <rte_pci_dev_feature_defs.h>  Out of memory, Illegal Instruction?
-//#include <rte_pci_dev_features.h>  Out of memory, Illegal Instruction?
+//#include <rte_pci.h>  Out of memory, Illegal Instruction
+#include <rte_pci_dev_feature_defs.h>
+#include <rte_pci_dev_features.h>
 #include <rte_pdump.h>
 #include <rte_per_lcore.h>
 #include <rte_pipeline.h>
@@ -109,5 +109,4 @@
 #include <rte_timer.h>
 #include <rte_udp.h>
 #include <rte_version.h>
-
 #include <rte_virtio_net.h>
