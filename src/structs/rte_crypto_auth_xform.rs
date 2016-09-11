@@ -8,26 +8,15 @@
 pub struct rte_crypto_auth_xform
 {
 	pub op: rte_crypto_auth_operation,
-
 	pub algo: rte_crypto_auth_algorithm,
-
 	pub key: AnonymousStruct8,
-
 	pub digest_length: uint32_t,
-
 	pub add_auth_data_length: uint32_t,
-
 }
-
 impl Default for rte_crypto_auth_xform
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

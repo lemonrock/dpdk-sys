@@ -8,26 +8,15 @@
 pub struct rte_dev_eeprom_info
 {
 	pub data: *mut c_void,
-
 	pub offset: uint32_t,
-
 	pub length: uint32_t,
-
 	pub magic: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_dev_eeprom_info
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

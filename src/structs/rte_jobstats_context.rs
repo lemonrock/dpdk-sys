@@ -8,40 +8,22 @@
 pub struct rte_jobstats_context
 {
 	pub state_time: uint64_t,
-
 	pub loop_executed_jobs: uint64_t,
-
 	pub exec_time: uint64_t,
-
 	pub min_exec_time: uint64_t,
-
 	pub max_exec_time: uint64_t,
-
 	pub management_time: uint64_t,
-
 	pub min_management_time: uint64_t,
-
 	pub max_management_time: uint64_t,
-
 	pub start_time: uint64_t,
-
 	pub job_exec_cnt: uint64_t,
-
 	pub loop_cnt: uint64_t,
-
 	_bindgen_padding_0_: [u64; 5usize],
-
 }
-
 impl Default for rte_jobstats_context
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

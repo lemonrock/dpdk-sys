@@ -7,4 +7,3 @@
 pub enum malloc_elem
 {
 }
-

@@ -8,38 +8,21 @@
 pub struct rte_jobstats
 {
 	pub period: uint64_t,
-
 	pub min_period: uint64_t,
-
 	pub max_period: uint64_t,
-
 	pub target: int64_t,
-
 	pub update_period_cb: rte_job_update_period_cb_t,
-
 	pub exec_time: uint64_t,
-
 	pub min_exec_time: uint64_t,
-
 	pub max_exec_time: uint64_t,
-
 	pub exec_cnt: uint64_t,
-
 	pub name: [c_char; 32usize],
-
 	pub context: *mut rte_jobstats_context,
-
 }
-
 impl Default for rte_jobstats
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,10 +8,6 @@
 pub enum rte_lcore_state_t
 {
 	WAIT = 0,
-
 	RUNNING = 1,
-
 	FINISHED = 2,
-
 }
-

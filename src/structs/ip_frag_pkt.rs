@@ -8,30 +8,17 @@
 pub struct ip_frag_pkt
 {
 	pub lru: AnonymousStruct25,
-
 	pub key: ip_frag_key,
-
 	pub start: uint64_t,
-
 	pub total_size: uint32_t,
-
 	pub frag_size: uint32_t,
-
 	pub last_idx: uint32_t,
-
 	pub frags: [ip_frag; 4usize],
-
 }
-
 impl Default for ip_frag_pkt
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

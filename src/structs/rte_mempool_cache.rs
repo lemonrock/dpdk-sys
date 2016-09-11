@@ -8,36 +8,21 @@
 pub struct rte_mempool_cache
 {
 	pub size: uint32_t,
-
 	pub flushthresh: uint32_t,
-
 	pub len: uint32_t,
-
 	pub objs: [*mut c_void; 1536usize],
-
 }
-
 impl Clone for rte_mempool_cache
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_mempool_cache
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

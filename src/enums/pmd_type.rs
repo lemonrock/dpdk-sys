@@ -8,8 +8,5 @@
 pub enum pmd_type
 {
 	PMD_VDEV = 0,
-
 	PMD_PDEV = 1,
-
 }
-

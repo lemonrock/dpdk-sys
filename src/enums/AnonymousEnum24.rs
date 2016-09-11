@@ -8,12 +8,7 @@
 pub enum AnonymousEnum24
 {
 	IP_LAST_FRAG_IDX = 0,
-
 	IP_FIRST_FRAG_IDX = 1,
-
 	IP_MIN_FRAG_NUM = 2,
-
 	IP_MAX_FRAG_NUM = 4,
-
 }
-

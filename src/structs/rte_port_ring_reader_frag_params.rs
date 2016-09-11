@@ -8,26 +8,15 @@
 pub struct rte_port_ring_reader_frag_params
 {
 	pub ring: *mut rte_ring,
-
 	pub mtu: uint32_t,
-
 	pub metadata_size: uint32_t,
-
 	pub pool_direct: *mut rte_mempool,
-
 	pub pool_indirect: *mut rte_mempool,
-
 }
-
 impl Default for rte_port_ring_reader_frag_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

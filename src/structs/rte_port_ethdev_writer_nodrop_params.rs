@@ -8,24 +8,14 @@
 pub struct rte_port_ethdev_writer_nodrop_params
 {
 	pub port_id: uint8_t,
-
 	pub queue_id: uint16_t,
-
 	pub tx_burst_sz: uint32_t,
-
 	pub n_retries: uint32_t,
-
 }
-
 impl Default for rte_port_ethdev_writer_nodrop_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

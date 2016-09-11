@@ -7,4 +7,3 @@
 pub enum rte_mempool_objtlr
 {
 }
-

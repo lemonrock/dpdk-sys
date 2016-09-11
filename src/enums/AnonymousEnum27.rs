@@ -8,10 +8,6 @@
 pub enum AnonymousEnum27
 {
 	RTE_ACL_FIELD_TYPE_MASK = 0,
-
 	RTE_ACL_FIELD_TYPE_RANGE = 1,
-
 	RTE_ACL_FIELD_TYPE_BITMASK = 2,
-
 }
-

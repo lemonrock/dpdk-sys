@@ -8,26 +8,15 @@
 pub struct cons
 {
 	pub sc_dequeue: uint32_t,
-
 	pub size: uint32_t,
-
 	pub mask: uint32_t,
-
 	pub head: uint32_t,
-
 	pub tail: uint32_t,
-
 }
-
 impl Default for cons
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

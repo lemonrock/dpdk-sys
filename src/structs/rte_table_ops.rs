@@ -8,32 +8,18 @@
 pub struct rte_table_ops
 {
 	pub f_create: rte_table_op_create,
-
 	pub f_free: rte_table_op_free,
-
 	pub f_add: rte_table_op_entry_add,
-
 	pub f_delete: rte_table_op_entry_delete,
-
 	pub f_add_bulk: rte_table_op_entry_add_bulk,
-
 	pub f_delete_bulk: rte_table_op_entry_delete_bulk,
-
 	pub f_lookup: rte_table_op_lookup,
-
 	pub f_stats: rte_table_op_stats_read,
-
 }
-
 impl Default for rte_table_ops
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

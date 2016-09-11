@@ -8,40 +8,23 @@
 pub struct cmdline
 {
 	pub s_in: c_int,
-
 	pub s_out: c_int,
-
 	pub ctx: *mut cmdline_parse_ctx_t,
-
 	pub rdl: rdline,
-
 	pub prompt: [c_char; 32usize],
-
 	pub oldterm: termios,
-
 }
-
 impl Clone for cmdline
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for cmdline
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,20 +8,12 @@
 pub struct rte_port_in_stats
 {
 	pub n_pkts_in: uint64_t,
-
 	pub n_pkts_drop: uint64_t,
-
 }
-
 impl Default for rte_port_in_stats
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,32 +8,18 @@
 pub struct rte_table_hash_ext_params
 {
 	pub key_size: uint32_t,
-
 	pub n_keys: uint32_t,
-
 	pub n_buckets: uint32_t,
-
 	pub n_buckets_ext: uint32_t,
-
 	pub f_hash: rte_table_hash_op_hash,
-
 	pub seed: uint64_t,
-
 	pub signature_offset: uint32_t,
-
 	pub key_offset: uint32_t,
-
 }
-
 impl Default for rte_table_hash_ext_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

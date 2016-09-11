@@ -8,22 +8,13 @@
 pub struct ether_hdr
 {
 	pub d_addr: ether_addr,
-
 	pub s_addr: ether_addr,
-
 	pub ether_type: uint16_t,
-
 }
-
 impl Default for ether_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

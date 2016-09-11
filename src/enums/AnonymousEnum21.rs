@@ -8,10 +8,6 @@
 pub enum AnonymousEnum21
 {
 	VIRTIO_RXQ = 0,
-
 	VIRTIO_TXQ = 1,
-
 	VIRTIO_QNUM = 2,
-
 }
-

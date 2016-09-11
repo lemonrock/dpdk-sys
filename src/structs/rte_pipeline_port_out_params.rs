@@ -8,24 +8,14 @@
 pub struct rte_pipeline_port_out_params
 {
 	pub ops: *mut rte_port_out_ops,
-
 	pub arg_create: *mut c_void,
-
 	pub f_action: rte_pipeline_port_out_action_handler,
-
 	pub arg_ah: *mut c_void,
-
 }
-
 impl Default for rte_pipeline_port_out_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

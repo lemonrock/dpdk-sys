@@ -8,34 +8,19 @@
 pub struct tcp_hdr
 {
 	pub src_port: uint16_t,
-
 	pub dst_port: uint16_t,
-
 	pub sent_seq: uint32_t,
-
 	pub recv_ack: uint32_t,
-
 	pub data_off: uint8_t,
-
 	pub tcp_flags: uint8_t,
-
 	pub rx_win: uint16_t,
-
 	pub cksum: uint16_t,
-
 	pub tcp_urp: uint16_t,
-
 }
-
 impl Default for tcp_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

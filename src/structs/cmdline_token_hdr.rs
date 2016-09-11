@@ -8,22 +8,13 @@
 pub struct cmdline_token_hdr
 {
 	pub ops: *mut cmdline_token_ops,
-
 	pub offset: c_uint,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for cmdline_token_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

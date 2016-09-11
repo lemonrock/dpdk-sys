@@ -8,28 +8,16 @@
 pub struct ipv6_hdr
 {
 	pub vtc_flow: uint32_t,
-
 	pub payload_len: uint16_t,
-
 	pub proto: uint8_t,
-
 	pub hop_limits: uint8_t,
-
 	pub src_addr: [uint8_t; 16usize],
-
 	pub dst_addr: [uint8_t; 16usize],
-
 }
-
 impl Default for ipv6_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

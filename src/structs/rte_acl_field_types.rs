@@ -8,62 +8,34 @@
 pub struct rte_acl_field_types
 {
 	pub _bindgen_data_: [u64; 1usize],
-
 }
-
 impl rte_acl_field_types
 {
 	pub unsafe fn u8_(&mut self) -> *mut uint8_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn u16_(&mut self) -> *mut uint16_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn u32_(&mut self) -> *mut uint32_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn u64_(&mut self) -> *mut uint64_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_acl_field_types
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

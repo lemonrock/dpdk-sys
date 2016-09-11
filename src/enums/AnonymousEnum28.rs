@@ -8,10 +8,6 @@
 pub enum AnonymousEnum28
 {
 	RTE_ACL_TYPE_SHIFT = 29,
-
 	RTE_ACL_MAX_INDEX = 536870911,
-
 	RTE_ACL_MIN_PRIORITY = 0,
-
 }
-

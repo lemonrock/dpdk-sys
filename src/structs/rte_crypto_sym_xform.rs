@@ -8,46 +8,26 @@
 pub struct rte_crypto_sym_xform
 {
 	pub next: *mut rte_crypto_sym_xform,
-
 	pub type_: rte_crypto_sym_xform_type,
-
 	pub _bindgen_data_1_: [u64; 4usize],
-
 }
-
 impl rte_crypto_sym_xform
 {
 	pub unsafe fn auth(&mut self) -> *mut rte_crypto_auth_xform
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn cipher(&mut self) -> *mut rte_crypto_cipher_xform
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_crypto_sym_xform
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

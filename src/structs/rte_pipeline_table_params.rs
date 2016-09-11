@@ -8,30 +8,17 @@
 pub struct rte_pipeline_table_params
 {
 	pub ops: *mut rte_table_ops,
-
 	pub arg_create: *mut c_void,
-
 	pub f_action_hit: rte_pipeline_table_action_handler_hit,
-
 	pub f_action_miss: rte_pipeline_table_action_handler_miss,
-
 	pub arg_ah: *mut c_void,
-
 	pub action_data_size: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_pipeline_table_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

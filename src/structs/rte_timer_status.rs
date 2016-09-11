@@ -8,52 +8,29 @@
 pub struct rte_timer_status
 {
 	pub _bindgen_data_: [u32; 1usize],
-
 }
-
 impl rte_timer_status
 {
 	pub unsafe fn state(&mut self) -> *mut uint16_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn owner(&mut self) -> *mut int16_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(2))
-
 	}
-
 	pub unsafe fn u32_(&mut self) -> *mut uint32_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_timer_status
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

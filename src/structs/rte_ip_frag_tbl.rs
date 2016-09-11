@@ -8,38 +8,21 @@
 pub struct rte_ip_frag_tbl
 {
 	pub max_cycles: uint64_t,
-
 	pub entry_mask: uint32_t,
-
 	pub max_entries: uint32_t,
-
 	pub use_entries: uint32_t,
-
 	pub bucket_entries: uint32_t,
-
 	pub nb_entries: uint32_t,
-
 	pub nb_buckets: uint32_t,
-
 	pub last: *mut ip_frag_pkt,
-
 	pub lru: ip_pkt_list,
-
 	pub stat: ip_frag_tbl_stat,
-
 	pub pkt: [ip_frag_pkt; 0usize],
-
 }
-
 impl Default for rte_ip_frag_tbl
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

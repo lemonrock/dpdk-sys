@@ -8,8 +8,5 @@
 pub enum rte_pdump_socktype
 {
 	RTE_PDUMP_SOCKET_SERVER = 1,
-
 	RTE_PDUMP_SOCKET_CLIENT = 2,
-
 }
-

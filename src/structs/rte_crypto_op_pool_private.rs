@@ -8,22 +8,13 @@
 pub struct rte_crypto_op_pool_private
 {
 	pub type_: rte_crypto_op_type,
-
 	pub priv_size: uint16_t,
-
 	_bindgen_padding_0_: [u8; 2usize],
-
 }
-
 impl Default for rte_crypto_op_pool_private
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

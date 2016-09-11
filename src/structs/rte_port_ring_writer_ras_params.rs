@@ -8,22 +8,13 @@
 pub struct rte_port_ring_writer_ras_params
 {
 	pub ring: *mut rte_ring,
-
 	pub tx_burst_sz: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_port_ring_writer_ras_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

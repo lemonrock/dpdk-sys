@@ -8,24 +8,14 @@
 pub struct rte_red_params
 {
 	pub min_th: uint16_t,
-
 	pub max_th: uint16_t,
-
 	pub maxp_inv: uint16_t,
-
 	pub wq_log2: uint16_t,
-
 }
-
 impl Default for rte_red_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

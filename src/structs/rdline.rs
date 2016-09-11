@@ -8,62 +8,34 @@
 pub struct rdline
 {
 	pub status: rdline_status,
-
 	pub left: cirbuf,
-
 	pub right: cirbuf,
-
 	pub left_buf: [c_char; 514usize],
-
 	pub right_buf: [c_char; 512usize],
-
 	pub prompt: [c_char; 32usize],
-
 	pub prompt_size: c_uint,
-
 	pub kill_buf: [c_char; 512usize],
-
 	pub kill_size: c_uint,
-
 	pub history: cirbuf,
-
 	pub history_buf: [c_char; 1024usize],
-
 	pub history_cur_line: c_int,
-
 	pub write_char: rdline_write_char_t,
-
 	pub validate: rdline_validate_t,
-
 	pub complete: rdline_complete_t,
-
 	pub vt100: cmdline_vt100,
-
 	pub opaque: *mut c_void,
-
 }
-
 impl Clone for rdline
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rdline
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

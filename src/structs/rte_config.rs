@@ -8,38 +8,22 @@
 pub struct rte_config
 {
 	pub master_lcore: uint32_t,
-
 	pub lcore_count: uint32_t,
-
 	pub lcore_role: [rte_lcore_role_t; 128usize],
-
 	pub process_type: rte_proc_type_t,
-
 	pub mem_config: *mut rte_mem_config,
-
 }
-
 impl Clone for rte_config
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

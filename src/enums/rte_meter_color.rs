@@ -8,12 +8,7 @@
 pub enum rte_meter_color
 {
 	e_RTE_METER_GREEN = 0,
-
 	e_RTE_METER_YELLOW = 1,
-
 	e_RTE_METER_RED = 2,
-
 	e_RTE_METER_COLORS = 3,
-
 }
-

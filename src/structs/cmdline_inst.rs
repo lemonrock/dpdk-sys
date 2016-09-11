@@ -8,24 +8,14 @@
 pub struct cmdline_inst
 {
 	pub f: Option<unsafe extern "C" fn(arg1: *mut c_void, arg2: *mut cmdline, arg3: *mut c_void)>,
-
 	pub data: *mut c_void,
-
 	pub help_str: *const c_char,
-
 	pub tokens: [*mut cmdline_parse_token_hdr_t; 0usize],
-
 }
-
 impl Default for cmdline_inst
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

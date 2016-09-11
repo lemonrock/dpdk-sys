@@ -8,30 +8,17 @@
 pub struct rte_table_lpm_params
 {
 	pub name: *const c_char,
-
 	pub n_rules: uint32_t,
-
 	pub number_tbl8s: uint32_t,
-
 	pub flags: c_int,
-
 	pub entry_unique_size: uint32_t,
-
 	pub offset: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_table_lpm_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

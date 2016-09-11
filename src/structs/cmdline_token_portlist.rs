@@ -8,18 +8,11 @@
 pub struct cmdline_token_portlist
 {
 	pub hdr: cmdline_token_hdr,
-
 }
-
 impl Default for cmdline_token_portlist
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

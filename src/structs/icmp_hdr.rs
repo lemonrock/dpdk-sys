@@ -8,26 +8,15 @@
 pub struct icmp_hdr
 {
 	pub icmp_type: uint8_t,
-
 	pub icmp_code: uint8_t,
-
 	pub icmp_cksum: uint16_t,
-
 	pub icmp_ident: uint16_t,
-
 	pub icmp_seq_nb: uint16_t,
-
 }
-
 impl Default for icmp_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

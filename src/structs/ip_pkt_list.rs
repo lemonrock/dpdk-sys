@@ -8,20 +8,12 @@
 pub struct ip_pkt_list
 {
 	pub tqh_first: *mut ip_frag_pkt,
-
 	pub tqh_last: *mut *mut ip_frag_pkt,
-
 }
-
 impl Default for ip_pkt_list
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

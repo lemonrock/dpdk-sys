@@ -8,24 +8,14 @@
 pub struct rte_mempool_objsz
 {
 	pub elt_size: uint32_t,
-
 	pub header_size: uint32_t,
-
 	pub trailer_size: uint32_t,
-
 	pub total_size: uint32_t,
-
 }
-
 impl Default for rte_mempool_objsz
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

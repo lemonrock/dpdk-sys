@@ -8,22 +8,13 @@
 pub struct rte_spinlock_recursive_t
 {
 	pub sl: rte_spinlock_t,
-
 	pub user: c_int,
-
 	pub count: c_int,
-
 }
-
 impl Default for rte_spinlock_recursive_t
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

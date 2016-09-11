@@ -8,22 +8,13 @@
 pub struct rte_kvargs
 {
 	pub str: *mut c_char,
-
 	pub count: c_uint,
-
 	pub pairs: [rte_kvargs_pair; 32usize],
-
 }
-
 impl Default for rte_kvargs
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

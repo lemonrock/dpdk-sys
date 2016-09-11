@@ -8,36 +8,21 @@
 pub struct rte_acl_config
 {
 	pub num_categories: uint32_t,
-
 	pub num_fields: uint32_t,
-
 	pub defs: [rte_acl_field_def; 64usize],
-
 	pub max_size: size_t,
-
 }
-
 impl Clone for rte_acl_config
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_acl_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,12 +8,7 @@
 pub enum rte_proc_type_t
 {
 	RTE_PROC_AUTO = -1,
-
 	RTE_PROC_PRIMARY = 0,
-
 	RTE_PROC_SECONDARY = 1,
-
 	RTE_PROC_INVALID = 2,
-
 }
-

@@ -8,30 +8,17 @@
 pub struct rte_fbk_hash_params
 {
 	pub name: *const c_char,
-
 	pub entries: uint32_t,
-
 	pub entries_per_bucket: uint32_t,
-
 	pub socket_id: c_int,
-
 	pub hash_func: rte_fbk_hash_fn,
-
 	pub init_val: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_fbk_hash_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

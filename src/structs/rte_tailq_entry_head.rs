@@ -8,20 +8,12 @@
 pub struct rte_tailq_entry_head
 {
 	pub tqh_first: *mut rte_tailq_entry,
-
 	pub tqh_last: *mut *mut rte_tailq_entry,
-
 }
-
 impl Default for rte_tailq_entry_head
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

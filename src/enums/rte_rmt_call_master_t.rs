@@ -8,8 +8,5 @@
 pub enum rte_rmt_call_master_t
 {
 	SKIP_MASTER = 0,
-
 	CALL_MASTER = 1,
-
 }
-

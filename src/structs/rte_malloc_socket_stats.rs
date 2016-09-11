@@ -8,28 +8,16 @@
 pub struct rte_malloc_socket_stats
 {
 	pub heap_totalsz_bytes: size_t,
-
 	pub heap_freesz_bytes: size_t,
-
 	pub greatest_free_size: size_t,
-
 	pub free_count: c_uint,
-
 	pub alloc_count: c_uint,
-
 	pub heap_allocsz_bytes: size_t,
-
 }
-
 impl Default for rte_malloc_socket_stats
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

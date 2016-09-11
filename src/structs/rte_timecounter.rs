@@ -8,30 +8,17 @@
 pub struct rte_timecounter
 {
 	pub cycle_last: uint64_t,
-
 	pub nsec: uint64_t,
-
 	pub nsec_mask: uint64_t,
-
 	pub nsec_frac: uint64_t,
-
 	pub cc_mask: uint64_t,
-
 	pub cc_shift: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_timecounter
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

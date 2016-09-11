@@ -8,22 +8,13 @@
 pub struct rte_tailq_elem
 {
 	pub head: *mut rte_tailq_head,
-
 	pub next: AnonymousStruct18,
-
 	pub name: [c_char; 32usize],
-
 }
-
 impl Default for rte_tailq_elem
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

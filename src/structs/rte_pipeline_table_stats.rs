@@ -8,26 +8,15 @@
 pub struct rte_pipeline_table_stats
 {
 	pub stats: rte_table_stats,
-
 	pub n_pkts_dropped_by_lkp_hit_ah: uint64_t,
-
 	pub n_pkts_dropped_by_lkp_miss_ah: uint64_t,
-
 	pub n_pkts_dropped_lkp_hit: uint64_t,
-
 	pub n_pkts_dropped_lkp_miss: uint64_t,
-
 }
-
 impl Default for rte_pipeline_table_stats
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

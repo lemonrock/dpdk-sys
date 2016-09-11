@@ -8,28 +8,16 @@
 pub struct rte_port_out_ops
 {
 	pub f_create: rte_port_out_op_create,
-
 	pub f_free: rte_port_out_op_free,
-
 	pub f_tx: rte_port_out_op_tx,
-
 	pub f_tx_bulk: rte_port_out_op_tx_bulk,
-
 	pub f_flush: rte_port_out_op_flush,
-
 	pub f_stats: rte_port_out_op_stats_read,
-
 }
-
 impl Default for rte_port_out_ops
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

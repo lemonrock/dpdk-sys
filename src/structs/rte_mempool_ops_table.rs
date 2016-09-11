@@ -8,24 +8,14 @@
 pub struct rte_mempool_ops_table
 {
 	pub sl: rte_spinlock_t,
-
 	pub num_ops: uint32_t,
-
 	_bindgen_padding_0_: [u64; 7usize],
-
 	pub ops: [rte_mempool_ops; 16usize],
-
 }
-
 impl Default for rte_mempool_ops_table
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

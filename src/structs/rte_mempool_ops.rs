@@ -8,28 +8,16 @@
 pub struct rte_mempool_ops
 {
 	pub name: [c_char; 32usize],
-
 	pub alloc: rte_mempool_alloc_t,
-
 	pub free: rte_mempool_free_t,
-
 	pub enqueue: rte_mempool_enqueue_t,
-
 	pub dequeue: rte_mempool_dequeue_t,
-
 	pub get_count: rte_mempool_get_count,
-
 }
-
 impl Default for rte_mempool_ops
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

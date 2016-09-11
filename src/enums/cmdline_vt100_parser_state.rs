@@ -8,10 +8,6 @@
 pub enum cmdline_vt100_parser_state
 {
 	CMDLINE_VT100_INIT = 0,
-
 	CMDLINE_VT100_ESCAPE = 1,
-
 	CMDLINE_VT100_ESCAPE_CSI = 2,
-
 }
-

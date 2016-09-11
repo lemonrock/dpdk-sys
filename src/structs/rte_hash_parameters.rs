@@ -8,34 +8,19 @@
 pub struct rte_hash_parameters
 {
 	pub name: *const c_char,
-
 	pub entries: uint32_t,
-
 	pub reserved: uint32_t,
-
 	pub key_len: uint32_t,
-
 	pub hash_func: rte_hash_function,
-
 	pub hash_func_init_val: uint32_t,
-
 	pub socket_id: c_int,
-
 	pub extra_flag: uint8_t,
-
 	_bindgen_padding_0_: [u8; 7usize],
-
 }
-
 impl Default for rte_hash_parameters
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

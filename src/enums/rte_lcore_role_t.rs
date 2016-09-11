@@ -8,8 +8,5 @@
 pub enum rte_lcore_role_t
 {
 	ROLE_RTE = 0,
-
 	ROLE_OFF = 1,
-
 }
-

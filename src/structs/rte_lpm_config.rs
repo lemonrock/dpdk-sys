@@ -8,22 +8,13 @@
 pub struct rte_lpm_config
 {
 	pub max_rules: uint32_t,
-
 	pub number_tbl8s: uint32_t,
-
 	pub flags: c_int,
-
 }
-
 impl Default for rte_lpm_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

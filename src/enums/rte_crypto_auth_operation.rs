@@ -8,8 +8,5 @@
 pub enum rte_crypto_auth_operation
 {
 	RTE_CRYPTO_AUTH_OP_VERIFY = 0,
-
 	RTE_CRYPTO_AUTH_OP_GENERATE = 1,
-
 }
-

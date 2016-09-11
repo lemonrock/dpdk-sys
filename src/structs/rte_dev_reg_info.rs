@@ -8,26 +8,15 @@
 pub struct rte_dev_reg_info
 {
 	pub data: *mut c_void,
-
 	pub offset: uint32_t,
-
 	pub length: uint32_t,
-
 	pub width: uint32_t,
-
 	pub version: uint32_t,
-
 }
-
 impl Default for rte_dev_reg_info
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

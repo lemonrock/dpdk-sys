@@ -8,36 +8,20 @@
 pub struct rte_sched_port_params
 {
 	pub name: *const c_char,
-
 	pub socket: c_int,
-
 	pub rate: uint32_t,
-
 	pub mtu: uint32_t,
-
 	pub frame_overhead: uint32_t,
-
 	pub n_subports_per_port: uint32_t,
-
 	pub n_pipes_per_subport: uint32_t,
-
 	pub qsize: [uint16_t; 4usize],
-
 	pub pipe_profiles: *mut rte_sched_pipe_params,
-
 	pub n_pipe_profiles: uint32_t,
-
 }
-
 impl Default for rte_sched_port_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

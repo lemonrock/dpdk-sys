@@ -8,10 +8,6 @@
 pub enum AnonymousEnum23
 {
 	RTE_EPOLL_INVALID = 0,
-
 	RTE_EPOLL_VALID = 1,
-
 	RTE_EPOLL_EXEC = 2,
-
 }
-

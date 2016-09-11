@@ -8,20 +8,12 @@
 pub struct rte_mempool_memhdr_list
 {
 	pub stqh_first: *mut rte_mempool_memhdr,
-
 	pub stqh_last: *mut *mut rte_mempool_memhdr,
-
 }
-
 impl Default for rte_mempool_memhdr_list
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,28 +8,16 @@
 pub struct rte_red_config
 {
 	pub min_th: uint32_t,
-
 	pub max_th: uint32_t,
-
 	pub pa_const: uint32_t,
-
 	pub maxp_inv: uint8_t,
-
 	pub wq_log2: uint8_t,
-
 	_bindgen_padding_0_: [u8; 2usize],
-
 }
-
 impl Default for rte_red_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

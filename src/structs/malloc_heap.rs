@@ -8,24 +8,14 @@
 pub struct malloc_heap
 {
 	pub lock: rte_spinlock_t,
-
 	pub free_head: [AnonymousStruct19; 13usize],
-
 	pub alloc_count: c_uint,
-
 	pub total_size: size_t,
-
 }
-
 impl Default for malloc_heap
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

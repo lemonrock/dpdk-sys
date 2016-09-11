@@ -8,36 +8,20 @@
 pub struct ipv4_hdr
 {
 	pub version_ihl: uint8_t,
-
 	pub type_of_service: uint8_t,
-
 	pub total_length: uint16_t,
-
 	pub packet_id: uint16_t,
-
 	pub fragment_offset: uint16_t,
-
 	pub time_to_live: uint8_t,
-
 	pub next_proto_id: uint8_t,
-
 	pub hdr_checksum: uint16_t,
-
 	pub src_addr: uint32_t,
-
 	pub dst_addr: uint32_t,
-
 }
-
 impl Default for ipv4_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

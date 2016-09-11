@@ -8,20 +8,12 @@
 pub struct cmdline_token_string
 {
 	pub hdr: cmdline_token_hdr,
-
 	pub string_data: cmdline_token_string_data,
-
 }
-
 impl Default for cmdline_token_string
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

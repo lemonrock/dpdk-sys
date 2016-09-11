@@ -8,26 +8,15 @@
 pub struct cirbuf
 {
 	pub maxlen: c_uint,
-
 	pub start: c_uint,
-
 	pub end: c_uint,
-
 	pub len: c_uint,
-
 	pub buf: *mut c_char,
-
 }
-
 impl Default for cirbuf
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

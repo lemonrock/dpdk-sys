@@ -8,26 +8,15 @@
 pub struct rte_sched_pipe_params
 {
 	pub tb_rate: uint32_t,
-
 	pub tb_size: uint32_t,
-
 	pub tc_rate: [uint32_t; 4usize],
-
 	pub tc_period: uint32_t,
-
 	pub wrr_weights: [uint8_t; 16usize],
-
 }
-
 impl Default for rte_sched_pipe_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

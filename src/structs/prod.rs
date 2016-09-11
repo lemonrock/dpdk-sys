@@ -8,28 +8,16 @@
 pub struct prod
 {
 	pub watermark: uint32_t,
-
 	pub sp_enqueue: uint32_t,
-
 	pub size: uint32_t,
-
 	pub mask: uint32_t,
-
 	pub head: uint32_t,
-
 	pub tail: uint32_t,
-
 }
-
 impl Default for prod
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

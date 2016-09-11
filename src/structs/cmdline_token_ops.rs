@@ -8,24 +8,14 @@
 pub struct cmdline_token_ops
 {
 	pub parse: Option<unsafe extern "C" fn(arg1: *mut cmdline_parse_token_hdr_t, arg2: *const c_char, arg3: *mut c_void, arg4: c_uint) -> c_int>,
-
 	pub complete_get_nb: Option<unsafe extern "C" fn(arg1: *mut cmdline_parse_token_hdr_t) -> c_int>,
-
 	pub complete_get_elt: Option<unsafe extern "C" fn(arg1: *mut cmdline_parse_token_hdr_t, arg2: c_int, arg3: *mut c_char, arg4: c_uint) -> c_int>,
-
 	pub get_help: Option<unsafe extern "C" fn(arg1: *mut cmdline_parse_token_hdr_t, arg2: *mut c_char, arg3: c_uint) -> c_int>,
-
 }
-
 impl Default for cmdline_token_ops
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

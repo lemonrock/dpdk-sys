@@ -8,22 +8,13 @@
 pub struct rte_acl_rule
 {
 	pub data: rte_acl_rule_data,
-
 	pub field: [rte_acl_field; 0usize],
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_acl_rule
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,8 +8,5 @@
 pub enum timer_source
 {
 	EAL_TIMER_TSC = 0,
-
 	EAL_TIMER_HPET = 1,
-
 }
-

@@ -8,22 +8,13 @@
 pub struct AnonymousStruct12
 {
 	pub data: AnonymousStruct13,
-
 	pub digest: AnonymousStruct14,
-
 	pub aad: AnonymousStruct15,
-
 }
-
 impl Default for AnonymousStruct12
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

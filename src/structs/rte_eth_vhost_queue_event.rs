@@ -8,22 +8,13 @@
 pub struct rte_eth_vhost_queue_event
 {
 	pub queue_id: uint16_t,
-
 	pub rx: u8,
-
 	pub enable: u8,
-
 }
-
 impl Default for rte_eth_vhost_queue_event
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,8 +8,5 @@
 pub enum rte_crypto_sym_op_sess_type
 {
 	RTE_CRYPTO_SYM_OP_WITH_SESSION = 0,
-
 	RTE_CRYPTO_SYM_OP_SESSIONLESS = 1,
-
 }
-

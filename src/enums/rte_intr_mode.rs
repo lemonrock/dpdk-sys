@@ -8,12 +8,7 @@
 pub enum rte_intr_mode
 {
 	RTE_INTR_MODE_NONE = 0,
-
 	RTE_INTR_MODE_LEGACY = 1,
-
 	RTE_INTR_MODE_MSI = 2,
-
 	RTE_INTR_MODE_MSIX = 3,
-
 }
-

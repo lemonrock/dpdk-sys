@@ -8,44 +8,25 @@
 pub struct rte_crypto_op
 {
 	pub type_: rte_crypto_op_type,
-
 	pub status: rte_crypto_op_status,
-
 	pub mempool: *mut rte_mempool,
-
 	pub phys_addr: phys_addr_t,
-
 	pub opaque_data: *mut c_void,
-
 	pub _bindgen_data_1_: [u64; 1usize],
-
 	_bindgen_padding_0_: [u64; 3usize],
-
 }
-
 impl rte_crypto_op
 {
 	pub unsafe fn sym(&mut self) -> *mut *mut rte_crypto_sym_op
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_crypto_op
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

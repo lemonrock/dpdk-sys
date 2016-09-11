@@ -8,20 +8,12 @@
 pub struct AnonymousStruct9
 {
 	pub data: AnonymousStruct10,
-
 	pub iv: AnonymousStruct11,
-
 }
-
 impl Default for AnonymousStruct9
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,22 +8,13 @@
 pub struct rte_acl_rule_data
 {
 	pub category_mask: uint32_t,
-
 	pub priority: int32_t,
-
 	pub userdata: uint32_t,
-
 }
-
 impl Default for rte_acl_rule_data
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

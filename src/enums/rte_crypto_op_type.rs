@@ -8,8 +8,5 @@
 pub enum rte_crypto_op_type
 {
 	RTE_CRYPTO_OP_TYPE_UNDEFINED = 0,
-
 	RTE_CRYPTO_OP_TYPE_SYMMETRIC = 1,
-
 }
-

@@ -8,18 +8,11 @@
 pub struct ether_addr
 {
 	pub addr_bytes: [uint8_t; 6usize],
-
 }
-
 impl Default for ether_addr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

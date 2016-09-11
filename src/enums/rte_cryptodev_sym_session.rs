@@ -7,4 +7,3 @@
 pub enum rte_cryptodev_sym_session
 {
 }
-

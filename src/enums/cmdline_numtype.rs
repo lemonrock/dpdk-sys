@@ -8,20 +8,11 @@
 pub enum cmdline_numtype
 {
 	UINT8 = 0,
-
 	UINT16 = 1,
-
 	UINT32 = 2,
-
 	UINT64 = 3,
-
 	INT8 = 4,
-
 	INT16 = 5,
-
 	INT32 = 6,
-
 	INT64 = 7,
-
 }
-

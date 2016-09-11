@@ -8,30 +8,18 @@
 pub struct rte_table_acl_rule_delete_params
 {
 	pub field_value: [rte_acl_field; 64usize],
-
 }
-
 impl Clone for rte_table_acl_rule_delete_params
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_table_acl_rule_delete_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

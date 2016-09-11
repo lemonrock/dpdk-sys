@@ -8,8 +8,5 @@
 pub enum rte_timer_type
 {
 	SINGLE = 0,
-
 	PERIODICAL = 1,
-
 }
-

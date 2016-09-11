@@ -8,26 +8,15 @@
 pub struct rte_acl_field_def
 {
 	pub type_: uint8_t,
-
 	pub size: uint8_t,
-
 	pub field_index: uint8_t,
-
 	pub input_index: uint8_t,
-
 	pub offset: uint32_t,
-
 }
-
 impl Default for rte_acl_field_def
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

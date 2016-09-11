@@ -8,20 +8,12 @@
 pub struct rte_acl_field
 {
 	pub value: rte_acl_field_types,
-
 	pub mask_range: rte_acl_field_types,
-
 }
-
 impl Default for rte_acl_field
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

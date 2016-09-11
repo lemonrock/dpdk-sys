@@ -8,36 +8,20 @@
 pub struct rte_meter_trtcm
 {
 	pub time_tc: uint64_t,
-
 	pub time_tp: uint64_t,
-
 	pub tc: uint64_t,
-
 	pub tp: uint64_t,
-
 	pub cbs: uint64_t,
-
 	pub pbs: uint64_t,
-
 	pub cir_period: uint64_t,
-
 	pub cir_bytes_per_period: uint64_t,
-
 	pub pir_period: uint64_t,
-
 	pub pir_bytes_per_period: uint64_t,
-
 }
-
 impl Default for rte_meter_trtcm
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

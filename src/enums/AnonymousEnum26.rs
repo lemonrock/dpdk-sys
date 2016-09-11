@@ -8,10 +8,6 @@
 pub enum AnonymousEnum26
 {
 	RTE_PDUMP_FLAG_RX = 1,
-
 	RTE_PDUMP_FLAG_TX = 2,
-
 	RTE_PDUMP_FLAG_RXTX = 3,
-
 }
-

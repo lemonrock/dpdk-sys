@@ -8,22 +8,13 @@
 pub struct cmdline_vt100
 {
 	pub bufpos: uint8_t,
-
 	pub buf: [c_char; 8usize],
-
 	pub state: cmdline_vt100_parser_state,
-
 }
-
 impl Default for cmdline_vt100
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

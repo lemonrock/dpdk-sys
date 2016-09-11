@@ -8,20 +8,12 @@
 pub struct rte_port_ethdev_reader_params
 {
 	pub port_id: uint8_t,
-
 	pub queue_id: uint16_t,
-
 }
-
 impl Default for rte_port_ethdev_reader_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

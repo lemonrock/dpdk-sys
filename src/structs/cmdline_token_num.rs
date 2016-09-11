@@ -8,22 +8,13 @@
 pub struct cmdline_token_num
 {
 	pub hdr: cmdline_token_hdr,
-
 	pub num_data: cmdline_token_num_data,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for cmdline_token_num
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

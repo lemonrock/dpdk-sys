@@ -8,32 +8,19 @@
 pub struct rte_ip_frag_death_row
 {
 	pub cnt: uint32_t,
-
 	pub row: [*mut rte_mbuf; 160usize],
-
 }
-
 impl Clone for rte_ip_frag_death_row
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_ip_frag_death_row
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

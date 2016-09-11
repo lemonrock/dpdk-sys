@@ -8,20 +8,12 @@
 pub struct rte_lpm_rule_info
 {
 	pub used_rules: uint32_t,
-
 	pub first_rule: uint32_t,
-
 }
-
 impl Default for rte_lpm_rule_info
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

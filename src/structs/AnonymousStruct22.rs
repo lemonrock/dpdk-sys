@@ -8,22 +8,13 @@
 pub struct AnonymousStruct22
 {
 	pub is_entry: uint16_t,
-
 	pub value: uint16_t,
-
 	pub key: uint32_t,
-
 }
-
 impl Default for AnonymousStruct22
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

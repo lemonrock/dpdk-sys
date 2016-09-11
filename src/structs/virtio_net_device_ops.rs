@@ -8,24 +8,14 @@
 pub struct virtio_net_device_ops
 {
 	pub new_device: Option<extern "C" fn(vid: c_int) -> c_int>,
-
 	pub destroy_device: Option<extern "C" fn(vid: c_int)>,
-
 	pub vring_state_changed: Option<extern "C" fn(vid: c_int, queue_id: uint16_t, enable: c_int) -> c_int>,
-
 	pub reserved: [*mut c_void; 5usize],
-
 }
-
 impl Default for virtio_net_device_ops
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

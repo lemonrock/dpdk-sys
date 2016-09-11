@@ -8,10 +8,6 @@
 pub enum power_management_env
 {
 	PM_ENV_NOT_SET = 0,
-
 	PM_ENV_ACPI_CPUFREQ = 1,
-
 	PM_ENV_KVM_VM = 2,
-
 }
-

@@ -8,10 +8,6 @@
 pub enum rte_crypto_sym_xform_type
 {
 	RTE_CRYPTO_SYM_XFORM_NOT_SPECIFIED = 0,
-
 	RTE_CRYPTO_SYM_XFORM_AUTH = 1,
-
 	RTE_CRYPTO_SYM_XFORM_CIPHER = 2,
-
 }
-

@@ -8,34 +8,19 @@
 pub struct rte_fbk_hash_table
 {
 	pub name: [c_char; 32usize],
-
 	pub entries: uint32_t,
-
 	pub entries_per_bucket: uint32_t,
-
 	pub used_entries: uint32_t,
-
 	pub bucket_mask: uint32_t,
-
 	pub bucket_shift: uint32_t,
-
 	pub hash_func: rte_fbk_hash_fn,
-
 	pub init_val: uint32_t,
-
 	pub t: [rte_fbk_hash_entry; 0usize],
-
 }
-
 impl Default for rte_fbk_hash_table
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,24 +8,14 @@
 pub struct ipv6_extension_fragment
 {
 	pub next_header: uint8_t,
-
 	pub reserved: uint8_t,
-
 	pub frag_data: uint16_t,
-
 	pub id: uint32_t,
-
 }
-
 impl Default for ipv6_extension_fragment
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

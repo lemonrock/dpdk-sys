@@ -8,20 +8,12 @@
 pub struct rte_pktmbuf_pool_private
 {
 	pub mbuf_data_room_size: uint16_t,
-
 	pub mbuf_priv_size: uint16_t,
-
 }
-
 impl Default for rte_pktmbuf_pool_private
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

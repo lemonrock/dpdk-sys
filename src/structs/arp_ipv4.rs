@@ -8,24 +8,14 @@
 pub struct arp_ipv4
 {
 	pub arp_sha: ether_addr,
-
 	pub arp_sip: uint32_t,
-
 	pub arp_tha: ether_addr,
-
 	pub arp_tip: uint32_t,
-
 }
-
 impl Default for arp_ipv4
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

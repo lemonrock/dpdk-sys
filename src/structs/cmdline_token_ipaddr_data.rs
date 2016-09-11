@@ -8,18 +8,11 @@
 pub struct cmdline_token_ipaddr_data
 {
 	pub flags: uint8_t,
-
 }
-
 impl Default for cmdline_token_ipaddr_data
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

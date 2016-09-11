@@ -8,42 +8,24 @@
 pub struct rte_fbk_hash_entry
 {
 	pub _bindgen_data_: [u64; 1usize],
-
 }
-
 impl rte_fbk_hash_entry
 {
 	pub unsafe fn whole_entry(&mut self) -> *mut uint64_t
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn entry(&mut self) -> *mut AnonymousStruct22
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_fbk_hash_entry
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -7,4 +7,3 @@
 pub enum rte_sched_port
 {
 }
-

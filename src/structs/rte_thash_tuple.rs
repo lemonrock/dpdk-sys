@@ -8,42 +8,24 @@
 pub struct rte_thash_tuple
 {
 	pub _bindgen_data_: [u32; 9usize],
-
 }
-
 impl rte_thash_tuple
 {
 	pub unsafe fn v4(&mut self) -> *mut rte_ipv4_tuple
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 	pub unsafe fn v6(&mut self) -> *mut rte_ipv6_tuple
-
 	{
-
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-
 		transmute(raw.offset(0))
-
 	}
-
 }
-
 impl Default for rte_thash_tuple
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

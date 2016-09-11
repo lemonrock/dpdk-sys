@@ -8,20 +8,12 @@
 pub struct rte_table_stats
 {
 	pub n_pkts_in: uint64_t,
-
 	pub n_pkts_lookup_miss: uint64_t,
-
 }
-
 impl Default for rte_table_stats
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,20 +8,12 @@
 pub struct AnonymousStruct6
 {
 	pub lo: uint32_t,
-
 	pub hi: uint32_t,
-
 }
-
 impl Default for AnonymousStruct6
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

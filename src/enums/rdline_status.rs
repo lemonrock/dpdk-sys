@@ -8,10 +8,6 @@
 pub enum rdline_status
 {
 	RDLINE_INIT = 0,
-
 	RDLINE_RUNNING = 1,
-
 	RDLINE_EXITED = 2,
-
 }
-

@@ -8,20 +8,12 @@
 pub struct rte_table_lpm_ipv6_key
 {
 	pub ip: [uint8_t; 16usize],
-
 	pub depth: uint8_t,
-
 }
-
 impl Default for rte_table_lpm_ipv6_key
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,28 +8,16 @@
 pub struct rte_pipeline_port_in_params
 {
 	pub ops: *mut rte_port_in_ops,
-
 	pub arg_create: *mut c_void,
-
 	pub f_action: rte_pipeline_port_in_action_handler,
-
 	pub arg_ah: *mut c_void,
-
 	pub burst_size: uint32_t,
-
 	_bindgen_padding_0_: [u8; 4usize],
-
 }
-
 impl Default for rte_pipeline_port_in_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,40 +8,22 @@
 pub struct lcore_config
 {
 	pub detected: c_uint,
-
 	pub thread_id: pthread_t,
-
 	pub pipe_master2slave: [c_int; 2usize],
-
 	pub pipe_slave2master: [c_int; 2usize],
-
 	pub f: lcore_function_t,
-
 	pub arg: *mut c_void,
-
 	pub ret: c_int,
-
 	pub state: rte_lcore_state_t,
-
 	pub socket_id: c_uint,
-
 	pub core_id: c_uint,
-
 	pub core_index: c_int,
-
 	pub cpuset: rte_cpuset_t,
-
 }
-
 impl Default for lcore_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

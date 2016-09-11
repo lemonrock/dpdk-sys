@@ -8,24 +8,14 @@
 pub struct sctp_hdr
 {
 	pub src_port: uint16_t,
-
 	pub dst_port: uint16_t,
-
 	pub tag: uint32_t,
-
 	pub cksum: uint32_t,
-
 }
-
 impl Default for sctp_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

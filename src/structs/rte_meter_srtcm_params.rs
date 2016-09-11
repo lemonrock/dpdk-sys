@@ -8,22 +8,13 @@
 pub struct rte_meter_srtcm_params
 {
 	pub cir: uint64_t,
-
 	pub cbs: uint64_t,
-
 	pub ebs: uint64_t,
-
 }
-
 impl Default for rte_meter_srtcm_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

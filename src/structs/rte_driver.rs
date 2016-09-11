@@ -8,26 +8,15 @@
 pub struct rte_driver
 {
 	pub next: AnonymousStruct16,
-
 	pub type_: pmd_type,
-
 	pub name: *const c_char,
-
 	pub init: rte_dev_init_t,
-
 	pub uninit: rte_dev_uninit_t,
-
 }
-
 impl Default for rte_driver
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

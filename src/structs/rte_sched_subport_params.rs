@@ -8,24 +8,14 @@
 pub struct rte_sched_subport_params
 {
 	pub tb_rate: uint32_t,
-
 	pub tb_size: uint32_t,
-
 	pub tc_rate: [uint32_t; 4usize],
-
 	pub tc_period: uint32_t,
-
 }
-
 impl Default for rte_sched_subport_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

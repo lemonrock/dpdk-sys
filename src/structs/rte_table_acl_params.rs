@@ -8,36 +8,21 @@
 pub struct rte_table_acl_params
 {
 	pub name: *const c_char,
-
 	pub n_rules: uint32_t,
-
 	pub n_rule_fields: uint32_t,
-
 	pub field_format: [rte_acl_field_def; 64usize],
-
 }
-
 impl Clone for rte_table_acl_params
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_table_acl_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

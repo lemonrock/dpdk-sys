@@ -8,22 +8,13 @@
 pub struct ip_frag
 {
 	pub ofs: uint16_t,
-
 	pub len: uint16_t,
-
 	pub mb: *mut rte_mbuf,
-
 }
-
 impl Default for ip_frag
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -7,4 +7,3 @@
 pub enum rte_lpm6
 {
 }
-

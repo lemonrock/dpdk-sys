@@ -8,18 +8,11 @@
 pub struct cmdline_portlist
 {
 	pub map: uint32_t,
-
 }
-
 impl Default for cmdline_portlist
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

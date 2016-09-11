@@ -8,28 +8,16 @@
 pub struct rte_ring
 {
 	pub name: [c_char; 32usize],
-
 	pub flags: c_int,
-
 	pub memzone: *const rte_memzone,
-
 	pub prod: prod,
-
 	pub cons: cons,
-
 	pub ring: [*mut c_void; 0usize],
-
 }
-
 impl Default for rte_ring
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

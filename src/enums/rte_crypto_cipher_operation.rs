@@ -8,8 +8,5 @@
 pub enum rte_crypto_cipher_operation
 {
 	RTE_CRYPTO_CIPHER_OP_ENCRYPT = 0,
-
 	RTE_CRYPTO_CIPHER_OP_DECRYPT = 1,
-
 }
-

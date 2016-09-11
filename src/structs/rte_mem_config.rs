@@ -8,52 +8,29 @@
 pub struct rte_mem_config
 {
 	pub magic: uint32_t,
-
 	pub nchannel: uint32_t,
-
 	pub nrank: uint32_t,
-
 	pub mlock: rte_rwlock_t,
-
 	pub qlock: rte_rwlock_t,
-
 	pub mplock: rte_rwlock_t,
-
 	pub memzone_cnt: uint32_t,
-
 	pub memseg: [rte_memseg; 256usize],
-
 	pub memzone: [rte_memzone; 2560usize],
-
 	pub tailq_head: [rte_tailq_head; 32usize],
-
 	pub malloc_heaps: [malloc_heap; 8usize],
-
 	pub mem_cfg_addr: uint64_t,
-
 }
-
 impl Clone for rte_mem_config
 {
 	fn clone(&self) -> Self
-
 	{
-
 		*self
-
 	}
-
 }
-
 impl Default for rte_mem_config
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

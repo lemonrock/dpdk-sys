@@ -8,20 +8,12 @@
 pub struct rte_tailq_entry
 {
 	pub next: AnonymousStruct17,
-
 	pub data: *mut c_void,
-
 }
-
 impl Default for rte_tailq_entry
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,22 +8,13 @@
 pub struct cmdline_token_ipaddr
 {
 	pub hdr: cmdline_token_hdr,
-
 	pub ipaddr_data: cmdline_token_ipaddr_data,
-
 	_bindgen_padding_0_: [u8; 7usize],
-
 }
-
 impl Default for cmdline_token_ipaddr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,24 +8,14 @@
 pub struct AnonymousStruct15
 {
 	pub data: *mut uint8_t,
-
 	pub phys_addr: phys_addr_t,
-
 	pub length: uint16_t,
-
 	_bindgen_padding_0_: [u8; 6usize],
-
 }
-
 impl Default for AnonymousStruct15
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

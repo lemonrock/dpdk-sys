@@ -8,28 +8,16 @@
 pub struct rte_table_hash_key8_lru_params
 {
 	pub n_entries: uint32_t,
-
 	pub f_hash: rte_table_hash_op_hash,
-
 	pub seed: uint64_t,
-
 	pub signature_offset: uint32_t,
-
 	pub key_offset: uint32_t,
-
 	pub key_mask: *mut uint8_t,
-
 }
-
 impl Default for rte_table_hash_key8_lru_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

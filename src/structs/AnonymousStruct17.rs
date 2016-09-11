@@ -8,20 +8,12 @@
 pub struct AnonymousStruct17
 {
 	pub tqe_next: *mut rte_tailq_entry,
-
 	pub tqe_prev: *mut *mut rte_tailq_entry,
-
 }
-
 impl Default for AnonymousStruct17
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

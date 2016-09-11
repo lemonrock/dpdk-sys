@@ -8,12 +8,7 @@
 pub enum AnonymousEnum20
 {
 	RTE_MIN_ERRNO = 1000,
-
 	E_RTE_SECONDARY = 1001,
-
 	E_RTE_NO_CONFIG = 1002,
-
 	RTE_MAX_ERRNO = 1003,
-
 }
-

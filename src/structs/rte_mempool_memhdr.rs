@@ -8,30 +8,17 @@
 pub struct rte_mempool_memhdr
 {
 	pub next: AnonymousStruct3,
-
 	pub mp: *mut rte_mempool,
-
 	pub addr: *mut c_void,
-
 	pub phys_addr: phys_addr_t,
-
 	pub len: size_t,
-
 	pub free_cb: rte_mempool_memchunk_free_cb_t,
-
 	pub opaque: *mut c_void,
-
 }
-
 impl Default for rte_mempool_memhdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

@@ -8,20 +8,12 @@
 pub struct AnonymousStruct7
 {
 	pub data: *mut uint8_t,
-
 	pub length: size_t,
-
 }
-
 impl Default for AnonymousStruct7
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

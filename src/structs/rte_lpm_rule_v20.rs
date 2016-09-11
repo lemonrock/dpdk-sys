@@ -8,22 +8,13 @@
 pub struct rte_lpm_rule_v20
 {
 	pub ip: uint32_t,
-
 	pub next_hop: uint8_t,
-
 	_bindgen_padding_0_: [u8; 3usize],
-
 }
-
 impl Default for rte_lpm_rule_v20
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

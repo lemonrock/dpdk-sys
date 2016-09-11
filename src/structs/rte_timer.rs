@@ -8,28 +8,16 @@
 pub struct rte_timer
 {
 	pub expire: uint64_t,
-
 	pub sl_next: [*mut rte_timer; 10usize],
-
 	pub status: rte_timer_status,
-
 	pub period: uint64_t,
-
 	pub f: rte_timer_cb_t,
-
 	pub arg: *mut c_void,
-
 }
-
 impl Default for rte_timer
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

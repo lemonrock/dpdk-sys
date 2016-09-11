@@ -8,24 +8,14 @@
 pub struct rte_epoll_data
 {
 	pub event: uint32_t,
-
 	pub data: *mut c_void,
-
 	pub cb_fun: rte_intr_event_cb_t,
-
 	pub cb_arg: *mut c_void,
-
 }
-
 impl Default for rte_epoll_data
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

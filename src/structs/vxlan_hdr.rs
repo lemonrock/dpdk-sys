@@ -8,20 +8,12 @@
 pub struct vxlan_hdr
 {
 	pub vx_flags: uint32_t,
-
 	pub vx_vni: uint32_t,
-
 }
-
 impl Default for vxlan_hdr
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-

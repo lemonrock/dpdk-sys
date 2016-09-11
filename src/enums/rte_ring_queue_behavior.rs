@@ -8,8 +8,5 @@
 pub enum rte_ring_queue_behavior
 {
 	RTE_RING_QUEUE_FIXED = 0,
-
 	RTE_RING_QUEUE_VARIABLE = 1,
-
 }
-

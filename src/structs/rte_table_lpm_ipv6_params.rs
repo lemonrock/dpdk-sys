@@ -8,26 +8,15 @@
 pub struct rte_table_lpm_ipv6_params
 {
 	pub name: *const c_char,
-
 	pub n_rules: uint32_t,
-
 	pub number_tbl8s: uint32_t,
-
 	pub entry_unique_size: uint32_t,
-
 	pub offset: uint32_t,
-
 }
-
 impl Default for rte_table_lpm_ipv6_params
 {
 	fn default() -> Self
-
 	{
-
 		unsafe { zeroed() }
-
 	}
-
 }
-
