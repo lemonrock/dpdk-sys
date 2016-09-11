@@ -10,6 +10,7 @@ pub struct vlan_hdr
 	pub vlan_tci: uint16_t,
 	pub eth_proto: uint16_t,
 }
+
 impl Default for vlan_hdr
 {
 	fn default() -> Self

@@ -12,6 +12,7 @@ pub struct malloc_heap
 	pub alloc_count: c_uint,
 	pub total_size: size_t,
 }
+
 impl Default for malloc_heap
 {
 	fn default() -> Self

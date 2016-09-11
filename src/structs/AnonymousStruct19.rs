@@ -9,6 +9,7 @@ pub struct AnonymousStruct19
 {
 	pub lh_first: *mut malloc_elem,
 }
+
 impl Default for AnonymousStruct19
 {
 	fn default() -> Self

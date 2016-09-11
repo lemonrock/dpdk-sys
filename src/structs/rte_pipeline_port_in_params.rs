@@ -14,6 +14,7 @@ pub struct rte_pipeline_port_in_params
 	pub burst_size: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_pipeline_port_in_params
 {
 	fn default() -> Self

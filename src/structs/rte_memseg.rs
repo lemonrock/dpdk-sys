@@ -15,6 +15,7 @@ pub struct rte_memseg
 	pub nchannel: uint32_t,
 	pub nrank: uint32_t,
 }
+
 impl rte_memseg
 {
 	pub unsafe fn addr(&mut self) -> *mut *mut c_void
@@ -28,6 +29,7 @@ impl rte_memseg
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_memseg
 {
 	fn default() -> Self

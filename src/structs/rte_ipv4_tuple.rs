@@ -11,6 +11,7 @@ pub struct rte_ipv4_tuple
 	pub dst_addr: uint32_t,
 	pub _bindgen_data_1_: [u32; 1usize],
 }
+
 impl rte_ipv4_tuple
 {
 	pub unsafe fn dport(&mut self) -> *mut uint16_t
@@ -29,6 +30,7 @@ impl rte_ipv4_tuple
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_ipv4_tuple
 {
 	fn default() -> Self

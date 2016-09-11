@@ -34,6 +34,7 @@ pub struct rte_mbuf
 	pub timesync: uint16_t,
 	_bindgen_padding_0_: [u64; 3usize],
 }
+
 impl rte_mbuf
 {
 	pub unsafe fn refcnt_atomic(&mut self) -> *mut rte_atomic16_t
@@ -67,6 +68,7 @@ impl rte_mbuf
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_mbuf
 {
 	fn default() -> Self

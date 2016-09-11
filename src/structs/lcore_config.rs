@@ -20,6 +20,7 @@ pub struct lcore_config
 	pub core_index: c_int,
 	pub cpuset: rte_cpuset_t,
 }
+
 impl Default for lcore_config
 {
 	fn default() -> Self

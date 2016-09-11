@@ -11,6 +11,7 @@ pub struct AnonymousStruct12
 	pub digest: AnonymousStruct14,
 	pub aad: AnonymousStruct15,
 }
+
 impl Default for AnonymousStruct12
 {
 	fn default() -> Self

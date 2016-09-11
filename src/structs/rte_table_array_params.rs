@@ -10,6 +10,7 @@ pub struct rte_table_array_params
 	pub n_entries: uint32_t,
 	pub offset: uint32_t,
 }
+
 impl Default for rte_table_array_params
 {
 	fn default() -> Self

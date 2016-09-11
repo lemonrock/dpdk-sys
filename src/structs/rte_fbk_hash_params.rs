@@ -15,6 +15,7 @@ pub struct rte_fbk_hash_params
 	pub init_val: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_fbk_hash_params
 {
 	fn default() -> Self

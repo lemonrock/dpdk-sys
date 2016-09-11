@@ -16,6 +16,7 @@ pub struct rte_memzone
 	pub flags: uint32_t,
 	pub memseg_id: uint32_t,
 }
+
 impl rte_memzone
 {
 	pub unsafe fn addr(&mut self) -> *mut *mut c_void
@@ -29,6 +30,7 @@ impl rte_memzone
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_memzone
 {
 	fn default() -> Self

@@ -15,6 +15,7 @@ pub struct ip_frag_tbl_stat
 	pub fail_nospace: uint64_t,
 	_bindgen_padding_0_: [u64; 2usize],
 }
+
 impl Default for ip_frag_tbl_stat
 {
 	fn default() -> Self

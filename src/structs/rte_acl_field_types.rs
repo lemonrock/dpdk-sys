@@ -9,6 +9,7 @@ pub struct rte_acl_field_types
 {
 	pub _bindgen_data_: [u64; 1usize],
 }
+
 impl rte_acl_field_types
 {
 	pub unsafe fn u8_(&mut self) -> *mut uint8_t
@@ -32,6 +33,7 @@ impl rte_acl_field_types
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_acl_field_types
 {
 	fn default() -> Self

@@ -10,6 +10,7 @@ pub struct rte_kvargs_pair
 	pub key: *mut c_char,
 	pub value: *mut c_char,
 }
+
 impl Default for rte_kvargs_pair
 {
 	fn default() -> Self

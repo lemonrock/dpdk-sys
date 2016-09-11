@@ -13,6 +13,7 @@ pub struct rte_acl_param
 	pub max_rule_num: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_acl_param
 {
 	fn default() -> Self

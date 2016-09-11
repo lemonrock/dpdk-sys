@@ -10,6 +10,7 @@ pub struct rte_cfgfile_entry
 	pub name: [c_char; 64usize],
 	pub value: [c_char; 256usize],
 }
+
 impl Clone for rte_cfgfile_entry
 {
 	fn clone(&self) -> Self
@@ -17,6 +18,7 @@ impl Clone for rte_cfgfile_entry
 		*self
 	}
 }
+
 impl Default for rte_cfgfile_entry
 {
 	fn default() -> Self

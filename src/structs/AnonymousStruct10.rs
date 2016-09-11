@@ -10,6 +10,7 @@ pub struct AnonymousStruct10
 	pub offset: uint32_t,
 	pub length: uint32_t,
 }
+
 impl Default for AnonymousStruct10
 {
 	fn default() -> Self

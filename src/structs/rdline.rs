@@ -25,6 +25,7 @@ pub struct rdline
 	pub vt100: cmdline_vt100,
 	pub opaque: *mut c_void,
 }
+
 impl Clone for rdline
 {
 	fn clone(&self) -> Self
@@ -32,6 +33,7 @@ impl Clone for rdline
 		*self
 	}
 }
+
 impl Default for rdline
 {
 	fn default() -> Self

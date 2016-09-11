@@ -13,6 +13,7 @@ pub struct cirbuf
 	pub len: c_uint,
 	pub buf: *mut c_char,
 }
+
 impl Default for cirbuf
 {
 	fn default() -> Self

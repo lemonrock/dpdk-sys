@@ -9,6 +9,7 @@ pub struct rte_xmm
 {
 	pub _bindgen_data_: [u8; 16usize],
 }
+
 impl rte_xmm
 {
 	pub unsafe fn x(&mut self) -> *mut xmm_t
@@ -42,6 +43,7 @@ impl rte_xmm
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_xmm
 {
 	fn default() -> Self

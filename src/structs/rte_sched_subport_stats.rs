@@ -12,6 +12,7 @@ pub struct rte_sched_subport_stats
 	pub n_bytes_tc: [uint32_t; 4usize],
 	pub n_bytes_tc_dropped: [uint32_t; 4usize],
 }
+
 impl Default for rte_sched_subport_stats
 {
 	fn default() -> Self

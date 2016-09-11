@@ -11,6 +11,7 @@ pub struct rte_port_ethdev_writer_params
 	pub queue_id: uint16_t,
 	pub tx_burst_sz: uint32_t,
 }
+
 impl Default for rte_port_ethdev_writer_params
 {
 	fn default() -> Self

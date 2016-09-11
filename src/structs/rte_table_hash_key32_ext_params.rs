@@ -14,6 +14,7 @@ pub struct rte_table_hash_key32_ext_params
 	pub signature_offset: uint32_t,
 	pub key_offset: uint32_t,
 }
+
 impl Default for rte_table_hash_key32_ext_params
 {
 	fn default() -> Self

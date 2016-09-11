@@ -12,6 +12,7 @@ pub struct AnonymousStruct14
 	pub length: uint16_t,
 	_bindgen_padding_0_: [u8; 6usize],
 }
+
 impl Default for AnonymousStruct14
 {
 	fn default() -> Self

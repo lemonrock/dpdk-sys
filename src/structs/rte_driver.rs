@@ -13,6 +13,7 @@ pub struct rte_driver
 	pub init: rte_dev_init_t,
 	pub uninit: rte_dev_uninit_t,
 }
+
 impl Default for rte_driver
 {
 	fn default() -> Self

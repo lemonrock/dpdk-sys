@@ -12,6 +12,7 @@ pub struct rte_mempool_ops_table
 	_bindgen_padding_0_: [u64; 7usize],
 	pub ops: [rte_mempool_ops; 16usize],
 }
+
 impl Default for rte_mempool_ops_table
 {
 	fn default() -> Self

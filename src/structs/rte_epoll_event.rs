@@ -12,6 +12,7 @@ pub struct rte_epoll_event
 	pub epfd: c_int,
 	pub epdata: rte_epoll_data,
 }
+
 impl Default for rte_epoll_event
 {
 	fn default() -> Self

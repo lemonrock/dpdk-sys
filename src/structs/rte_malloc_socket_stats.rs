@@ -14,6 +14,7 @@ pub struct rte_malloc_socket_stats
 	pub alloc_count: c_uint,
 	pub heap_allocsz_bytes: size_t,
 }
+
 impl Default for rte_malloc_socket_stats
 {
 	fn default() -> Self

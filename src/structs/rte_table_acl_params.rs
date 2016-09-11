@@ -12,6 +12,7 @@ pub struct rte_table_acl_params
 	pub n_rule_fields: uint32_t,
 	pub field_format: [rte_acl_field_def; 64usize],
 }
+
 impl Clone for rte_table_acl_params
 {
 	fn clone(&self) -> Self
@@ -19,6 +20,7 @@ impl Clone for rte_table_acl_params
 		*self
 	}
 }
+
 impl Default for rte_table_acl_params
 {
 	fn default() -> Self

@@ -9,6 +9,7 @@ pub struct rte_spinlock_t
 {
 	pub locked: c_int,
 }
+
 impl Default for rte_spinlock_t
 {
 	fn default() -> Self

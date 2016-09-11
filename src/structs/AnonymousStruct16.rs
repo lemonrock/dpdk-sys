@@ -10,6 +10,7 @@ pub struct AnonymousStruct16
 	pub tqe_next: *mut rte_driver,
 	pub tqe_prev: *mut *mut rte_driver,
 }
+
 impl Default for AnonymousStruct16
 {
 	fn default() -> Self

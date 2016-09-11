@@ -14,6 +14,7 @@ pub struct rte_lpm_v20
 	pub tbl8: [rte_lpm_tbl_entry_v20; 65536usize],
 	pub rules_tbl: [rte_lpm_rule_v20; 0usize],
 }
+
 impl Clone for rte_lpm_v20
 {
 	fn clone(&self) -> Self
@@ -21,6 +22,7 @@ impl Clone for rte_lpm_v20
 		*self
 	}
 }
+
 impl Default for rte_lpm_v20
 {
 	fn default() -> Self

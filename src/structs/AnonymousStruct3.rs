@@ -9,6 +9,7 @@ pub struct AnonymousStruct3
 {
 	pub stqe_next: *mut rte_mempool_memhdr,
 }
+
 impl Default for AnonymousStruct3
 {
 	fn default() -> Self

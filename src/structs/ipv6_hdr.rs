@@ -14,6 +14,7 @@ pub struct ipv6_hdr
 	pub src_addr: [uint8_t; 16usize],
 	pub dst_addr: [uint8_t; 16usize],
 }
+
 impl Default for ipv6_hdr
 {
 	fn default() -> Self

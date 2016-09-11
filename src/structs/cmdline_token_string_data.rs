@@ -9,6 +9,7 @@ pub struct cmdline_token_string_data
 {
 	pub str: *const c_char,
 }
+
 impl Default for cmdline_token_string_data
 {
 	fn default() -> Self

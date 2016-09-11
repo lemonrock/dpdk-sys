@@ -16,6 +16,7 @@ pub struct rte_table_ops
 	pub f_lookup: rte_table_op_lookup,
 	pub f_stats: rte_table_op_stats_read,
 }
+
 impl Default for rte_table_ops
 {
 	fn default() -> Self

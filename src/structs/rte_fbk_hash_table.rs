@@ -17,6 +17,7 @@ pub struct rte_fbk_hash_table
 	pub init_val: uint32_t,
 	pub t: [rte_fbk_hash_entry; 0usize],
 }
+
 impl Default for rte_fbk_hash_table
 {
 	fn default() -> Self

@@ -11,6 +11,7 @@ pub struct rte_eth_vhost_queue_event
 	pub rx: u8,
 	pub enable: u8,
 }
+
 impl Default for rte_eth_vhost_queue_event
 {
 	fn default() -> Self

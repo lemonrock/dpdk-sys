@@ -13,6 +13,7 @@ pub struct rte_pipeline_table_stats
 	pub n_pkts_dropped_lkp_hit: uint64_t,
 	pub n_pkts_dropped_lkp_miss: uint64_t,
 }
+
 impl Default for rte_pipeline_table_stats
 {
 	fn default() -> Self

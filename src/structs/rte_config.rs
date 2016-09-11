@@ -13,6 +13,7 @@ pub struct rte_config
 	pub process_type: rte_proc_type_t,
 	pub mem_config: *mut rte_mem_config,
 }
+
 impl Clone for rte_config
 {
 	fn clone(&self) -> Self
@@ -20,6 +21,7 @@ impl Clone for rte_config
 		*self
 	}
 }
+
 impl Default for rte_config
 {
 	fn default() -> Self

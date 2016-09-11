@@ -19,6 +19,7 @@ pub struct rte_ip_frag_tbl
 	pub stat: ip_frag_tbl_stat,
 	pub pkt: [ip_frag_pkt; 0usize],
 }
+
 impl Default for rte_ip_frag_tbl
 {
 	fn default() -> Self

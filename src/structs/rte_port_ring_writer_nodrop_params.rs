@@ -11,6 +11,7 @@ pub struct rte_port_ring_writer_nodrop_params
 	pub tx_burst_sz: uint32_t,
 	pub n_retries: uint32_t,
 }
+
 impl Default for rte_port_ring_writer_nodrop_params
 {
 	fn default() -> Self

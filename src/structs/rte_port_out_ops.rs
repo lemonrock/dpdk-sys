@@ -14,6 +14,7 @@ pub struct rte_port_out_ops
 	pub f_flush: rte_port_out_op_flush,
 	pub f_stats: rte_port_out_op_stats_read,
 }
+
 impl Default for rte_port_out_ops
 {
 	fn default() -> Self

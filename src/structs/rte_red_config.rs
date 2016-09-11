@@ -14,6 +14,7 @@ pub struct rte_red_config
 	pub wq_log2: uint8_t,
 	_bindgen_padding_0_: [u8; 2usize],
 }
+
 impl Default for rte_red_config
 {
 	fn default() -> Self

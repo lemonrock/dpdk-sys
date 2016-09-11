@@ -9,6 +9,7 @@ pub struct AnonymousUnion4
 {
 	pub _bindgen_data_: [u32; 2usize],
 }
+
 impl AnonymousUnion4
 {
 	pub unsafe fn rss(&mut self) -> *mut uint32_t
@@ -32,6 +33,7 @@ impl AnonymousUnion4
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for AnonymousUnion4
 {
 	fn default() -> Self

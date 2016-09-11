@@ -12,6 +12,7 @@ pub struct rte_lpm_tbl_entry_v20
 	pub _bindgen_bitfield_2_: uint8_t,
 	pub _bindgen_bitfield_3_: uint8_t,
 }
+
 impl rte_lpm_tbl_entry_v20
 {
 	pub unsafe fn next_hop(&mut self) -> *mut uint8_t
@@ -25,6 +26,7 @@ impl rte_lpm_tbl_entry_v20
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_lpm_tbl_entry_v20
 {
 	fn default() -> Self

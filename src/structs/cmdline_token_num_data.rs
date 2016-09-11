@@ -9,6 +9,7 @@ pub struct cmdline_token_num_data
 {
 	pub type_: cmdline_numtype,
 }
+
 impl Default for cmdline_token_num_data
 {
 	fn default() -> Self

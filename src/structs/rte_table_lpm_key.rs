@@ -11,6 +11,7 @@ pub struct rte_table_lpm_key
 	pub depth: uint8_t,
 	_bindgen_padding_0_: [u8; 3usize],
 }
+
 impl Default for rte_table_lpm_key
 {
 	fn default() -> Self

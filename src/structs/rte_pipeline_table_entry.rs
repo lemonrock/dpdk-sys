@@ -11,6 +11,7 @@ pub struct rte_pipeline_table_entry
 	pub _bindgen_data_1_: [u32; 1usize],
 	pub action_data: [uint8_t; 0usize],
 }
+
 impl rte_pipeline_table_entry
 {
 	pub unsafe fn port_id(&mut self) -> *mut uint32_t
@@ -24,6 +25,7 @@ impl rte_pipeline_table_entry
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_pipeline_table_entry
 {
 	fn default() -> Self

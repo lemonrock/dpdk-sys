@@ -15,6 +15,7 @@ pub struct ip_frag_pkt
 	pub last_idx: uint32_t,
 	pub frags: [ip_frag; 4usize],
 }
+
 impl Default for ip_frag_pkt
 {
 	fn default() -> Self

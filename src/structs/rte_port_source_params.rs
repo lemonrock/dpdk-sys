@@ -12,6 +12,7 @@ pub struct rte_port_source_params
 	pub n_bytes_per_pkt: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_port_source_params
 {
 	fn default() -> Self

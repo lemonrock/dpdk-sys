@@ -12,6 +12,7 @@ pub struct rte_sched_queue_stats
 	pub n_bytes: uint32_t,
 	pub n_bytes_dropped: uint32_t,
 }
+
 impl Default for rte_sched_queue_stats
 {
 	fn default() -> Self

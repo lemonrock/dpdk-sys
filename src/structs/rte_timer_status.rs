@@ -9,6 +9,7 @@ pub struct rte_timer_status
 {
 	pub _bindgen_data_: [u32; 1usize],
 }
+
 impl rte_timer_status
 {
 	pub unsafe fn state(&mut self) -> *mut uint16_t
@@ -27,6 +28,7 @@ impl rte_timer_status
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_timer_status
 {
 	fn default() -> Self

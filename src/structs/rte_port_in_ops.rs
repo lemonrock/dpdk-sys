@@ -12,6 +12,7 @@ pub struct rte_port_in_ops
 	pub f_rx: rte_port_in_op_rx,
 	pub f_stats: rte_port_in_op_stats_read,
 }
+
 impl Default for rte_port_in_ops
 {
 	fn default() -> Self

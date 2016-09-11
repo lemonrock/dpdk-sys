@@ -17,6 +17,7 @@ pub struct tcp_hdr
 	pub cksum: uint16_t,
 	pub tcp_urp: uint16_t,
 }
+
 impl Default for tcp_hdr
 {
 	fn default() -> Self

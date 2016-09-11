@@ -12,6 +12,7 @@ pub struct rte_pipeline_port_out_params
 	pub f_action: rte_pipeline_port_out_action_handler,
 	pub arg_ah: *mut c_void,
 }
+
 impl Default for rte_pipeline_port_out_params
 {
 	fn default() -> Self

@@ -15,6 +15,7 @@ pub struct rte_crypto_op
 	pub _bindgen_data_1_: [u64; 1usize],
 	_bindgen_padding_0_: [u64; 3usize],
 }
+
 impl rte_crypto_op
 {
 	pub unsafe fn sym(&mut self) -> *mut *mut rte_crypto_sym_op
@@ -23,6 +24,7 @@ impl rte_crypto_op
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_crypto_op
 {
 	fn default() -> Self

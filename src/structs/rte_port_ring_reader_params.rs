@@ -9,6 +9,7 @@ pub struct rte_port_ring_reader_params
 {
 	pub ring: *mut rte_ring,
 }
+
 impl Default for rte_port_ring_reader_params
 {
 	fn default() -> Self

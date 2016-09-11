@@ -15,6 +15,7 @@ pub struct rte_mempool_memhdr
 	pub free_cb: rte_mempool_memchunk_free_cb_t,
 	pub opaque: *mut c_void,
 }
+
 impl Default for rte_mempool_memhdr
 {
 	fn default() -> Self

@@ -14,6 +14,7 @@ pub struct rte_mempool_ops
 	pub dequeue: rte_mempool_dequeue_t,
 	pub get_count: rte_mempool_get_count,
 }
+
 impl Default for rte_mempool_ops
 {
 	fn default() -> Self

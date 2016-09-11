@@ -20,6 +20,7 @@ pub struct rte_jobstats_context
 	pub loop_cnt: uint64_t,
 	_bindgen_padding_0_: [u64; 5usize],
 }
+
 impl Default for rte_jobstats_context
 {
 	fn default() -> Self

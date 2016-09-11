@@ -12,6 +12,7 @@ pub struct rte_acl_config
 	pub defs: [rte_acl_field_def; 64usize],
 	pub max_size: size_t,
 }
+
 impl Clone for rte_acl_config
 {
 	fn clone(&self) -> Self
@@ -19,6 +20,7 @@ impl Clone for rte_acl_config
 		*self
 	}
 }
+
 impl Default for rte_acl_config
 {
 	fn default() -> Self

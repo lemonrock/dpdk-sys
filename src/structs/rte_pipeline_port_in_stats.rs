@@ -10,6 +10,7 @@ pub struct rte_pipeline_port_in_stats
 	pub stats: rte_port_in_stats,
 	pub n_pkts_dropped_by_ah: uint64_t,
 }
+
 impl Default for rte_pipeline_port_in_stats
 {
 	fn default() -> Self

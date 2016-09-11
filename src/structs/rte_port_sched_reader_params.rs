@@ -9,6 +9,7 @@ pub struct rte_port_sched_reader_params
 {
 	pub sched: *mut rte_sched_port,
 }
+
 impl Default for rte_port_sched_reader_params
 {
 	fn default() -> Self

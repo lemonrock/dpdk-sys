@@ -15,6 +15,7 @@ pub struct rte_pipeline_table_params
 	pub action_data_size: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_pipeline_table_params
 {
 	fn default() -> Self

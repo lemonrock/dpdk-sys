@@ -11,6 +11,7 @@ pub struct ip_frag_key
 	pub id: uint32_t,
 	pub key_len: uint32_t,
 }
+
 impl Default for ip_frag_key
 {
 	fn default() -> Self

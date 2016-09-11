@@ -11,6 +11,7 @@ pub struct cmdline_ipaddr
 	pub addr: AnonymousUnion1,
 	pub prefixlen: c_uint,
 }
+
 impl Default for cmdline_ipaddr
 {
 	fn default() -> Self

@@ -14,6 +14,7 @@ pub struct prod
 	pub head: uint32_t,
 	pub tail: uint32_t,
 }
+
 impl Default for prod
 {
 	fn default() -> Self

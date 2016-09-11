@@ -10,6 +10,7 @@ pub struct rte_driver_list
 	pub tqh_first: *mut rte_driver,
 	pub tqh_last: *mut *mut rte_driver,
 }
+
 impl Default for rte_driver_list
 {
 	fn default() -> Self

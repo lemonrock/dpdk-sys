@@ -15,6 +15,7 @@ pub struct rte_lpm
 	pub tbl8: *mut rte_lpm_tbl_entry,
 	pub rules_tbl: *mut rte_lpm_rule,
 }
+
 impl Clone for rte_lpm
 {
 	fn clone(&self) -> Self
@@ -22,6 +23,7 @@ impl Clone for rte_lpm
 		*self
 	}
 }
+
 impl Default for rte_lpm
 {
 	fn default() -> Self

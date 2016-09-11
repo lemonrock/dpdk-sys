@@ -18,6 +18,7 @@ pub struct rte_sched_port_params
 	pub pipe_profiles: *mut rte_sched_pipe_params,
 	pub n_pipe_profiles: uint32_t,
 }
+
 impl Default for rte_sched_port_params
 {
 	fn default() -> Self

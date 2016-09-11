@@ -9,6 +9,7 @@ pub struct rte_atomic64_t
 {
 	pub cnt: int64_t,
 }
+
 impl Default for rte_atomic64_t
 {
 	fn default() -> Self

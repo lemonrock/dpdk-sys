@@ -14,6 +14,7 @@ pub struct rte_ring
 	pub cons: cons,
 	pub ring: [*mut c_void; 0usize],
 }
+
 impl Default for rte_ring
 {
 	fn default() -> Self

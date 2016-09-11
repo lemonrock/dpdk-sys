@@ -26,6 +26,7 @@ pub struct rte_mempool
 	pub nb_mem_chunks: uint32_t,
 	pub mem_list: rte_mempool_memhdr_list,
 }
+
 impl rte_mempool
 {
 	pub unsafe fn pool_data(&mut self) -> *mut *mut c_void
@@ -39,6 +40,7 @@ impl rte_mempool
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_mempool
 {
 	fn default() -> Self

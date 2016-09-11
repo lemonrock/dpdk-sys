@@ -11,6 +11,7 @@ pub struct rte_mempool_objhdr
 	pub mp: *mut rte_mempool,
 	pub physaddr: phys_addr_t,
 }
+
 impl Default for rte_mempool_objhdr
 {
 	fn default() -> Self

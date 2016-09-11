@@ -9,6 +9,7 @@ pub struct rte_table_array_key
 {
 	pub pos: uint32_t,
 }
+
 impl Default for rte_table_array_key
 {
 	fn default() -> Self

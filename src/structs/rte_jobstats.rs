@@ -19,6 +19,7 @@ pub struct rte_jobstats
 	pub name: [c_char; 32usize],
 	pub context: *mut rte_jobstats_context,
 }
+
 impl Default for rte_jobstats
 {
 	fn default() -> Self

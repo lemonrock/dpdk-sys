@@ -14,6 +14,7 @@ pub struct cmdline
 	pub prompt: [c_char; 32usize],
 	pub oldterm: termios,
 }
+
 impl Clone for cmdline
 {
 	fn clone(&self) -> Self
@@ -21,6 +22,7 @@ impl Clone for cmdline
 		*self
 	}
 }
+
 impl Default for cmdline
 {
 	fn default() -> Self

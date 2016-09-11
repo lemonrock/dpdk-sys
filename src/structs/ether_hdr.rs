@@ -11,6 +11,7 @@ pub struct ether_hdr
 	pub s_addr: ether_addr,
 	pub ether_type: uint16_t,
 }
+
 impl Default for ether_hdr
 {
 	fn default() -> Self

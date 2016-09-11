@@ -11,6 +11,7 @@ pub struct rte_pipeline_params
 	pub socket_id: c_int,
 	pub offset_port_id: uint32_t,
 }
+
 impl Default for rte_pipeline_params
 {
 	fn default() -> Self

@@ -15,6 +15,7 @@ pub struct rte_timecounter
 	pub cc_shift: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_timecounter
 {
 	fn default() -> Self

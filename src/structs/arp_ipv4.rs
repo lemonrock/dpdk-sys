@@ -12,6 +12,7 @@ pub struct arp_ipv4
 	pub arp_tha: ether_addr,
 	pub arp_tip: uint32_t,
 }
+
 impl Default for arp_ipv4
 {
 	fn default() -> Self

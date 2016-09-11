@@ -11,6 +11,7 @@ pub struct AnonymousStruct22
 	pub value: uint16_t,
 	pub key: uint32_t,
 }
+
 impl Default for AnonymousStruct22
 {
 	fn default() -> Self

@@ -9,6 +9,7 @@ pub struct rte_atomic16_t
 {
 	pub cnt: int16_t,
 }
+
 impl Default for rte_atomic16_t
 {
 	fn default() -> Self

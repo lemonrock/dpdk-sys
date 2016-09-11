@@ -12,6 +12,7 @@ pub struct cmdline_inst
 	pub help_str: *const c_char,
 	pub tokens: [*mut cmdline_parse_token_hdr_t; 0usize],
 }
+
 impl Default for cmdline_inst
 {
 	fn default() -> Self

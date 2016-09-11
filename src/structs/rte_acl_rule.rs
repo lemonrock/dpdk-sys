@@ -11,6 +11,7 @@ pub struct rte_acl_rule
 	pub field: [rte_acl_field; 0usize],
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_acl_rule
 {
 	fn default() -> Self

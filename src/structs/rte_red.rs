@@ -11,6 +11,7 @@ pub struct rte_red
 	pub count: uint32_t,
 	pub q_time: uint64_t,
 }
+
 impl Default for rte_red
 {
 	fn default() -> Self

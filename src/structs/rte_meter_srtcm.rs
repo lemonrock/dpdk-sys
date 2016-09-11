@@ -15,6 +15,7 @@ pub struct rte_meter_srtcm
 	pub cir_period: uint64_t,
 	pub cir_bytes_per_period: uint64_t,
 }
+
 impl Default for rte_meter_srtcm
 {
 	fn default() -> Self

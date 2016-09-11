@@ -11,6 +11,7 @@ pub struct rte_crypto_sym_xform
 	pub type_: rte_crypto_sym_xform_type,
 	pub _bindgen_data_1_: [u64; 4usize],
 }
+
 impl rte_crypto_sym_xform
 {
 	pub unsafe fn auth(&mut self) -> *mut rte_crypto_auth_xform
@@ -24,6 +25,7 @@ impl rte_crypto_sym_xform
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_crypto_sym_xform
 {
 	fn default() -> Self

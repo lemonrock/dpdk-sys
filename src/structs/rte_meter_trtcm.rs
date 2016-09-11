@@ -18,6 +18,7 @@ pub struct rte_meter_trtcm
 	pub pir_period: uint64_t,
 	pub pir_bytes_per_period: uint64_t,
 }
+
 impl Default for rte_meter_trtcm
 {
 	fn default() -> Self

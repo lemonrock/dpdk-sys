@@ -16,6 +16,7 @@ pub struct rte_intr_handle
 	pub elist: [rte_epoll_event; 32usize],
 	pub intr_vec: *mut c_int,
 }
+
 impl rte_intr_handle
 {
 	pub unsafe fn vfio_dev_fd(&mut self) -> *mut c_int
@@ -29,6 +30,7 @@ impl rte_intr_handle
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_intr_handle
 {
 	fn default() -> Self

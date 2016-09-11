@@ -15,6 +15,7 @@ pub struct rte_table_lpm_params
 	pub offset: uint32_t,
 	_bindgen_padding_0_: [u8; 4usize],
 }
+
 impl Default for rte_table_lpm_params
 {
 	fn default() -> Self

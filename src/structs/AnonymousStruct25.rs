@@ -10,6 +10,7 @@ pub struct AnonymousStruct25
 	pub tqe_next: *mut ip_frag_pkt,
 	pub tqe_prev: *mut *mut ip_frag_pkt,
 }
+
 impl Default for AnonymousStruct25
 {
 	fn default() -> Self

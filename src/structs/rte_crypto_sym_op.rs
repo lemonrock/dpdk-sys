@@ -15,6 +15,7 @@ pub struct rte_crypto_sym_op
 	pub auth: AnonymousStruct12,
 	_bindgen_padding_0_: [u64; 1usize],
 }
+
 impl rte_crypto_sym_op
 {
 	pub unsafe fn session(&mut self) -> *mut *mut rte_cryptodev_sym_session
@@ -28,6 +29,7 @@ impl rte_crypto_sym_op
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_crypto_sym_op
 {
 	fn default() -> Self

@@ -13,6 +13,7 @@ pub struct rte_dev_reg_info
 	pub width: uint32_t,
 	pub version: uint32_t,
 }
+
 impl Default for rte_dev_reg_info
 {
 	fn default() -> Self

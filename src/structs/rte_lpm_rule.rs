@@ -10,6 +10,7 @@ pub struct rte_lpm_rule
 	pub ip: uint32_t,
 	pub next_hop: uint32_t,
 }
+
 impl Default for rte_lpm_rule
 {
 	fn default() -> Self

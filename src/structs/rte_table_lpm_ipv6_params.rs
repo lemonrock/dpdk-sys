@@ -13,6 +13,7 @@ pub struct rte_table_lpm_ipv6_params
 	pub entry_unique_size: uint32_t,
 	pub offset: uint32_t,
 }
+
 impl Default for rte_table_lpm_ipv6_params
 {
 	fn default() -> Self

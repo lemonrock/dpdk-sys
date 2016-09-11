@@ -11,6 +11,7 @@ pub struct rte_tailq_elem
 	pub next: AnonymousStruct18,
 	pub name: [c_char; 32usize],
 }
+
 impl Default for rte_tailq_elem
 {
 	fn default() -> Self

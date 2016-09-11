@@ -14,6 +14,7 @@ pub struct arp_hdr
 	pub arp_op: uint16_t,
 	pub arp_data: arp_ipv4,
 }
+
 impl Default for arp_hdr
 {
 	fn default() -> Self

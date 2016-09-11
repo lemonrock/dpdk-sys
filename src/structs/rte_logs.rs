@@ -11,6 +11,7 @@ pub struct rte_logs
 	pub level: uint32_t,
 	pub file: *mut FILE,
 }
+
 impl Default for rte_logs
 {
 	fn default() -> Self

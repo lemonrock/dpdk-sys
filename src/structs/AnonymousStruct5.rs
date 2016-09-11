@@ -10,6 +10,7 @@ pub struct AnonymousStruct5
 	pub _bindgen_data_1_: [u32; 1usize],
 	pub hi: uint32_t,
 }
+
 impl AnonymousStruct5
 {
 	pub unsafe fn hash(&mut self) -> *mut uint16_t
@@ -28,6 +29,7 @@ impl AnonymousStruct5
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for AnonymousStruct5
 {
 	fn default() -> Self

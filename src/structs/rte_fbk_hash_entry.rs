@@ -9,6 +9,7 @@ pub struct rte_fbk_hash_entry
 {
 	pub _bindgen_data_: [u64; 1usize],
 }
+
 impl rte_fbk_hash_entry
 {
 	pub unsafe fn whole_entry(&mut self) -> *mut uint64_t
@@ -22,6 +23,7 @@ impl rte_fbk_hash_entry
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for rte_fbk_hash_entry
 {
 	fn default() -> Self

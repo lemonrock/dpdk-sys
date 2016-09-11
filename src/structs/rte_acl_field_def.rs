@@ -13,6 +13,7 @@ pub struct rte_acl_field_def
 	pub input_index: uint8_t,
 	pub offset: uint32_t,
 }
+
 impl Default for rte_acl_field_def
 {
 	fn default() -> Self

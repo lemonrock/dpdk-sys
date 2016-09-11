@@ -10,6 +10,7 @@ pub struct AnonymousStruct8
 	pub data: *mut uint8_t,
 	pub length: size_t,
 }
+
 impl Default for AnonymousStruct8
 {
 	fn default() -> Self

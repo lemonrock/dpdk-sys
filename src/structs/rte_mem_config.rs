@@ -20,6 +20,7 @@ pub struct rte_mem_config
 	pub malloc_heaps: [malloc_heap; 8usize],
 	pub mem_cfg_addr: uint64_t,
 }
+
 impl Clone for rte_mem_config
 {
 	fn clone(&self) -> Self
@@ -27,6 +28,7 @@ impl Clone for rte_mem_config
 		*self
 	}
 }
+
 impl Default for rte_mem_config
 {
 	fn default() -> Self

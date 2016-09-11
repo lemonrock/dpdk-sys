@@ -10,6 +10,7 @@ pub struct rte_tailq_head
 	pub tailq_head: rte_tailq_entry_head,
 	pub name: [c_char; 32usize],
 }
+
 impl Default for rte_tailq_head
 {
 	fn default() -> Self

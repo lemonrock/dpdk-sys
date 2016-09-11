@@ -18,6 +18,7 @@ pub struct ipv4_hdr
 	pub src_addr: uint32_t,
 	pub dst_addr: uint32_t,
 }
+
 impl Default for ipv4_hdr
 {
 	fn default() -> Self

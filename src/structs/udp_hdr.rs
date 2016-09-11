@@ -12,6 +12,7 @@ pub struct udp_hdr
 	pub dgram_len: uint16_t,
 	pub dgram_cksum: uint16_t,
 }
+
 impl Default for udp_hdr
 {
 	fn default() -> Self

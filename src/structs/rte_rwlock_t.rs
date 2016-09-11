@@ -9,6 +9,7 @@ pub struct rte_rwlock_t
 {
 	pub cnt: int32_t,
 }
+
 impl Default for rte_rwlock_t
 {
 	fn default() -> Self

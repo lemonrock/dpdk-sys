@@ -10,6 +10,7 @@ pub struct rte_mempool_objhdr_list
 	pub stqh_first: *mut rte_mempool_objhdr,
 	pub stqh_last: *mut *mut rte_mempool_objhdr,
 }
+
 impl Default for rte_mempool_objhdr_list
 {
 	fn default() -> Self

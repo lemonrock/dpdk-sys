@@ -10,6 +10,7 @@ pub struct rte_table_acl_rule_add_params
 	pub priority: int32_t,
 	pub field_value: [rte_acl_field; 64usize],
 }
+
 impl Clone for rte_table_acl_rule_add_params
 {
 	fn clone(&self) -> Self
@@ -17,6 +18,7 @@ impl Clone for rte_table_acl_rule_add_params
 		*self
 	}
 }
+
 impl Default for rte_table_acl_rule_add_params
 {
 	fn default() -> Self

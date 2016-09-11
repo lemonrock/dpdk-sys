@@ -9,6 +9,7 @@ pub struct AnonymousUnion1
 {
 	pub _bindgen_data_: [u32; 4usize],
 }
+
 impl AnonymousUnion1
 {
 	pub unsafe fn ipv4(&mut self) -> *mut in_addr
@@ -22,6 +23,7 @@ impl AnonymousUnion1
 		transmute(raw.offset(0))
 	}
 }
+
 impl Default for AnonymousUnion1
 {
 	fn default() -> Self

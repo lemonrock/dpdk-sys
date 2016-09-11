@@ -11,6 +11,7 @@ pub struct rte_acl_rule_data
 	pub priority: int32_t,
 	pub userdata: uint32_t,
 }
+
 impl Default for rte_acl_rule_data
 {
 	fn default() -> Self

@@ -15,6 +15,7 @@ pub struct rte_table_hash_key8_ext_params
 	pub key_offset: uint32_t,
 	pub key_mask: *mut uint8_t,
 }
+
 impl Default for rte_table_hash_key8_ext_params
 {
 	fn default() -> Self
