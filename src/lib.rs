@@ -615,6 +615,21 @@ pub const RTE_IPV6_EHDR_FO_SHIFT: c_int = 3;
 pub const RTE_IPV6_EHDR_FO_MASK: c_int = -8;
 pub const RTE_IPV6_FRAG_USED_MASK: c_int = -7;
 pub const RTE_JOBSTATS_NAMESIZE: c_int = 32;
+pub const RTE_KEEPALIVE_MAXCORES: c_int = 128;
+pub const RTE_KVARGS_MAX: c_int = 32;
+pub const RTE_LPM_NAMESIZE: c_int = 32;
+pub const RTE_LPM_MAX_DEPTH: c_int = 32;
+pub const RTE_LPM_TBL24_NUM_ENTRIES: c_int = 16777216;
+pub const RTE_LPM_TBL8_GROUP_NUM_ENTRIES: c_int = 256;
+pub const RTE_LPM_MAX_TBL8_NUM_GROUPS: c_int = 16777216;
+pub const RTE_LPM_TBL8_NUM_GROUPS: c_int = 256;
+pub const RTE_LPM_TBL8_NUM_ENTRIES: c_int = 65536;
+pub const RTE_LPM_VALID_EXT_ENTRY_BITMASK: c_int = 50331648;
+pub const RTE_LPM_LOOKUP_SUCCESS: c_int = 16777216;
+pub const RTE_LPM6_MAX_DEPTH: c_int = 128;
+pub const RTE_LPM6_IPV6_ADDR_SIZE: c_int = 16;
+pub const RTE_LPM6_NAMESIZE: c_int = 32;
+pub const RTE_TABLE_HASH_LRU_STRATEGY: c_int = 1;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -3527,6 +3542,367 @@ impl Default for rte_jobstats_context
 	}
 }
 
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_keepalive_state
+{
+	RTE_KA_STATE_UNUSED = 0,
+	RTE_KA_STATE_ALIVE = 1,
+	RTE_KA_STATE_MISSING = 4,
+	RTE_KA_STATE_DEAD = 2,
+	RTE_KA_STATE_GONE = 3,
+	RTE_KA_STATE_DOZING = 5,
+	RTE_KA_STATE_SLEEP = 6,
+}
+
+pub type rte_keepalive_failure_callback_t = Option<unsafe extern "C" fn(data: *mut c_void, id_core: c_int)>;
+
+pub type rte_keepalive_relay_callback_t = Option<unsafe extern "C" fn(data: *mut c_void, id_core: c_int, core_state: rte_keepalive_state, last_seen: uint64_t)>;
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_keepalive
+{
+}
+
+pub type arg_handler_t = Option<unsafe extern "C" fn(key: *const c_char, value: *const c_char, opaque: *mut c_void) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_kvargs_pair
+{
+	pub key: *mut c_char,
+	pub value: *mut c_char,
+}
+
+impl Default for rte_kvargs_pair
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_kvargs
+{
+	pub str: *mut c_char,
+	pub count: c_uint,
+	pub pairs: [rte_kvargs_pair; 32usize],
+}
+
+impl Default for rte_kvargs
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_tbl_entry_v20
+{
+	pub _bindgen_data_1_: [u8; 1usize],
+	pub _bindgen_bitfield_1_: uint8_t,
+	pub _bindgen_bitfield_2_: uint8_t,
+	pub _bindgen_bitfield_3_: uint8_t,
+}
+
+impl rte_lpm_tbl_entry_v20
+{
+	pub unsafe fn next_hop(&mut self) -> *mut uint8_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn group_idx(&mut self) -> *mut uint8_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_lpm_tbl_entry_v20
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_tbl_entry
+{
+	pub _bindgen_bitfield_1_: uint32_t,
+	pub _bindgen_bitfield_2_: uint32_t,
+	pub _bindgen_bitfield_3_: uint32_t,
+	pub _bindgen_bitfield_4_: uint32_t,
+}
+
+impl Default for rte_lpm_tbl_entry
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_config
+{
+	pub max_rules: uint32_t,
+	pub number_tbl8s: uint32_t,
+	pub flags: c_int,
+}
+
+impl Default for rte_lpm_config
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_rule_v20
+{
+	pub ip: uint32_t,
+	pub next_hop: uint8_t,
+	_bindgen_padding_0_: [u8; 3usize],
+}
+
+impl Default for rte_lpm_rule_v20
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_rule
+{
+	pub ip: uint32_t,
+	pub next_hop: uint32_t,
+}
+
+impl Default for rte_lpm_rule
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm_rule_info
+{
+	pub used_rules: uint32_t,
+	pub first_rule: uint32_t,
+}
+
+impl Default for rte_lpm_rule_info
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_lpm_v20
+{
+	pub name: [c_char; 32usize],
+	pub max_rules: uint32_t,
+	pub rule_info: [rte_lpm_rule_info; 32usize],
+	pub tbl24: [rte_lpm_tbl_entry_v20; 16777216usize],
+	pub tbl8: [rte_lpm_tbl_entry_v20; 65536usize],
+	pub rules_tbl: [rte_lpm_rule_v20; 0usize],
+}
+
+impl Clone for rte_lpm_v20
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_lpm_v20
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_lpm
+{
+	pub name: [c_char; 32usize],
+	pub max_rules: uint32_t,
+	pub number_tbl8s: uint32_t,
+	pub rule_info: [rte_lpm_rule_info; 32usize],
+	pub tbl24: [rte_lpm_tbl_entry; 16777216usize],
+	pub tbl8: *mut rte_lpm_tbl_entry,
+	pub rules_tbl: *mut rte_lpm_rule,
+}
+
+impl Clone for rte_lpm
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_lpm
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_lpm6
+{
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_lpm6_config
+{
+	pub max_rules: uint32_t,
+	pub number_tbl8s: uint32_t,
+	pub flags: c_int,
+}
+
+impl Default for rte_lpm6_config
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_meter_color
+{
+	e_RTE_METER_GREEN = 0,
+	e_RTE_METER_YELLOW = 1,
+	e_RTE_METER_RED = 2,
+	e_RTE_METER_COLORS = 3,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_meter_srtcm_params
+{
+	pub cir: uint64_t,
+	pub cbs: uint64_t,
+	pub ebs: uint64_t,
+}
+
+impl Default for rte_meter_srtcm_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_meter_trtcm_params
+{
+	pub cir: uint64_t,
+	pub pir: uint64_t,
+	pub cbs: uint64_t,
+	pub pbs: uint64_t,
+}
+
+impl Default for rte_meter_trtcm_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_meter_srtcm
+{
+	pub time: uint64_t,
+	pub tc: uint64_t,
+	pub te: uint64_t,
+	pub cbs: uint64_t,
+	pub ebs: uint64_t,
+	pub cir_period: uint64_t,
+	pub cir_bytes_per_period: uint64_t,
+}
+
+impl Default for rte_meter_srtcm
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_meter_trtcm
+{
+	pub time_tc: uint64_t,
+	pub time_tp: uint64_t,
+	pub tc: uint64_t,
+	pub tp: uint64_t,
+	pub cbs: uint64_t,
+	pub pbs: uint64_t,
+	pub cir_period: uint64_t,
+	pub cir_bytes_per_period: uint64_t,
+	pub pir_period: uint64_t,
+	pub pir_bytes_per_period: uint64_t,
+}
+
+impl Default for rte_meter_trtcm
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
 extern "C"
 {
 	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
@@ -3847,5 +4223,48 @@ extern "C"
 	pub fn rte_jobstats_set_max(job: *mut rte_jobstats, period: uint64_t);
 	pub fn rte_jobstats_set_update_period_function(job: *mut rte_jobstats, update_period_cb: rte_job_update_period_cb_t);
 	pub fn rte_jobstats_reset(job: *mut rte_jobstats);
+	pub fn rte_keepalive_create(callback: rte_keepalive_failure_callback_t, data: *mut c_void) -> *mut rte_keepalive;
+	pub fn rte_keepalive_dispatch_pings(ptr_timer: *mut c_void, ptr_data: *mut c_void);
+	pub fn rte_keepalive_register_core(keepcfg: *mut rte_keepalive, id_core: c_int);
+	pub fn rte_keepalive_mark_alive(keepcfg: *mut rte_keepalive);
+	pub fn rte_keepalive_mark_sleep(keepcfg: *mut rte_keepalive);
+	pub fn rte_keepalive_register_relay_callback(keepcfg: *mut rte_keepalive, callback: rte_keepalive_relay_callback_t, data: *mut c_void);
+	pub fn rte_kvargs_parse(args: *const c_char, valid_keys: *mut *const c_char) -> *mut rte_kvargs;
+	pub fn rte_kvargs_free(kvlist: *mut rte_kvargs);
+	pub fn rte_kvargs_process(kvlist: *const rte_kvargs, key_match: *const c_char, handler: arg_handler_t, opaque_arg: *mut c_void) -> c_int;
+	pub fn rte_kvargs_count(kvlist: *const rte_kvargs, key_match: *const c_char) -> c_uint;
+	pub fn rte_lpm_create(name: *const c_char, socket_id: c_int, config: *const rte_lpm_config) -> *mut rte_lpm;
+	pub fn rte_lpm_create_v20(name: *const c_char, socket_id: c_int, max_rules: c_int, flags: c_int) -> *mut rte_lpm_v20;
+	pub fn rte_lpm_create_v1604(name: *const c_char, socket_id: c_int, config: *const rte_lpm_config) -> *mut rte_lpm;
+	pub fn rte_lpm_find_existing(name: *const c_char) -> *mut rte_lpm;
+	pub fn rte_lpm_find_existing_v20(name: *const c_char) -> *mut rte_lpm_v20;
+	pub fn rte_lpm_find_existing_v1604(name: *const c_char) -> *mut rte_lpm;
+	pub fn rte_lpm_free(lpm: *mut rte_lpm);
+	pub fn rte_lpm_free_v20(lpm: *mut rte_lpm_v20);
+	pub fn rte_lpm_free_v1604(lpm: *mut rte_lpm);
+	pub fn rte_lpm_add(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t, next_hop: uint32_t) -> c_int;
+	pub fn rte_lpm_add_v20(lpm: *mut rte_lpm_v20, ip: uint32_t, depth: uint8_t, next_hop: uint8_t) -> c_int;
+	pub fn rte_lpm_add_v1604(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t, next_hop: uint32_t) -> c_int;
+	pub fn rte_lpm_is_rule_present(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t, next_hop: *mut uint32_t) -> c_int;
+	pub fn rte_lpm_is_rule_present_v20(lpm: *mut rte_lpm_v20, ip: uint32_t, depth: uint8_t, next_hop: *mut uint8_t) -> c_int;
+	pub fn rte_lpm_is_rule_present_v1604(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t, next_hop: *mut uint32_t) -> c_int;
+	pub fn rte_lpm_delete(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t) -> c_int;
+	pub fn rte_lpm_delete_v20(lpm: *mut rte_lpm_v20, ip: uint32_t, depth: uint8_t) -> c_int;
+	pub fn rte_lpm_delete_v1604(lpm: *mut rte_lpm, ip: uint32_t, depth: uint8_t) -> c_int;
+	pub fn rte_lpm_delete_all(lpm: *mut rte_lpm);
+	pub fn rte_lpm_delete_all_v20(lpm: *mut rte_lpm_v20);
+	pub fn rte_lpm_delete_all_v1604(lpm: *mut rte_lpm);
+	pub fn rte_lpm6_create(name: *const c_char, socket_id: c_int, config: *const rte_lpm6_config) -> *mut rte_lpm6;
+	pub fn rte_lpm6_find_existing(name: *const c_char) -> *mut rte_lpm6;
+	pub fn rte_lpm6_free(lpm: *mut rte_lpm6);
+	pub fn rte_lpm6_add(lpm: *mut rte_lpm6, ip: *mut uint8_t, depth: uint8_t, next_hop: uint8_t) -> c_int;
+	pub fn rte_lpm6_is_rule_present(lpm: *mut rte_lpm6, ip: *mut uint8_t, depth: uint8_t, next_hop: *mut uint8_t) -> c_int;
+	pub fn rte_lpm6_delete(lpm: *mut rte_lpm6, ip: *mut uint8_t, depth: uint8_t) -> c_int;
+	pub fn rte_lpm6_delete_bulk_func(lpm: *mut rte_lpm6, ips: *mut [uint8_t; 16usize], depths: *mut uint8_t, n: c_uint) -> c_int;
+	pub fn rte_lpm6_delete_all(lpm: *mut rte_lpm6);
+	pub fn rte_lpm6_lookup(lpm: *const rte_lpm6, ip: *mut uint8_t, next_hop: *mut uint8_t) -> c_int;
+	pub fn rte_lpm6_lookup_bulk_func(lpm: *const rte_lpm6, ips: *mut [uint8_t; 16usize], next_hops: *mut int16_t, n: c_uint) -> c_int;
+	pub fn rte_meter_srtcm_config(m: *mut rte_meter_srtcm, params: *mut rte_meter_srtcm_params) -> c_int;
+	pub fn rte_meter_trtcm_config(m: *mut rte_meter_trtcm, params: *mut rte_meter_trtcm_params) -> c_int;
 }
 
