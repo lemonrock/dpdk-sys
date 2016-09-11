@@ -49,4 +49,3 @@ include!("functions/rte_vhost.rs");
 include!("functions/thread.rs");
 include!("functions/timer.rs");
 include!("functions/txrx_ol.rs");
-include!("functions/vt100.rs");

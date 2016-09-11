@@ -4,6 +4,5 @@
 
 extern "C"
 {
-	pub static mut rte_cycles_vmware_tsc_map: c_int;
 	pub static mut rte_rtm_supported: uint8_t;
 }

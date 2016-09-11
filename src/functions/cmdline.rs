@@ -32,4 +32,6 @@ extern "C"
 	pub fn cmdline_stdin_exit(cl: *mut cmdline);
 	pub fn cmdline_stdin_new(ctx: *mut cmdline_parse_ctx_t, prompt: *const c_char) -> *mut cmdline;
 	pub fn cmdline_write_char(rdl: *mut rdline, c: c_char) -> c_int;
+	pub fn vt100_init(vt: *mut cmdline_vt100);
+	pub fn vt100_parser(vt: *mut cmdline_vt100, c: c_char) -> c_int;
 }

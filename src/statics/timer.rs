@@ -5,4 +5,5 @@
 extern "C"
 {
 	pub static mut eal_timer_source: timer_source;
+	pub static mut rte_cycles_vmware_tsc_map: c_int;
 }
