@@ -422,7 +422,6 @@ extern "C"
 	pub fn rte_vhost_get_ifname(vid: c_int, buf: *mut c_char, len: size_t) -> c_int;
 	pub fn rte_vhost_get_numa_node(vid: c_int) -> c_int;
 	pub fn rte_vhost_get_queue_num(vid: c_int) -> uint32_t;
-	pub fn rte_vlog(level: uint32_t, logtype: uint32_t, format: *const c_char, ap: va_list) -> c_int;
 	pub fn rte_zmalloc(type_: *const c_char, size: size_t, align: c_uint) -> *mut c_void;
 	pub fn rte_zmalloc_socket(type_: *const c_char, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;
 	pub fn vt100_init(vt: *mut cmdline_vt100);
