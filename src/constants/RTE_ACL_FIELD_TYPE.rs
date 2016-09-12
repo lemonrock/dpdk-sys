@@ -2,6 +2,6 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const RTE_EPOLL_EXEC: u32 = 2;
-pub const RTE_EPOLL_INVALID: u32 = 0;
-pub const RTE_EPOLL_VALID: u32 = 1;
+pub const RTE_ACL_FIELD_TYPE_BITMASK: u32 = 2;
+pub const RTE_ACL_FIELD_TYPE_MASK: u32 = 0;
+pub const RTE_ACL_FIELD_TYPE_RANGE: u32 = 1;
