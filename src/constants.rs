@@ -29,6 +29,7 @@ include!("constants/RING_F.rs");
 include!("constants/RTE_ACL.rs");
 include!("constants/RTE_ARCH.rs");
 include!("constants/RTE_CRYPTO.rs");
+include!("constants/RTE_EPOLL.rs");
 include!("constants/RTE_ETHDEV.rs");
 include!("constants/RTE_FBK_HASH.rs");
 include!("constants/RTE_HASH.rs");

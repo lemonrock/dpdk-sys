@@ -16,7 +16,6 @@ pub const RTE_CACHE_LINE_SIZE: c_int = 64;
 pub const RTE_CACHE_LINE_SIZE_LOG2: c_int = 6;
 pub const RTE_DISTRIBUTOR_NAMESIZE: c_int = 32;
 pub const RTE_EAL_VFIO: c_int = 1;
-pub const RTE_EPOLL_PER_THREAD: c_int = -1;
 pub const RTE_EXEC_ENV_LINUXAPP: c_int = 1;
 pub const RTE_JHASH_GOLDEN_RATIO: i64 = 3735928559;
 pub const RTE_JOBSTATS_NAMESIZE: c_int = 32;

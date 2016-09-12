@@ -5,6 +5,9 @@
 pub const RTE_ACL_INVALID_USERDATA: c_int = 0;
 pub const RTE_ACL_MAX_CATEGORIES: c_int = 16;
 pub const RTE_ACL_MAX_FIELDS: c_int = 64;
+pub const RTE_ACL_MAX_INDEX: u32 = 536870911;
 pub const RTE_ACL_MAX_LEVELS: c_int = 64;
-pub const RTE_ACL_MAX_PRIORITY: RTE_ACL = RTE_ACL::RTE_ACL_MAX_INDEX;
+pub const RTE_ACL_MAX_PRIORITY: u32 = RTE_ACL_MAX_INDEX;
+pub const RTE_ACL_MIN_PRIORITY: u32 = 0;
 pub const RTE_ACL_NAMESIZE: c_int = 32;
+pub const RTE_ACL_TYPE_SHIFT: u32 = 29;

@@ -2,11 +2,4 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub enum RTE_ACL_FIELD_TYPE
-{
-	RTE_ACL_FIELD_TYPE_MASK = 0,
-	RTE_ACL_FIELD_TYPE_RANGE = 1,
-	RTE_ACL_FIELD_TYPE_BITMASK = 2,
-}
+pub const RTE_EPOLL_PER_THREAD: c_int = -1;
