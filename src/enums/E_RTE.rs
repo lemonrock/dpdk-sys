@@ -3,7 +3,7 @@
 
 
 #[derive(Copy, Clone)]
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Debug)]
 pub enum E_RTE
 {
