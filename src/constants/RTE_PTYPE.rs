@@ -1,0 +1,49 @@
+// This file is part of dpdk-sys. It is subject to the license terms in the COPYRIGHT file found in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT. No part of dpdk-sys, including this file, may be copied, modified, propagated, or distributed except according to the terms contained in the COPYRIGHT file.
+// Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
+
+
+pub const RTE_PTYPE_INNER_L2_ETHER: c_int = 65536;
+pub const RTE_PTYPE_INNER_L2_ETHER_VLAN: c_int = 131072;
+pub const RTE_PTYPE_INNER_L2_MASK: c_int = 983040;
+pub const RTE_PTYPE_INNER_L3_IPV4: c_int = 1048576;
+pub const RTE_PTYPE_INNER_L3_IPV4_EXT: c_int = 2097152;
+pub const RTE_PTYPE_INNER_L3_IPV4_EXT_UNKNOWN: c_int = 4194304;
+pub const RTE_PTYPE_INNER_L3_IPV6: c_int = 3145728;
+pub const RTE_PTYPE_INNER_L3_IPV6_EXT: c_int = 5242880;
+pub const RTE_PTYPE_INNER_L3_IPV6_EXT_UNKNOWN: c_int = 6291456;
+pub const RTE_PTYPE_INNER_L3_MASK: c_int = 15728640;
+pub const RTE_PTYPE_INNER_L4_FRAG: c_int = 50331648;
+pub const RTE_PTYPE_INNER_L4_ICMP: c_int = 83886080;
+pub const RTE_PTYPE_INNER_L4_MASK: c_int = 251658240;
+pub const RTE_PTYPE_INNER_L4_NONFRAG: c_int = 100663296;
+pub const RTE_PTYPE_INNER_L4_SCTP: c_int = 67108864;
+pub const RTE_PTYPE_INNER_L4_TCP: c_int = 16777216;
+pub const RTE_PTYPE_INNER_L4_UDP: c_int = 33554432;
+pub const RTE_PTYPE_L2_ETHER: c_int = 1;
+pub const RTE_PTYPE_L2_ETHER_ARP: c_int = 3;
+pub const RTE_PTYPE_L2_ETHER_LLDP: c_int = 4;
+pub const RTE_PTYPE_L2_ETHER_NSH: c_int = 5;
+pub const RTE_PTYPE_L2_ETHER_TIMESYNC: c_int = 2;
+pub const RTE_PTYPE_L2_MASK: c_int = 15;
+pub const RTE_PTYPE_L3_IPV4: c_int = 16;
+pub const RTE_PTYPE_L3_IPV4_EXT: c_int = 48;
+pub const RTE_PTYPE_L3_IPV4_EXT_UNKNOWN: c_int = 144;
+pub const RTE_PTYPE_L3_IPV6: c_int = 64;
+pub const RTE_PTYPE_L3_IPV6_EXT: c_int = 192;
+pub const RTE_PTYPE_L3_IPV6_EXT_UNKNOWN: c_int = 224;
+pub const RTE_PTYPE_L3_MASK: c_int = 240;
+pub const RTE_PTYPE_L4_FRAG: c_int = 768;
+pub const RTE_PTYPE_L4_ICMP: c_int = 1280;
+pub const RTE_PTYPE_L4_MASK: c_int = 3840;
+pub const RTE_PTYPE_L4_NONFRAG: c_int = 1536;
+pub const RTE_PTYPE_L4_SCTP: c_int = 1024;
+pub const RTE_PTYPE_L4_TCP: c_int = 256;
+pub const RTE_PTYPE_L4_UDP: c_int = 512;
+pub const RTE_PTYPE_TUNNEL_GENEVE: c_int = 20480;
+pub const RTE_PTYPE_TUNNEL_GRE: c_int = 8192;
+pub const RTE_PTYPE_TUNNEL_GRENAT: c_int = 24576;
+pub const RTE_PTYPE_TUNNEL_IP: c_int = 4096;
+pub const RTE_PTYPE_TUNNEL_MASK: c_int = 61440;
+pub const RTE_PTYPE_TUNNEL_NVGRE: c_int = 16384;
+pub const RTE_PTYPE_TUNNEL_VXLAN: c_int = 12288;
+pub const RTE_PTYPE_UNKNOWN: c_int = 0;
