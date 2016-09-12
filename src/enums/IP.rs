@@ -5,7 +5,7 @@
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum AnonymousEnum24
+pub enum IP
 {
 	IP_LAST_FRAG_IDX = 0,
 	IP_FIRST_FRAG_IDX = 1,

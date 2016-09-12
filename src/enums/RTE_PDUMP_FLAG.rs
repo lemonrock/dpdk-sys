@@ -5,9 +5,9 @@
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum AnonymousEnum21
+pub enum RTE_PDUMP_FLAG
 {
-	VIRTIO_RXQ = 0,
-	VIRTIO_TXQ = 1,
-	VIRTIO_QNUM = 2,
+	RTE_PDUMP_FLAG_RX = 1,
+	RTE_PDUMP_FLAG_TX = 2,
+	RTE_PDUMP_FLAG_RXTX = 3,
 }

@@ -2,13 +2,13 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-include!("enums/AnonymousEnum21.rs");
-include!("enums/AnonymousEnum23.rs");
-include!("enums/AnonymousEnum24.rs");
-include!("enums/AnonymousEnum26.rs");
-include!("enums/AnonymousEnum27.rs");
-include!("enums/AnonymousEnum28.rs");
 include!("enums/E_RTE.rs");
+include!("enums/IP.rs");
+include!("enums/RTE_ACL.rs");
+include!("enums/RTE_ACL_FIELD_TYPE.rs");
+include!("enums/RTE_EPOLL.rs");
+include!("enums/RTE_PDUMP_FLAG.rs");
+include!("enums/VIRTIO.rs");
 include!("enums/cmdline_numtype.rs");
 include!("enums/cmdline_vt100_parser_state.rs");
 include!("enums/malloc_elem.rs");

@@ -5,7 +5,7 @@
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum AnonymousEnum23
+pub enum RTE_EPOLL
 {
 	RTE_EPOLL_INVALID = 0,
 	RTE_EPOLL_VALID = 1,

@@ -5,9 +5,9 @@
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum AnonymousEnum28
+pub enum RTE_ACL_FIELD_TYPE
 {
-	RTE_ACL_TYPE_SHIFT = 29,
-	RTE_ACL_MAX_INDEX = 536870911,
-	RTE_ACL_MIN_PRIORITY = 0,
+	RTE_ACL_FIELD_TYPE_MASK = 0,
+	RTE_ACL_FIELD_TYPE_RANGE = 1,
+	RTE_ACL_FIELD_TYPE_BITMASK = 2,
 }
