@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct5
 {
 	pub _bindgen_data_1_: [u32; 1usize],

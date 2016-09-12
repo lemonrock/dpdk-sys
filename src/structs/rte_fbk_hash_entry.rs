@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_fbk_hash_entry
 {
 	pub _bindgen_data_: [u64; 1usize],

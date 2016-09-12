@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_table_hash_lru_params
 {
 	pub key_size: uint32_t,

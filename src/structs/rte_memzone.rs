@@ -3,8 +3,7 @@
 
 
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_memzone
 {
 	pub name: [c_char; 32usize],

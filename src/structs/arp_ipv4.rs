@@ -3,8 +3,7 @@
 
 
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct arp_ipv4
 {
 	pub arp_sha: ether_addr,

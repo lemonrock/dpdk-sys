@@ -3,8 +3,7 @@
 
 
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct icmp_hdr
 {
 	pub icmp_type: uint8_t,

@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct virtio_net_device_ops
 {
 	pub new_device: Option<extern "C" fn(vid: c_int) -> c_int>,

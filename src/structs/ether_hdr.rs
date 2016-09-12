@@ -3,8 +3,7 @@
 
 
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ether_hdr
 {
 	pub d_addr: ether_addr,

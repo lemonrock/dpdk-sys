@@ -3,8 +3,7 @@
 
 
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ipv6_extension_fragment
 {
 	pub next_header: uint8_t,

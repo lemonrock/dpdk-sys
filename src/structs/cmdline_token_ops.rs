@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct cmdline_token_ops
 {
 	pub parse: Option<unsafe extern "C" fn(arg1: *mut cmdline_parse_token_hdr_t, arg2: *const c_char, arg3: *mut c_void, arg4: c_uint) -> c_int>,

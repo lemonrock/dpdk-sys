@@ -3,8 +3,7 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct cmdline_inst
 {
 	pub f: Option<unsafe extern "C" fn(arg1: *mut c_void, arg2: *mut cmdline, arg3: *mut c_void)>,
