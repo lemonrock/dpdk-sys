@@ -15,6 +15,7 @@ pub struct rte_mempool_cache
 
 impl Clone for rte_mempool_cache
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

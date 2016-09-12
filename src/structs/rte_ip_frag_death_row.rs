@@ -13,6 +13,7 @@ pub struct rte_ip_frag_death_row
 
 impl Clone for rte_ip_frag_death_row
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

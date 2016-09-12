@@ -23,6 +23,7 @@ pub struct rte_mem_config
 
 impl Clone for rte_mem_config
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

@@ -15,6 +15,7 @@ pub struct rte_table_acl_params
 
 impl Clone for rte_table_acl_params
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

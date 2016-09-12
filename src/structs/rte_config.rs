@@ -16,6 +16,7 @@ pub struct rte_config
 
 impl Clone for rte_config
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

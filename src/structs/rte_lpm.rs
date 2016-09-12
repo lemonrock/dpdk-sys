@@ -18,6 +18,7 @@ pub struct rte_lpm
 
 impl Clone for rte_lpm
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

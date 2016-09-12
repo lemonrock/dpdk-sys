@@ -12,6 +12,7 @@ pub struct rte_table_acl_rule_delete_params
 
 impl Clone for rte_table_acl_rule_delete_params
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

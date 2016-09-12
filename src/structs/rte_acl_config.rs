@@ -15,6 +15,7 @@ pub struct rte_acl_config
 
 impl Clone for rte_acl_config
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

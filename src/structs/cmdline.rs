@@ -17,6 +17,7 @@ pub struct cmdline
 
 impl Clone for cmdline
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

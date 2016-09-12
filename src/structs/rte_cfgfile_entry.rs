@@ -13,6 +13,7 @@ pub struct rte_cfgfile_entry
 
 impl Clone for rte_cfgfile_entry
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self

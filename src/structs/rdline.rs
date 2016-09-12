@@ -28,6 +28,7 @@ pub struct rdline
 
 impl Clone for rdline
 {
+	#[inline(always)]
 	fn clone(&self) -> Self
 	{
 		*self
