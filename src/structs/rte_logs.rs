@@ -13,6 +13,7 @@ pub struct rte_logs
 
 impl Default for rte_logs
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

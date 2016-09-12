@@ -14,6 +14,7 @@ pub struct rte_reciprocal
 
 impl Default for rte_reciprocal
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

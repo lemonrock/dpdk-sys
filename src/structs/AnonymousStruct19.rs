@@ -11,6 +11,7 @@ pub struct AnonymousStruct19
 
 impl Default for AnonymousStruct19
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -14,6 +14,7 @@ pub struct virtio_net_device_ops
 
 impl Default for virtio_net_device_ops
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

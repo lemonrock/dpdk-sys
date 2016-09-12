@@ -15,6 +15,7 @@ pub struct rte_acl_field_def
 
 impl Default for rte_acl_field_def
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -14,6 +14,7 @@ pub struct udp_hdr
 
 impl Default for udp_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

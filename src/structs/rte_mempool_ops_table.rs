@@ -14,6 +14,7 @@ pub struct rte_mempool_ops_table
 
 impl Default for rte_mempool_ops_table
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

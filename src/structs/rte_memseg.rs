@@ -31,6 +31,7 @@ impl rte_memseg
 
 impl Default for rte_memseg
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

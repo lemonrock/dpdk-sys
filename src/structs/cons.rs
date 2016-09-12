@@ -15,6 +15,7 @@ pub struct cons
 
 impl Default for cons
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

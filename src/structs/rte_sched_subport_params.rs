@@ -14,6 +14,7 @@ pub struct rte_sched_subport_params
 
 impl Default for rte_sched_subport_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

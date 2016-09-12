@@ -14,6 +14,7 @@ pub struct sctp_hdr
 
 impl Default for sctp_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

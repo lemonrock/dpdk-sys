@@ -12,6 +12,7 @@ pub struct vxlan_hdr
 
 impl Default for vxlan_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

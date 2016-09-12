@@ -16,6 +16,7 @@ pub struct ipv6_hdr
 
 impl Default for ipv6_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -14,6 +14,7 @@ pub struct rte_epoll_event
 
 impl Default for rte_epoll_event
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

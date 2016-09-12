@@ -14,6 +14,7 @@ pub struct cmdline_token_ops
 
 impl Default for cmdline_token_ops
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

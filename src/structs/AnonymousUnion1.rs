@@ -25,6 +25,7 @@ impl AnonymousUnion1
 
 impl Default for AnonymousUnion1
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

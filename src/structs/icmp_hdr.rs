@@ -15,6 +15,7 @@ pub struct icmp_hdr
 
 impl Default for icmp_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

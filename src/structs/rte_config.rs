@@ -24,6 +24,7 @@ impl Clone for rte_config
 
 impl Default for rte_config
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

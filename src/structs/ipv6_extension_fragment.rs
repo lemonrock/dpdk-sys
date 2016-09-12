@@ -14,6 +14,7 @@ pub struct ipv6_extension_fragment
 
 impl Default for ipv6_extension_fragment
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

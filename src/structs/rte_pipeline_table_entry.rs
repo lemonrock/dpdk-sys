@@ -27,6 +27,7 @@ impl rte_pipeline_table_entry
 
 impl Default for rte_pipeline_table_entry
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

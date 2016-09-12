@@ -13,6 +13,7 @@ pub struct cmdline_token_hdr
 
 impl Default for cmdline_token_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

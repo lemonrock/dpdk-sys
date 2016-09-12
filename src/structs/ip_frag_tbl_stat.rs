@@ -17,6 +17,7 @@ pub struct ip_frag_tbl_stat
 
 impl Default for ip_frag_tbl_stat
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

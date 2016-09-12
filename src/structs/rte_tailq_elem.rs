@@ -13,6 +13,7 @@ pub struct rte_tailq_elem
 
 impl Default for rte_tailq_elem
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

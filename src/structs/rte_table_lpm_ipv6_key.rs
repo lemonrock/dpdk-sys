@@ -12,6 +12,7 @@ pub struct rte_table_lpm_ipv6_key
 
 impl Default for rte_table_lpm_ipv6_key
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

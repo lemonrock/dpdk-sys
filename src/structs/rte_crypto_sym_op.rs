@@ -31,6 +31,7 @@ impl rte_crypto_sym_op
 
 impl Default for rte_crypto_sym_op
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

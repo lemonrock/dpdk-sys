@@ -14,6 +14,7 @@ pub struct rte_port_source_params
 
 impl Default for rte_port_source_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

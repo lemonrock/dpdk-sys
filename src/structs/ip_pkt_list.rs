@@ -12,6 +12,7 @@ pub struct ip_pkt_list
 
 impl Default for ip_pkt_list
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

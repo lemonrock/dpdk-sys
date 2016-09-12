@@ -21,6 +21,7 @@ pub struct rte_ip_frag_tbl
 
 impl Default for rte_ip_frag_tbl
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

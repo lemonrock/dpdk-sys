@@ -11,6 +11,7 @@ pub struct rte_rwlock_t
 
 impl Default for rte_rwlock_t
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

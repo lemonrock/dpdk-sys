@@ -13,6 +13,7 @@ pub struct rte_table_lpm_key
 
 impl Default for rte_table_lpm_key
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

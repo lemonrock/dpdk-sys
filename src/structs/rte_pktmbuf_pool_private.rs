@@ -12,6 +12,7 @@ pub struct rte_pktmbuf_pool_private
 
 impl Default for rte_pktmbuf_pool_private
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

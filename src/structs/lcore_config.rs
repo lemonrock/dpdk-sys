@@ -23,6 +23,7 @@ pub struct lcore_config
 
 impl Default for lcore_config
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

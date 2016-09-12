@@ -13,6 +13,7 @@ pub struct rte_port_ring_writer_params
 
 impl Default for rte_port_ring_writer_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -12,6 +12,7 @@ pub struct rte_lpm_rule_info
 
 impl Default for rte_lpm_rule_info
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

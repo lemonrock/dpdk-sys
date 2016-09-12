@@ -35,6 +35,7 @@ impl rte_acl_field_types
 
 impl Default for rte_acl_field_types
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

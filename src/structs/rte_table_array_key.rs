@@ -11,6 +11,7 @@ pub struct rte_table_array_key
 
 impl Default for rte_table_array_key
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

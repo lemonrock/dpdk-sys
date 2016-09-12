@@ -12,6 +12,7 @@ pub struct cmdline_token_string
 
 impl Default for cmdline_token_string
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

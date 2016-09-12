@@ -15,6 +15,7 @@ pub struct rte_sched_pipe_params
 
 impl Default for rte_sched_pipe_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

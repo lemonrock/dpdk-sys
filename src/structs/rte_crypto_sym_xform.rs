@@ -27,6 +27,7 @@ impl rte_crypto_sym_xform
 
 impl Default for rte_crypto_sym_xform
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

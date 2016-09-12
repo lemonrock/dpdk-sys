@@ -45,6 +45,7 @@ impl rte_xmm
 
 impl Default for rte_xmm
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

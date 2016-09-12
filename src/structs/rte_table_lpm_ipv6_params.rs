@@ -15,6 +15,7 @@ pub struct rte_table_lpm_ipv6_params
 
 impl Default for rte_table_lpm_ipv6_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

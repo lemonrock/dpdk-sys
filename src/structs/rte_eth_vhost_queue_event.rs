@@ -13,6 +13,7 @@ pub struct rte_eth_vhost_queue_event
 
 impl Default for rte_eth_vhost_queue_event
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

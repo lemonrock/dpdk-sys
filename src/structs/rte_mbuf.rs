@@ -70,6 +70,7 @@ impl rte_mbuf
 
 impl Default for rte_mbuf
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

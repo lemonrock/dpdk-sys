@@ -16,6 +16,7 @@ pub struct rte_ring
 
 impl Default for rte_ring
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

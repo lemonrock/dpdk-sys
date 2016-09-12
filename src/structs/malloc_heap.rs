@@ -14,6 +14,7 @@ pub struct malloc_heap
 
 impl Default for malloc_heap
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

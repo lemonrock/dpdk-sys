@@ -11,6 +11,7 @@ pub struct ether_addr
 
 impl Default for ether_addr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

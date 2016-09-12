@@ -12,6 +12,7 @@ pub struct rte_pipeline_port_out_stats
 
 impl Default for rte_pipeline_port_out_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

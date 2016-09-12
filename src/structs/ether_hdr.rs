@@ -13,6 +13,7 @@ pub struct ether_hdr
 
 impl Default for ether_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

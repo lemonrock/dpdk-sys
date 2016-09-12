@@ -16,6 +16,7 @@ pub struct rte_red_config
 
 impl Default for rte_red_config
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

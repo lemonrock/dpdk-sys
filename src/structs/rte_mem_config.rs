@@ -31,6 +31,7 @@ impl Clone for rte_mem_config
 
 impl Default for rte_mem_config
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

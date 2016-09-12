@@ -21,6 +21,7 @@ impl Clone for rte_cfgfile_entry
 
 impl Default for rte_cfgfile_entry
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

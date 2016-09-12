@@ -15,6 +15,7 @@ pub struct rte_acl_param
 
 impl Default for rte_acl_param
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

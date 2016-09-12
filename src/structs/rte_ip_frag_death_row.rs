@@ -21,6 +21,7 @@ impl Clone for rte_ip_frag_death_row
 
 impl Default for rte_ip_frag_death_row
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

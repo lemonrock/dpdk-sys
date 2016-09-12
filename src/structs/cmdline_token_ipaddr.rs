@@ -13,6 +13,7 @@ pub struct cmdline_token_ipaddr
 
 impl Default for cmdline_token_ipaddr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

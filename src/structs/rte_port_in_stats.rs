@@ -12,6 +12,7 @@ pub struct rte_port_in_stats
 
 impl Default for rte_port_in_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

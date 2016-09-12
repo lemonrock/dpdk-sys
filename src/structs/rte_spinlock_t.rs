@@ -11,6 +11,7 @@ pub struct rte_spinlock_t
 
 impl Default for rte_spinlock_t
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

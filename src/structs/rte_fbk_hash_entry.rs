@@ -25,6 +25,7 @@ impl rte_fbk_hash_entry
 
 impl Default for rte_fbk_hash_entry
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

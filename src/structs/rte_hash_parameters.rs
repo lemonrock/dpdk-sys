@@ -19,6 +19,7 @@ pub struct rte_hash_parameters
 
 impl Default for rte_hash_parameters
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

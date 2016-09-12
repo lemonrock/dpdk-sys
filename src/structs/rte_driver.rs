@@ -15,6 +15,7 @@ pub struct rte_driver
 
 impl Default for rte_driver
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

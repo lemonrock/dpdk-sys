@@ -11,6 +11,7 @@ pub struct rte_atomic64_t
 
 impl Default for rte_atomic64_t
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

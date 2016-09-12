@@ -13,6 +13,7 @@ pub struct rte_mempool_objhdr
 
 impl Default for rte_mempool_objhdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

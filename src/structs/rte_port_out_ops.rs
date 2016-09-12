@@ -16,6 +16,7 @@ pub struct rte_port_out_ops
 
 impl Default for rte_port_out_ops
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

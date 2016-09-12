@@ -12,6 +12,7 @@ pub struct vlan_hdr
 
 impl Default for vlan_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

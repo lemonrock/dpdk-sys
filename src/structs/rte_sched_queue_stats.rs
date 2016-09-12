@@ -14,6 +14,7 @@ pub struct rte_sched_queue_stats
 
 impl Default for rte_sched_queue_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

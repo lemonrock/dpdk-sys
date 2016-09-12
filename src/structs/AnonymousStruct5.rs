@@ -31,6 +31,7 @@ impl AnonymousStruct5
 
 impl Default for AnonymousStruct5
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -19,6 +19,7 @@ pub struct rte_fbk_hash_table
 
 impl Default for rte_fbk_hash_table
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

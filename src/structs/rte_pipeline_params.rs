@@ -13,6 +13,7 @@ pub struct rte_pipeline_params
 
 impl Default for rte_pipeline_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

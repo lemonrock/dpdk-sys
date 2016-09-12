@@ -19,6 +19,7 @@ pub struct tcp_hdr
 
 impl Default for tcp_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

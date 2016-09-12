@@ -15,6 +15,7 @@ pub struct cirbuf
 
 impl Default for cirbuf
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

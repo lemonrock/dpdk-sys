@@ -25,6 +25,7 @@ impl rte_thash_tuple
 
 impl Default for rte_thash_tuple
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

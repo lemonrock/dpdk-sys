@@ -32,6 +32,7 @@ impl rte_intr_handle
 
 impl Default for rte_intr_handle
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -17,6 +17,7 @@ pub struct rte_table_lpm_params
 
 impl Default for rte_table_lpm_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

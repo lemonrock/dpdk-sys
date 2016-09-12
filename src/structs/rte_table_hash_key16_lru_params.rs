@@ -16,6 +16,7 @@ pub struct rte_table_hash_key16_lru_params
 
 impl Default for rte_table_hash_key16_lru_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

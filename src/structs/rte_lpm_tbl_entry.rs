@@ -14,6 +14,7 @@ pub struct rte_lpm_tbl_entry
 
 impl Default for rte_lpm_tbl_entry
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

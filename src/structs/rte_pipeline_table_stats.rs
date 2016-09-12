@@ -15,6 +15,7 @@ pub struct rte_pipeline_table_stats
 
 impl Default for rte_pipeline_table_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

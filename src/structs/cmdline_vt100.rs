@@ -13,6 +13,7 @@ pub struct cmdline_vt100
 
 impl Default for cmdline_vt100
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

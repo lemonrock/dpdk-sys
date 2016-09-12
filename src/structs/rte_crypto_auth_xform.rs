@@ -15,6 +15,7 @@ pub struct rte_crypto_auth_xform
 
 impl Default for rte_crypto_auth_xform
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

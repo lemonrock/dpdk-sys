@@ -13,6 +13,7 @@ pub struct ip_frag_key
 
 impl Default for ip_frag_key
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

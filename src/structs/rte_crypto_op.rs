@@ -26,6 +26,7 @@ impl rte_crypto_op
 
 impl Default for rte_crypto_op
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

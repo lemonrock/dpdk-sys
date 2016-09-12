@@ -14,6 +14,7 @@ pub struct rte_mempool_objsz
 
 impl Default for rte_mempool_objsz
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

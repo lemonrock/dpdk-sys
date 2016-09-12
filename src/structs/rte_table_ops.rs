@@ -18,6 +18,7 @@ pub struct rte_table_ops
 
 impl Default for rte_table_ops
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

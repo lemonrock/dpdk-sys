@@ -17,6 +17,7 @@ pub struct rte_mempool_memhdr
 
 impl Default for rte_mempool_memhdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

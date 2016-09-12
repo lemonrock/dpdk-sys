@@ -14,6 +14,7 @@ pub struct rte_meter_trtcm_params
 
 impl Default for rte_meter_trtcm_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

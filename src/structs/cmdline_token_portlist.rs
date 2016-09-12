@@ -11,6 +11,7 @@ pub struct cmdline_token_portlist
 
 impl Default for cmdline_token_portlist
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -32,6 +32,7 @@ impl rte_ipv4_tuple
 
 impl Default for rte_ipv4_tuple
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

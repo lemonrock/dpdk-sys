@@ -23,6 +23,7 @@ impl Clone for rte_acl_config
 
 impl Default for rte_acl_config
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

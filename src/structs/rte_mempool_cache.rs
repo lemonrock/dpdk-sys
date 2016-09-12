@@ -23,6 +23,7 @@ impl Clone for rte_mempool_cache
 
 impl Default for rte_mempool_cache
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

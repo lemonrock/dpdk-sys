@@ -13,6 +13,7 @@ pub struct rte_crypto_cipher_xform
 
 impl Default for rte_crypto_cipher_xform
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

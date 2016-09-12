@@ -14,6 +14,7 @@ pub struct cmdline_inst
 
 impl Default for cmdline_inst
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

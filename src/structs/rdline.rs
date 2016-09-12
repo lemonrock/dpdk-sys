@@ -36,6 +36,7 @@ impl Clone for rdline
 
 impl Default for rdline
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

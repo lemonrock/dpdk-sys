@@ -13,6 +13,7 @@ pub struct rte_acl_rule_data
 
 impl Default for rte_acl_rule_data
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

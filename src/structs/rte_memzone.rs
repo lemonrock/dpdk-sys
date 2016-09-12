@@ -32,6 +32,7 @@ impl rte_memzone
 
 impl Default for rte_memzone
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

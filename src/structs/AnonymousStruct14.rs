@@ -14,6 +14,7 @@ pub struct AnonymousStruct14
 
 impl Default for AnonymousStruct14
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

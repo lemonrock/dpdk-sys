@@ -21,6 +21,7 @@ impl Clone for rte_table_acl_rule_add_params
 
 impl Default for rte_table_acl_rule_add_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

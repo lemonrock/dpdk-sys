@@ -20,6 +20,7 @@ pub struct ipv4_hdr
 
 impl Default for ipv4_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

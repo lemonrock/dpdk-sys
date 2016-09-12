@@ -13,6 +13,7 @@ pub struct rte_spinlock_recursive_t
 
 impl Default for rte_spinlock_recursive_t
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

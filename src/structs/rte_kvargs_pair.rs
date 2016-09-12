@@ -12,6 +12,7 @@ pub struct rte_kvargs_pair
 
 impl Default for rte_kvargs_pair
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

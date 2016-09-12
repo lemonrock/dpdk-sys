@@ -12,6 +12,7 @@ pub struct rte_tailq_entry_head
 
 impl Default for rte_tailq_entry_head
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

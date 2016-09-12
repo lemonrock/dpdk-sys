@@ -13,6 +13,7 @@ pub struct rte_kvargs
 
 impl Default for rte_kvargs
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -25,6 +25,7 @@ impl Clone for cmdline
 
 impl Default for cmdline
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

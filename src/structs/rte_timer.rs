@@ -16,6 +16,7 @@ pub struct rte_timer
 
 impl Default for rte_timer
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

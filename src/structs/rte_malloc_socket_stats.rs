@@ -16,6 +16,7 @@ pub struct rte_malloc_socket_stats
 
 impl Default for rte_malloc_socket_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

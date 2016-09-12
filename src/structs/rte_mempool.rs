@@ -42,6 +42,7 @@ impl rte_mempool
 
 impl Default for rte_mempool
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

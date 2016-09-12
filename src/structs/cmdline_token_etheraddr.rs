@@ -11,6 +11,7 @@ pub struct cmdline_token_etheraddr
 
 impl Default for cmdline_token_etheraddr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

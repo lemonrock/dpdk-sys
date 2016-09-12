@@ -22,6 +22,7 @@ pub struct rte_jobstats_context
 
 impl Default for rte_jobstats_context
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

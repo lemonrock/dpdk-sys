@@ -14,6 +14,7 @@ pub struct rte_epoll_data
 
 impl Default for rte_epoll_data
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

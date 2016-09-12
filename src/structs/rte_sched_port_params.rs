@@ -20,6 +20,7 @@ pub struct rte_sched_port_params
 
 impl Default for rte_sched_port_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

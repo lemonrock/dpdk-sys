@@ -17,6 +17,7 @@ pub struct rte_timecounter
 
 impl Default for rte_timecounter
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

@@ -13,6 +13,7 @@ pub struct rte_crypto_op_pool_private
 
 impl Default for rte_crypto_op_pool_private
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

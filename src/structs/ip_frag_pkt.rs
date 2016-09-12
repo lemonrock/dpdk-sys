@@ -17,6 +17,7 @@ pub struct ip_frag_pkt
 
 impl Default for ip_frag_pkt
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

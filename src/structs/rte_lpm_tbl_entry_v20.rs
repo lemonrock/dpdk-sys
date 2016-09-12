@@ -28,6 +28,7 @@ impl rte_lpm_tbl_entry_v20
 
 impl Default for rte_lpm_tbl_entry_v20
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

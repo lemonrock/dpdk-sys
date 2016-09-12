@@ -25,6 +25,7 @@ impl Clone for rte_lpm_v20
 
 impl Default for rte_lpm_v20
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

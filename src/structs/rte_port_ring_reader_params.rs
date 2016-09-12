@@ -11,6 +11,7 @@ pub struct rte_port_ring_reader_params
 
 impl Default for rte_port_ring_reader_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

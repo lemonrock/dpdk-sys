@@ -30,6 +30,7 @@ impl rte_timer_status
 
 impl Default for rte_timer_status
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

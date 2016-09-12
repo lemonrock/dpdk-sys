@@ -16,6 +16,7 @@ pub struct prod
 
 impl Default for prod
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

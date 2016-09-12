@@ -14,6 +14,7 @@ pub struct arp_ipv4
 
 impl Default for arp_ipv4
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

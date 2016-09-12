@@ -16,6 +16,7 @@ pub struct arp_hdr
 
 impl Default for arp_hdr
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

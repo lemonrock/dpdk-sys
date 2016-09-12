@@ -13,6 +13,7 @@ pub struct rte_red
 
 impl Default for rte_red
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

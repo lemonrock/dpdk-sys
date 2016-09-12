@@ -15,6 +15,7 @@ pub struct rte_dev_reg_info
 
 impl Default for rte_dev_reg_info
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

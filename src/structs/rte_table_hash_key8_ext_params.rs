@@ -17,6 +17,7 @@ pub struct rte_table_hash_key8_ext_params
 
 impl Default for rte_table_hash_key8_ext_params
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }

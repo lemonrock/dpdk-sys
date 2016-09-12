@@ -12,6 +12,7 @@ pub struct rte_table_stats
 
 impl Default for rte_table_stats
 {
+	#[inline(always)]
 	fn default() -> Self
 	{
 		unsafe { zeroed() }
