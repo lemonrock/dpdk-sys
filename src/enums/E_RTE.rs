@@ -5,7 +5,7 @@
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
-pub enum AnonymousEnum20
+pub enum E_RTE
 {
 	RTE_MIN_ERRNO = 1000,
 	E_RTE_SECONDARY = 1001,

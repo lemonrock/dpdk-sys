@@ -5,7 +5,7 @@
 extern "C"
 {
 	pub static mut lcore_config: [lcore_config; 128usize];
-	pub static mut per_lcore__cpuset: c_void;
-	pub static mut per_lcore__lcore_id: c_void;
-	pub static mut per_lcore__rte_errno: c_void;
+	pub static mut per_lcore__cpuset: rte_cpuset_t;
+	pub static mut per_lcore__lcore_id: c_uint;
+	pub static mut per_lcore__rte_errno: c_int;
 }
