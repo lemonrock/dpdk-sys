@@ -34,6 +34,8 @@ use ::libc::in6_addr;
 use ::libc::termios;
 use ::libc::pthread_t;
 use ::libc::cpu_set_t;
+use ::libc::timespec;
+use ::libc::off_t;
 
 
 #[repr(C, packed)]

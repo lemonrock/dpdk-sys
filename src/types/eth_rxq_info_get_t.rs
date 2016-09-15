@@ -2,20 +2,4 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct22
-{
-	pub is_entry: uint16_t,
-	pub value: uint16_t,
-	pub key: uint32_t,
-}
-
-impl Default for AnonymousStruct22
-{
-	#[inline(always)]
-	fn default() -> Self
-	{
-		unsafe { zeroed() }
-	}
-}
+pub type eth_rxq_info_get_t = Option<unsafe extern "C" fn(dev: *mut rte_eth_dev, rx_queue_id: uint16_t, qinfo: *mut rte_eth_rxq_info)>;

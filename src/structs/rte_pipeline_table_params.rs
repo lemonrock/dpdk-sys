@@ -12,7 +12,6 @@ pub struct rte_pipeline_table_params
 	pub f_action_miss: rte_pipeline_table_action_handler_miss,
 	pub arg_ah: *mut c_void,
 	pub action_data_size: uint32_t,
-	_bindgen_padding_0_: [u8; 4usize],
 }
 
 impl Default for rte_pipeline_table_params

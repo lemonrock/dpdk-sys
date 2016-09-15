@@ -14,7 +14,6 @@ pub struct rte_hash_parameters
 	pub hash_func_init_val: uint32_t,
 	pub socket_id: c_int,
 	pub extra_flag: uint8_t,
-	_bindgen_padding_0_: [u8; 7usize],
 }
 
 impl Default for rte_hash_parameters

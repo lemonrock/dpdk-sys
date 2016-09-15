@@ -9,7 +9,6 @@ pub struct rte_port_source_params
 	pub mempool: *mut rte_mempool,
 	pub file_name: *mut c_char,
 	pub n_bytes_per_pkt: uint32_t,
-	_bindgen_padding_0_: [u8; 4usize],
 }
 
 impl Default for rte_port_source_params

@@ -9,7 +9,6 @@ pub struct rte_reciprocal
 	pub m: uint32_t,
 	pub sh1: uint8_t,
 	pub sh2: uint8_t,
-	_bindgen_padding_0_: [u8; 2usize],
 }
 
 impl Default for rte_reciprocal

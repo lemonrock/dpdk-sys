@@ -12,7 +12,6 @@ pub struct rte_table_lpm_params
 	pub flags: c_int,
 	pub entry_unique_size: uint32_t,
 	pub offset: uint32_t,
-	_bindgen_padding_0_: [u8; 4usize],
 }
 
 impl Default for rte_table_lpm_params

@@ -12,7 +12,6 @@ pub struct rte_crypto_sym_op
 	pub _bindgen_data_1_: [u64; 1usize],
 	pub cipher: AnonymousStruct9,
 	pub auth: AnonymousStruct12,
-	_bindgen_padding_0_: [u64; 1usize],
 }
 
 impl rte_crypto_sym_op

@@ -8,7 +8,6 @@ pub struct rte_port_sched_writer_params
 {
 	pub sched: *mut rte_sched_port,
 	pub tx_burst_sz: uint32_t,
-	_bindgen_padding_0_: [u8; 4usize],
 }
 
 impl Default for rte_port_sched_writer_params

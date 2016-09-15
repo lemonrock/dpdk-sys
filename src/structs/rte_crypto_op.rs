@@ -12,7 +12,7 @@ pub struct rte_crypto_op
 	pub phys_addr: phys_addr_t,
 	pub opaque_data: *mut c_void,
 	pub _bindgen_data_1_: [u64; 1usize],
-	_bindgen_padding_0_: [u64; 3usize],
+	_bindgen_padding_0_: [u8; 24usize],
 }
 
 impl rte_crypto_op

@@ -31,7 +31,7 @@ pub struct rte_mbuf
 	pub _bindgen_data_4_: [u64; 1usize],
 	pub priv_size: uint16_t,
 	pub timesync: uint16_t,
-	_bindgen_padding_0_: [u64; 3usize],
+	_bindgen_padding_0_: [u8; 28usize],
 }
 
 impl rte_mbuf

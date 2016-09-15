@@ -4,5 +4,8 @@
 
 extern "C"
 {
+	pub static mut pci_device_list: pci_device_list;
+	pub static mut pci_driver_list: pci_driver_list;
+	pub static mut rte_eth_devices: [rte_eth_dev; 0usize];
 	pub static mut rte_rtm_supported: uint8_t;
 }

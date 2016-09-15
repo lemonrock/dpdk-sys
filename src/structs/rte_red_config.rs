@@ -11,7 +11,6 @@ pub struct rte_red_config
 	pub pa_const: uint32_t,
 	pub maxp_inv: uint8_t,
 	pub wq_log2: uint8_t,
-	_bindgen_padding_0_: [u8; 2usize],
 }
 
 impl Default for rte_red_config

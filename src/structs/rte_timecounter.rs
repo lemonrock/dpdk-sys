@@ -12,7 +12,6 @@ pub struct rte_timecounter
 	pub nsec_frac: uint64_t,
 	pub cc_mask: uint64_t,
 	pub cc_shift: uint32_t,
-	_bindgen_padding_0_: [u8; 4usize],
 }
 
 impl Default for rte_timecounter

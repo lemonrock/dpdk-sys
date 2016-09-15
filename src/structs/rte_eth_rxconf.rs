@@ -4,13 +4,15 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct25
+pub struct rte_eth_rxconf
 {
-	pub tqe_next: *mut ip_frag_pkt,
-	pub tqe_prev: *mut *mut ip_frag_pkt,
+	pub rx_thresh: rte_eth_thresh,
+	pub rx_free_thresh: uint16_t,
+	pub rx_drop_en: uint8_t,
+	pub rx_deferred_start: uint8_t,
 }
 
-impl Default for AnonymousStruct25
+impl Default for rte_eth_rxconf
 {
 	#[inline(always)]
 	fn default() -> Self
