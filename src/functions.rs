@@ -17,6 +17,7 @@ include!("functions/rte_acl.rs");
 include!("functions/rte_cfgfile.rs");
 include!("functions/rte_cpu.rs");
 include!("functions/rte_crypto.rs");
+include!("functions/rte_cryptodev.rs");
 include!("functions/rte_distributor.rs");
 include!("functions/rte_eal.rs");
 include!("functions/rte_eal_driver.rs");
