@@ -12206,8 +12206,6 @@ struct rte_eth_vhost_queue_event
 	*/
 int rte_eth_vhost_get_queue_event(uint8_t port_id,
 		struct rte_eth_vhost_queue_event *event);
-//#include <rte_ethdev.h>  Out of memory, Illegal Instruction - ? use of rte_pci.h
-// This file is based on rte_ethdev.h from DPDK 16.07, but with alterations so that bindgen can parse it
 
 
 /*-
@@ -12304,13 +12302,997 @@ int rte_eth_vhost_get_queue_event(uint8_t port_id,
 
 
 
-// #include <rte_log.h>
-// #include <rte_interrupts.h>
-// #include <rte_pci.h>
-// #include <rte_devargs.h>
-// #include "rte_ether.h"
-// #include "rte_eth_ctrl.h"
-// #include "rte_dev_info.h"
+
+
+/*-
+	*/
+
+
+/*-
+	*/
+
+
+/*-
+	*/
+
+
+/**
+	* @file
+	* The RTE interrupt interface provides functions to register/unregister
+	* callbacks for a specific interrupt.
+	*/
+
+
+
+struct rte_intr_handle;
+
+
+
+typedef void (*rte_intr_callback_fn)(struct rte_intr_handle *intr_handle,
+						 void *cb_arg);
+
+
+/*-
+	*/
+enum rte_intr_handle_type
+{
+	RTE_INTR_HANDLE_UNKNOWN = 0,
+	RTE_INTR_HANDLE_UIO, 
+
+
+	RTE_INTR_HANDLE_UIO_INTX, 
+
+
+	RTE_INTR_HANDLE_VFIO_LEGACY, 
+
+
+	RTE_INTR_HANDLE_VFIO_MSI, 
+
+
+	RTE_INTR_HANDLE_VFIO_MSIX, 
+
+
+	RTE_INTR_HANDLE_ALARM, 
+
+
+	RTE_INTR_HANDLE_EXT, 
+
+
+	RTE_INTR_HANDLE_MAX
+};
+typedef void (*rte_intr_event_cb_t)(int fd, void *arg);
+struct rte_epoll_data
+{
+	uint32_t event; 
+
+
+	void *data; 
+
+
+	rte_intr_event_cb_t cb_fun; 
+
+
+	void *cb_arg; 
+
+
+};
+enum
+{
+	RTE_EPOLL_INVALID = 0,
+	RTE_EPOLL_VALID,
+	RTE_EPOLL_EXEC,
+};
+
+
+
+struct rte_epoll_event
+{
+	volatile uint32_t status; 
+
+
+	int fd; 
+
+
+	int epfd; 
+
+
+	struct rte_epoll_data epdata;
+};
+
+
+
+struct rte_intr_handle
+{
+
+	union
+{
+		int vfio_dev_fd; 
+
+
+		int uio_cfg_fd; 
+
+/**< UIO config file descriptor
+					for uio_pci_generic */
+	};
+	int fd; 
+
+
+	enum rte_intr_handle_type type; 
+
+
+	uint32_t max_intr; 
+
+
+	uint32_t nb_efd; 
+
+
+	int efds[32]; 
+
+
+	struct rte_epoll_event elist[32];
+						     
+
+
+	int *intr_vec; 
+
+
+};
+
+
+/**
+	* It waits for events on the epoll instance.
+	* @param epfd
+	* @param events
+	* @param maxevents
+	* @param timeout
+	* @return
+	*/
+int
+rte_epoll_wait(int epfd, struct rte_epoll_event *events,
+						  int maxevents, int timeout);
+
+
+/**
+	* It performs control operations on epoll instance referred by the epfd.
+	* It requests that the operation op be performed for the target fd.
+	* @param epfd
+	* @param op
+	* @param fd
+	* @param event
+	* @return
+	*/
+int
+rte_epoll_ctl(int epfd, int op, int fd,
+						 struct rte_epoll_event *event);
+
+
+/**
+	* The function returns the per thread epoll instance.
+	* @return
+	*/
+int
+rte_intr_tls_epfd(void);
+
+
+/**
+	* @param intr_handle
+	* @param epfd
+	* @param op
+	* @param vec
+	* @param data
+	* @return
+	*/
+int
+rte_intr_rx_ctl(struct rte_intr_handle *intr_handle,
+		int epfd, int op, unsigned int vec, void *data);
+
+
+/**
+	* It enables the packet I/O interrupt event if it's necessary.
+	* It creates event fd for each interrupt vector when MSIX is used,
+	* otherwise it multiplexes a single event fd.
+	* @param intr_handle
+	* @param nb_efd
+	* @return
+	*/
+int
+rte_intr_efd_enable(struct rte_intr_handle *intr_handle, uint32_t nb_efd);
+
+
+/**
+	* It disables the packet I/O interrupt event.
+	* It deletes registered eventfds and closes the open fds.
+	* @param intr_handle
+	*/
+void
+rte_intr_efd_disable(struct rte_intr_handle *intr_handle);
+
+
+/**
+	* The packet I/O interrupt on datapath is enabled or not.
+	* @param intr_handle
+	*/
+int
+rte_intr_dp_is_en(struct rte_intr_handle *intr_handle);
+
+
+/**
+	* The interrupt handle instance allows other causes or not.
+	* Other causes stand for any none packet I/O interrupts.
+	* @param intr_handle
+	*/
+int
+rte_intr_allow_others(struct rte_intr_handle *intr_handle);
+
+
+/**
+	* The multiple interrupt vector capability of interrupt handle instance.
+	* It returns zero if no multiple interrupt vector support.
+	* @param intr_handle
+	*/
+int
+rte_intr_cap_multiple(struct rte_intr_handle *intr_handle);
+
+
+/**
+	* It registers the callback for the specific interrupt. Multiple
+	* callbacks cal be registered at the same time.
+	* @param intr_handle
+	*  Pointer to the interrupt handle.
+	* @param cb
+	*  callback address.
+	* @param cb_arg
+	*  address of parameter for callback.
+	* @return
+	*  - On success, zero.
+	*  - On failure, a negative value.
+	*/
+int rte_intr_callback_register(struct rte_intr_handle *intr_handle,
+				rte_intr_callback_fn cb, void *cb_arg);
+
+
+/**
+	* It unregisters the callback according to the specified interrupt handle.
+	* @param intr_handle
+	*  pointer to the interrupt handle.
+	* @param cb
+	*  callback address.
+	* @param cb_arg
+	*  address of parameter for callback, (void *)-1 means to remove all
+	*  registered which has the same callback address.
+	* @return
+	*  - On success, return the number of callback entities removed.
+	*  - On failure, a negative value.
+	*/
+int rte_intr_callback_unregister(struct rte_intr_handle *intr_handle,
+				rte_intr_callback_fn cb, void *cb_arg);
+
+
+/**
+	* It enables the interrupt for the specified handle.
+	* @param intr_handle
+	*  pointer to the interrupt handle.
+	* @return
+	*  - On success, zero.
+	*  - On failure, a negative value.
+	*/
+int rte_intr_enable(struct rte_intr_handle *intr_handle);
+
+
+/**
+	* It disables the interrupt for the specified handle.
+	* @param intr_handle
+	*  pointer to the interrupt handle.
+	* @return
+	*  - On success, zero.
+	*  - On failure, a negative value.
+	*/
+int rte_intr_disable(struct rte_intr_handle *intr_handle);
+
+
+/*-
+	*/
+
+
+/*   BSD LICENSE
+	*/
+
+
+/**
+	* @file
+	* RTE PCI Interface
+	*/
+
+
+/*
+	* Copyright (c) 1991, 1993
+	*	The Regents of the University of California.  All rights reserved.
+	* Redistribution and use in source and binary forms, with or without
+	* modification, are permitted provided that the following conditions
+	* are met:
+	* 1. Redistributions of source code must retain the above copyright
+	* 2. Redistributions in binary form must reproduce the above copyright
+	* 3. Neither the name of the University nor the names of its contributors
+	* THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+	* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+	* ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+	* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+	* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+	* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+	* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+	* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+	* SUCH DAMAGE.
+	*	@(#)queue.h	8.5 (Berkeley) 8/20/94
+	*/
+
+
+/*-
+	*/
+struct pci_device_list { struct rte_pci_device *tqh_first; struct rte_pci_device * *tqh_last; }; 
+
+
+struct pci_driver_list { struct rte_pci_driver *tqh_first; struct rte_pci_driver * *tqh_last; }; 
+
+
+extern struct pci_driver_list pci_driver_list; 
+
+
+extern struct pci_device_list pci_device_list; 
+
+
+
+
+
+const char *pci_get_sysfs_path(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+	* A structure describing a PCI resource.
+	*/
+struct rte_pci_resource
+{
+	uint64_t phys_addr; 
+
+
+	uint64_t len; 
+
+
+	void *addr; 
+
+
+};
+
+
+
+
+
+/**
+	* A structure describing an ID for a PCI driver. Each driver provides a
+	* table of these IDs for each device that it supports.
+	*/
+struct rte_pci_id
+{
+	uint32_t class_id; 
+
+
+	uint16_t vendor_id; 
+
+
+	uint16_t device_id; 
+
+
+	uint16_t subsystem_vendor_id; 
+
+
+	uint16_t subsystem_device_id; 
+
+
+};
+
+
+/**
+	* A structure describing the location of a PCI device.
+	*/
+struct rte_pci_addr
+{
+	uint16_t domain; 
+
+
+	uint8_t bus; 
+
+
+	uint8_t devid; 
+
+
+	uint8_t function; 
+
+
+};
+struct rte_devargs;
+enum rte_kernel_driver
+{
+	RTE_KDRV_UNKNOWN = 0,
+	RTE_KDRV_IGB_UIO,
+	RTE_KDRV_VFIO,
+	RTE_KDRV_UIO_GENERIC,
+	RTE_KDRV_NIC_UIO,
+	RTE_KDRV_NONE,
+};
+
+
+/**
+	* A structure describing a PCI device.
+	*/
+struct rte_pci_device
+{
+	struct { struct rte_pci_device *tqe_next; struct rte_pci_device * *tqe_prev; } next; 
+
+
+	struct rte_pci_addr addr; 
+
+
+	struct rte_pci_id id; 
+
+
+	struct rte_pci_resource mem_resource[6]; 
+
+
+	struct rte_intr_handle intr_handle; 
+
+
+	struct rte_pci_driver *driver; 
+
+
+	uint16_t max_vfs; 
+
+
+	int numa_node; 
+
+
+	struct rte_devargs *devargs; 
+
+
+	enum rte_kernel_driver kdrv; 
+
+
+};
+
+
+
+
+
+
+struct rte_pci_driver;
+
+
+/**
+	* Initialisation function for the driver called during PCI probing.
+	*/
+typedef int (pci_devinit_t)(struct rte_pci_driver *, struct rte_pci_device *);
+
+
+/**
+	* Uninitialisation function for the driver called during hotplugging.
+	*/
+typedef int (pci_devuninit_t)(struct rte_pci_device *);
+
+
+/**
+	* A structure describing a PCI driver.
+	*/
+struct rte_pci_driver
+{
+	struct { struct rte_pci_driver *tqe_next; struct rte_pci_driver * *tqe_prev; } next; 
+
+
+	const char *name; 
+
+
+	pci_devinit_t *devinit; 
+
+
+	pci_devuninit_t *devuninit; 
+
+
+	const struct rte_pci_id *id_table; 
+
+
+	uint32_t drv_flags; 
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+	* A structure describing a PCI mapping.
+	*/
+struct pci_map
+{
+	void *addr;
+	char *path;
+	uint64_t offset;
+	uint64_t size;
+	uint64_t phaddr;
+};
+
+
+/**
+	* A structure describing a mapped PCI resource.
+	* For multi-process we need to reproduce all PCI mappings in secondary
+	* processes, so save them in a tailq.
+	*/
+struct mapped_pci_resource
+{
+	struct { struct mapped_pci_resource *tqe_next; struct mapped_pci_resource * *tqe_prev; } next;
+	struct rte_pci_addr pci_addr;
+	char path[PATH_MAX];
+	int nb_maps;
+	struct pci_map maps[6];
+};
+
+
+
+struct mapped_pci_res_list { struct mapped_pci_resource *tqh_first; struct mapped_pci_resource * *tqh_last; };
+
+
+
+
+
+/**
+	* Utility function to produce a PCI Bus-Device-Function value
+	* given a string representation. Assumes that the BDF is provided without
+	* a domain prefix (i.e. domain returned is always 0)
+	* @param input
+	*	The input string to be parsed. Should have the format XX:XX.X
+	* @param dev_addr
+	*	The PCI Bus-Device-Function address to be returned. Domain will always be
+	*	returned as 0
+	* @return
+	*  0 on success, negative on error.
+	*/
+static inline int
+eal_parse_pci_BDF(const char *input, struct rte_pci_addr *dev_addr)
+{
+	dev_addr->domain = 0;
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->bus) = (__typeof__ (dev_addr->bus))val; (input) = end + 1; } while(0);
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != ('.') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->devid) = (__typeof__ (dev_addr->devid))val; (input) = end + 1; } while(0);
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (0) || val > (UINT8_MAX)) return -EINVAL; (dev_addr->function) = (__typeof__ (dev_addr->function))val; (input) = end + 1; } while(0);
+	return 0;
+}
+
+
+/**
+	* Utility function to produce a PCI Bus-Device-Function value
+	* given a string representation. Assumes that the BDF is provided including
+	* a domain prefix.
+	* @param input
+	*	The input string to be parsed. Should have the format XXXX:XX:XX.X
+	* @param dev_addr
+	*	The PCI Bus-Device-Function address to be returned
+	* @return
+	*  0 on success, negative on error.
+	*/
+static inline int
+eal_parse_pci_DomBDF(const char *input, struct rte_pci_addr *dev_addr)
+{
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT16_MAX)) return -EINVAL; (dev_addr->domain) = (__typeof__ (dev_addr->domain))val; (input) = end + 1; } while(0);
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->bus) = (__typeof__ (dev_addr->bus))val; (input) = end + 1; } while(0);
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != ('.') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->devid) = (__typeof__ (dev_addr->devid))val; (input) = end + 1; } while(0);
+	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (0) || val > (UINT8_MAX)) return -EINVAL; (dev_addr->function) = (__typeof__ (dev_addr->function))val; (input) = end + 1; } while(0);
+	return 0;
+}
+
+
+
+
+
+/**
+	* Utility function to compare two PCI device addresses.
+	* @param addr
+	*	The PCI Bus-Device-Function address to compare
+	* @param addr2
+	*	The PCI Bus-Device-Function address to compare
+	* @return
+	*	0 on equal PCI address.
+	*	Positive on addr is greater than addr2.
+	*	Negative on addr is less than addr2, or error.
+	*/
+static inline int
+rte_eal_compare_pci_addr(const struct rte_pci_addr *addr,
+				const struct rte_pci_addr *addr2)
+{
+	uint64_t dev_addr, dev_addr2;
+	if ((addr == NULL) || (addr2 == NULL))
+		return -1;
+	dev_addr = (addr->domain << 24) | (addr->bus << 16) |
+				(addr->devid << 8) | addr->function;
+	dev_addr2 = (addr2->domain << 24) | (addr2->bus << 16) |
+				(addr2->devid << 8) | addr2->function;
+	if (dev_addr > dev_addr2)
+		return 1;
+	else if (dev_addr < dev_addr2)
+		return -1;
+	else
+		return 0;
+}
+
+
+/**
+	* Scan the content of the PCI bus, and the devices in the devices
+	* list
+	* @return
+	*  0 on success, negative on error
+	*/
+int rte_eal_pci_scan(void);
+
+
+/**
+	* Probe the PCI bus for registered drivers.
+	* Scan the content of the PCI bus, and call the probe() function for
+	* all registered drivers that have a matching entry in its id_table
+	* for discovered devices.
+	* @return
+	*/
+int rte_eal_pci_probe(void);
+
+
+/**
+	* Map the PCI device resources in user space virtual memory address
+	* Note that driver should not call this function when flag
+	* RTE_PCI_DRV_NEED_MAPPING is set, as EAL will do that for
+	* you when it's on.
+	* @param dev
+	* @return
+	*/
+int rte_eal_pci_map_device(struct rte_pci_device *dev);
+
+
+/**
+	* Unmap this device
+	* @param dev
+	*/
+void rte_eal_pci_unmap_device(struct rte_pci_device *dev);
+
+
+/**
+	* @internal
+	* Map a particular resource from a file.
+	* @param requested_addr
+	* @param fd
+	* @param offset
+	* @param size
+	* @param additional_flags
+	* @return
+	*/
+void *pci_map_resource(void *requested_addr, int fd, off_t offset,
+		size_t size, int additional_flags);
+
+
+/**
+	* @internal
+	* Unmap a particular resource.
+	* @param requested_addr
+	* @param size
+	*/
+void pci_unmap_resource(void *requested_addr, size_t size);
+
+
+/**
+	* Probe the single PCI device.
+	* Scan the content of the PCI bus, and find the pci device specified by pci
+	* address, then call the probe() function for registered driver that has a
+	* matching entry in its id_table for discovered device.
+	* @param addr
+	*	The PCI Bus-Device-Function address to probe.
+	* @return
+	*/
+int rte_eal_pci_probe_one(const struct rte_pci_addr *addr);
+
+
+/**
+	* Close the single PCI device.
+	* Scan the content of the PCI bus, and find the pci device specified by pci
+	* address, then call the devuninit() function for registered driver that has a
+	* matching entry in its id_table for discovered device.
+	* @param addr
+	*	The PCI Bus-Device-Function address to close.
+	* @return
+	*/
+int rte_eal_pci_detach(const struct rte_pci_addr *addr);
+
+
+/**
+	* Dump the content of the PCI bus.
+	* @param f
+	*/
+void rte_eal_pci_dump(FILE *f);
+
+
+/**
+	* Register a PCI driver.
+	* @param driver
+	*/
+void rte_eal_pci_register(struct rte_pci_driver *driver);
+
+
+/**
+	* Unregister a PCI driver.
+	* @param driver
+	*/
+void rte_eal_pci_unregister(struct rte_pci_driver *driver);
+
+
+/**
+	* Read PCI config space.
+	* @param device
+	* @param buf
+	* @param len
+	* @param offset
+	*/
+int rte_eal_pci_read_config(const struct rte_pci_device *device,
+						 void *buf, size_t len, off_t offset);
+
+
+/**
+	* Write PCI config space.
+	* @param device
+	* @param buf
+	* @param len
+	* @param offset
+	*/
+int rte_eal_pci_write_config(const struct rte_pci_device *device,
+						  const void *buf, size_t len, off_t offset);
+
+
+/**
+	* A structure used to access io resources for a pci device.
+	* rte_pci_ioport is arch, os, driver specific, and should not be used outside
+	* of pci ioport api.
+	*/
+struct rte_pci_ioport
+{
+	struct rte_pci_device *dev;
+	uint64_t base;
+	uint64_t len; 
+
+
+};
+
+
+/**
+	* Initialize a rte_pci_ioport object for a pci device io resource.
+	* This object is then used to gain access to those io resources (see below).
+	* @param dev
+	* @param bar
+	* @param p
+	* @return
+	*  0 on success, negative on error.
+	*/
+int rte_eal_pci_ioport_map(struct rte_pci_device *dev, int bar,
+						struct rte_pci_ioport *p);
+
+
+/**
+	* Release any resources used in a rte_pci_ioport object.
+	* @param p
+	* @return
+	*  0 on success, negative on error.
+	*/
+int rte_eal_pci_ioport_unmap(struct rte_pci_ioport *p);
+
+
+/**
+	* Read from a io pci resource.
+	* @param p
+	* @param data
+	* @param len
+	* @param offset
+	*/
+void rte_eal_pci_ioport_read(struct rte_pci_ioport *p,
+						  void *data, size_t len, off_t offset);
+
+
+/**
+	* Write to a io pci resource.
+	* @param p
+	* @param data
+	* @param len
+	* @param offset
+	*/
+void rte_eal_pci_ioport_write(struct rte_pci_ioport *p,
+						   const void *data, size_t len, off_t offset);
+
+
+/*-
+	*/
+
+
+/*-
+	*/
+
+
+/**
+	* @file
+	* RTE devargs: list of devices and their user arguments
+	* This file stores a list of devices and their arguments given by
+	* the user when a DPDK application is started. These devices can be PCI
+	* devices or virtual devices. These devices are stored at startup in a
+	* list of rte_devargs structures.
+	*/
+
+
+/*
+	* Copyright (c) 1991, 1993
+	*	The Regents of the University of California.  All rights reserved.
+	* Redistribution and use in source and binary forms, with or without
+	* modification, are permitted provided that the following conditions
+	* are met:
+	* 1. Redistributions of source code must retain the above copyright
+	* 2. Redistributions in binary form must reproduce the above copyright
+	* 3. Neither the name of the University nor the names of its contributors
+	* THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+	* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+	* ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+	* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+	* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+	* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+	* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+	* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+	* SUCH DAMAGE.
+	*	@(#)queue.h	8.5 (Berkeley) 8/20/94
+	*/
+
+
+/*-
+	*/
+
+
+/*   BSD LICENSE
+	*/
+
+
+/**
+	* Type of generic device
+	*/
+enum rte_devtype
+{
+	RTE_DEVTYPE_WHITELISTED_PCI,
+	RTE_DEVTYPE_BLACKLISTED_PCI,
+	RTE_DEVTYPE_VIRTUAL,
+};
+
+
+/**
+	* Structure that stores a device given by the user with its arguments
+	* A user device is a physical or a virtual device given by the user to
+	* the DPDK application at startup through command line arguments.
+	* The structure stores the configuration of the device, its PCI
+	* identifier if it's a PCI device or the driver name if it's a virtual
+	* device.
+	*/
+struct rte_devargs
+{
+
+
+	struct { struct rte_devargs *tqe_next; struct rte_devargs * *tqe_prev; } next;
+
+
+	enum rte_devtype type;
+
+	union
+{
+
+
+		struct
+{
+
+
+			struct rte_pci_addr addr;
+		} pci;
+
+
+		struct
+{
+
+
+			char drv_name[32];
+		} virt;
+	};
+
+
+	char *args;
+};
+
+
+
+struct rte_devargs_list { struct rte_devargs *tqh_first; struct rte_devargs * *tqh_last; };
+
+
+
+
+
+/**
+	* Parse a devargs string.
+	* For PCI devices, the format of arguments string is "PCI_ADDR" or
+	* "PCI_ADDR,key=val,key2=val2,...". Examples: "08:00.1", "0000:5:00.0",
+	* "04:00.0,arg=val".
+	* For virtual devices, the format of arguments string is "DRIVER_NAME*"
+	* or "DRIVER_NAME*,key=val,key2=val2,...". Examples: "eth_ring",
+	* "eth_ring0", "eth_pmdAnything,arg=0:arg2=1".
+	* The function parses the arguments string to get driver name and driver
+	* arguments.
+	* @param devargs_str
+	* @param drvname
+	* @param drvargs
+	* @return
+	*/
+int rte_eal_parse_devargs_str(const char *devargs_str,
+				char **drvname, char **drvargs);
+
+
+/**
+	* Add a device to the user device list
+	* For PCI devices, the format of arguments string is "PCI_ADDR" or
+	* "PCI_ADDR,key=val,key2=val2,...". Examples: "08:00.1", "0000:5:00.0",
+	* "04:00.0,arg=val".
+	* For virtual devices, the format of arguments string is "DRIVER_NAME*"
+	* or "DRIVER_NAME*,key=val,key2=val2,...". Examples: "eth_ring",
+	* "eth_ring0", "eth_pmdAnything,arg=0:arg2=1". The validity of the
+	* driver name is not checked by this function, it is done when probing
+	* the drivers.
+	* @param devtype
+	* @param devargs_str
+	* @return
+	*/
+int rte_eal_devargs_add(enum rte_devtype devtype, const char *devargs_str);
+
+
+/**
+	* Count the number of user devices of a specified type
+	* @param devtype
+	* @return
+	*/
+unsigned int
+rte_eal_devargs_type_count(enum rte_devtype devtype);
+
+
+/**
+	* This function dumps the list of user device and their arguments.
+	* @param f
+	*/
+void rte_eal_devargs_dump(FILE *f);
+
+
+/*-
+	*/
 
 
 /*-
@@ -13453,819 +14435,6 @@ struct rte_eth_l2_tunnel_conf
 
 /*-
 	*/
-
-
-/*   BSD LICENSE
-	*/
-
-
-/**
-	* @file
-	* RTE PCI Interface
-	*/
-
-
-/*
-	* Copyright (c) 1991, 1993
-	*	The Regents of the University of California.  All rights reserved.
-	* Redistribution and use in source and binary forms, with or without
-	* modification, are permitted provided that the following conditions
-	* are met:
-	* 1. Redistributions of source code must retain the above copyright
-	* 2. Redistributions in binary form must reproduce the above copyright
-	* 3. Neither the name of the University nor the names of its contributors
-	* THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
-	* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-	* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-	* ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-	* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-	* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-	* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-	* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-	* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-	* SUCH DAMAGE.
-	*	@(#)queue.h	8.5 (Berkeley) 8/20/94
-	*/
-
-
-/*-
-	*/
-
-
-/*-
-	*/
-
-
-/**
-	* @file
-	* The RTE interrupt interface provides functions to register/unregister
-	* callbacks for a specific interrupt.
-	*/
-
-
-
-struct rte_intr_handle;
-
-
-
-typedef void (*rte_intr_callback_fn)(struct rte_intr_handle *intr_handle,
-						 void *cb_arg);
-
-
-/*-
-	*/
-enum rte_intr_handle_type
-{
-	RTE_INTR_HANDLE_UNKNOWN = 0,
-	RTE_INTR_HANDLE_UIO, 
-
-
-	RTE_INTR_HANDLE_UIO_INTX, 
-
-
-	RTE_INTR_HANDLE_VFIO_LEGACY, 
-
-
-	RTE_INTR_HANDLE_VFIO_MSI, 
-
-
-	RTE_INTR_HANDLE_VFIO_MSIX, 
-
-
-	RTE_INTR_HANDLE_ALARM, 
-
-
-	RTE_INTR_HANDLE_EXT, 
-
-
-	RTE_INTR_HANDLE_MAX
-};
-typedef void (*rte_intr_event_cb_t)(int fd, void *arg);
-struct rte_epoll_data
-{
-	uint32_t event; 
-
-
-	void *data; 
-
-
-	rte_intr_event_cb_t cb_fun; 
-
-
-	void *cb_arg; 
-
-
-};
-enum
-{
-	RTE_EPOLL_INVALID = 0,
-	RTE_EPOLL_VALID,
-	RTE_EPOLL_EXEC,
-};
-
-
-
-struct rte_epoll_event
-{
-	volatile uint32_t status; 
-
-
-	int fd; 
-
-
-	int epfd; 
-
-
-	struct rte_epoll_data epdata;
-};
-
-
-
-struct rte_intr_handle
-{
-
-	union
-{
-		int vfio_dev_fd; 
-
-
-		int uio_cfg_fd; 
-
-/**< UIO config file descriptor
-					for uio_pci_generic */
-	};
-	int fd; 
-
-
-	enum rte_intr_handle_type type; 
-
-
-	uint32_t max_intr; 
-
-
-	uint32_t nb_efd; 
-
-
-	int efds[32]; 
-
-
-	struct rte_epoll_event elist[32];
-						     
-
-
-	int *intr_vec; 
-
-
-};
-
-
-/**
-	* It waits for events on the epoll instance.
-	* @param epfd
-	* @param events
-	* @param maxevents
-	* @param timeout
-	* @return
-	*/
-int
-rte_epoll_wait(int epfd, struct rte_epoll_event *events,
-						  int maxevents, int timeout);
-
-
-/**
-	* It performs control operations on epoll instance referred by the epfd.
-	* It requests that the operation op be performed for the target fd.
-	* @param epfd
-	* @param op
-	* @param fd
-	* @param event
-	* @return
-	*/
-int
-rte_epoll_ctl(int epfd, int op, int fd,
-						 struct rte_epoll_event *event);
-
-
-/**
-	* The function returns the per thread epoll instance.
-	* @return
-	*/
-int
-rte_intr_tls_epfd(void);
-
-
-/**
-	* @param intr_handle
-	* @param epfd
-	* @param op
-	* @param vec
-	* @param data
-	* @return
-	*/
-int
-rte_intr_rx_ctl(struct rte_intr_handle *intr_handle,
-		int epfd, int op, unsigned int vec, void *data);
-
-
-/**
-	* It enables the packet I/O interrupt event if it's necessary.
-	* It creates event fd for each interrupt vector when MSIX is used,
-	* otherwise it multiplexes a single event fd.
-	* @param intr_handle
-	* @param nb_efd
-	* @return
-	*/
-int
-rte_intr_efd_enable(struct rte_intr_handle *intr_handle, uint32_t nb_efd);
-
-
-/**
-	* It disables the packet I/O interrupt event.
-	* It deletes registered eventfds and closes the open fds.
-	* @param intr_handle
-	*/
-void
-rte_intr_efd_disable(struct rte_intr_handle *intr_handle);
-
-
-/**
-	* The packet I/O interrupt on datapath is enabled or not.
-	* @param intr_handle
-	*/
-int
-rte_intr_dp_is_en(struct rte_intr_handle *intr_handle);
-
-
-/**
-	* The interrupt handle instance allows other causes or not.
-	* Other causes stand for any none packet I/O interrupts.
-	* @param intr_handle
-	*/
-int
-rte_intr_allow_others(struct rte_intr_handle *intr_handle);
-
-
-/**
-	* The multiple interrupt vector capability of interrupt handle instance.
-	* It returns zero if no multiple interrupt vector support.
-	* @param intr_handle
-	*/
-int
-rte_intr_cap_multiple(struct rte_intr_handle *intr_handle);
-
-
-/**
-	* It registers the callback for the specific interrupt. Multiple
-	* callbacks cal be registered at the same time.
-	* @param intr_handle
-	*  Pointer to the interrupt handle.
-	* @param cb
-	*  callback address.
-	* @param cb_arg
-	*  address of parameter for callback.
-	* @return
-	*  - On success, zero.
-	*  - On failure, a negative value.
-	*/
-int rte_intr_callback_register(struct rte_intr_handle *intr_handle,
-				rte_intr_callback_fn cb, void *cb_arg);
-
-
-/**
-	* It unregisters the callback according to the specified interrupt handle.
-	* @param intr_handle
-	*  pointer to the interrupt handle.
-	* @param cb
-	*  callback address.
-	* @param cb_arg
-	*  address of parameter for callback, (void *)-1 means to remove all
-	*  registered which has the same callback address.
-	* @return
-	*  - On success, return the number of callback entities removed.
-	*  - On failure, a negative value.
-	*/
-int rte_intr_callback_unregister(struct rte_intr_handle *intr_handle,
-				rte_intr_callback_fn cb, void *cb_arg);
-
-
-/**
-	* It enables the interrupt for the specified handle.
-	* @param intr_handle
-	*  pointer to the interrupt handle.
-	* @return
-	*  - On success, zero.
-	*  - On failure, a negative value.
-	*/
-int rte_intr_enable(struct rte_intr_handle *intr_handle);
-
-
-/**
-	* It disables the interrupt for the specified handle.
-	* @param intr_handle
-	*  pointer to the interrupt handle.
-	* @return
-	*  - On success, zero.
-	*  - On failure, a negative value.
-	*/
-int rte_intr_disable(struct rte_intr_handle *intr_handle);
-struct pci_device_list { struct rte_pci_device *tqh_first; struct rte_pci_device * *tqh_last; }; 
-
-
-struct pci_driver_list { struct rte_pci_driver *tqh_first; struct rte_pci_driver * *tqh_last; }; 
-
-
-extern struct pci_driver_list pci_driver_list; 
-
-
-extern struct pci_device_list pci_device_list; 
-
-
-
-
-
-const char *pci_get_sysfs_path(void);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-	* A structure describing a PCI resource.
-	*/
-struct rte_pci_resource
-{
-	uint64_t phys_addr; 
-
-
-	uint64_t len; 
-
-
-	void *addr; 
-
-
-};
-
-
-
-
-
-/**
-	* A structure describing an ID for a PCI driver. Each driver provides a
-	* table of these IDs for each device that it supports.
-	*/
-struct rte_pci_id
-{
-	uint32_t class_id; 
-
-
-	uint16_t vendor_id; 
-
-
-	uint16_t device_id; 
-
-
-	uint16_t subsystem_vendor_id; 
-
-
-	uint16_t subsystem_device_id; 
-
-
-};
-
-
-/**
-	* A structure describing the location of a PCI device.
-	*/
-struct rte_pci_addr
-{
-	uint16_t domain; 
-
-
-	uint8_t bus; 
-
-
-	uint8_t devid; 
-
-
-	uint8_t function; 
-
-
-};
-struct rte_devargs;
-enum rte_kernel_driver
-{
-	RTE_KDRV_UNKNOWN = 0,
-	RTE_KDRV_IGB_UIO,
-	RTE_KDRV_VFIO,
-	RTE_KDRV_UIO_GENERIC,
-	RTE_KDRV_NIC_UIO,
-	RTE_KDRV_NONE,
-};
-
-
-/**
-	* A structure describing a PCI device.
-	*/
-struct rte_pci_device
-{
-	struct { struct rte_pci_device *tqe_next; struct rte_pci_device * *tqe_prev; } next; 
-
-
-	struct rte_pci_addr addr; 
-
-
-	struct rte_pci_id id; 
-
-
-	struct rte_pci_resource mem_resource[6]; 
-
-
-	struct rte_intr_handle intr_handle; 
-
-
-	struct rte_pci_driver *driver; 
-
-
-	uint16_t max_vfs; 
-
-
-	int numa_node; 
-
-
-	struct rte_devargs *devargs; 
-
-
-	enum rte_kernel_driver kdrv; 
-
-
-};
-
-
-
-
-
-
-struct rte_pci_driver;
-
-
-/**
-	* Initialisation function for the driver called during PCI probing.
-	*/
-typedef int (pci_devinit_t)(struct rte_pci_driver *, struct rte_pci_device *);
-
-
-/**
-	* Uninitialisation function for the driver called during hotplugging.
-	*/
-typedef int (pci_devuninit_t)(struct rte_pci_device *);
-
-
-/**
-	* A structure describing a PCI driver.
-	*/
-struct rte_pci_driver
-{
-	struct { struct rte_pci_driver *tqe_next; struct rte_pci_driver * *tqe_prev; } next; 
-
-
-	const char *name; 
-
-
-	pci_devinit_t *devinit; 
-
-
-	pci_devuninit_t *devuninit; 
-
-
-	const struct rte_pci_id *id_table; 
-
-
-	uint32_t drv_flags; 
-
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-	* A structure describing a PCI mapping.
-	*/
-struct pci_map
-{
-	void *addr;
-	char *path;
-	uint64_t offset;
-	uint64_t size;
-	uint64_t phaddr;
-};
-
-
-/**
-	* A structure describing a mapped PCI resource.
-	* For multi-process we need to reproduce all PCI mappings in secondary
-	* processes, so save them in a tailq.
-	*/
-struct mapped_pci_resource
-{
-	struct { struct mapped_pci_resource *tqe_next; struct mapped_pci_resource * *tqe_prev; } next;
-	struct rte_pci_addr pci_addr;
-	char path[PATH_MAX];
-	int nb_maps;
-	struct pci_map maps[6];
-};
-
-
-
-struct mapped_pci_res_list { struct mapped_pci_resource *tqh_first; struct mapped_pci_resource * *tqh_last; };
-
-
-
-
-
-/**
-	* Utility function to produce a PCI Bus-Device-Function value
-	* given a string representation. Assumes that the BDF is provided without
-	* a domain prefix (i.e. domain returned is always 0)
-	* @param input
-	*	The input string to be parsed. Should have the format XX:XX.X
-	* @param dev_addr
-	*	The PCI Bus-Device-Function address to be returned. Domain will always be
-	*	returned as 0
-	* @return
-	*  0 on success, negative on error.
-	*/
-static inline int
-eal_parse_pci_BDF(const char *input, struct rte_pci_addr *dev_addr)
-{
-	dev_addr->domain = 0;
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->bus) = (__typeof__ (dev_addr->bus))val; (input) = end + 1; } while(0);
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != ('.') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->devid) = (__typeof__ (dev_addr->devid))val; (input) = end + 1; } while(0);
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (0) || val > (UINT8_MAX)) return -EINVAL; (dev_addr->function) = (__typeof__ (dev_addr->function))val; (input) = end + 1; } while(0);
-	return 0;
-}
-
-
-/**
-	* Utility function to produce a PCI Bus-Device-Function value
-	* given a string representation. Assumes that the BDF is provided including
-	* a domain prefix.
-	* @param input
-	*	The input string to be parsed. Should have the format XXXX:XX:XX.X
-	* @param dev_addr
-	*	The PCI Bus-Device-Function address to be returned
-	* @return
-	*  0 on success, negative on error.
-	*/
-static inline int
-eal_parse_pci_DomBDF(const char *input, struct rte_pci_addr *dev_addr)
-{
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT16_MAX)) return -EINVAL; (dev_addr->domain) = (__typeof__ (dev_addr->domain))val; (input) = end + 1; } while(0);
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (':') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->bus) = (__typeof__ (dev_addr->bus))val; (input) = end + 1; } while(0);
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != ('.') || val > (UINT8_MAX)) return -EINVAL; (dev_addr->devid) = (__typeof__ (dev_addr->devid))val; (input) = end + 1; } while(0);
-	do { unsigned long val; char *end; errno = 0; val = strtoul((input), &end, 16); if (errno != 0 || end[0] != (0) || val > (UINT8_MAX)) return -EINVAL; (dev_addr->function) = (__typeof__ (dev_addr->function))val; (input) = end + 1; } while(0);
-	return 0;
-}
-
-
-
-
-
-/**
-	* Utility function to compare two PCI device addresses.
-	* @param addr
-	*	The PCI Bus-Device-Function address to compare
-	* @param addr2
-	*	The PCI Bus-Device-Function address to compare
-	* @return
-	*	0 on equal PCI address.
-	*	Positive on addr is greater than addr2.
-	*	Negative on addr is less than addr2, or error.
-	*/
-static inline int
-rte_eal_compare_pci_addr(const struct rte_pci_addr *addr,
-				const struct rte_pci_addr *addr2)
-{
-	uint64_t dev_addr, dev_addr2;
-	if ((addr == NULL) || (addr2 == NULL))
-		return -1;
-	dev_addr = (addr->domain << 24) | (addr->bus << 16) |
-				(addr->devid << 8) | addr->function;
-	dev_addr2 = (addr2->domain << 24) | (addr2->bus << 16) |
-				(addr2->devid << 8) | addr2->function;
-	if (dev_addr > dev_addr2)
-		return 1;
-	else if (dev_addr < dev_addr2)
-		return -1;
-	else
-		return 0;
-}
-
-
-/**
-	* Scan the content of the PCI bus, and the devices in the devices
-	* list
-	* @return
-	*  0 on success, negative on error
-	*/
-int rte_eal_pci_scan(void);
-
-
-/**
-	* Probe the PCI bus for registered drivers.
-	* Scan the content of the PCI bus, and call the probe() function for
-	* all registered drivers that have a matching entry in its id_table
-	* for discovered devices.
-	* @return
-	*/
-int rte_eal_pci_probe(void);
-
-
-/**
-	* Map the PCI device resources in user space virtual memory address
-	* Note that driver should not call this function when flag
-	* RTE_PCI_DRV_NEED_MAPPING is set, as EAL will do that for
-	* you when it's on.
-	* @param dev
-	* @return
-	*/
-int rte_eal_pci_map_device(struct rte_pci_device *dev);
-
-
-/**
-	* Unmap this device
-	* @param dev
-	*/
-void rte_eal_pci_unmap_device(struct rte_pci_device *dev);
-
-
-/**
-	* @internal
-	* Map a particular resource from a file.
-	* @param requested_addr
-	* @param fd
-	* @param offset
-	* @param size
-	* @param additional_flags
-	* @return
-	*/
-void *pci_map_resource(void *requested_addr, int fd, off_t offset,
-		size_t size, int additional_flags);
-
-
-/**
-	* @internal
-	* Unmap a particular resource.
-	* @param requested_addr
-	* @param size
-	*/
-void pci_unmap_resource(void *requested_addr, size_t size);
-
-
-/**
-	* Probe the single PCI device.
-	* Scan the content of the PCI bus, and find the pci device specified by pci
-	* address, then call the probe() function for registered driver that has a
-	* matching entry in its id_table for discovered device.
-	* @param addr
-	*	The PCI Bus-Device-Function address to probe.
-	* @return
-	*/
-int rte_eal_pci_probe_one(const struct rte_pci_addr *addr);
-
-
-/**
-	* Close the single PCI device.
-	* Scan the content of the PCI bus, and find the pci device specified by pci
-	* address, then call the devuninit() function for registered driver that has a
-	* matching entry in its id_table for discovered device.
-	* @param addr
-	*	The PCI Bus-Device-Function address to close.
-	* @return
-	*/
-int rte_eal_pci_detach(const struct rte_pci_addr *addr);
-
-
-/**
-	* Dump the content of the PCI bus.
-	* @param f
-	*/
-void rte_eal_pci_dump(FILE *f);
-
-
-/**
-	* Register a PCI driver.
-	* @param driver
-	*/
-void rte_eal_pci_register(struct rte_pci_driver *driver);
-
-
-/**
-	* Unregister a PCI driver.
-	* @param driver
-	*/
-void rte_eal_pci_unregister(struct rte_pci_driver *driver);
-
-
-/**
-	* Read PCI config space.
-	* @param device
-	* @param buf
-	* @param len
-	* @param offset
-	*/
-int rte_eal_pci_read_config(const struct rte_pci_device *device,
-						 void *buf, size_t len, off_t offset);
-
-
-/**
-	* Write PCI config space.
-	* @param device
-	* @param buf
-	* @param len
-	* @param offset
-	*/
-int rte_eal_pci_write_config(const struct rte_pci_device *device,
-						  const void *buf, size_t len, off_t offset);
-
-
-/**
-	* A structure used to access io resources for a pci device.
-	* rte_pci_ioport is arch, os, driver specific, and should not be used outside
-	* of pci ioport api.
-	*/
-struct rte_pci_ioport
-{
-	struct rte_pci_device *dev;
-	uint64_t base;
-	uint64_t len; 
-
-
-};
-
-
-/**
-	* Initialize a rte_pci_ioport object for a pci device io resource.
-	* This object is then used to gain access to those io resources (see below).
-	* @param dev
-	* @param bar
-	* @param p
-	* @return
-	*  0 on success, negative on error.
-	*/
-int rte_eal_pci_ioport_map(struct rte_pci_device *dev, int bar,
-						struct rte_pci_ioport *p);
-
-
-/**
-	* Release any resources used in a rte_pci_ioport object.
-	* @param p
-	* @return
-	*  0 on success, negative on error.
-	*/
-int rte_eal_pci_ioport_unmap(struct rte_pci_ioport *p);
-
-
-/**
-	* Read from a io pci resource.
-	* @param p
-	* @param data
-	* @param len
-	* @param offset
-	*/
-void rte_eal_pci_ioport_read(struct rte_pci_ioport *p,
-						  void *data, size_t len, off_t offset);
-
-
-/**
-	* Write to a io pci resource.
-	* @param p
-	* @param data
-	* @param len
-	* @param offset
-	*/
-void rte_eal_pci_ioport_write(struct rte_pci_ioport *p,
-						   const void *data, size_t len, off_t offset);
 struct rte_mbuf;
 
 

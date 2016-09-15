@@ -4,13 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct29
+pub struct AnonymousStruct42
 {
-	pub tqe_next: *mut mapped_pci_resource,
-	pub tqe_prev: *mut *mut mapped_pci_resource,
+	pub tqe_next: *mut ip_frag_pkt,
+	pub tqe_prev: *mut *mut ip_frag_pkt,
 }
 
-impl Default for AnonymousStruct29
+impl Default for AnonymousStruct42
 {
 	#[inline(always)]
 	fn default() -> Self

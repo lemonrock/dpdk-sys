@@ -10,7 +10,7 @@ pub struct rte_eth_tunnel_filter_conf
 	pub inner_mac: ether_addr,
 	pub inner_vlan: uint16_t,
 	pub ip_type: rte_tunnel_iptype,
-	pub ip_addr: AnonymousUnion22,
+	pub ip_addr: AnonymousUnion29,
 	pub filter_type: uint16_t,
 	pub tunnel_type: rte_eth_tunnel_type,
 	pub tenant_id: uint32_t,

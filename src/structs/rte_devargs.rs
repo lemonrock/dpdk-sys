@@ -3,42 +3,30 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct AnonymousUnion25
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct rte_devargs
 {
-	pub _bindgen_data_: [u32; 130usize],
+	pub next: AnonymousStruct26,
+	pub type_: rte_devtype,
+	pub _bindgen_data_1_: [u16; 16usize],
+	pub args: *mut c_char,
 }
 
-impl AnonymousUnion25
+impl rte_devargs
 {
-	pub unsafe fn enable(&mut self) -> *mut uint8_t
+	pub unsafe fn pci(&mut self) -> *mut AnonymousStruct27
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
+	pub unsafe fn virt(&mut self) -> *mut AnonymousStruct28
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Clone for AnonymousUnion25
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousUnion25
+impl Default for rte_devargs
 {
 	#[inline(always)]
 	fn default() -> Self

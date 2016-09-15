@@ -6,17 +6,22 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousUnion36
 {
-	pub _bindgen_data_: [u64; 1usize],
+	pub _bindgen_data_: [u32; 3usize],
 }
 
 impl AnonymousUnion36
 {
-	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
+	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
+	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))

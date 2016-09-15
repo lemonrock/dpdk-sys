@@ -4,26 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion22
+pub struct AnonymousStruct33
 {
-	pub _bindgen_data_: [u32; 4usize],
+	pub vlan_id: uint16_t,
+	pub pools: uint64_t,
 }
 
-impl AnonymousUnion22
-{
-	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Default for AnonymousUnion22
+impl Default for AnonymousStruct33
 {
 	#[inline(always)]
 	fn default() -> Self

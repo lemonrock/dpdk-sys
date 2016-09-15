@@ -6,9 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct37
 {
-	pub is_entry: uint16_t,
-	pub value: uint16_t,
-	pub key: uint32_t,
+	pub base: uint8_t,
+	pub nb_queue: uint8_t,
 }
 
 impl Default for AnonymousStruct37

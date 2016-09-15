@@ -2,37 +2,11 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct AnonymousUnion24
+#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum rte_devtype
 {
-	pub _bindgen_data_: [u32; 130usize],
-}
-
-impl AnonymousUnion24
-{
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Clone for AnonymousUnion24
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousUnion24
-{
-	#[inline(always)]
-	fn default() -> Self
-	{
-		unsafe { zeroed() }
-	}
+	RTE_DEVTYPE_WHITELISTED_PCI = 0,
+	RTE_DEVTYPE_BLACKLISTED_PCI = 1,
+	RTE_DEVTYPE_VIRTUAL = 2,
 }

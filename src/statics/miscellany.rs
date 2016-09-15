@@ -4,6 +4,7 @@
 
 extern "C"
 {
+	pub static mut devargs_list: rte_devargs_list;
 	pub static mut pci_device_list: pci_device_list;
 	pub static mut pci_driver_list: pci_driver_list;
 	pub static mut rte_eth_devices: [rte_eth_dev; 0usize];

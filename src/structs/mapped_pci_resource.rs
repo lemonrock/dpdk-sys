@@ -7,7 +7,7 @@
 #[allow(missing_debug_implementations)]
 pub struct mapped_pci_resource
 {
-	pub next: AnonymousStruct29,
+	pub next: AnonymousStruct25,
 	pub pci_addr: rte_pci_addr,
 	pub path: [c_char; 4096usize],
 	pub nb_maps: c_int,

@@ -3,24 +3,27 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct rte_eth_dcb_tc_queue_mapping
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AnonymousUnion29
 {
-	pub tc_rxq: [[AnonymousStruct37; 8usize]; 64usize],
-	pub tc_txq: [[AnonymousStruct38; 8usize]; 64usize],
+	pub _bindgen_data_: [u32; 4usize],
 }
 
-impl Clone for rte_eth_dcb_tc_queue_mapping
+impl AnonymousUnion29
 {
-	#[inline(always)]
-	fn clone(&self) -> Self
+	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
 	{
-		*self
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
 	}
 }
 
-impl Default for rte_eth_dcb_tc_queue_mapping
+impl Default for AnonymousUnion29
 {
 	#[inline(always)]
 	fn default() -> Self

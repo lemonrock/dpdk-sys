@@ -3,24 +3,14 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct rte_eth_dcb_tc_queue_mapping
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AnonymousStruct23
 {
-	pub tc_rxq: [[AnonymousStruct37; 8usize]; 64usize],
-	pub tc_txq: [[AnonymousStruct38; 8usize]; 64usize],
+	pub tqe_next: *mut rte_pci_device,
+	pub tqe_prev: *mut *mut rte_pci_device,
 }
 
-impl Clone for rte_eth_dcb_tc_queue_mapping
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for rte_eth_dcb_tc_queue_mapping
+impl Default for AnonymousStruct23
 {
 	#[inline(always)]
 	fn default() -> Self

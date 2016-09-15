@@ -3,26 +3,14 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct AnonymousStruct32
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AnonymousStruct24
 {
-	pub rss_conf: rte_eth_rss_conf,
-	pub vmdq_dcb_conf: rte_eth_vmdq_dcb_conf,
-	pub dcb_rx_conf: rte_eth_dcb_rx_conf,
-	pub vmdq_rx_conf: rte_eth_vmdq_rx_conf,
+	pub tqe_next: *mut rte_pci_driver,
+	pub tqe_prev: *mut *mut rte_pci_driver,
 }
 
-impl Clone for AnonymousStruct32
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousStruct32
+impl Default for AnonymousStruct24
 {
 	#[inline(always)]
 	fn default() -> Self

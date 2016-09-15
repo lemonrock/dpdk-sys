@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_pci_device
 {
-	pub next: AnonymousStruct27,
+	pub next: AnonymousStruct23,
 	pub addr: rte_pci_addr,
 	pub id: rte_pci_id,
 	pub mem_resource: [rte_pci_resource; 6usize],

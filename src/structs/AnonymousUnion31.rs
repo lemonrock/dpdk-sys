@@ -3,32 +3,32 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion33
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct AnonymousUnion31
 {
-	pub _bindgen_data_: [u32; 3usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
-impl AnonymousUnion33
+impl AnonymousUnion31
 {
-	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion33
+impl Clone for AnonymousUnion31
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for AnonymousUnion31
 {
 	#[inline(always)]
 	fn default() -> Self

@@ -4,26 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion23
+pub struct AnonymousStruct38
 {
-	pub _bindgen_data_: [u64; 1usize],
+	pub base: uint8_t,
+	pub nb_queue: uint8_t,
 }
 
-impl AnonymousUnion23
-{
-	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn reserved(&mut self) -> *mut uint64_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Default for AnonymousUnion23
+impl Default for AnonymousStruct38
 {
 	#[inline(always)]
 	fn default() -> Self

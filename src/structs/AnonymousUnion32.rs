@@ -5,13 +5,31 @@
 #[repr(C)]
 #[derive(Copy)]
 #[allow(missing_debug_implementations)]
-pub struct rte_eth_dcb_tc_queue_mapping
+pub struct AnonymousUnion32
 {
-	pub tc_rxq: [[AnonymousStruct37; 8usize]; 64usize],
-	pub tc_txq: [[AnonymousStruct38; 8usize]; 64usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
-impl Clone for rte_eth_dcb_tc_queue_mapping
+impl AnonymousUnion32
+{
+	pub unsafe fn enable(&mut self) -> *mut uint8_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Clone for AnonymousUnion32
 {
 	#[inline(always)]
 	fn clone(&self) -> Self
@@ -20,7 +38,7 @@ impl Clone for rte_eth_dcb_tc_queue_mapping
 	}
 }
 
-impl Default for rte_eth_dcb_tc_queue_mapping
+impl Default for AnonymousUnion32
 {
 	#[inline(always)]
 	fn default() -> Self

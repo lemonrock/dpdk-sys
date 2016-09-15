@@ -4,13 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct30
+pub struct rte_devargs_list
 {
-	pub vlan_id: uint16_t,
-	pub pools: uint64_t,
+	pub tqh_first: *mut rte_devargs,
+	pub tqh_last: *mut *mut rte_devargs,
 }
 
-impl Default for AnonymousStruct30
+impl Default for rte_devargs_list
 {
 	#[inline(always)]
 	fn default() -> Self

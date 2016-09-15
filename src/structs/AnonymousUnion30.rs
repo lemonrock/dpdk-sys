@@ -3,24 +3,27 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct rte_eth_dcb_tc_queue_mapping
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AnonymousUnion30
 {
-	pub tc_rxq: [[AnonymousStruct37; 8usize]; 64usize],
-	pub tc_txq: [[AnonymousStruct38; 8usize]; 64usize],
+	pub _bindgen_data_: [u64; 1usize],
 }
 
-impl Clone for rte_eth_dcb_tc_queue_mapping
+impl AnonymousUnion30
 {
-	#[inline(always)]
-	fn clone(&self) -> Self
+	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
 	{
-		*self
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn reserved(&mut self) -> *mut uint64_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
 	}
 }
 
-impl Default for rte_eth_dcb_tc_queue_mapping
+impl Default for AnonymousUnion30
 {
 	#[inline(always)]
 	fn default() -> Self

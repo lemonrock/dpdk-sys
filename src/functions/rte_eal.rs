@@ -5,6 +5,9 @@
 extern "C"
 {
 	pub fn rte_eal_dev_init() -> c_int;
+	pub fn rte_eal_devargs_add(devtype: rte_devtype, devargs_str: *const c_char) -> c_int;
+	pub fn rte_eal_devargs_dump(f: *mut FILE);
+	pub fn rte_eal_devargs_type_count(devtype: rte_devtype) -> c_uint;
 	pub fn rte_eal_get_configuration() -> *mut rte_config;
 	pub fn rte_eal_get_lcore_state(slave_id: c_uint) -> rte_lcore_state_t;
 	pub fn rte_eal_get_physmem_layout() -> *const rte_memseg;
@@ -13,6 +16,7 @@ extern "C"
 	pub fn rte_eal_init(argc: c_int, argv: *mut *mut c_char) -> c_int;
 	pub fn rte_eal_iopl_init() -> c_int;
 	pub fn rte_eal_lcore_role(lcore_id: c_uint) -> rte_lcore_role_t;
+	pub fn rte_eal_parse_devargs_str(devargs_str: *const c_char, drvname: *mut *mut c_char, drvargs: *mut *mut c_char) -> c_int;
 	pub fn rte_eal_pci_detach(addr: *const rte_pci_addr) -> c_int;
 	pub fn rte_eal_pci_dump(f: *mut FILE);
 	pub fn rte_eal_pci_ioport_map(dev: *mut rte_pci_device, bar: c_int, p: *mut rte_pci_ioport) -> c_int;

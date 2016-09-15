@@ -21,7 +21,7 @@ include!("enums/rte_crypto_op_type.rs");
 include!("enums/rte_crypto_sym_op_sess_type.rs");
 include!("enums/rte_crypto_sym_xform_type.rs");
 include!("enums/rte_cryptodev_sym_session.rs");
-include!("enums/rte_devargs.rs");
+include!("enums/rte_devtype.rs");
 include!("enums/rte_distributor.rs");
 include!("enums/rte_eth_dev_callback.rs");
 include!("enums/rte_eth_dev_type.rs");

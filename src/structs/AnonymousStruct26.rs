@@ -2,8 +2,19 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[allow(missing_copy_implementations)]
-#[derive(Debug)]
-pub enum rte_devargs
+#[repr(C)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AnonymousStruct26
 {
+	pub tqe_next: *mut rte_devargs,
+	pub tqe_prev: *mut *mut rte_devargs,
+}
+
+impl Default for AnonymousStruct26
+{
+	#[inline(always)]
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
 }

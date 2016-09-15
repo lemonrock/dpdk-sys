@@ -8,7 +8,7 @@
 pub struct rte_eth_fdir_filter_info
 {
 	pub info_type: rte_eth_fdir_filter_info_type,
-	pub info: AnonymousUnion24,
+	pub info: AnonymousUnion31,
 }
 
 impl Clone for rte_eth_fdir_filter_info
