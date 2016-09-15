@@ -4,5 +4,5 @@
 
 pub const RTE_ETH_FDIR_MAX_FLEXLEN: c_int = 16;
 pub const RTE_ETH_INSET_SIZE_MAX: c_int = 128;
-pub const RTE_ETH_NAME_MAX_LEN: c_int = 32;
+pub const RTE_ETH_NAME_MAX_LEN: size_t = 32;
 pub const RTE_ETH_XSTATS_NAME_SIZE: c_int = 64;
