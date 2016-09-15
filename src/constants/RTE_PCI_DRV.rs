@@ -2,9 +2,7 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
-}
+pub const RTE_PCI_DRV_DETACHABLE: c_int = 16;
+pub const RTE_PCI_DRV_FORCE_UNBIND: c_int = 4;
+pub const RTE_PCI_DRV_INTR_LSC: c_int = 8;
+pub const RTE_PCI_DRV_NEED_MAPPING: c_int = 1;

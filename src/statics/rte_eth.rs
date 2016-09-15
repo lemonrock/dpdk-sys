@@ -4,7 +4,5 @@
 
 extern "C"
 {
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
+	pub static mut rte_eth_devices: [rte_eth_dev; 0usize];
 }

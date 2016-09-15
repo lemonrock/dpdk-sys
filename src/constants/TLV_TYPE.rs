@@ -2,9 +2,7 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
-}
+pub const TLV_TYPE_ACTOR_INFORMATION: c_int = 1;
+pub const TLV_TYPE_COLLECTOR_INFORMATION: c_int = 3;
+pub const TLV_TYPE_PARTNER_INFORMATION: c_int = 2;
+pub const TLV_TYPE_TERMINATOR_INFORMATION: c_int = 0;

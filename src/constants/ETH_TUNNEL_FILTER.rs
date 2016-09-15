@@ -2,9 +2,9 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
-}
+pub const ETH_TUNNEL_FILTER_IIP: c_int = 32;
+pub const ETH_TUNNEL_FILTER_IMAC: c_int = 8;
+pub const ETH_TUNNEL_FILTER_IVLAN: c_int = 16;
+pub const ETH_TUNNEL_FILTER_OIP: c_int = 2;
+pub const ETH_TUNNEL_FILTER_OMAC: c_int = 1;
+pub const ETH_TUNNEL_FILTER_TENID: c_int = 4;

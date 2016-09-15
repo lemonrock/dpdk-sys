@@ -2,9 +2,5 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
-}
+pub const ETH_MAX_VMDQ_POOL: c_int = 64;
+pub const ETH_NUM_RECEIVE_MAC_ADDR: c_int = 128;

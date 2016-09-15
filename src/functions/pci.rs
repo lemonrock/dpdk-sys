@@ -4,7 +4,7 @@
 
 extern "C"
 {
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
+	pub fn pci_get_sysfs_path() -> *const c_char;
+	pub fn pci_map_resource(requested_addr: *mut c_void, fd: c_int, offset: off_t, size: size_t, additional_flags: c_int) -> *mut c_void;
+	pub fn pci_unmap_resource(requested_addr: *mut c_void, size: size_t);
 }

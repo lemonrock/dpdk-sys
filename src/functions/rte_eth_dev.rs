@@ -1,0 +1,82 @@
+// This file is part of dpdk-sys. It is subject to the license terms in the COPYRIGHT file found in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT. No part of dpdk-sys, including this file, may be copied, modified, propagated, or distributed except according to the terms contained in the COPYRIGHT file.
+// Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
+
+
+extern "C"
+{
+	pub fn rte_eth_dev_allocate(name: *const c_char, type_: rte_eth_dev_type) -> *mut rte_eth_dev;
+	pub fn rte_eth_dev_allocated(name: *const c_char) -> *mut rte_eth_dev;
+	pub fn rte_eth_dev_attach(devargs: *const c_char, port_id: *mut uint8_t) -> c_int;
+	pub fn rte_eth_dev_bypass_event_show(port: uint8_t, event: uint32_t, state: *mut uint32_t) -> c_int;
+	pub fn rte_eth_dev_bypass_event_store(port: uint8_t, event: uint32_t, state: uint32_t) -> c_int;
+	pub fn rte_eth_dev_bypass_init(port: uint8_t) -> c_int;
+	pub fn rte_eth_dev_bypass_state_set(port: uint8_t, new_state: *mut uint32_t) -> c_int;
+	pub fn rte_eth_dev_bypass_state_show(port: uint8_t, state: *mut uint32_t) -> c_int;
+	pub fn rte_eth_dev_bypass_ver_show(port: uint8_t, ver: *mut uint32_t) -> c_int;
+	pub fn rte_eth_dev_bypass_wd_reset(port: uint8_t) -> c_int;
+	pub fn rte_eth_dev_bypass_wd_timeout_show(port: uint8_t, wd_timeout: *mut uint32_t) -> c_int;
+	pub fn rte_eth_dev_callback_register(port_id: uint8_t, event: rte_eth_event_type, cb_fn: rte_eth_dev_cb_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_eth_dev_callback_unregister(port_id: uint8_t, event: rte_eth_event_type, cb_fn: rte_eth_dev_cb_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_eth_dev_close(port_id: uint8_t);
+	pub fn rte_eth_dev_configure(port_id: uint8_t, nb_rx_queue: uint16_t, nb_tx_queue: uint16_t, eth_conf: *const rte_eth_conf) -> c_int;
+	pub fn rte_eth_dev_count() -> uint8_t;
+	pub fn rte_eth_dev_default_mac_addr_set(port: uint8_t, mac_addr: *mut ether_addr) -> c_int;
+	pub fn rte_eth_dev_detach(port_id: uint8_t, devname: *mut c_char) -> c_int;
+	pub fn rte_eth_dev_filter_ctrl(port_id: uint8_t, filter_type: rte_filter_type, filter_op: rte_filter_op, arg: *mut c_void) -> c_int;
+	pub fn rte_eth_dev_filter_supported(port_id: uint8_t, filter_type: rte_filter_type) -> c_int;
+	pub fn rte_eth_dev_flow_ctrl_get(port_id: uint8_t, fc_conf: *mut rte_eth_fc_conf) -> c_int;
+	pub fn rte_eth_dev_flow_ctrl_set(port_id: uint8_t, fc_conf: *mut rte_eth_fc_conf) -> c_int;
+	pub fn rte_eth_dev_get_dcb_info(port_id: uint8_t, dcb_info: *mut rte_eth_dcb_info) -> c_int;
+	pub fn rte_eth_dev_get_eeprom(port_id: uint8_t, info: *mut rte_dev_eeprom_info) -> c_int;
+	pub fn rte_eth_dev_get_eeprom_length(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_get_mtu(port_id: uint8_t, mtu: *mut uint16_t) -> c_int;
+	pub fn rte_eth_dev_get_name_by_port(port_id: uint8_t, name: *mut c_char) -> c_int;
+	pub fn rte_eth_dev_get_port_by_name(name: *const c_char, port_id: *mut uint8_t) -> c_int;
+	pub fn rte_eth_dev_get_reg_info(port_id: uint8_t, info: *mut rte_dev_reg_info) -> c_int;
+	pub fn rte_eth_dev_get_supported_ptypes(port_id: uint8_t, ptype_mask: uint32_t, ptypes: *mut uint32_t, num: c_int) -> c_int;
+	pub fn rte_eth_dev_get_vlan_offload(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_info_get(port_id: uint8_t, dev_info: *mut rte_eth_dev_info);
+	pub fn rte_eth_dev_is_valid_port(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_l2_tunnel_eth_type_conf(port_id: uint8_t, l2_tunnel: *mut rte_eth_l2_tunnel_conf) -> c_int;
+	pub fn rte_eth_dev_l2_tunnel_offload_set(port_id: uint8_t, l2_tunnel: *mut rte_eth_l2_tunnel_conf, mask: uint32_t, en: uint8_t) -> c_int;
+	pub fn rte_eth_dev_mac_addr_add(port: uint8_t, mac_addr: *mut ether_addr, pool: uint32_t) -> c_int;
+	pub fn rte_eth_dev_mac_addr_remove(port: uint8_t, mac_addr: *mut ether_addr) -> c_int;
+	pub fn rte_eth_dev_priority_flow_ctrl_set(port_id: uint8_t, pfc_conf: *mut rte_eth_pfc_conf) -> c_int;
+	pub fn rte_eth_dev_release_port(eth_dev: *mut rte_eth_dev) -> c_int;
+	pub fn rte_eth_dev_rss_hash_conf_get(port_id: uint8_t, rss_conf: *mut rte_eth_rss_conf) -> c_int;
+	pub fn rte_eth_dev_rss_hash_update(port_id: uint8_t, rss_conf: *mut rte_eth_rss_conf) -> c_int;
+	pub fn rte_eth_dev_rss_reta_query(port: uint8_t, reta_conf: *mut rte_eth_rss_reta_entry64, reta_size: uint16_t) -> c_int;
+	pub fn rte_eth_dev_rss_reta_update(port: uint8_t, reta_conf: *mut rte_eth_rss_reta_entry64, reta_size: uint16_t) -> c_int;
+	pub fn rte_eth_dev_rx_intr_ctl(port_id: uint8_t, epfd: c_int, op: c_int, data: *mut c_void) -> c_int;
+	pub fn rte_eth_dev_rx_intr_ctl_q(port_id: uint8_t, queue_id: uint16_t, epfd: c_int, op: c_int, data: *mut c_void) -> c_int;
+	pub fn rte_eth_dev_rx_intr_disable(port_id: uint8_t, queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_rx_intr_enable(port_id: uint8_t, queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_rx_queue_start(port_id: uint8_t, rx_queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_rx_queue_stop(port_id: uint8_t, rx_queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_set_eeprom(port_id: uint8_t, info: *mut rte_dev_eeprom_info) -> c_int;
+	pub fn rte_eth_dev_set_link_down(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_link_up(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_mc_addr_list(port_id: uint8_t, mc_addr_set: *mut ether_addr, nb_mc_addr: uint32_t) -> c_int;
+	pub fn rte_eth_dev_set_mtu(port_id: uint8_t, mtu: uint16_t) -> c_int;
+	pub fn rte_eth_dev_set_rx_queue_stats_mapping(port_id: uint8_t, rx_queue_id: uint16_t, stat_idx: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_tx_queue_stats_mapping(port_id: uint8_t, tx_queue_id: uint16_t, stat_idx: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_vf_rx(port: uint8_t, vf: uint16_t, on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_vf_rxmode(port: uint8_t, vf: uint16_t, rx_mode: uint16_t, on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_vf_tx(port: uint8_t, vf: uint16_t, on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_vf_vlan_filter(port: uint8_t, vlan_id: uint16_t, vf_mask: uint64_t, vlan_on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_set_vlan_ether_type(port_id: uint8_t, vlan_type: rte_vlan_type, tag_type: uint16_t) -> c_int;
+	pub fn rte_eth_dev_set_vlan_offload(port_id: uint8_t, offload_mask: c_int) -> c_int;
+	pub fn rte_eth_dev_set_vlan_pvid(port_id: uint8_t, pvid: uint16_t, on: c_int) -> c_int;
+	pub fn rte_eth_dev_set_vlan_strip_on_queue(port_id: uint8_t, rx_queue_id: uint16_t, on: c_int) -> c_int;
+	pub fn rte_eth_dev_socket_id(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_start(port_id: uint8_t) -> c_int;
+	pub fn rte_eth_dev_stop(port_id: uint8_t);
+	pub fn rte_eth_dev_tx_queue_start(port_id: uint8_t, tx_queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_tx_queue_stop(port_id: uint8_t, tx_queue_id: uint16_t) -> c_int;
+	pub fn rte_eth_dev_uc_all_hash_table_set(port: uint8_t, on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_uc_hash_table_set(port: uint8_t, addr: *mut ether_addr, on: uint8_t) -> c_int;
+	pub fn rte_eth_dev_udp_tunnel_port_add(port_id: uint8_t, tunnel_udp: *mut rte_eth_udp_tunnel) -> c_int;
+	pub fn rte_eth_dev_udp_tunnel_port_delete(port_id: uint8_t, tunnel_udp: *mut rte_eth_udp_tunnel) -> c_int;
+	pub fn rte_eth_dev_vlan_filter(port_id: uint8_t, vlan_id: uint16_t, on: c_int) -> c_int;
+	pub fn rte_eth_dev_wd_timeout_store(port: uint8_t, timeout: uint32_t) -> c_int;
+}

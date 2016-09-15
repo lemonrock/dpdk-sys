@@ -4,10 +4,6 @@
 
 extern "C"
 {
-	pub fn _rte_eth_dev_callback_process(dev: *mut rte_eth_dev, event: rte_eth_event_type);
-	pub fn pci_get_sysfs_path() -> *const c_char;
-	pub fn pci_map_resource(requested_addr: *mut c_void, fd: c_int, offset: off_t, size: size_t, additional_flags: c_int) -> *mut c_void;
-	pub fn pci_unmap_resource(requested_addr: *mut c_void, size: size_t);
 	pub fn rte_cryptodev_callback_register(dev_id: uint8_t, event: rte_cryptodev_event_type, cb_fn: rte_cryptodev_cb_fn, cb_arg: *mut c_void) -> c_int;
 	pub fn rte_cryptodev_callback_unregister(dev_id: uint8_t, event: rte_cryptodev_event_type, cb_fn: rte_cryptodev_cb_fn, cb_arg: *mut c_void) -> c_int;
 	pub fn rte_cryptodev_close(dev_id: uint8_t) -> c_int;

@@ -2,7 +2,7 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub fn rte_approx(alpha: f64, d: f64, p: *mut uint32_t, q: *mut uint32_t) -> c_int;
-}
+pub const RTE_CACHE_LINE_MASK: c_int = 63;
+pub const RTE_CACHE_LINE_MIN_SIZE: c_int = 64;
+pub const RTE_CACHE_LINE_SIZE: c_int = 64;
+pub const RTE_CACHE_LINE_SIZE_LOG2: c_int = 6;

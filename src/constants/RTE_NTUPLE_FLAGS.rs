@@ -2,9 +2,9 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-extern "C"
-{
-	pub static mut devargs_list: rte_devargs_list;
-	pub static mut rte_cyptodev_names: *mut *const c_char;
-	pub static mut rte_rtm_supported: uint8_t;
-}
+pub const RTE_NTUPLE_FLAGS_DST_IP: c_int = 1;
+pub const RTE_NTUPLE_FLAGS_DST_PORT: c_int = 4;
+pub const RTE_NTUPLE_FLAGS_PROTO: c_int = 16;
+pub const RTE_NTUPLE_FLAGS_SRC_IP: c_int = 2;
+pub const RTE_NTUPLE_FLAGS_SRC_PORT: c_int = 8;
+pub const RTE_NTUPLE_FLAGS_TCP_FLAG: c_int = 32;

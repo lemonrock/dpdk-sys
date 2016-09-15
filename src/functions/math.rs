@@ -4,5 +4,6 @@
 
 extern "C"
 {
+	pub fn rte_approx(alpha: f64, d: f64, p: *mut uint32_t, q: *mut uint32_t) -> c_int;
 	pub fn rte_reciprocal_value(d: uint32_t) -> rte_reciprocal;
 }
