@@ -2,33 +2,25 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion36
+#[repr(C, packed)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct slow_protocol_frame
 {
-	pub _bindgen_data_: [u32; 3usize],
+	pub eth_hdr: ether_hdr,
+	pub slow_protocol: slow_protocol,
 }
 
-impl AnonymousUnion36
+impl Clone for slow_protocol_frame
 {
-	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
+	#[inline(always)]
+	fn clone(&self) -> Self
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		*self
 	}
 }
 
-impl Default for AnonymousUnion36
+impl Default for slow_protocol_frame
 {
 	#[inline(always)]
 	fn default() -> Self

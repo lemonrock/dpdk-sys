@@ -6,7 +6,9 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct27
 {
-	pub addr: rte_pci_addr,
+	pub min: uint16_t,
+	pub max: uint16_t,
+	pub increment: uint16_t,
 }
 
 impl Default for AnonymousStruct27

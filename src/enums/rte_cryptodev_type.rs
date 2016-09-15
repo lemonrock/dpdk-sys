@@ -2,19 +2,14 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
+#[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct17
+pub enum rte_cryptodev_type
 {
-	pub tqe_next: *mut rte_tailq_entry,
-	pub tqe_prev: *mut *mut rte_tailq_entry,
-}
-
-impl Default for AnonymousStruct17
-{
-	#[inline(always)]
-	fn default() -> Self
-	{
-		unsafe { zeroed() }
-	}
+	RTE_CRYPTODEV_NULL_PMD = 1,
+	RTE_CRYPTODEV_AESNI_GCM_PMD = 2,
+	RTE_CRYPTODEV_AESNI_MB_PMD = 3,
+	RTE_CRYPTODEV_QAT_SYM_PMD = 4,
+	RTE_CRYPTODEV_SNOW3G_PMD = 5,
+	RTE_CRYPTODEV_KASUMI_PMD = 6,
 }

@@ -6,7 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct19
 {
-	pub lh_first: *mut malloc_elem,
+	pub tqe_next: *mut rte_pci_driver,
+	pub tqe_prev: *mut *mut rte_pci_driver,
 }
 
 impl Default for AnonymousStruct19

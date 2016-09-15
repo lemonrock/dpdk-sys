@@ -3,23 +3,28 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
 pub struct AnonymousUnion39
 {
-	pub _bindgen_data_: [u64; 1usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
 impl AnonymousUnion39
 {
-	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
+}
+
+impl Clone for AnonymousUnion39
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		*self
 	}
 }
 

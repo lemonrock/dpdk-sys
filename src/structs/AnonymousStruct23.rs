@@ -6,8 +6,9 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct23
 {
-	pub tqe_next: *mut rte_pci_device,
-	pub tqe_prev: *mut *mut rte_pci_device,
+	pub min: uint16_t,
+	pub max: uint16_t,
+	pub increment: uint16_t,
 }
 
 impl Default for AnonymousStruct23

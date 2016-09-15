@@ -7,6 +7,9 @@ extern "C"
 	pub static mut devargs_list: rte_devargs_list;
 	pub static mut pci_device_list: pci_device_list;
 	pub static mut pci_driver_list: pci_driver_list;
+	pub static mut rte_cryptodev_globals: *mut rte_cryptodev_global;
+	pub static mut rte_cryptodevs: *mut rte_cryptodev;
+	pub static mut rte_cyptodev_names: *mut *const c_char;
 	pub static mut rte_eth_devices: [rte_eth_dev; 0usize];
 	pub static mut rte_rtm_supported: uint8_t;
 }

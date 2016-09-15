@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ip_frag_pkt
 {
-	pub lru: AnonymousStruct42,
+	pub lru: AnonymousStruct51,
 	pub key: ip_frag_key,
 	pub start: uint64_t,
 	pub total_size: uint32_t,

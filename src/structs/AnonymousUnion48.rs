@@ -4,14 +4,26 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct40
+pub struct AnonymousUnion48
 {
-	pub is_entry: uint16_t,
-	pub value: uint16_t,
-	pub key: uint32_t,
+	pub _bindgen_data_: [u64; 1usize],
 }
 
-impl Default for AnonymousStruct40
+impl AnonymousUnion48
+{
+	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for AnonymousUnion48
 {
 	#[inline(always)]
 	fn default() -> Self

@@ -6,8 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct42
 {
-	pub tqe_next: *mut ip_frag_pkt,
-	pub tqe_prev: *mut *mut ip_frag_pkt,
+	pub vlan_id: uint16_t,
+	pub pools: uint64_t,
 }
 
 impl Default for AnonymousStruct42

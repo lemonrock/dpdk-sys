@@ -4,6 +4,18 @@
 
 extern "C"
 {
+	pub fn rte_eth_bond_8023ad_conf_get(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_conf_get_v1607(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_conf_get_v20(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_ext_collect(port_id: uint8_t, slave_id: uint8_t, enabled: c_int) -> c_int;
+	pub fn rte_eth_bond_8023ad_ext_collect_get(port_id: uint8_t, slave_id: uint8_t) -> c_int;
+	pub fn rte_eth_bond_8023ad_ext_distrib(port_id: uint8_t, slave_id: uint8_t, enabled: c_int) -> c_int;
+	pub fn rte_eth_bond_8023ad_ext_distrib_get(port_id: uint8_t, slave_id: uint8_t) -> c_int;
+	pub fn rte_eth_bond_8023ad_ext_slowtx(port_id: uint8_t, slave_id: uint8_t, lacp_pkt: *mut rte_mbuf) -> c_int;
+	pub fn rte_eth_bond_8023ad_setup(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_setup_v1607(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_setup_v20(port_id: uint8_t, conf: *mut rte_eth_bond_8023ad_conf) -> c_int;
+	pub fn rte_eth_bond_8023ad_slave_info(port_id: uint8_t, slave_id: uint8_t, conf: *mut rte_eth_bond_8023ad_slave_info) -> c_int;
 	pub fn rte_eth_bond_active_slaves_get(bonded_port_id: uint8_t, slaves: *mut uint8_t, len: uint8_t) -> c_int;
 	pub fn rte_eth_bond_create(name: *const c_char, mode: uint8_t, socket_id: uint8_t) -> c_int;
 	pub fn rte_eth_bond_free(name: *const c_char) -> c_int;

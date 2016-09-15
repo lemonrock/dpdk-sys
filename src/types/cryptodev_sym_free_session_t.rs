@@ -2,37 +2,4 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
-#[derive(Copy)]
-#[allow(missing_debug_implementations)]
-pub struct AnonymousUnion31
-{
-	pub _bindgen_data_: [u32; 130usize],
-}
-
-impl AnonymousUnion31
-{
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Clone for AnonymousUnion31
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousUnion31
-{
-	#[inline(always)]
-	fn default() -> Self
-	{
-		unsafe { zeroed() }
-	}
-}
+pub type cryptodev_sym_free_session_t = Option<unsafe extern "C" fn(dev: *mut rte_cryptodev, session_private: *mut c_void)>;

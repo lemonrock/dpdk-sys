@@ -7,8 +7,8 @@
 #[allow(missing_debug_implementations)]
 pub struct rte_eth_dcb_tc_queue_mapping
 {
-	pub tc_rxq: [[AnonymousStruct37; 8usize]; 64usize],
-	pub tc_txq: [[AnonymousStruct38; 8usize]; 64usize],
+	pub tc_rxq: [[AnonymousStruct46; 8usize]; 64usize],
+	pub tc_txq: [[AnonymousStruct47; 8usize]; 64usize],
 }
 
 impl Clone for rte_eth_dcb_tc_queue_mapping

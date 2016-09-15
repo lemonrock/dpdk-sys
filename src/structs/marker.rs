@@ -2,34 +2,25 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Copy)]
 #[allow(missing_debug_implementations)]
-pub struct AnonymousUnion32
+pub struct marker
 {
-	pub _bindgen_data_: [u32; 130usize],
+	pub subtype: uint8_t,
+	pub version_number: uint8_t,
+	pub tlv_type_marker: uint8_t,
+	pub info_length: uint8_t,
+	pub requester_port: uint16_t,
+	pub requester_system: ether_addr,
+	pub requester_transaction_id: uint32_t,
+	pub reserved_2: [uint8_t; 2usize],
+	pub tlv_type_terminator: uint8_t,
+	pub terminator_length: uint8_t,
+	pub reserved_90: [uint8_t; 90usize],
 }
 
-impl AnonymousUnion32
-{
-	pub unsafe fn enable(&mut self) -> *mut uint8_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Clone for AnonymousUnion32
+impl Clone for marker
 {
 	#[inline(always)]
 	fn clone(&self) -> Self
@@ -38,7 +29,7 @@ impl Clone for AnonymousUnion32
 	}
 }
 
-impl Default for AnonymousUnion32
+impl Default for marker
 {
 	#[inline(always)]
 	fn default() -> Self

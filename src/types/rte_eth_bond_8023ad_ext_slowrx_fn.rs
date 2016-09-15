@@ -2,8 +2,4 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[allow(missing_copy_implementations)]
-#[derive(Debug)]
-pub enum rte_cryptodev_sym_session
-{
-}
+pub type rte_eth_bond_8023ad_ext_slowrx_fn = Option<unsafe extern "C" fn(slave_id: uint8_t, lacp_pkt: *mut rte_mbuf)>;

@@ -4,13 +4,18 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct38
+pub struct rte_cryptodev_info
 {
-	pub base: uint8_t,
-	pub nb_queue: uint8_t,
+	pub driver_name: *const c_char,
+	pub dev_type: rte_cryptodev_type,
+	pub pci_dev: *mut rte_pci_device,
+	pub feature_flags: uint64_t,
+	pub capabilities: *const rte_cryptodev_capabilities,
+	pub max_nb_queue_pairs: c_uint,
+	pub sym: AnonymousStruct28,
 }
 
-impl Default for AnonymousStruct38
+impl Default for rte_cryptodev_info
 {
 	#[inline(always)]
 	fn default() -> Self
