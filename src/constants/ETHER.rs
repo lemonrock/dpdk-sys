@@ -10,6 +10,6 @@ pub const ETHER_MAX_JUMBO_FRAME_LEN: size_t = 16128;
 pub const ETHER_MAX_LEN: size_t = 1518;
 pub const ETHER_MAX_VLAN_FRAME_LEN: c_int = 1522;
 pub const ETHER_MAX_VLAN_ID: c_int = 4095;
-pub const ETHER_MIN_LEN: c_int = 64;
+pub const ETHER_MIN_LEN: size_t = 64;
 pub const ETHER_MIN_MTU: c_int = 68;
 pub const ETHER_MTU: c_int = 1500;
