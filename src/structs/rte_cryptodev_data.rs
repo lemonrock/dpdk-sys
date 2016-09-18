@@ -10,7 +10,7 @@ pub struct rte_cryptodev_data
 	pub dev_id: uint8_t,
 	pub socket_id: uint8_t,
 	pub name: [c_char; 64usize],
-	pub _bindgen_bitfield_1_: uint8_t,
+	pub __bindgen_bitfield: uint8_t,
 	pub session_pool: *mut rte_mempool,
 	pub queue_pairs: *mut *mut c_void,
 	pub nb_queue_pairs: uint16_t,

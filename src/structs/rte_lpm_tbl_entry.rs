@@ -6,10 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_lpm_tbl_entry
 {
-	pub _bindgen_bitfield_1_: uint32_t,
-	pub _bindgen_bitfield_2_: uint32_t,
-	pub _bindgen_bitfield_3_: uint32_t,
-	pub _bindgen_bitfield_4_: uint32_t,
+	pub __bindgen_bitfield: uint32_t,
 }
 
 impl Default for rte_lpm_tbl_entry

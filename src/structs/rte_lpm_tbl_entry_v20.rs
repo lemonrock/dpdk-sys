@@ -7,9 +7,7 @@
 pub struct rte_lpm_tbl_entry_v20
 {
 	pub _bindgen_data_1_: [u8; 1usize],
-	pub _bindgen_bitfield_1_: uint8_t,
-	pub _bindgen_bitfield_2_: uint8_t,
-	pub _bindgen_bitfield_3_: uint8_t,
+	pub __bindgen_bitfield: uint8_t,
 }
 
 impl rte_lpm_tbl_entry_v20

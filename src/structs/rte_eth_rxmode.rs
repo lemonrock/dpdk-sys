@@ -9,15 +9,7 @@ pub struct rte_eth_rxmode
 	pub mq_mode: rte_eth_rx_mq_mode,
 	pub max_rx_pkt_len: uint32_t,
 	pub split_hdr_size: uint16_t,
-	pub _bindgen_bitfield_1_: uint16_t,
-	pub _bindgen_bitfield_2_: uint16_t,
-	pub _bindgen_bitfield_3_: uint16_t,
-	pub _bindgen_bitfield_4_: uint16_t,
-	pub _bindgen_bitfield_5_: uint16_t,
-	pub _bindgen_bitfield_6_: uint16_t,
-	pub _bindgen_bitfield_7_: uint16_t,
-	pub _bindgen_bitfield_8_: uint16_t,
-	pub _bindgen_bitfield_9_: uint16_t,
+	pub __bindgen_bitfield: uint16_t,
 }
 
 impl Default for rte_eth_rxmode

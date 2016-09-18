@@ -8,9 +8,7 @@ pub struct rte_eth_txmode
 {
 	pub mq_mode: rte_eth_tx_mq_mode,
 	pub pvid: uint16_t,
-	pub _bindgen_bitfield_1_: uint8_t,
-	pub _bindgen_bitfield_2_: uint8_t,
-	pub _bindgen_bitfield_3_: uint8_t,
+	pub __bindgen_bitfield: uint8_t,
 }
 
 impl Default for rte_eth_txmode
