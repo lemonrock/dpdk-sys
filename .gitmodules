@@ -1,0 +1,9 @@
+[submodule ".cargo"]
+	path = .cargo
+	url = https://github.com/lemonrock/.cargo.git
+[submodule "tools/bindgen-wrapper"]
+	path = tools/bindgen-wrapper
+	url = https://github.com/lemonrock/bindgen-wrapper
+[submodule "lib/dpdk"]
+	path = lib/dpdk
+	url = http://dpdk.org/git/dpdk
