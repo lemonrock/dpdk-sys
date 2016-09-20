@@ -8,6 +8,11 @@
 [dpdk-sys] is a rust crate which has bindings for DPDK.
 
 
+## Versioning
+
+Bindings are currently built for DPDK 16.07.
+
+
 ## Licensing
 
 The license for this project is MIT.
