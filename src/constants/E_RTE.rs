@@ -2,5 +2,5 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const E_RTE_NO_CONFIG: c_int = 1002;
-pub const E_RTE_SECONDARY: c_int = 1001;
+pub const E_RTE_NO_CONFIG: u32 = 1002;
+pub const E_RTE_SECONDARY: u32 = 1001;

@@ -3,8 +3,8 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[allow(missing_debug_implementations)]
+#[derive(Copy, Clone)]
 pub struct lcore_config
 {
 	pub detected: c_uint,
