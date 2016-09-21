@@ -5,9 +5,9 @@
 pub const MS_PER_S: c_int = 1000;
 pub const NSEC_PER_SEC: c_int = 1000000000;
 pub const NS_PER_S: c_int = 1000000000;
-pub const RTE_TIMER_CONFIG: c_int = 3;
-pub const RTE_TIMER_NO_OWNER: c_int = -2;
-pub const RTE_TIMER_PENDING: c_int = 1;
-pub const RTE_TIMER_RUNNING: c_int = 2;
-pub const RTE_TIMER_STOP: c_int = 0;
+pub const RTE_TIMER_CONFIG: uint16_t = 3;
+pub const RTE_TIMER_NO_OWNER: int16_t = -2;
+pub const RTE_TIMER_PENDING: uint16_t = 1;
+pub const RTE_TIMER_RUNNING: uint16_t = 2;
+pub const RTE_TIMER_STOP: uint16_t = 0;
 pub const US_PER_S: c_int = 1000000;
