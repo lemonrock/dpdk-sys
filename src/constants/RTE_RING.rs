@@ -3,4 +3,4 @@
 
 
 pub const RTE_RING_PAUSE_REP_COUNT: c_int = 0;
-pub const RTE_RING_QUOT_EXCEED: i64 = 2147483648;
+pub const RTE_RING_QUOT_EXCEED: uint32_t = 2147483648;

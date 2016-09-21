@@ -5,5 +5,5 @@
 pub const ETH_DCB_NUM_QUEUES: c_int = 128;
 pub const ETH_DCB_NUM_TCS: c_int = 8;
 pub const ETH_DCB_NUM_USER_PRIORITIES: c_int = 8;
-pub const ETH_DCB_PFC_SUPPORT: u32 = 2;
-pub const ETH_DCB_PG_SUPPORT: u32 = 1;
+pub const ETH_DCB_PFC_SUPPORT: uint32_t = 2;
+pub const ETH_DCB_PG_SUPPORT: uint32_t = 1;

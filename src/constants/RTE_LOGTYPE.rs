@@ -27,4 +27,4 @@ pub const RTE_LOGTYPE_USER4: c_int = 134217728;
 pub const RTE_LOGTYPE_USER5: c_int = 268435456;
 pub const RTE_LOGTYPE_USER6: c_int = 536870912;
 pub const RTE_LOGTYPE_USER7: c_int = 1073741824;
-pub const RTE_LOGTYPE_USER8: i64 = 2147483648;
+pub const RTE_LOGTYPE_USER8: uint32_t = 2147483648;
