@@ -3,6 +3,6 @@
 
 
 pub const RTE_CACHE_LINE_MASK: c_int = 63;
-pub const RTE_CACHE_LINE_MIN_SIZE: c_int = 64;
+pub const RTE_CACHE_LINE_MIN_SIZE: size_t = 64;
 pub const RTE_CACHE_LINE_SIZE: c_int = 64;
 pub const RTE_CACHE_LINE_SIZE_LOG2: c_int = 6;
