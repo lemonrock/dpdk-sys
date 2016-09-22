@@ -5,20 +5,20 @@
 
 #![allow(non_camel_case_types)]
 
-extern crate core;
+#![no_std]
+
 use ::core::default::Default;
 use ::core::option::Option;
 use ::core::mem::zeroed;
 use ::core::mem::transmute;
 use ::core::clone::Clone;
 
-use ::std::os::raw::c_char;
-use ::std::os::raw::c_int;
-use ::std::os::raw::c_longlong;
-use ::std::os::raw::c_uint;
-use ::std::os::raw::c_void;
-
 extern crate libc;
+use ::libc::c_char;
+use ::libc::c_int;
+use ::libc::c_longlong;
+use ::libc::c_uint;
+use ::libc::c_void;
 use ::libc::size_t;
 use ::libc::ssize_t;
 use ::libc::uint8_t;
