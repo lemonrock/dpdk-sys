@@ -32,7 +32,7 @@ preprocess_before_headersFolderPath()
 	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 		
-		make install T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local O="$dpdkBuildDir" EXTRA_CFLAGS="-I$configurationFolderPath/musl-fixes"
+		make install T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
 	cd - 1>/dev/null 2>/dev/null
 }
