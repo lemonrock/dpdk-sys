@@ -39,7 +39,7 @@ preprocess_before_headersFolderPath()
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 		
 		#PATH="$pathWithGnuCoreUtils" make clean T=x86_64-native-bsdapp-clang DESTDIR="$dpdkDestDir" prefix=/usr/local O="$dpdkBuildDir" 1>/dev/null 2>/dev/null || true
-		PATH="$pathWithGnuCoreUtils" make install T=x86_64-native-bsdapp-clang DESTDIR="$dpdkDestDir" prefix=/usr/local O="$dpdkBuildDir" CFLAGS="-I$configurationFolderPath/musl-fixes"
+		PATH="$pathWithGnuCoreUtils" make install T=x86_64-native-bsdapp-clang DESTDIR="$dpdkDestDir" prefix=/usr/local O="$dpdkBuildDir" EXTRA_CPPFLAGS="-I$configurationFolderPath/musl-fixes"
 		
 	cd - 1>/dev/null 2>/dev/null
 }
