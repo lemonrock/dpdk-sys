@@ -34,6 +34,7 @@ preprocess_before_headersFolderPath()
 		
 		sed -i -e 's/#include <rte_per_lcore.h>/#include <sched.h>\n#include <rte_per_lcore.h>/g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's/#include <string.h>/#include <string.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
+		sed -i -e 's/#include <errno.h>/#include <errno.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_memory.c
 		
 		make install T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
