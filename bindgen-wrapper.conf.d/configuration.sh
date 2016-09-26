@@ -28,7 +28,8 @@ preprocess_before_headersFolderPath()
 	mkdir -m 0755 -p "$dpdkBuildDir"
 	mkdir -m 0755 -p "$dpdkDestDir"
 	
-	rsync -a --quiet --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
+	rsync --quiet --archive --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
+	rsync --quiet --archive "$configurationFolderPath"/overrides/ "$dpdkSrcDir"/
 	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 		
