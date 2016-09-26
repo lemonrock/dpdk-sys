@@ -14,7 +14,7 @@ headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include
 
 preprocess_before_headersFolderPath()
 {
-	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs musl-dev gcc
+	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs gcc
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
