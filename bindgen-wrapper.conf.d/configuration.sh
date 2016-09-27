@@ -35,10 +35,10 @@ preprocess_before_headersFolderPath()
 	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 	set -x
-		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib;librte_eal;common;include;rte_lcore.h
-		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib;librte_eal;linuxapp;eal;eal_hugepage_info.c
-		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib;librte_eal;linuxapp;eal;eal_memory.c
-		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>;g' lib;librte_eal;linuxapp;eal;eal_pci_uio.c
+		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g'               lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
+		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g'                 lib/librte_eal/linuxapp/eal/eal_memory.c
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>;g'       lib/librte_eal/linuxapp/eal/eal_pci_uio.c
 		
 		
 		# make config T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
