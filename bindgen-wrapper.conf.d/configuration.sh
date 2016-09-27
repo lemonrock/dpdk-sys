@@ -15,7 +15,7 @@ headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include
 preprocess_before_headersFolderPath()
 {
 	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs gcc
-	sudo apk add linux-headers
+	sudo apk add linux-headers libunwind
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
@@ -31,10 +31,8 @@ preprocess_before_headersFolderPath()
 	rsync --quiet --archive --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
 	rsync --quiet --archive "$configurationFolderPath"/overrides/ "$dpdkSrcDir"/
 	
-	# CONFIG_RTE_EAL_VFIO
-	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
-	set -x
+		
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
 		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_memory.c
