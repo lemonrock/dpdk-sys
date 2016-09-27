@@ -39,6 +39,8 @@ preprocess_before_headersFolderPath()
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>\n#include <sys/io.extra.h>;g' lib/librte_eal/linuxapp/eal/eal_pci_uio.c
 		sed -i -e 's;#define PAGE_SIZE;#undef PAGE_SIZE\n#define PAGE_SIZE;g' lib/librte_eal/linuxapp/eal/eal_pci_vfio.c
 		sed -i -e 's;HOST_CFLAGS \+= \$(WERROR_FLAGS) -g;HOST_CFLAGS += $(WERROR_FLAGS) -g -I'"I$configurationFolderPath/musl-fixes"';g' buildtools/pmdinfogen/Makefile
+		cat buildtools/pmdinfogen/Makefile
+		exit 1
 		
 		printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n' >>config/defconfig_x86_64-native-linuxapp-gcc
 		printf '\nCONFIG_RTE_KNI_KMOD=n\n' >>config/defconfig_x86_64-native-linuxapp-gcc
