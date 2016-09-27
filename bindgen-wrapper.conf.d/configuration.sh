@@ -35,22 +35,20 @@ preprocess_before_headersFolderPath()
 	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 		
-		set -x
-		
 		sed -i -e 's/#include <rte_per_lcore.h>/#include <sched.h>\n#include <rte_per_lcore.h>/g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's/#include <string.h>/#include <string.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
 		sed -i -e 's/#include <errno.h>/#include <errno.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_memory.c
 		
-		make config T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
+		# make config T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
+		#
+		# #lib/librte_eal/linuxapp/eal/eal_vfio_mp_sync.c assumes a glibc variant of cmsghdr
+		# sed -i -e 's/^CONFIG_RTE_EAL_VFIO=y$/CONFIG_RTE_EAL_VFIO=n/g' build/.config
+		# grep CONFIG_RTE_EAL_VFIO build/.config
+		# exit 1
+		#
+		# make DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
-		#lib/librte_eal/linuxapp/eal/eal_vfio_mp_sync.c assumes a glibc variant of cmsghdr
-		sed -i -e 's/^CONFIG_RTE_EAL_VFIO=y$/CONFIG_RTE_EAL_VFIO=n/g' build/.config
-		grep CONFIG_RTE_EAL_VFIO build/.config
-		exit 1
-		
-		make DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
-		
-		make install DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
+		make install T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
 	cd - 1>/dev/null 2>/dev/null
 }
