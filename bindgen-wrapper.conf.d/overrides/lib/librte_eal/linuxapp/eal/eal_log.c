@@ -54,7 +54,7 @@ static ssize_t console_log_write(__attribute__((unused)) void *c, __attribute__(
 	return size;
 }
 
-int rte_eal_log_init((__attribute__((unused)) const char *id, __attribute__((unused)) int facility)
+int rte_eal_log_init(__attribute__((unused)) const char *id, __attribute__((unused)) int facility)
 {
 	return 0;
 }
