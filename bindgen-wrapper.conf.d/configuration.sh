@@ -39,6 +39,9 @@ preprocess_before_headersFolderPath()
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>\n#include <sys/io.extra.h>;g' lib/librte_eal/linuxapp/eal/eal_pci_uio.c
 		sed -i -e 's;#define PAGE_SIZE;#undef PAGE_SIZE\n#define PAGE_SIZE;g' lib/librte_eal/linuxapp/eal/eal_pci_vfio.c
 		
+		printf 'CONFIG_RTE_EAL_IGB_UIO=n' >>config/defconfig_x86_64-native-linuxapp-gcc
+		printf 'CONFIG_RTE_KNI_KMOD=n' >>config/defconfig_x86_64-native-linuxapp-gcc
+		printf 'CONFIG_RTE_LIBRTE_XEN_DOM0=n' >>config/defconfig_x86_64-native-linuxapp-gcc
 		
 		# make config T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		#
