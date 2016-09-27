@@ -162,7 +162,7 @@ vfio_mp_sync_receive_request(int socket)
 
 /* send OK in message, fd in control message */
 int
-vfio_mp_sync_send_fd(int socket, int fd)
+vfio_mp_sync_send_fd(int socket,  __attribute__((unused)) int fd)
 {
 	int buf;
 	struct msghdr hdr;
