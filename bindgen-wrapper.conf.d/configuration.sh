@@ -41,14 +41,12 @@ preprocess_before_headersFolderPath()
 		sed -i -e 's/#include <string.h>/#include <string.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
 		sed -i -e 's/#include <errno.h>/#include <errno.h>\n#include <fcntl.h>/g' lib/librte_eal/linuxapp/eal/eal_memory.c
 		
-		make clean DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast" || true
-		
 		make config T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
 		#lib/librte_eal/linuxapp/eal/eal_vfio_mp_sync.c assumes a glibc variant of cmsghdr
 		sed -i -e 's/^CONFIG_RTE_EAL_VFIO=y$/CONFIG_RTE_EAL_VFIO=n/g' build/.config
 		
-		make build T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
+		make T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
 		make install DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast"
 		
