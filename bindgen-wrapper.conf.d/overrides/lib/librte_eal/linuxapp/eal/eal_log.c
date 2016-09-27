@@ -49,17 +49,17 @@
 
 #include "eal_private.h"
 
-static ssize_t console_log_write(__attribute__((unused)) void *c, const char *buf, size_t size)
+static ssize_t console_log_write(__attribute__((unused)) void *c, (__attribute__((unused)) const char *buf, (__attribute__((unused)) size_t size)
 {
 	return size;
 }
 
-int rte_eal_log_init(const char *id, int facility)
+int rte_eal_log_init((__attribute__((unused)) const char *id, (__attribute__((unused)) int facility)
 {
 	return 0;
 }
 
-static ssize_t early_log_write(__attribute__((unused)) void *c, const char *buf, size_t size)
+static ssize_t early_log_write(__attribute__((unused)) void *c, (__attribute__((unused)) const char *buf, (__attribute__((unused)) size_t size)
 {
 	return size;
 }
