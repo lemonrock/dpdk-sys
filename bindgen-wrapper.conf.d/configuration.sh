@@ -43,7 +43,7 @@ preprocess_before_headersFolderPath()
 		
 		sed -i -e 's;-g;-g -I'"$configurationFolderPath/musl-fixes"';g' buildtools/pmdinfogen/Makefile
 		
-		sed -i -e '/--keep-newer-files/d' -e 's;--strip-components=1 \;--strip-components=1;g' mk/rte.sdkinstall.mk
+		sed -i -e '/--keep-newer-files/d' -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
 		
 		
 		printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n' >>config/defconfig_x86_64-native-linuxapp-gcc
