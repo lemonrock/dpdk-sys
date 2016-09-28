@@ -72,11 +72,11 @@ preprocess_before_headersFolderPath()
 				set -f
 
 				printf '#include "%s"\n' "$file"
-				set -x
+				
 				sed -i -e 's;#include <rte_\([a-z0-9_]*\).h>;#include "rte_\1.h";g' "$file"
 				sed -i -e 's;#include <cmdline.h>;#include "cmdline.h";g' "$file"
 				sed -i -e 's;#include <cmdline_\([a-z0-9_]*\).h>;#include "cmdline_\1.h";g' "$file"
-				sed -i -e 's;#include <execsed -i -env/\([a-z0-9_]*\).h>/#include "execsed -i -env/\1.h";g' "$file"
+				sed -i -e 's;#include <execsed -i -env/\([a-z0-9_]*\).h>;#include "execsed -i -env/\1.h";g' "$file"
 				sed -i -e 's;#include <generic/\([a-z0-9_]*\).h>/#include "generic/\1.h";g' "$file"
 				sed -i -e 's;#include <sys/queue.h>;#include "sys/queue.h";g' "$file"
 					
