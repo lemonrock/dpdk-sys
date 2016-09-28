@@ -70,10 +70,8 @@ preprocess_before_headersFolderPath()
 			for file in *.h
 			do
 				set -f
-				
-				if [ "$file" != 'rte_memcpy.h' ]; then
-					printf '#include "%s"\n' "$file"
-				fi
+
+				printf '#include "%s"\n' "$file"
 				
 				sed -i \
 					-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
