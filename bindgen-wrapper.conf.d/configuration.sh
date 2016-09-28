@@ -8,7 +8,7 @@ link=''
 macosXHomebrewPackageNames='coreutils'
 alpineLinuxPackageNames=''
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
-
+set -x
 
 preprocess_before_headersFolderPath()
 {
