@@ -71,16 +71,19 @@ preprocess_before_headersFolderPath()
 			do
 				set -f
 				
-				printf '#include "%s"\n' "$file"
+				if [ "$file" != 'rte_memcpy.h' ]; then
+					printf '#include "%s"\n' "$file"
+				fi
 				
 				sed -i \
 					-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
 					-e 's/#include <cmdline.h>/#include "cmdline.h"/g' \
 					-e 's/#include <cmdline_\([a-z0-9_]*\).h>/#include "cmdline_\1.h"/g' \
-					-e 's/#include <sys/queue.h>/#include "sys/queue.h"/g' \
+					-e 's;#include <sys/queue.h>;#include "sys/queue.h";g' \
 					"$file"
 			done
 			set -f
+			
 		cd - 1>/dev/null 2>/dev/null
 	
 	) >"$dpdkTempDir"/"$rootIncludeFileName"
