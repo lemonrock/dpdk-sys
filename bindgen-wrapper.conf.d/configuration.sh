@@ -77,6 +77,7 @@ preprocess_before_headersFolderPath()
 					-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
 					-e 's/#include <cmdline.h>/#include "cmdline.h"/g' \
 					-e 's/#include <cmdline_\([a-z0-9_]*\).h>/#include "cmdline_\1.h"/g' \
+					-e 's/#include <sys/queue.h>/#include "sys/queue.h"/g' \
 					"$file"
 			done
 			set -f
@@ -84,6 +85,8 @@ preprocess_before_headersFolderPath()
 	
 	) >"$dpdkTempDir"/"$rootIncludeFileName"
 	mv "$dpdkTempDir"/"$rootIncludeFileName" "$headersFolderPath"/"$rootIncludeFileName"
+	
+	cp "$configurationFolderPath"/musl-fixes/sys/queue.h "$configurationFolderPath"/header-overrides/sys
 }
 
 postprocess_after_generation()

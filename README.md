@@ -13,6 +13,11 @@
 Bindings are currently built for DPDK 16.07.
 
 
+## Notes
+
+https://stackoverflow.com/questions/38156867/how-to-direct-packets-belonging-to-a-tcp-connection-to-a-specific-lcore-in-dpdk/39708686
+
+
 ## Licensing
 
 The license for this project is MIT.
