@@ -10,8 +10,6 @@ alpineLinuxPackageNames=''
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
 
 
-#bindgen_wrapper_addTacFallbackIfNotPresent
-
 preprocess_before_headersFolderPath()
 {
 	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs gcc
@@ -66,7 +64,7 @@ preprocess_before_headersFolderPath()
 	# Generate an include file that includes all useful files
 	(
 		local folder
-		for folder in generic exec-env .
+		for folder in .
 		do
 			cd "$headersFolderPath" 1>/dev/null 2>/dev/null
 				local file
@@ -81,6 +79,7 @@ preprocess_before_headersFolderPath()
 						includeFile="$file"
 					fi
 					printf '#include "%s"\n' "$file"
+					sed -i -e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' "$file"
 				done
 				set -f
 			cd - 1>/dev/null 2>/dev/null
