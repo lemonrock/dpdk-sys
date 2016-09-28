@@ -3,11 +3,11 @@
 
 
 bindingsName='dpdk'
-rootIncludeFileName='ssl.h'
+rootIncludeFileName='dpdk.h'
 link=''
 macosXHomebrewPackageNames='coreutils'
 alpineLinuxPackageNames=''
-headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include
+headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
 
 
 #bindgen_wrapper_addTacFallbackIfNotPresent
@@ -62,6 +62,24 @@ preprocess_before_headersFolderPath()
 		make install T=x86_64-native-linuxapp-gcc DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -D_BSD_SOURCE -I/usr/include -I$configurationFolderPath/musl-fixes -Wno-pointer-to-int-cast" EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
 		
 	cd - 1>/dev/null 2>/dev/null
+	
+	# Generate an include file that includes all useful files
+	(
+		local folder
+		for folder in generic exec-env .
+		do
+			cd "$headersFolderPath" 1>/dev/null 2>/dev/null
+				local file
+				set +f
+				for file in "$folder"/*.h
+				do
+					set -f
+					printf '#include "%s"\n' "$file"
+				done
+				set -f
+			cd - 1>/dev/null 2>/dev/null
+		done
+	) >"$headersFolderPath"/"$rootIncludeFileName"
 }
 
 postprocess_after_generation()
