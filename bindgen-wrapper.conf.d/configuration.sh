@@ -79,7 +79,11 @@ preprocess_before_headersFolderPath()
 						includeFile="$file"
 					fi
 					printf '#include "%s"\n' "$file"
-					sed -i -e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' "$file"
+					sed -i \
+						-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
+						-e 's/#include <cmdline.h>/#include "cmdline.h"/g' \
+						-e 's/#include <cmdline_\([a-z0-9_]*\).h>/#include "cmdline_\1.h"/g' \
+						"$file"
 				done
 				set -f
 			cd - 1>/dev/null 2>/dev/null
