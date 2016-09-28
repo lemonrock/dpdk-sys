@@ -15,7 +15,7 @@ headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include
 preprocess_before_headersFolderPath()
 {
 	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs gcc
-	sudo apk add linux-headers libunwind-dev linux-grsec-dev
+	bindgen_wrapper_alpineLinuxPrepare linux-headers libunwind-dev linux-grsec-dev
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
@@ -74,6 +74,12 @@ preprocess_before_headersFolderPath()
 				for file in "$folder"/*.h
 				do
 					set -f
+					local includeFile
+					if [ "$folder" = '.' ]; then
+						includeFile="${file#./*}"
+					else
+						includeFile="$file"
+					fi
 					printf '#include "%s"\n' "$file"
 				done
 				set -f
