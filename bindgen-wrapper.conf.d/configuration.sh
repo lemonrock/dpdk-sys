@@ -63,32 +63,27 @@ preprocess_before_headersFolderPath()
 	
 	# Generate an include file that includes all useful files
 	(
-		local folder
-		for folder in .
-		do
-			cd "$headersFolderPath" 1>/dev/null 2>/dev/null
-				local file
-				set +f
-				for file in "$folder"/*.h
-				do
-					set -f
-					local includeFile
-					if [ "$folder" = '.' ]; then
-						includeFile="${file#./*}"
-					else
-						includeFile="$file"
-					fi
-					printf '#include "%s"\n' "$file"
-					sed -i \
-						-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
-						-e 's/#include <cmdline.h>/#include "cmdline.h"/g' \
-						-e 's/#include <cmdline_\([a-z0-9_]*\).h>/#include "cmdline_\1.h"/g' \
-						"$file"
-				done
+		cd "$headersFolderPath" 1>/dev/null 2>/dev/null
+		
+			local file
+			set +f
+			for file in *.h
+			do
 				set -f
-			cd - 1>/dev/null 2>/dev/null
-		done
-	) >"$headersFolderPath"/"$rootIncludeFileName"
+				
+				printf '#include "%s"\n' "$file"
+				
+				sed -i \
+					-e 's/#include <rte_\([a-z0-9_]*\).h>/#include "rte_\1.h"/g' \
+					-e 's/#include <cmdline.h>/#include "cmdline.h"/g' \
+					-e 's/#include <cmdline_\([a-z0-9_]*\).h>/#include "cmdline_\1.h"/g' \
+					"$file"
+			done
+			set -f
+		cd - 1>/dev/null 2>/dev/null
+	
+	) >"$dpdkTempDir"/"$rootIncludeFileName"
+	mv "$dpdkTempDir"/"$rootIncludeFileName" "$headersFolderPath"/"$rootIncludeFileName"
 }
 
 postprocess_after_generation()
