@@ -5,15 +5,13 @@
 bindingsName='dpdk'
 rootIncludeFileName='dpdk.h'
 link=''
-macosXHomebrewPackageNames='coreutils'
-alpineLinuxPackageNames=''
+macosXHomebrewPackageNames=''
+alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
-set -x
 
 preprocess_before_headersFolderPath()
 {
-	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" make rm mkdir rsync find xargs gcc
-	bindgen_wrapper_alpineLinuxPrepare linux-headers libunwind-dev linux-grsec-dev
+	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" rm mkdir find xargs
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
