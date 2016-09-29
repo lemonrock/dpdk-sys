@@ -84,7 +84,12 @@ preprocess_before_headersFolderPath()
 				
 				case "$file" in
 					
+					# Should not be used directly
 					rte_atomic_32.h|rte_atomic_64.h|rte_byteorder_32.h|rte_byteorder_64.h)
+						:
+					;;
+					
+					rte_memcpy.h)
 						:
 					;;
 					
