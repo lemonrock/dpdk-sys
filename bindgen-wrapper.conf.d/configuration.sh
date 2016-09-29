@@ -70,16 +70,42 @@ preprocess_before_headersFolderPath()
 	cd - 1>/dev/null 2>/dev/null
 	
 	# Generate an include file that includes all useful files
+	cat >"$headersFolderPath"/"$rootIncludeFileName" <<-EOF
+		#define _GNU_SOURCE
+		#define _BSD_SOURCE
+		#include <cmdline.h>
+		#include <cmdline_parse_etheraddr.h>
+		#include <cmdline_parse_ipaddr.h>
+		#include <cmdline_parse_num.h>
+		#include <cmdline_parse_portlist.h>
+		#include <cmdline_parse_string.h>
+		#include <cmdline_socket.h>
+		//#include <rte_acl.h>  Vectors
+		#include <rte_alarm.h>
+		#include <rte_approx.h>
+		#include <rte_arp.h>
+		#include <rte_atomic.h>
+		//#include <rte_bitmap.h>  All static inline methods
+		#include <rte_byteorder.h>
+		#include <rte_cfgfile.h>
+		#include <rte_config.h>
+		#include <rte_cpuflags.h>
+		#include <rte_crypto.h>
+		#include <rte_cryptodev_pmd.h>
+		#include <rte_dev.h>
+		#include <rte_dev_info.h>
+		#include <rte_devargs.h>
+		#include <rte_distributor.h>
+	EOF
+		
 	(
-		printf '#define _GNU_SOURCE\n'
-		printf '#define _BSD_SOURCE\n'
-		printf '#define __SSE__\n'
-		printf '#define __SSE2__\n'
-		printf '#define __SSE3__\n'
-		printf '#define __SSE4_1__\n'
-		printf '#define __SSE4_2__\n'
-		printf '#define __AVX__\n'
 	
+		printf '\n'
+		printf '\n'
+		
+		
+		
+		
 		cd "$headersFolderPath" 1>/dev/null 2>/dev/null
 		
 			local file
