@@ -81,22 +81,25 @@ preprocess_before_headersFolderPath()
 		#include <cmdline_parse_portlist.h>
 		#include <cmdline_parse_string.h>
 		#include <cmdline_socket.h>
-		//#include <rte_acl.h>  Vectors
+		// #include <rte_acl.h> Vectors
 		#include <rte_alarm.h>
 		#include <rte_approx.h>
-		//#include <rte_arp.h>
-		//#include <rte_atomic.h>
+		#include <rte_arp.h>
+		#include <rte_atomic.h>
 		//#include <rte_bitmap.h>  All static inline methods
-		//#include <rte_byteorder.h>
+		#include <rte_byteorder.h>
 		#include <rte_cfgfile.h>
 		#include <rte_config.h>
 		#include <rte_cpuflags.h>
-		//#include <rte_crypto.h>
+		#include <rte_crypto.h>
 		//#include <rte_cryptodev_pmd.h>
 		#include <rte_dev.h>
 		#include <rte_dev_info.h>
 		//#include <rte_devargs.h>
 		#include <rte_distributor.h>
+		#include <rte_eal.h>
+		#include <rte_eal_memconfig.h>
+		#include <rte_errno.h>
 	EOF
 	
 	# Install musl-fixes; DPDK headers assumes they are installed as a system library
