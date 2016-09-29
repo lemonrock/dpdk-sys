@@ -97,52 +97,6 @@ preprocess_before_headersFolderPath()
 		#include <rte_devargs.h>
 		#include <rte_distributor.h>
 	EOF
-		
-	(
-	
-		printf '\n'
-		printf '\n'
-		
-		
-		
-		
-		cd "$headersFolderPath" 1>/dev/null 2>/dev/null
-		
-			local file
-			set +f
-			for file in *.h
-			do
-				set -f
-				
-				case "$file" in
-					
-					# Should not be used directly
-					rte_atomic_32.h|rte_atomic_64.h|rte_byteorder_32.h|rte_byteorder_64.h|rte_lpm_altivec.h|rte_lpm_neon.h|rte_lpm_sse.h)
-						:
-					;;
-					
-					rte_memcpy.h)
-						:
-					;;
-					
-					# Vectors are not supported by bindgen
-					rte_vect.h|rte_acl_osdep.h|rte_thash.h|rte_lpm.h|rte_sched.h)
-						:
-					;;
-					
-					*)
-						printf '#include "%s"\n' "$file"	
-					;;
-					
-				esac
-				
-			done
-			set -f
-			
-		cd - 1>/dev/null 2>/dev/null
-	
-	) >"$dpdkTempDir"/"$rootIncludeFileName"
-	mv "$dpdkTempDir"/"$rootIncludeFileName" "$headersFolderPath"/"$rootIncludeFileName"
 	
 	# Install musl-fixes; DPDK headers assumes they are installed as a system library
 	rsync -a -v "$dpdkMuslFixesDir"/ "$headersFolderPath"/
