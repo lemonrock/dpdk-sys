@@ -1,3 +1,4 @@
+
 static __inline void
 outl_p (unsigned int __value, unsigned short int __port)
 {
