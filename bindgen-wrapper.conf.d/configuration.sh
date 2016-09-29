@@ -8,6 +8,7 @@ link=''
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
+clangAdditionalArguments='-U__SSE2__'
 
 preprocess_before_headersFolderPath()
 {
@@ -83,18 +84,18 @@ preprocess_before_headersFolderPath()
 		//#include <rte_acl.h>  Vectors
 		#include <rte_alarm.h>
 		#include <rte_approx.h>
-		#include <rte_arp.h>
-		#include <rte_atomic.h>
+		//#include <rte_arp.h>
+		//#include <rte_atomic.h>
 		//#include <rte_bitmap.h>  All static inline methods
-		#include <rte_byteorder.h>
+		//#include <rte_byteorder.h>
 		#include <rte_cfgfile.h>
 		#include <rte_config.h>
 		#include <rte_cpuflags.h>
-		#include <rte_crypto.h>
-		#include <rte_cryptodev_pmd.h>
+		//#include <rte_crypto.h>
+		//#include <rte_cryptodev_pmd.h>
 		#include <rte_dev.h>
 		#include <rte_dev_info.h>
-		#include <rte_devargs.h>
+		//#include <rte_devargs.h>
 		#include <rte_distributor.h>
 	EOF
 	
