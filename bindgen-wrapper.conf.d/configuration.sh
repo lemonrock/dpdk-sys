@@ -82,7 +82,18 @@ preprocess_before_headersFolderPath()
 			do
 				set -f
 				
-				printf '#include "%s"\n' "$file"
+				case "$file" in
+					
+					rte_atomic_32.h|rte_atomic_64.h|rte_byteorder_32.h|rte_byteorder_64.h)
+						:
+					;;
+					
+					*)
+						printf '#include "%s"\n' "$file"	
+					;;
+					
+				esac
+				
 			done
 			set -f
 			
