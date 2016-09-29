@@ -11,7 +11,7 @@ headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include
 
 preprocess_before_headersFolderPath()
 {
-	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" rm mkdir find xargs cat mv
+	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" rm mkdir find xargs cat mv grep
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
@@ -39,6 +39,9 @@ preprocess_before_headersFolderPath()
 		# (2) Install sys/queue.h
 		cat "$configurationFolderPath"/musl-fixes/queue.h >"$dpdkMuslFixesDir"/sys/queue.h
 	
+	# Speed up make
+	local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
+	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 		
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
@@ -62,7 +65,7 @@ preprocess_before_headersFolderPath()
 			printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
 		) >>config/defconfig_"$baseConfiguration"
 		
-		make install T="$baseConfiguration" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -D_BSD_SOURCE -I/usr/include -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast" EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
+		make --jobs $numberOfCpus install T="$baseConfiguration" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" EXTRA_CFLAGS="-D_GNU_SOURCE -D_BSD_SOURCE -I/usr/include -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast" EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
 		
 	cd - 1>/dev/null 2>/dev/null
 	
@@ -87,6 +90,9 @@ preprocess_before_headersFolderPath()
 	
 	# Install musl-fixes; DPDK headers assumes they are installed as a system library
 	rsync -a -v "$dpdkMuslFixesDir"/ "$headersFolderPath"/
+	
+	# rte_memcpy.h fixes
+	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 }
 
 postprocess_after_generation()
