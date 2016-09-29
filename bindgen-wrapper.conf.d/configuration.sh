@@ -73,6 +73,12 @@ preprocess_before_headersFolderPath()
 	(
 		printf '#define _GNU_SOURCE\n'
 		printf '#define _BSD_SOURCE\n'
+		printf '#define __SSE__\n'
+		printf '#define __SSE2__\n'
+		printf '#define __SSE3__\n'
+		printf '#define __SSE4_1__\n'
+		printf '#define __SSE4_2__\n'
+		printf '#define __AVX__\n'
 	
 		cd "$headersFolderPath" 1>/dev/null 2>/dev/null
 		
@@ -85,11 +91,16 @@ preprocess_before_headersFolderPath()
 				case "$file" in
 					
 					# Should not be used directly
-					rte_atomic_32.h|rte_atomic_64.h|rte_byteorder_32.h|rte_byteorder_64.h)
+					rte_atomic_32.h|rte_atomic_64.h|rte_byteorder_32.h|rte_byteorder_64.h|rte_lpm_altivec.h|rte_lpm_neon.h|rte_lpm_sse.h)
 						:
 					;;
 					
 					rte_memcpy.h)
+						:
+					;;
+					
+					# Vectors are not supported by bindgen
+					rte_vect.h|rte_acl_osdep.h|rte_thash.h|rte_lpm.h|rte_sched.h)
 						:
 					;;
 					
