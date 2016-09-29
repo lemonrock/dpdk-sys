@@ -71,6 +71,9 @@ preprocess_before_headersFolderPath()
 	
 	# Generate an include file that includes all useful files
 	(
+		printf '#define _GNU_SOURCE\n'
+		printf '#define _BSD_SOURCE\n'
+	
 		cd "$headersFolderPath" 1>/dev/null 2>/dev/null
 		
 			local file
