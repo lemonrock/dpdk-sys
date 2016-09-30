@@ -113,6 +113,6 @@ postprocess_after_rustfmt()
 {
 	tac \
 	| sed -i \
-		-e '/pub struct XXXXXXXXXXX {/{n; d;}' \
+		-e '/pub struct lcore_config {/{n; d;}' \
 	| tac
 }
