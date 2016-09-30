@@ -81,7 +81,6 @@
 #include <rte_port_ring.h>
 #include <rte_port_sched.h>
 #include <rte_port_source_sink.h>
-
 #include <rte_power.h>
 #include <rte_prefetch.h>
 #include <rte_random.h>
@@ -91,11 +90,12 @@
 #include <rte_ring.h>
 #include <rte_rtm.h>
 #include <rte_rwlock.h>
-// #include <rte_sched.h>
-// #include <rte_sched_common.h>
-// #include <rte_sctp.h>
-// #include <rte_spinlock.h>
-// #include <rte_string_fns.h>
+
+#include <rte_sched.h>
+#include <rte_sched_common.h>
+#include <rte_sctp.h>
+#include <rte_spinlock.h>
+#include <rte_string_fns.h>
 // #include <rte_table.h>
 // #include <rte_table_acl.h>
 // #include <rte_table_array.h>
