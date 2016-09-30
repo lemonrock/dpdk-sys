@@ -53,7 +53,6 @@
 #include <rte_jobstats.h>
 
 #include <rte_keepalive.h>
-#include <rte_kni.h>
 #include <rte_kvargs.h>
 #include <rte_launch.h>
 #include <rte_lcore.h>
