@@ -111,6 +111,8 @@ preprocess_before_headersFolderPath()
 
 postprocess_after_rustfmt()
 {
+	local newline='\'$'\n'
+	
 	# Sed line explanations:-
 	# 1 - remove a #derive(Debug)
 	# 2 - suppress warnings about missing Debug
