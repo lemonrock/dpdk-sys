@@ -102,26 +102,9 @@ extern "C"
 {
 }
 
-
-// Constants
 include!("constants.rs");
-
-
-// Statics
 include!("statics.rs");
-
-
-// Functions
 include!("functions.rs");
-
-
-// Types
 include!("types.rs");
-
-
-// Enums
 include!("enums.rs");
-
-
-// Structs
 include!("structs.rs");

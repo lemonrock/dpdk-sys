@@ -93,6 +93,7 @@ postprocess_after_rustfmt()
 	# 3 - constants would overflow a c_int
 	# 4 - unwanted constants from header file parsing
 	# 5 - unwanted private function
+	# 6 - functions that uses va_list (sort of supported, but difficult to use)
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
@@ -126,5 +127,9 @@ postprocess_after_rustfmt()
 		-e '/pub const __RESERVED:/d' \
 	| sed \
 		-e '/pub fn __rte_panic/d' \
+	| sed \
+		-e '/pub fn rte_vlog/d' \
 	| tac
+	
+	
 }

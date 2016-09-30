@@ -15,6 +15,35 @@ Bindings are currently built for DPDK 16.07.
 
 ## Notes
 
+The function `rte_vlog` is not exported as it makes uses of `va_list`; this macro maps to different code for different platforms. When using musl on Linux, it can be supported with:-
+
+```rust
+pub type va_list = __builtin_va_list;
+
+pub type __builtin_va_list = [__va_list_tag; 1usize];
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __va_list_tag
+{
+	pub gp_offset: c_uint,
+	pub fp_offset: c_uint,
+	pub overflow_arg_area: *mut c_void,
+	pub reg_save_area: *mut c_void,
+}
+
+impl Default for __va_list_tag
+{
+    fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+```
+
+Hopefully one day code like this might end up in the `libc` crate, but it's not likely as it's very difficult to make use of `va_list` in any event.
+
 https://stackoverflow.com/questions/38156867/how-to-direct-packets-belonging-to-a-tcp-connection-to-a-specific-lcore-in-dpdk/39708686
 https://galsagie.github.io/2015/02/26/dpdk-tips-1/
 
