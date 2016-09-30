@@ -27,23 +27,23 @@ pub struct __m128i
 
 pub type va_list = __builtin_va_list;
 
-// pub type __builtin_va_list = [__va_list_tag; 1usize];
-//
-// #[repr(C)]
-// #[derive(Copy, Clone)]
-// #[derive(Debug)]
-// pub struct __va_list_tag
-// {
-// 	pub gp_offset: c_uint,
-// 	pub fp_offset: c_uint,
-// 	pub overflow_arg_area: *mut c_void,
-// 	pub reg_save_area: *mut c_void,
-// }
-//
-// impl Default for __va_list_tag
-// {
-//     fn default() -> Self
-// 	{
-// 		unsafe { zeroed() }
-// 	}
-// }
+pub type __builtin_va_list = [__va_list_tag; 1usize];
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __va_list_tag
+{
+	pub gp_offset: c_uint,
+	pub fp_offset: c_uint,
+	pub overflow_arg_area: *mut c_void,
+	pub reg_save_area: *mut c_void,
+}
+
+impl Default for __va_list_tag
+{
+    fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
