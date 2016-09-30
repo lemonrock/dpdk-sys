@@ -31,6 +31,7 @@ rte_keepalive_ rte_keepalive
 rte_kvargs_ rte_kvargs
 rte_log log
 rte_lpm rte_lpm
+rte_malloc_dump_ dump
 rte_malloc memory
 rte_mbuf_ memory
 rte_mem_ memory
