@@ -105,9 +105,9 @@ preprocess_before_headersFolderPath()
 		#include <rte_eth_ctrl.h>
 		#include <rte_eth_null.h>
 		#include <rte_eth_ring.h>
-		#include <rte_eth_vhost.h>
-		#include <rte_ethdev.h>
-		#include <rte_ether.h>
+		//#include <rte_eth_vhost.h>
+		//#include <rte_ethdev.h>
+		//#include <rte_ether.h>
 	EOF
 	
 	# Install musl-fixes; DPDK headers assumes they are installed as a system library
