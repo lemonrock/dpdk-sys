@@ -88,10 +88,15 @@ postprocess_after_rustfmt()
 	local newline='\'$'\n'
 	
 	# Sed explanations:-
+	# 0 - get rid of Struct_Unnamed and Enum_Unammed names
 	# 1 - remove a #derive(Debug)
 	# 2 - suppress warnings about missing Debug
 	# 3 - constants would overflow a c_int
+	# 4 - unwanted constants from header file parsing
 	tac \
+	| sed \
+		-e 's/Struct_Unnamed/AnonymousStruct/g' \
+		-e 's/Enum_Unnamed/AnonymousEnum/g' \
 	| sed \
 		-e '/pub struct lcore_config/{n; d;}' \
 	| sed \
@@ -114,5 +119,9 @@ postprocess_after_rustfmt()
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \
 		-e 's/pub const RTE_JHASH_GOLDEN_RATIO: c_int /pub const RTE_JHASH_GOLDEN_RATIO: i64 /g' \
 		-e 's/pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: c_int /pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: i64 /g' \
+	| sed \
+		-e '/pub const _RTE_RTM_H_:/d' \
+		-e '/pub const __ELASTERROR:/d' \
+		-e '/pub const __RESERVED:/d' \
 	| tac
 }
