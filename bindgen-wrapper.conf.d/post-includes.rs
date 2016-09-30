@@ -23,8 +23,10 @@ pub struct __m128i
 	b: u64,
 }
 
-// pub type va_list = __builtin_va_list;
-//
+// pub struct lcore_config
+
+pub type va_list = __builtin_va_list;
+
 // pub type __builtin_va_list = [__va_list_tag; 1usize];
 //
 // #[repr(C)]

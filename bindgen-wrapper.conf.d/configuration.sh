@@ -108,3 +108,11 @@ preprocess_before_headersFolderPath()
 	# rte_memcpy.h fixes
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 }
+
+postprocess_after_rustfmt()
+{
+	tac \
+	| sed -i \
+		-e '/pub struct XXXXXXXXXXX {/{n; d;}' \
+	| tac
+}
