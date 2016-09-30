@@ -41,3 +41,14 @@
 #include <rte_eth_vhost.h>
 //#include <rte_ethdev.h>  Out of memory, Illegal Instruction
 #include <rte_ether.h>
+
+#include <rte_fbk_hash.h>
+#include <rte_hash.h>
+#include <rte_hash_crc.h>
+#include <rte_hexdump.h>
+#include <rte_icmp.h>
+#include <rte_interrupts.h>
+#include <rte_ip.h>
+#include <rte_ip_frag.h>
+#include <rte_jhash.h>
+#include <rte_jobstats.h>
