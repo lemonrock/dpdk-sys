@@ -60,7 +60,6 @@
 #include <rte_lpm6.h>
 #include <rte_lpm_sse.h>
 #include <rte_lru.h>
-
 #include <rte_malloc.h>
 #include <rte_malloc_heap.h>
 #include <rte_mbuf.h>
@@ -69,20 +68,20 @@
 #include <rte_mempool.h>
 #include <rte_memzone.h>
 #include <rte_meter.h>
-// #include <rte_pci.h>
-// #include <rte_pci_dev_feature_defs.h>
-// #include <rte_pci_dev_features.h>
-// #include <rte_pdump.h>
-// #include <rte_per_lcore.h>
-// #include <rte_pipeline.h>
-// #include <rte_port.h>
-// #include <rte_port_ethdev.h>
-// #include <rte_port_frag.h>
-// #include <rte_port_kni.h>
-// #include <rte_port_ras.h>
-// #include <rte_port_ring.h>
-// #include <rte_port_sched.h>
-// #include <rte_port_source_sink.h>
+
+#include <rte_pci.h>
+#include <rte_pci_dev_feature_defs.h>
+#include <rte_pci_dev_features.h>
+#include <rte_pdump.h>
+#include <rte_per_lcore.h>
+#include <rte_pipeline.h>
+#include <rte_port.h>
+#include <rte_port_ethdev.h>
+#include <rte_port_frag.h>
+#include <rte_port_ras.h>
+#include <rte_port_ring.h>
+#include <rte_port_sched.h>
+#include <rte_port_source_sink.h>
 // #include <rte_power.h>
 // #include <rte_prefetch.h>
 // #include <rte_random.h>
