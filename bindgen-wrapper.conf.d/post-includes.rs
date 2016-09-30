@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use ::std::os::raw::c_char;
 use ::std::os::raw::c_int;
 use ::std::os::raw::c_longlong;
