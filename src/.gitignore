@@ -1,8 +1,0 @@
-.afterGeneration
-.afterRustfmt
-.cleanedGeneration
-.prepend
-.rawGeneration
-.rustfmt
-.withoutConstants
-.withoutConstantsWithoutTypes
