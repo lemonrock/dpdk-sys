@@ -68,10 +68,9 @@
 #include <rte_mempool.h>
 #include <rte_memzone.h>
 #include <rte_meter.h>
-
-//#include <rte_pci.h>
-//#include <rte_pci_dev_feature_defs.h>
-//#include <rte_pci_dev_features.h>
+//#include <rte_pci.h>  Out of memory, Illegal Instruction?
+//#include <rte_pci_dev_feature_defs.h>  Out of memory, Illegal Instruction?
+//#include <rte_pci_dev_features.h>  Out of memory, Illegal Instruction?
 #include <rte_pdump.h>
 #include <rte_per_lcore.h>
 #include <rte_pipeline.h>
@@ -82,15 +81,16 @@
 #include <rte_port_ring.h>
 #include <rte_port_sched.h>
 #include <rte_port_source_sink.h>
-// #include <rte_power.h>
-// #include <rte_prefetch.h>
-// #include <rte_random.h>
-// #include <rte_reciprocal.h>
-// #include <rte_red.h>
-// #include <rte_reorder.h>
-// #include <rte_ring.h>
-// #include <rte_rtm.h>
-// #include <rte_rwlock.h>
+
+#include <rte_power.h>
+#include <rte_prefetch.h>
+#include <rte_random.h>
+#include <rte_reciprocal.h>
+#include <rte_red.h>
+#include <rte_reorder.h>
+#include <rte_ring.h>
+#include <rte_rtm.h>
+#include <rte_rwlock.h>
 // #include <rte_sched.h>
 // #include <rte_sched_common.h>
 // #include <rte_sctp.h>
