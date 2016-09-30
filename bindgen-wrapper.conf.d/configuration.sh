@@ -94,6 +94,7 @@ postprocess_after_rustfmt()
 	# 4 - unwanted constants from header file parsing
 	# 5 - unwanted private function
 	# 6 - functions that uses va_list (sort of supported, but difficult to use)
+	# tr - sed - tr: Conjoin Debug, Copy, Clone
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
@@ -129,7 +130,8 @@ postprocess_after_rustfmt()
 		-e '/pub fn __rte_panic/d' \
 	| sed \
 		-e '/pub fn rte_vlog/d' \
-	| tac
+	| tac \
+	| tr '\n' '\v' | sed -e 's/#\[derive(Copy, Clone)]\v#\[derive(Debug)\]/#[derive(Copy, Clone, Debug)]/g' | tr '\v' '\n'
 	
 	
 }
