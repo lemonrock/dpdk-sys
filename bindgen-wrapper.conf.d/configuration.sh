@@ -10,7 +10,7 @@ rte_pmd_null rte_pmd_null_crypto rte_pmd_ring rte_port rte_power rte_reorder rte
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
-clangAdditionalArguments='-U__SSE2__'
+clangAdditionalArguments=''
 
 preprocess_before_headersFolderPath()
 {
@@ -82,45 +82,8 @@ preprocess_before_headersFolderPath()
 		sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 	fi
 	
-	# Generate an include file that includes all useful files
-	cat >"$headersFolderPath"/"$rootIncludeFileName" <<-EOF
-		#define _GNU_SOURCE
-		#define _BSD_SOURCE
-		#include <cmdline.h>
-		#include <cmdline_parse_etheraddr.h>
-		#include <cmdline_parse_ipaddr.h>
-		#include <cmdline_parse_num.h>
-		#include <cmdline_parse_portlist.h>
-		#include <cmdline_parse_string.h>
-		#include <cmdline_socket.h>
-		// #include <rte_acl.h>   error: unknown type name '__m128i' (rte_vect.h)
-		#include <rte_alarm.h>
-		#include <rte_approx.h>
-		#include <rte_arp.h>
-		#include <rte_atomic.h>
-		//#include <rte_bitmap.h>  All static inline methods
-		#include <rte_byteorder.h>
-		#include <rte_cfgfile.h>
-		#include <rte_config.h>
-		#include <rte_cpuflags.h>
-		#include <rte_crypto.h>
-		//#include <rte_cryptodev_pmd.h>  Out of memory
-		#include <rte_dev.h>
-		#include <rte_dev_info.h>
-		//#include <rte_devargs.h>  Out of memory
-		#include <rte_distributor.h>
-		#include <rte_eal.h>
-		#include <rte_eal_memconfig.h>
-		#include <rte_errno.h>
-		#include <rte_eth_bond.h>
-		//#include <rte_eth_bond_8023ad.h>  Out of memory, Illegal Instruction
-		//#include <rte_eth_ctrl.h>  Out of memory, Illegal Instruction
-		#include <rte_eth_null.h>
-		//#include <rte_eth_ring.h>
-		//#include <rte_eth_vhost.h>
-		//#include <rte_ethdev.h>
-		#include <rte_ether.h>
-	EOF
+	rm -rf "$headersFolderPath"/"$rootIncludeFileName"
+	cp "$configurationFolderPath"/"$rootIncludeFileName" "$headersFolderPath"
 }
 
 postprocess_after_rustfmt()
