@@ -574,6 +574,47 @@ pub const BALANCE_XMIT_POLICY_LAYER23: c_int = 1;
 pub const BALANCE_XMIT_POLICY_LAYER34: c_int = 2;
 pub const RTE_VHOST_USER_CLIENT: c_int = 1;
 pub const RTE_VHOST_USER_NO_RECONNECT: c_int = 2;
+pub const RTE_JHASH_GOLDEN_RATIO: i64 = 3735928559;
+pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: i64 = 4294967295;
+pub const RTE_FBK_HASH_ENTRIES_MAX: c_int = 1048576;
+pub const RTE_FBK_HASH_ENTRIES_PER_BUCKET_MAX: c_int = 256;
+pub const RTE_FBK_HASH_NAMESIZE: c_int = 32;
+pub const RTE_HASH_ENTRIES_MAX: c_int = 1073741824;
+pub const RTE_HASH_NAMESIZE: c_int = 32;
+pub const RTE_HASH_LOOKUP_BULK_MAX: c_int = 64;
+pub const RTE_HASH_LOOKUP_MULTI_MAX: c_int = 64;
+pub const RTE_HASH_EXTRA_FLAGS_TRANS_MEM_SUPPORT: c_int = 1;
+pub const RTE_HASH_EXTRA_FLAGS_MULTI_WRITER_ADD: c_int = 2;
+pub const CRC32_SW: c_int = 1;
+pub const CRC32_SSE42: c_int = 2;
+pub const CRC32_x64: c_int = 4;
+pub const CRC32_SSE42_x64: c_int = 6;
+pub const CRC32_ARM64: c_int = 8;
+pub const IP_ICMP_ECHO_REPLY: c_int = 0;
+pub const IP_ICMP_ECHO_REQUEST: c_int = 8;
+pub const RTE_MAX_RXTX_INTR_VEC_ID: c_int = 32;
+pub const RTE_INTR_VEC_ZERO_OFFSET: c_int = 0;
+pub const RTE_INTR_VEC_RXTX_OFFSET: c_int = 1;
+pub const RTE_INTR_EVENT_ADD: c_int = 1;
+pub const RTE_INTR_EVENT_DEL: c_int = 2;
+pub const RTE_EPOLL_PER_THREAD: c_int = -1;
+pub const IPV4_MAX_PKT_LEN: c_int = 65535;
+pub const IPV4_HDR_IHL_MASK: c_int = 15;
+pub const IPV4_IHL_MULTIPLIER: c_int = 4;
+pub const IPV4_HDR_DF_SHIFT: c_int = 14;
+pub const IPV4_HDR_MF_SHIFT: c_int = 13;
+pub const IPV4_HDR_FO_SHIFT: c_int = 3;
+pub const IPV4_HDR_DF_FLAG: c_int = 16384;
+pub const IPV4_HDR_MF_FLAG: c_int = 8192;
+pub const IPV4_HDR_OFFSET_MASK: c_int = 8191;
+pub const IPV4_HDR_OFFSET_UNITS: c_int = 8;
+pub const IP_FRAG_DEATH_ROW_LEN: c_int = 32;
+pub const RTE_IPV6_EHDR_MF_SHIFT: c_int = 0;
+pub const RTE_IPV6_EHDR_MF_MASK: c_int = 1;
+pub const RTE_IPV6_EHDR_FO_SHIFT: c_int = 3;
+pub const RTE_IPV6_EHDR_FO_MASK: c_int = -8;
+pub const RTE_IPV6_FRAG_USED_MASK: c_int = -7;
+pub const RTE_JOBSTATS_NAMESIZE: c_int = 32;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -2912,6 +2953,580 @@ impl Default for rte_eth_vhost_queue_event
 	}
 }
 
+pub type rte_fbk_hash_fn = Option<extern "C" fn(key: uint32_t, init_val: uint32_t) -> uint32_t>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_fbk_hash_params
+{
+	pub name: *const c_char,
+	pub entries: uint32_t,
+	pub entries_per_bucket: uint32_t,
+	pub socket_id: c_int,
+	pub hash_func: rte_fbk_hash_fn,
+	pub init_val: uint32_t,
+	_bindgen_padding_0_: [u8; 4usize],
+}
+
+impl Default for rte_fbk_hash_params
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_fbk_hash_entry
+{
+	pub _bindgen_data_: [u64; 1usize],
+}
+
+impl rte_fbk_hash_entry
+{
+	pub unsafe fn whole_entry(&mut self) -> *mut uint64_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn entry(&mut self) -> *mut Struct_Unnamed22
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_fbk_hash_entry
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct Struct_Unnamed22
+{
+	pub is_entry: uint16_t,
+	pub value: uint16_t,
+	pub key: uint32_t,
+}
+
+impl Default for Struct_Unnamed22
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_fbk_hash_table
+{
+	pub name: [c_char; 32usize],
+	pub entries: uint32_t,
+	pub entries_per_bucket: uint32_t,
+	pub used_entries: uint32_t,
+	pub bucket_mask: uint32_t,
+	pub bucket_shift: uint32_t,
+	pub hash_func: rte_fbk_hash_fn,
+	pub init_val: uint32_t,
+	pub t: [rte_fbk_hash_entry; 0usize],
+}
+
+impl Default for rte_fbk_hash_table
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type hash_sig_t = uint32_t;
+
+pub type rte_hash_function = Option<unsafe extern "C" fn(key: *const c_void, key_len: uint32_t, init_val: uint32_t) -> uint32_t>;
+
+pub type rte_hash_cmp_eq_t = Option<unsafe extern "C" fn(key1: *const c_void, key2: *const c_void, key_len: size_t) -> c_int>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_hash_parameters
+{
+	pub name: *const c_char,
+	pub entries: uint32_t,
+	pub reserved: uint32_t,
+	pub key_len: uint32_t,
+	pub hash_func: rte_hash_function,
+	pub hash_func_init_val: uint32_t,
+	pub socket_id: c_int,
+	pub extra_flag: uint8_t,
+	_bindgen_padding_0_: [u8; 7usize],
+}
+
+impl Default for rte_hash_parameters
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+pub enum rte_hash
+{
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct icmp_hdr
+{
+	pub icmp_type: uint8_t,
+	pub icmp_code: uint8_t,
+	pub icmp_cksum: uint16_t,
+	pub icmp_ident: uint16_t,
+	pub icmp_seq_nb: uint16_t,
+}
+
+impl Default for icmp_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_intr_callback_fn = Option<unsafe extern "C" fn(intr_handle: *mut rte_intr_handle, cb_arg: *mut c_void)>;
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum rte_intr_handle_type
+{
+	RTE_INTR_HANDLE_UNKNOWN = 0,
+	RTE_INTR_HANDLE_UIO = 1,
+	RTE_INTR_HANDLE_UIO_INTX = 2,
+	RTE_INTR_HANDLE_VFIO_LEGACY = 3,
+	RTE_INTR_HANDLE_VFIO_MSI = 4,
+	RTE_INTR_HANDLE_VFIO_MSIX = 5,
+	RTE_INTR_HANDLE_ALARM = 6,
+	RTE_INTR_HANDLE_EXT = 7,
+	RTE_INTR_HANDLE_MAX = 8,
+}
+
+pub type rte_intr_event_cb_t = Option<unsafe extern "C" fn(fd: c_int, arg: *mut c_void)>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_epoll_data
+{
+	pub event: uint32_t,
+	pub data: *mut c_void,
+	pub cb_fun: rte_intr_event_cb_t,
+	pub cb_arg: *mut c_void,
+}
+
+impl Default for rte_epoll_data
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed23
+{
+	RTE_EPOLL_INVALID = 0,
+	RTE_EPOLL_VALID = 1,
+	RTE_EPOLL_EXEC = 2,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_epoll_event
+{
+	pub status: uint32_t,
+	pub fd: c_int,
+	pub epfd: c_int,
+	pub epdata: rte_epoll_data,
+}
+
+impl Default for rte_epoll_event
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_intr_handle
+{
+	pub _bindgen_data_1_: [u32; 1usize],
+	pub fd: c_int,
+	pub type_: rte_intr_handle_type,
+	pub max_intr: uint32_t,
+	pub nb_efd: uint32_t,
+	pub efds: [c_int; 32usize],
+	pub elist: [rte_epoll_event; 32usize],
+	pub intr_vec: *mut c_int,
+}
+
+impl rte_intr_handle
+{
+	pub unsafe fn vfio_dev_fd(&mut self) -> *mut c_int
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn uio_cfg_fd(&mut self) -> *mut c_int
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_intr_handle
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ipv4_hdr
+{
+	pub version_ihl: uint8_t,
+	pub type_of_service: uint8_t,
+	pub total_length: uint16_t,
+	pub packet_id: uint16_t,
+	pub fragment_offset: uint16_t,
+	pub time_to_live: uint8_t,
+	pub next_proto_id: uint8_t,
+	pub hdr_checksum: uint16_t,
+	pub src_addr: uint32_t,
+	pub dst_addr: uint32_t,
+}
+
+impl Default for ipv4_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ipv6_hdr
+{
+	pub vtc_flow: uint32_t,
+	pub payload_len: uint16_t,
+	pub proto: uint8_t,
+	pub hop_limits: uint8_t,
+	pub src_addr: [uint8_t; 16usize],
+	pub dst_addr: [uint8_t; 16usize],
+}
+
+impl Default for ipv6_hdr
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_malloc_socket_stats
+{
+	pub heap_totalsz_bytes: size_t,
+	pub heap_freesz_bytes: size_t,
+	pub greatest_free_size: size_t,
+	pub free_count: c_uint,
+	pub alloc_count: c_uint,
+	pub heap_allocsz_bytes: size_t,
+}
+
+impl Default for rte_malloc_socket_stats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed24
+{
+	IP_LAST_FRAG_IDX = 0,
+	IP_FIRST_FRAG_IDX = 1,
+	IP_MIN_FRAG_NUM = 2,
+	IP_MAX_FRAG_NUM = 4,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ip_frag
+{
+	pub ofs: uint16_t,
+	pub len: uint16_t,
+	pub mb: *mut rte_mbuf,
+}
+
+impl Default for ip_frag
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ip_frag_key
+{
+	pub src_dst: [uint64_t; 4usize],
+	pub id: uint32_t,
+	pub key_len: uint32_t,
+}
+
+impl Default for ip_frag_key
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ip_frag_pkt
+{
+	pub lru: Struct_Unnamed25,
+	pub key: ip_frag_key,
+	pub start: uint64_t,
+	pub total_size: uint32_t,
+	pub frag_size: uint32_t,
+	pub last_idx: uint32_t,
+	pub frags: [ip_frag; 4usize],
+}
+
+impl Default for ip_frag_pkt
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct Struct_Unnamed25
+{
+	pub tqe_next: *mut ip_frag_pkt,
+	pub tqe_prev: *mut *mut ip_frag_pkt,
+}
+
+impl Default for Struct_Unnamed25
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_ip_frag_death_row
+{
+	pub cnt: uint32_t,
+	pub row: [*mut rte_mbuf; 160usize],
+}
+
+impl Clone for rte_ip_frag_death_row
+{
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_ip_frag_death_row
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ip_pkt_list
+{
+	pub tqh_first: *mut ip_frag_pkt,
+	pub tqh_last: *mut *mut ip_frag_pkt,
+}
+
+impl Default for ip_pkt_list
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ip_frag_tbl_stat
+{
+	pub find_num: uint64_t,
+	pub add_num: uint64_t,
+	pub del_num: uint64_t,
+	pub reuse_num: uint64_t,
+	pub fail_total: uint64_t,
+	pub fail_nospace: uint64_t,
+	_bindgen_padding_0_: [u64; 2usize],
+}
+
+impl Default for ip_frag_tbl_stat
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_ip_frag_tbl
+{
+	pub max_cycles: uint64_t,
+	pub entry_mask: uint32_t,
+	pub max_entries: uint32_t,
+	pub use_entries: uint32_t,
+	pub bucket_entries: uint32_t,
+	pub nb_entries: uint32_t,
+	pub nb_buckets: uint32_t,
+	pub last: *mut ip_frag_pkt,
+	pub lru: ip_pkt_list,
+	pub stat: ip_frag_tbl_stat,
+	pub pkt: [ip_frag_pkt; 0usize],
+}
+
+impl Default for rte_ip_frag_tbl
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ipv6_extension_fragment
+{
+	pub next_header: uint8_t,
+	pub reserved: uint8_t,
+	pub frag_data: uint16_t,
+	pub id: uint32_t,
+}
+
+impl Default for ipv6_extension_fragment
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+pub type rte_job_update_period_cb_t = Option<unsafe extern "C" fn(job: *mut rte_jobstats, job_result: int64_t)>;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_jobstats
+{
+	pub period: uint64_t,
+	pub min_period: uint64_t,
+	pub max_period: uint64_t,
+	pub target: int64_t,
+	pub update_period_cb: rte_job_update_period_cb_t,
+	pub exec_time: uint64_t,
+	pub min_exec_time: uint64_t,
+	pub max_exec_time: uint64_t,
+	pub exec_cnt: uint64_t,
+	pub name: [c_char; 32usize],
+	pub context: *mut rte_jobstats_context,
+}
+
+impl Default for rte_jobstats
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct rte_jobstats_context
+{
+	pub state_time: uint64_t,
+	pub loop_executed_jobs: uint64_t,
+	pub exec_time: uint64_t,
+	pub min_exec_time: uint64_t,
+	pub max_exec_time: uint64_t,
+	pub management_time: uint64_t,
+	pub min_management_time: uint64_t,
+	pub max_management_time: uint64_t,
+	pub start_time: uint64_t,
+	pub job_exec_cnt: uint64_t,
+	pub loop_cnt: uint64_t,
+	_bindgen_padding_0_: [u64; 5usize],
+}
+
+impl Default for rte_jobstats_context
+{
+	fn default() -> Self
+	{
+		unsafe { zeroed() }
+	}
+}
+
 extern "C"
 {
 	pub static mut cmdline_vt100_commands: [*const c_char; 0usize];
@@ -3160,5 +3775,77 @@ extern "C"
 	pub fn rte_eth_vhost_feature_enable(feature_mask: uint64_t) -> c_int;
 	pub fn rte_eth_vhost_feature_get() -> uint64_t;
 	pub fn rte_eth_vhost_get_queue_event(port_id: uint8_t, event: *mut rte_eth_vhost_queue_event) -> c_int;
+	pub fn rte_fbk_hash_find_existing(name: *const c_char) -> *mut rte_fbk_hash_table;
+	pub fn rte_fbk_hash_create(params: *const rte_fbk_hash_params) -> *mut rte_fbk_hash_table;
+	pub fn rte_fbk_hash_free(ht: *mut rte_fbk_hash_table);
+	pub fn rte_hash_create(params: *const rte_hash_parameters) -> *mut rte_hash;
+	pub fn rte_hash_set_cmp_func(h: *mut rte_hash, func: rte_hash_cmp_eq_t);
+	pub fn rte_hash_find_existing(name: *const c_char) -> *mut rte_hash;
+	pub fn rte_hash_free(h: *mut rte_hash);
+	pub fn rte_hash_reset(h: *mut rte_hash);
+	pub fn rte_hash_add_key_data(h: *const rte_hash, key: *const c_void, data: *mut c_void) -> c_int;
+	pub fn rte_hash_add_key_with_hash_data(h: *const rte_hash, key: *const c_void, sig: hash_sig_t, data: *mut c_void) -> int32_t;
+	pub fn rte_hash_add_key(h: *const rte_hash, key: *const c_void) -> int32_t;
+	pub fn rte_hash_add_key_with_hash(h: *const rte_hash, key: *const c_void, sig: hash_sig_t) -> int32_t;
+	pub fn rte_hash_del_key(h: *const rte_hash, key: *const c_void) -> int32_t;
+	pub fn rte_hash_del_key_with_hash(h: *const rte_hash, key: *const c_void, sig: hash_sig_t) -> int32_t;
+	pub fn rte_hash_get_key_with_position(h: *const rte_hash, position: int32_t, key: *mut *mut c_void) -> c_int;
+	pub fn rte_hash_lookup_data(h: *const rte_hash, key: *const c_void, data: *mut *mut c_void) -> c_int;
+	pub fn rte_hash_lookup_with_hash_data(h: *const rte_hash, key: *const c_void, sig: hash_sig_t, data: *mut *mut c_void) -> c_int;
+	pub fn rte_hash_lookup(h: *const rte_hash, key: *const c_void) -> int32_t;
+	pub fn rte_hash_lookup_with_hash(h: *const rte_hash, key: *const c_void, sig: hash_sig_t) -> int32_t;
+	pub fn rte_hash_hash(h: *const rte_hash, key: *const c_void) -> hash_sig_t;
+	pub fn rte_hash_lookup_bulk_data(h: *const rte_hash, keys: *mut *const c_void, num_keys: uint32_t, hit_mask: *mut uint64_t, data: *mut *mut c_void) -> c_int;
+	pub fn rte_hash_lookup_bulk(h: *const rte_hash, keys: *mut *const c_void, num_keys: uint32_t, positions: *mut int32_t) -> c_int;
+	pub fn rte_hash_iterate(h: *const rte_hash, key: *mut *const c_void, data: *mut *mut c_void, next: *mut uint32_t) -> int32_t;
+	pub fn rte_hexdump(f: *mut FILE, title: *const c_char, buf: *const c_void, len: c_uint);
+	pub fn rte_memdump(f: *mut FILE, title: *const c_char, buf: *const c_void, len: c_uint);
+	pub fn rte_epoll_wait(epfd: c_int, events: *mut rte_epoll_event, maxevents: c_int, timeout: c_int) -> c_int;
+	pub fn rte_epoll_ctl(epfd: c_int, op: c_int, fd: c_int, event: *mut rte_epoll_event) -> c_int;
+	pub fn rte_intr_tls_epfd() -> c_int;
+	pub fn rte_intr_rx_ctl(intr_handle: *mut rte_intr_handle, epfd: c_int, op: c_int, vec: c_uint, data: *mut c_void) -> c_int;
+	pub fn rte_intr_efd_enable(intr_handle: *mut rte_intr_handle, nb_efd: uint32_t) -> c_int;
+	pub fn rte_intr_efd_disable(intr_handle: *mut rte_intr_handle);
+	pub fn rte_intr_dp_is_en(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_allow_others(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_cap_multiple(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_callback_register(intr_handle: *mut rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_intr_callback_unregister(intr_handle: *mut rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_intr_enable(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_disable(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_malloc(type_: *const c_char, size: size_t, align: c_uint) -> *mut c_void;
+	pub fn rte_zmalloc(type_: *const c_char, size: size_t, align: c_uint) -> *mut c_void;
+	pub fn rte_calloc(type_: *const c_char, num: size_t, size: size_t, align: c_uint) -> *mut c_void;
+	pub fn rte_realloc(ptr: *mut c_void, size: size_t, align: c_uint) -> *mut c_void;
+	pub fn rte_malloc_socket(type_: *const c_char, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;
+	pub fn rte_zmalloc_socket(type_: *const c_char, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;
+	pub fn rte_calloc_socket(type_: *const c_char, num: size_t, size: size_t, align: c_uint, socket: c_int) -> *mut c_void;
+	pub fn rte_free(ptr: *mut c_void);
+	pub fn rte_malloc_validate(ptr: *const c_void, size: *mut size_t) -> c_int;
+	pub fn rte_malloc_get_socket_stats(socket: c_int, socket_stats: *mut rte_malloc_socket_stats) -> c_int;
+	pub fn rte_malloc_dump_stats(f: *mut FILE, type_: *const c_char);
+	pub fn rte_malloc_set_limit(type_: *const c_char, max: size_t) -> c_int;
+	pub fn rte_malloc_virt2phy(addr: *const c_void) -> phys_addr_t;
+	pub fn rte_ip_frag_table_create(bucket_num: uint32_t, bucket_entries: uint32_t, max_entries: uint32_t, max_cycles: uint64_t, socket_id: c_int) -> *mut rte_ip_frag_tbl;
+	pub fn rte_ipv6_fragment_packet(pkt_in: *mut rte_mbuf, pkts_out: *mut *mut rte_mbuf, nb_pkts_out: uint16_t, mtu_size: uint16_t, pool_direct: *mut rte_mempool, pool_indirect: *mut rte_mempool) -> int32_t;
+	pub fn rte_ipv6_frag_reassemble_packet(tbl: *mut rte_ip_frag_tbl, dr: *mut rte_ip_frag_death_row, mb: *mut rte_mbuf, tms: uint64_t, ip_hdr: *mut ipv6_hdr, frag_hdr: *mut ipv6_extension_fragment) -> *mut rte_mbuf;
+	pub fn rte_ipv4_fragment_packet(pkt_in: *mut rte_mbuf, pkts_out: *mut *mut rte_mbuf, nb_pkts_out: uint16_t, mtu_size: uint16_t, pool_direct: *mut rte_mempool, pool_indirect: *mut rte_mempool) -> int32_t;
+	pub fn rte_ipv4_frag_reassemble_packet(tbl: *mut rte_ip_frag_tbl, dr: *mut rte_ip_frag_death_row, mb: *mut rte_mbuf, tms: uint64_t, ip_hdr: *mut ipv4_hdr) -> *mut rte_mbuf;
+	pub fn rte_ip_frag_free_death_row(dr: *mut rte_ip_frag_death_row, prefetch: uint32_t);
+	pub fn rte_ip_frag_table_statistics_dump(f: *mut FILE, tbl: *const rte_ip_frag_tbl);
+	pub fn rte_jobstats_context_init(ctx: *mut rte_jobstats_context) -> c_int;
+	pub fn rte_jobstats_context_start(ctx: *mut rte_jobstats_context);
+	pub fn rte_jobstats_context_finish(ctx: *mut rte_jobstats_context);
+	pub fn rte_jobstats_context_reset(ctx: *mut rte_jobstats_context);
+	pub fn rte_jobstats_init(job: *mut rte_jobstats, name: *const c_char, min_period: uint64_t, max_period: uint64_t, initial_period: uint64_t, target: int64_t) -> c_int;
+	pub fn rte_jobstats_set_target(job: *mut rte_jobstats, target: int64_t);
+	pub fn rte_jobstats_start(ctx: *mut rte_jobstats_context, job: *mut rte_jobstats) -> c_int;
+	pub fn rte_jobstats_abort(job: *mut rte_jobstats) -> c_int;
+	pub fn rte_jobstats_finish(job: *mut rte_jobstats, job_value: int64_t) -> c_int;
+	pub fn rte_jobstats_set_period(job: *mut rte_jobstats, period: uint64_t, saturate: uint8_t);
+	pub fn rte_jobstats_set_min(job: *mut rte_jobstats, period: uint64_t);
+	pub fn rte_jobstats_set_max(job: *mut rte_jobstats, period: uint64_t);
+	pub fn rte_jobstats_set_update_period_function(job: *mut rte_jobstats, update_period_cb: rte_job_update_period_cb_t);
+	pub fn rte_jobstats_reset(job: *mut rte_jobstats);
 }
 
