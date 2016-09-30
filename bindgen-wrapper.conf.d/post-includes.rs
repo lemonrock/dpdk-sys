@@ -1,7 +1,12 @@
 extern crate libc;
-// use self::libc::size_t;
-// use self::libc::time_t;
-// use self::libc::int64_t;
-// use self::libc::uint16_t;
-// use self::libc::uint32_t;
-// use self::libc::uint64_t;
+use ::libc::size_t;
+use ::libc::ssize_t;
+use ::libc::uint8_t;
+use ::libc::uint16_t;
+use ::libc::uint32_t;
+use ::libc::uint64_t;
+use ::libc::int8_t;
+use ::libc::int16_t;
+use ::libc::int32_t;
+use ::libc::int64_t;
+use ::libc::FILE;
