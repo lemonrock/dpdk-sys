@@ -88,7 +88,7 @@ postprocess_after_rustfmt()
 	local newline='\'$'\n'
 	
 	# Sed explanations:-
-	# 0 - get rid of Struct_Unnamed and Enum_Unammed names
+	# 0 - get rid of Struct_Unnamed, Union_Unnamed and Enum_Unammed names
 	# 1 - remove a #derive(Debug)
 	# 2 - suppress warnings about missing Debug
 	# 3 - constants would overflow a c_int
@@ -96,6 +96,7 @@ postprocess_after_rustfmt()
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
+		-e 's/Union_Unnamed/AnonymousUnion/g' \
 		-e 's/Enum_Unnamed/AnonymousEnum/g' \
 	| sed \
 		-e '/pub struct lcore_config/{n; d;}' \
