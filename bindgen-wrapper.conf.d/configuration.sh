@@ -132,6 +132,4 @@ postprocess_after_rustfmt()
 		-e '/pub fn rte_vlog/d' \
 	| tac \
 	| tr '\n' '\v' | sed -e 's/#\[derive(Copy, Clone)]\v#\[derive(Debug)\]/#[derive(Copy, Clone, Debug)]/g' | tr '\v' '\n'
-	
-	
 }
