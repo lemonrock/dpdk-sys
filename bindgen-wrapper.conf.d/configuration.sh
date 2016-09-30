@@ -81,9 +81,6 @@ preprocess_before_headersFolderPath()
 		# rte_memcpy.h fixes
 		sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 	fi
-	
-	rm -rf "$headersFolderPath"/"$rootIncludeFileName"
-	cp "$configurationFolderPath"/"$rootIncludeFileName" "$headersFolderPath"
 }
 
 postprocess_after_rustfmt()
