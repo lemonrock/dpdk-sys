@@ -90,24 +90,24 @@
 #include <rte_ring.h>
 #include <rte_rtm.h>
 #include <rte_rwlock.h>
-
 #include <rte_sched.h>
 #include <rte_sched_common.h>
 #include <rte_sctp.h>
 #include <rte_spinlock.h>
 #include <rte_string_fns.h>
-// #include <rte_table.h>
-// #include <rte_table_acl.h>
-// #include <rte_table_array.h>
-// #include <rte_table_hash.h>
-// #include <rte_table_lpm.h>
-// #include <rte_table_lpm_ipv6.h>
-// #include <rte_table_stub.h>
-// #include <rte_tailq.h>
-// #include <rte_tcp.h>
-// #include <rte_thash.h>
-// #include <rte_time.h>
-// #include <rte_timer.h>
-// #include <rte_udp.h>
-// #include <rte_version.h>
+
+#include <rte_table.h>
+#include <rte_table_acl.h>
+#include <rte_table_array.h>
+#include <rte_table_hash.h>
+#include <rte_table_lpm.h>
+#include <rte_table_lpm_ipv6.h>
+#include <rte_table_stub.h>
+#include <rte_tailq.h>
+#include <rte_tcp.h>
+#include <rte_thash.h>
+#include <rte_time.h>
+#include <rte_timer.h>
+#include <rte_udp.h>
+#include <rte_version.h>
 // #include <rte_virtio_net.h>
