@@ -16,6 +16,12 @@ use ::libc::termios;
 use ::libc::pthread_t;
 use ::libc::cpu_set_t;
 
+#[repr(C, packed)]
+pub struct __m128i
+{
+	a: u64,
+	b: u64,
+}
 
 // pub type va_list = __builtin_va_list;
 //
