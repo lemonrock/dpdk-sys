@@ -62,4 +62,3 @@ rte_get_tx_ol_flag_name txrx_ol
 vt100_ vt100
 rte_reciprocal_value math
 rte_approx match
-
