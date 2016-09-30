@@ -9,3 +9,4 @@ rte_port_ rte_port
 rte_power_ rte_power
 rte_red_ rte_red
 rte_table_ rte_table
+rte_cycles_vmware_tsc_map timer

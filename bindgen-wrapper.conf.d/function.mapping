@@ -60,6 +60,6 @@ rte_vhost_ rte_vhost
 rte_zmalloc memory
 rte_get_rx_ol_flag_name txrx_ol
 rte_get_tx_ol_flag_name txrx_ol
-vt100_ vt100
+vt100_ cmdline
 rte_reciprocal_value math
 rte_approx match
