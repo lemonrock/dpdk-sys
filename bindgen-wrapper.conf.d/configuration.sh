@@ -111,9 +111,8 @@ preprocess_before_headersFolderPath()
 
 postprocess_after_rustfmt()
 {
-	cat
-	# tac \
-	# | sed \
-	# 	-e '/pub struct lcore_config {/{n; d;}' \
-	# | tac
+	tac \
+	| sed \
+		-e '/pub struct lcore_config {/{n; d;}' \
+	| tac
 }
