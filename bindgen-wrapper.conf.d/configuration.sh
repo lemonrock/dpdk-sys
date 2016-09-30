@@ -105,6 +105,10 @@ postprocess_after_rustfmt()
 		-e 's/pub struct rte_ip_frag_death_row$/pub struct rte_ip_frag_death_row'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_lpm_v20$/pub struct rte_lpm_v20'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_lpm$/pub struct rte_lpm'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_acl_config$/pub struct rte_acl_config'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_table_acl_params$/pub struct rte_table_acl_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_table_acl_rule_add_params$/pub struct rte_table_acl_rule_add_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_table_acl_rule_delete_params$/pub struct rte_table_acl_rule_delete_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
 	| sed \
 		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \
