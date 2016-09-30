@@ -83,7 +83,7 @@ preprocess_before_headersFolderPath()
 		#include <cmdline_parse_portlist.h>
 		#include <cmdline_parse_string.h>
 		#include <cmdline_socket.h>
-		// #include <rte_acl.h> Vectors
+		// #include <rte_acl.h>   error: unknown type name '__m128i' (rte_vect.h)
 		#include <rte_alarm.h>
 		#include <rte_approx.h>
 		#include <rte_arp.h>
@@ -94,22 +94,22 @@ preprocess_before_headersFolderPath()
 		#include <rte_config.h>
 		#include <rte_cpuflags.h>
 		#include <rte_crypto.h>
-		//#include <rte_cryptodev_pmd.h>
+		//#include <rte_cryptodev_pmd.h>  Out of memory
 		#include <rte_dev.h>
 		#include <rte_dev_info.h>
-		//#include <rte_devargs.h>
+		//#include <rte_devargs.h>  Out of memory
 		#include <rte_distributor.h>
 		#include <rte_eal.h>
 		#include <rte_eal_memconfig.h>
 		#include <rte_errno.h>
-		//#include <rte_eth_bond.h>
-		//#include <rte_eth_bond_8023ad.h>
+		#include <rte_eth_bond.h>
+		//#include <rte_eth_bond_8023ad.h>  Out of memory, Illegal Instruction
 		//#include <rte_eth_ctrl.h>
 		#include <rte_eth_null.h>
 		//#include <rte_eth_ring.h>
 		//#include <rte_eth_vhost.h>
 		//#include <rte_ethdev.h>
-		//#include <rte_ether.h>
+		#include <rte_ether.h>
 	EOF
 	
 	# Install musl-fixes; DPDK headers assumes they are installed as a system library
