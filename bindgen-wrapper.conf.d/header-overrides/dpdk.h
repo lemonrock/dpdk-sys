@@ -51,7 +51,6 @@
 #include <rte_ip_frag.h>
 #include <rte_jhash.h>
 #include <rte_jobstats.h>
-
 #include <rte_keepalive.h>
 #include <rte_kvargs.h>
 #include <rte_launch.h>
@@ -61,14 +60,15 @@
 #include <rte_lpm6.h>
 #include <rte_lpm_sse.h>
 #include <rte_lru.h>
-// #include <rte_malloc.h>
-// #include <rte_malloc_heap.h>
-// #include <rte_mbuf.h>
-// #include <rte_memcpy.h>
-// #include <rte_memory.h>
-// #include <rte_mempool.h>
-// #include <rte_memzone.h>
-// #include <rte_meter.h>
+
+#include <rte_malloc.h>
+#include <rte_malloc_heap.h>
+#include <rte_mbuf.h>
+#include <rte_memcpy.h>
+#include <rte_memory.h>
+#include <rte_mempool.h>
+#include <rte_memzone.h>
+#include <rte_meter.h>
 // #include <rte_pci.h>
 // #include <rte_pci_dev_feature_defs.h>
 // #include <rte_pci_dev_features.h>
