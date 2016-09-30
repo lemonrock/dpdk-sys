@@ -10,3 +10,9 @@ use ::libc::int16_t;
 use ::libc::int32_t;
 use ::libc::int64_t;
 use ::libc::FILE;
+use ::libc::in_addr;
+use ::libc::in6_addr;
+use ::libc::termios;
+use ::libc::pthread_t;
+use ::libc::cpu_set_t;
+va_list
