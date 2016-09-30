@@ -12,7 +12,7 @@ clangAdditionalArguments='-U__SSE2__'
 
 preprocess_before_headersFolderPath()
 {
-	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" rm mkdir find xargs cat mv grep
+	bindgen_wrapper_ensureRequiredBinariesArePresent "Essential tools (GNU make, not BSD make)" rm mkdir find xargs cat mv grep tac
 	
 	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	local dpdkSrcDir="$dpdkTempDir"/src
@@ -111,8 +111,9 @@ preprocess_before_headersFolderPath()
 
 postprocess_after_rustfmt()
 {
-	tac \
-	| sed -i \
-		-e '/pub struct lcore_config {/{n; d;}' \
-	| tac
+	cat
+	# tac \
+	# | sed \
+	# 	-e '/pub struct lcore_config {/{n; d;}' \
+	# | tac
 }
