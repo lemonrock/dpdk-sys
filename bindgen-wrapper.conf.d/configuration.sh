@@ -92,6 +92,7 @@ postprocess_after_rustfmt()
 	# 2 - suppress warnings about missing Debug
 	# 3 - constants would overflow a c_int
 	# 4 - unwanted constants from header file parsing
+	# 5 - unwanted private function
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
@@ -123,5 +124,7 @@ postprocess_after_rustfmt()
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
 		-e '/pub const __RESERVED:/d' \
+	| sed \
+		-e '/pub fn __rte_panic/d' \
 	| tac
 }
