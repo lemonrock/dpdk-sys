@@ -95,7 +95,6 @@
 #include <rte_sctp.h>
 #include <rte_spinlock.h>
 #include <rte_string_fns.h>
-
 #include <rte_table.h>
 #include <rte_table_acl.h>
 #include <rte_table_array.h>
@@ -110,4 +109,5 @@
 #include <rte_timer.h>
 #include <rte_udp.h>
 #include <rte_version.h>
-// #include <rte_virtio_net.h>
+
+#include <rte_virtio_net.h>
