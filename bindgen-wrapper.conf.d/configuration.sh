@@ -4,7 +4,9 @@
 
 bindingsName='dpdk'
 rootIncludeFileName='dpdk.h'
-link=''
+# rte_kni rte_pmd_bnxt rte_pmd_cxgbe rte_pmd_e1000 rte_pmd_ena rte_pmd_enic rte_pmd_fm10k rte_pmd_i40e rte_pmd_ixgbe rte_pmd_vhost rte_pmd_virtio rte_pmd_vmxnet3_uio rte_vhost
+link='dpdk ethdev rte_acl rte_cfgfile rte_cmdline rte_cryptodev rte_distributor rte_eal rte_hash rte_ip_frag rte_jobstats rte_kvargs rte_lpm rte_mbuf rte_mempool rte_meter rte_pdump rte_pipeline rte_pmd_af_packet rte_pmd_bond 
+rte_pmd_null rte_pmd_null_crypto rte_pmd_ring rte_port rte_power rte_reorder rte_ring rte_sched rte_table rte_timer'
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
@@ -100,11 +102,11 @@ preprocess_before_headersFolderPath()
 		#include <rte_eal.h>
 		#include <rte_eal_memconfig.h>
 		#include <rte_errno.h>
-		#include <rte_eth_bond.h>
-		#include <rte_eth_bond_8023ad.h>
-		#include <rte_eth_ctrl.h>
+		//#include <rte_eth_bond.h>
+		//#include <rte_eth_bond_8023ad.h>
+		//#include <rte_eth_ctrl.h>
 		#include <rte_eth_null.h>
-		#include <rte_eth_ring.h>
+		//#include <rte_eth_ring.h>
 		//#include <rte_eth_vhost.h>
 		//#include <rte_ethdev.h>
 		//#include <rte_ether.h>
