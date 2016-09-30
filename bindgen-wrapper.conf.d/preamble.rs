@@ -3,3 +3,17 @@
 
 
 #![allow(non_camel_case_types)]
+pub type va_list = __builtin_va_list;
+pub type __builtin_va_list = [__va_list_tag; 1usize];
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __va_list_tag {
+    pub gp_offset: ::std::os::raw::c_uint,
+    pub fp_offset: ::std::os::raw::c_uint,
+    pub overflow_arg_area: *mut ::std::os::raw::c_void,
+    pub reg_save_area: *mut ::std::os::raw::c_void,
+}
+impl ::std::default::Default for __va_list_tag {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
