@@ -138,19 +138,6 @@ postprocess_after_rustfmt()
 
 final_chance_to_tweak()
 {
-	# local changeU32EnumToI32
-	# for changeU32EnumToI32 in E_RTE
-	# do
-	# 	sed -i -e 's/E_RTE/g' "$outputFolderPath"/enums/"$changeU32EnumToI32".rs
-	# done
-	#
-	# | sed \
-	# 	-e 's/AnonymousEnum20/E_RTE/g' \
-	# 	-e 's/AnonymousEnum21/VIRTIO/g' \
-	# 	-e 's/AnonymousEnum23/RTE_EPOLL/g' \
-	# 	-e 's/AnonymousEnum24/IP/g' \
-	# 	-e 's/AnonymousEnum26/RTE_PDUMP_FLAG/g' \
-	# 	-e 's/AnonymousEnum27/RTE_ACL_FIELD_TYPE/g' \
-	# 	-e 's/AnonymousEnum28/RTE_ACL/g' \
-	:
+	# Make these compatible with PosixErrorNumber
+	sed -i -e 's/:u32 /:c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 }
