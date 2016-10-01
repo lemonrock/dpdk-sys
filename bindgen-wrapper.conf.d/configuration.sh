@@ -87,7 +87,7 @@ postprocess_after_rustfmt()
 	local newline='\'$'\n'
 	
 	# Sed explanations:-
-	# 0 - get rid of Struct_Unnamed, Union_Unnamed and Enum_Unammed names
+	# 0 - get rid of Struct_Unnamed and Union_Unnamed names
 	# 1 - remove a #derive(Debug)
 	# 2 - suppress warnings about missing Debug
 	# 3 - constants would overflow a c_int
@@ -95,12 +95,10 @@ postprocess_after_rustfmt()
 	# 5 - unwanted private function
 	# 6 - functions that uses va_list (sort of supported, but difficult to use)
 	# 7 - fix incorrect static mut types
-	# 8 - Rename anonymous enums to sensible names
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
 		-e 's/Union_Unnamed/AnonymousUnion/g' \
-		-e 's/Enum_Unnamed/AnonymousEnum/g' \
 	| sed \
 		-e '/pub struct lcore_config/{n; d;}' \
 	| sed \
@@ -135,14 +133,6 @@ postprocess_after_rustfmt()
 		-e 's/pub static mut per_lcore__rte_errno: c_void;/pub static mut per_lcore__rte_errno: c_int;/g' \
 		-e 's/pub static mut per_lcore__cpuset: c_void;/pub static mut per_lcore__cpuset: rte_cpuset_t;/g' \
 		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g' \
-	| sed \
-		-e 's/AnonymousEnum20/E_RTE/g' \
-		-e 's/AnonymousEnum21/VIRTIO/g' \
-		-e 's/AnonymousEnum23/RTE_EPOLL/g' \
-		-e 's/AnonymousEnum24/IP/g' \
-		-e 's/AnonymousEnum26/RTE_PDUMP_FLAG/g' \
-		-e 's/AnonymousEnum27/RTE_ACL_FIELD_TYPE/g' \
-		-e 's/AnonymousEnum28/RTE_ACL/g' \
 	| tac
 }
 
