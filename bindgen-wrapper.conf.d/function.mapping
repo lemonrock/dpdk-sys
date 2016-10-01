@@ -25,7 +25,7 @@ rte_get_log_ log
 rte_hash_ rte_hash
 rte_hexdump dump
 rte_intr_ rte_intr
-rte_ip rte_ip
+rte_ip ipfragmentation
 rte_jobstats_ rte_jobstats
 rte_keepalive_ rte_keepalive
 rte_kvargs_ rte_kvargs
