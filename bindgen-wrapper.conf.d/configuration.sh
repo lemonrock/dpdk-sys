@@ -139,5 +139,5 @@ postprocess_after_rustfmt()
 final_chance_to_tweak()
 {
 	# Make these compatible with PosixErrorNumber
-	sed -i -e 's/:u32 /:c_int /g' "$outputFolderPath"/constants/E_RTE.rs
+	sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 }
