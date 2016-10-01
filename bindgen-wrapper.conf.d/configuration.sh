@@ -153,19 +153,4 @@ final_chance_to_tweak()
 	do
 		sed -i -e 's/#\[repr(u32)\]/#[repr(i32)]/g' "$outputFolderPath"/enums/"$changeU32EnumToI32".rs
 	done
-	
-	# Tidy up #[derive]; combine Debug, add additionally valid options
-	local enumOrStructFile
-	set +f
-	for enumOrStructFile in "$outputFolderPath"/enums/*.rs "$outputFolderPath"/structs/*.rs
-	do
-		set -f
-
-		if grep -q '^#\[derive(Copy, Clone)\]$' "$enumOrStructFile"; then
-			if grep -q '^#\[derive(Debug)\]$' "$enumOrStructFile"; then
-				sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub /g' "$enumOrStructFile"
-			fi
-		fi
-	done
-	set -f
 }
