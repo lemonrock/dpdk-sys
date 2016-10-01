@@ -155,17 +155,17 @@ final_chance_to_tweak()
 	done
 	
 	# Tidy up #[derive]; combine Debug, add additionally valid options
-	local enumOrStructFile
-	set +f
-	for enumOrStructFile in "$outputFolderPath"/enums/*.rs "$outputFolderPath"/structs/*.rs
-	do
-		set -f
-		
-		if grep -q '^#\[derive(Copy, Clone)\]$' "$enumOrStructFile"; then
-			if grep -q '^#\[derive(Debug)\]$' "$enumOrStructFile"; then
-				sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub enum /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub enum /g' "$enumOrStructFile"
-			fi
-		fi
-	done
-	set -f
+	# local enumOrStructFile
+	# set +f
+	# for enumOrStructFile in "$outputFolderPath"/enums/*.rs "$outputFolderPath"/structs/*.rs
+	# do
+	# 	set -f
+	#
+	# 	if grep -q '^#\[derive(Copy, Clone)\]$' "$enumOrStructFile"; then
+	# 		if grep -q '^#\[derive(Debug)\]$' "$enumOrStructFile"; then
+	# 			sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub enum /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub enum /g' "$enumOrStructFile"
+	# 		fi
+	# 	fi
+	# done
+	# set -f
 }
