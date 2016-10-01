@@ -94,6 +94,8 @@ postprocess_after_rustfmt()
 	# 4 - unwanted constants from header file parsing
 	# 5 - unwanted private function
 	# 6 - functions that uses va_list (sort of supported, but difficult to use)
+	# 7 - fix incorrect static mut types
+	# 8 - Rename AnonymousEnum20 to E_RTE
 	# tr - sed - tr: Conjoin Debug, Copy, Clone
 	tac \
 	| sed \
@@ -130,6 +132,12 @@ postprocess_after_rustfmt()
 		-e '/pub fn __rte_panic/d' \
 	| sed \
 		-e '/pub fn rte_vlog/d' \
+	| sed \
+		-e 's/pub static mut per_lcore__rte_errno: c_void;/pub static mut per_lcore__rte_errno: c_int;/g' \
+		-e 's/pub static mut per_lcore__cpuset: c_void;/pub static mut per_lcore__cpuset: rte_cpuset_t;/g' \
+		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g' \
+	| sed \
+		-e 's/AnonymousEnum20/E_RTE/g' \
 	| tac \
 	| tr '\n' '\v' | sed -e 's/#\[derive(Copy, Clone)]\v#\[derive(Debug)\]/#[derive(Copy, Clone, Debug)]/g' | tr '\v' '\n'
 }
