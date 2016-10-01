@@ -96,7 +96,6 @@ postprocess_after_rustfmt()
 	# 6 - functions that uses va_list (sort of supported, but difficult to use)
 	# 7 - fix incorrect static mut types
 	# 8 - Rename anonymous enums to sensible names
-	# tr - sed - tr: Conjoin Debug, Copy, Clone
 	tac \
 	| sed \
 		-e 's/Struct_Unnamed/AnonymousStruct/g' \
@@ -144,6 +143,29 @@ postprocess_after_rustfmt()
 		-e 's/AnonymousEnum26/RTE_PDUMP_FLAG/g' \
 		-e 's/AnonymousEnum27/RTE_ACL_FIELD_TYPE/g' \
 		-e 's/AnonymousEnum28/RTE_ACL/g' \
-	| tac \
-	| tr '\n' '\v' | sed -e 's/#\[derive(Copy, Clone)]\v#\[derive(Debug)\]/#[derive(Copy, Clone, Debug)]/g' | tr '\v' '\n'
+	| tac
+}
+
+final_chance_to_tweak()
+{
+	local changeU32EnumToI32
+	for changeU32EnumToI32 in E_RTE
+	do
+		sed -i -e 's/#\[repr(u32)\]/#[repr(i32)]/g' "$outputFolderPath"/enums/"$changeU32EnumToI32".rs
+	done
+	
+	# Tidy up #[derive]; combine Debug, add additionally valid options
+	local enumOrStructFile
+	set +f
+	for enumOrStructFile in "$outputFolderPath"/enums/*.rs "$outputFolderPath"/structs/*.rs
+	do
+		set -f
+		
+		if grep -q '^#\[derive(Copy, Clone)\]$' "$enumOrStructFile"; then
+			if grep -q '^#\[derive(Debug)\]$' "$enumOrStructFile"; then
+				sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub enum /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub enum /g' "$enumOrStructFile"
+			fi
+		fi
+	done
+	set -f
 }
