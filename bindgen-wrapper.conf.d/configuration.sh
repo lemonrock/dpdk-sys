@@ -163,7 +163,7 @@ final_chance_to_tweak()
 
 		if grep -q '^#\[derive(Copy, Clone)\]$' "$enumOrStructFile"; then
 			if grep -q '^#\[derive(Debug)\]$' "$enumOrStructFile"; then
-				sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub enum /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub enum /g' "$enumOrStructFile"
+				sed -i -e '/^#\[derive(Copy, Clone)\]$/d' -e '/^#\[derive(Debug)\]$/d' -e 's/^pub /#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]\npub /g' "$enumOrStructFile"
 			fi
 		fi
 	done
