@@ -3,6 +3,8 @@
 # Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
+# This code only works after lib.rs et al has been generated, and will only run on the machine which did the generation
+# Output goes into src/dpdk.c
 
 
 set -e
@@ -77,4 +79,4 @@ _program_path_find()
 }
 
 cd "$(_program_path_find)" 1>/dev/null 2>/dev/null
-cc -E -P -C -nostdinc -I../tools/bindgen-wrapper/temporary/includes -isystem ./skeleton-libc ./header-overrides/dpdk.h
+cc -E -P -C -nostdinc -I../tools/bindgen-wrapper/temporary/includes -isystem ./skeleton-libc ./header-overrides/dpdk.h >../src/dpdk.c

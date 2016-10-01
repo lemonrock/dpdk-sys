@@ -140,4 +140,7 @@ final_chance_to_tweak()
 {
 	# Make these compatible with PosixErrorNumber
 	sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
+	
+	# Preprocess C headers so we can understand static inline code
+	"$configurationFolderPath"/generate-preprocesed-dpdk-c-code
 }
