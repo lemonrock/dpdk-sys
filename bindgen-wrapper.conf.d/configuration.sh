@@ -95,7 +95,7 @@ postprocess_after_rustfmt()
 	# 5 - unwanted private function
 	# 6 - functions that uses va_list (sort of supported, but difficult to use)
 	# 7 - fix incorrect static mut types
-	# 8 - Rename AnonymousEnum20 to E_RTE
+	# 8 - Rename anonymous enums to sensible names
 	# tr - sed - tr: Conjoin Debug, Copy, Clone
 	tac \
 	| sed \
@@ -138,6 +138,12 @@ postprocess_after_rustfmt()
 		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g' \
 	| sed \
 		-e 's/AnonymousEnum20/E_RTE/g' \
+		-e 's/AnonymousEnum21/VIRTIO/g' \
+		-e 's/AnonymousEnum23/RTE_EPOLL/g' \
+		-e 's/AnonymousEnum24/IP/g' \
+		-e 's/AnonymousEnum26/RTE_PDUMP_FLAG/g' \
+		-e 's/AnonymousEnum27/RTE_ACL_FIELD_TYPE/g' \
+		-e 's/AnonymousEnum28/RTE_ACL/g' \
 	| tac \
 	| tr '\n' '\v' | sed -e 's/#\[derive(Copy, Clone)]\v#\[derive(Debug)\]/#[derive(Copy, Clone, Debug)]/g' | tr '\v' '\n'
 }
