@@ -83,7 +83,13 @@ _program_path_find()
 cd "$(_program_path_find)" 1>/dev/null 2>/dev/null
 cc -E -P -C -nostdinc -I../tools/bindgen-wrapper/temporary/includes -isystem ./skeleton-libc ./header-overrides/dpdk.h \
 	| sed -e '/ \*   /d' -e '/^ \*$/d' -e 's;/\*;\n\n/*;g' -e 's/ {$/\n{/g' \
-	| tr '\n' '\v' | sed -e 's;/\*-\v \*/;;g' | tr '\v' '\n' \
+	| tr '\n' '\v' | sed -e 's;/\*-\v \*/;;g' -e 's/,\v /, /g' | tr '\v' '\n' \
 	| sed -e '/^extern .*;$/d' -e 's;^/\*.*\*/$;;g' \
-	| clang-format -assume-filename=dpdk.c -style=file \
+	| sed \
+		-e 's/^      /\t\t\t\t\t\t/g' \
+		-e 's/^     /\t\t\t\t\t/g' \
+		-e 's/^    /\t\t\t\t/g' \
+		-e 's/^   /\t\t\t/g' \
+		-e 's/^  /\t\t/g' \
+		-e 's/^ /\t/g' \
 	>../src/dpdk.c
