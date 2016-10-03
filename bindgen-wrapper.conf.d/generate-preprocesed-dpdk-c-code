@@ -84,5 +84,5 @@ cd "$(_program_path_find)" 1>/dev/null 2>/dev/null
 cc -E -P -C -nostdinc -I../tools/bindgen-wrapper/temporary/includes -isystem ./skeleton-libc ./header-overrides/dpdk.h \
 	| sed -e '/ \*   /d' -e '/^ \*$/d' -e 's;/\*;\n\n/*;g' -e 's/ {$/\n{/g' \
 	| tr '\n' '\v' | sed -e 's;/\*-\v \*/;;g' | tr '\v' '\n' \
-	| sed -e '/^extern .*;$/d' -e 's;^/\*.*\*/$;;g'
+	| sed -e '/^extern .*;$/d' -e 's;^/\*.*\*/$;;g' \
 	>../src/dpdk.c
