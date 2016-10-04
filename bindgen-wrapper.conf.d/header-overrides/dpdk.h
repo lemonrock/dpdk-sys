@@ -39,8 +39,7 @@
 #include <rte_eth_null.h>
 #include <rte_eth_ring.h>
 #include <rte_eth_vhost.h>
-//#include <rte_ethdev.h>  Out of memory, Illegal Instruction - ? use of rte_pci.h
-#include <rte_ethdev.bindgen-can-not.h>
+#include <rte_ethdev.h>
 #include <rte_ether.h>
 #include <rte_fbk_hash.h>
 #include <rte_hash.h>
