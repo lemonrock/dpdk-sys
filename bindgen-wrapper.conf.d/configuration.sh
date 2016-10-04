@@ -132,6 +132,9 @@ postprocess_after_rustfmt()
 		-e 's/pub struct rte_eth_vmdq_dcb_conf$/pub struct rte_eth_vmdq_dcb_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_eth_vmdq_rx_conf$/pub struct rte_eth_vmdq_rx_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_eth_xstat_name$/pub struct rte_eth_xstat_name'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct AnonymousStruct32$/pub struct AnonymousStruct32'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct AnonymousUnion24$/pub struct AnonymousUnion24'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct AnonymousUnion25$/pub struct AnonymousUnion25'"$newline"'#[allow(missing_debug_implementations)]/g' \
 	| sed \
 		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \
