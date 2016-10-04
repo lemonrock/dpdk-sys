@@ -162,7 +162,7 @@ final_chance_to_tweak()
 	
 	# Make a copy of the headers suitable for use by the rust-c / dpdk crate combination
 	mkdir -m 0750 -p "$outputFolderPath"/headers/
-	rsync -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
+	rsync --quiet -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
 	
 	# Preprocess C headers so we can understand static inline code
 	"$configurationFolderPath"/generate-preprocesed-dpdk-c-code
