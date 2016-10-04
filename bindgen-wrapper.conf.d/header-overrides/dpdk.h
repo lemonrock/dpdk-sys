@@ -19,7 +19,6 @@
 #include <rte_approx.h>
 #include <rte_arp.h>
 #include <rte_atomic.h>
-//#include <rte_bitmap.h>  All static inline methods
 #include <rte_byteorder.h>
 #include <rte_cfgfile.h>
 #include <rte_config.h>
@@ -68,7 +67,6 @@
 #include <rte_mempool.h>
 #include <rte_memzone.h>
 #include <rte_meter.h>
-//#include <rte_pci.h>  Out of memory, Illegal Instruction
 #include <rte_pci_dev_feature_defs.h>
 #include <rte_pci_dev_features.h>
 #include <rte_pdump.h>
