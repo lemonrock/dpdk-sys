@@ -132,9 +132,12 @@ postprocess_after_rustfmt()
 		-e 's/pub struct rte_eth_vmdq_dcb_conf$/pub struct rte_eth_vmdq_dcb_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_eth_vmdq_rx_conf$/pub struct rte_eth_vmdq_rx_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_eth_xstat_name$/pub struct rte_eth_xstat_name'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousStruct35$/pub struct AnonymousStruct35'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousUnion31$/pub struct AnonymousUnion31'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousUnion32$/pub struct AnonymousUnion32'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct lacpdu$/pub struct lacpdu'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct lacpdu_header$/pub struct lacpdu_header'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct marker$/pub struct marker'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct marker_header$/pub struct marker_header'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct slow_protocol$/pub struct slow_protocol'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct slow_protocol_frame$/pub struct slow_protocol_frame'"$newline"'#[allow(missing_debug_implementations)]/g' \
 	| sed \
 		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \

@@ -33,8 +33,8 @@
 #include <rte_eal_memconfig.h>
 #include <rte_errno.h>
 #include <rte_eth_bond.h>
-//#include <rte_eth_bond_8023ad.h>  Out of memory, Illegal Instruction
-//#include <rte_eth_ctrl.h>  Out of memory, Illegal Instruction
+#include <rte_eth_bond_8023ad.h>
+#include <rte_eth_ctrl.h>
 #include <rte_eth_null.h>
 #include <rte_eth_ring.h>
 #include <rte_eth_vhost.h>
