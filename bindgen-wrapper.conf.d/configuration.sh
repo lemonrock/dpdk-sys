@@ -116,6 +116,22 @@ postprocess_after_rustfmt()
 		-e 's/pub struct rte_table_acl_params$/pub struct rte_table_acl_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_table_acl_rule_add_params$/pub struct rte_table_acl_rule_add_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct rte_table_acl_rule_delete_params$/pub struct rte_table_acl_rule_delete_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct mapped_pci_resource$/pub struct mapped_pci_resource'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_conf$/pub struct rte_eth_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_dcb_info$/pub struct rte_eth_dcb_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_dcb_tc_queue_mapping$/pub struct rte_eth_dcb_tc_queue_mapping'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_dev$/pub struct rte_eth_dev'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_dev_data$/pub struct rte_eth_dev_data'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_fdir_filter_info$/pub struct rte_eth_fdir_filter_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_flex_filter$/pub struct rte_eth_flex_filter'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_hash_filter_info$/pub struct rte_eth_hash_filter_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_input_set_conf$/pub struct rte_eth_input_set_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_mirror_conf$/pub struct rte_eth_mirror_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_rss_reta_entry64$/pub struct rte_eth_rss_reta_entry64'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_vlan_mirror$/pub struct rte_eth_vlan_mirror'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_vmdq_dcb_conf$/pub struct rte_eth_vmdq_dcb_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_vmdq_rx_conf$/pub struct rte_eth_vmdq_rx_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_eth_xstat_name$/pub struct rte_eth_xstat_name'"$newline"'#[allow(missing_debug_implementations)]/g' \
 	| sed \
 		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \
