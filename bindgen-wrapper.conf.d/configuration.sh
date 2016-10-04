@@ -138,6 +138,8 @@ postprocess_after_rustfmt()
 		-e 's/pub struct marker_header$/pub struct marker_header'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct slow_protocol$/pub struct slow_protocol'"$newline"'#[allow(missing_debug_implementations)]/g' \
 		-e 's/pub struct slow_protocol_frame$/pub struct slow_protocol_frame'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_cryptodev_data$/pub struct rte_cryptodev_data'"$newline"'#[allow(missing_debug_implementations)]/g' \
+		-e 's/pub struct rte_cryptodev_global$/pub struct rte_cryptodev_global'"$newline"'#[allow(missing_debug_implementations)]/g' \
 	| sed \
 		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
 		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \

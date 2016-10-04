@@ -14,7 +14,6 @@
 #include <cmdline_parse_portlist.h>
 #include <cmdline_parse_string.h>
 #include <cmdline_socket.h>
-// #include <rte_acl.h>   error: unknown type name '__m128i' (rte_vect.h)
 #include <rte_alarm.h>
 #include <rte_approx.h>
 #include <rte_arp.h>
@@ -24,10 +23,10 @@
 #include <rte_config.h>
 #include <rte_cpuflags.h>
 #include <rte_crypto.h>
-//#include <rte_cryptodev_pmd.h>  Out of memory
+#include <rte_cryptodev_pmd.h>
 #include <rte_dev.h>
 #include <rte_dev_info.h>
-//#include <rte_devargs.h>  Out of memory
+#include <rte_devargs.h>
 #include <rte_distributor.h>
 #include <rte_eal.h>
 #include <rte_eal_memconfig.h>
@@ -108,3 +107,4 @@
 #include <rte_udp.h>
 #include <rte_version.h>
 #include <rte_virtio_net.h>
+// #include <rte_acl.h>   error: unknown type name '__m128i' (rte_vect.h)
