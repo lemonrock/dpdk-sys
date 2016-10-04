@@ -187,7 +187,9 @@ extern "C" {
 // #include "rte_eth_ctrl.h"
 // #include "rte_dev_info.h"
 
-#include "rte_ethdev.h"
+#include "rte_config.h"
+#include "rte_eth_ctrl.h"
+#include "rte_pci.h"
 
 struct rte_mbuf;
 
