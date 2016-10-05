@@ -151,6 +151,7 @@ postprocess_after_rustfmt()
 		-e 's/pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: c_int /pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: i64 /g' \
 	| sed \
 		-e 's/pub const RTE_ETH_NAME_MAX_LEN: c_int /pub const RTE_ETH_NAME_MAX_LEN: size_t /g' \
+		-e 's/pub const RTE_MAX_LCORE: c_int /pub const RTE_MAX_LCORE: size_t /g' \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
