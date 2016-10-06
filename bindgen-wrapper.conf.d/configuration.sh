@@ -153,6 +153,7 @@ postprocess_after_rustfmt()
 		-e 's/pub const RTE_ETH_NAME_MAX_LEN: c_int /pub const RTE_ETH_NAME_MAX_LEN: size_t /g' \
 		-e 's/pub const RTE_MAX_LCORE: c_int /pub const RTE_MAX_LCORE: size_t /g' \
 		-e 's/pub const RTE_MAX_ETHPORTS: c_int /pub const RTE_MAX_ETHPORTS: size_t /g' \
+		-e 's/pub const RTE_MAX_NUMA_NODES: c_int /pub const RTE_MAX_NUMA_NODES: size_t /g' \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
