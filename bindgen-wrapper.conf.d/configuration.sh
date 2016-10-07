@@ -172,6 +172,7 @@ postprocess_after_rustfmt()
 		-e 's/pub const ETH_LINK_SPEED_100G: c_int /pub const ETH_LINK_SPEED_100G: u32 /g' \
 		-e 's/pub const ETH_DCB_PG_SUPPORT: c_int /pub const ETH_DCB_PG_SUPPORT: u32 /g' \
 		-e 's/pub const ETH_DCB_PFC_SUPPORT: c_int /pub const ETH_DCB_PFC_SUPPORT: u32 /g' \
+		-e 's/pub const ETHER_MIN_LEN: c_int /pub const ETHER_MIN_LEN: size_t /g' \
 		-e 's/pub const ETHER_MAX_LEN: c_int /pub const ETHER_MAX_LEN: size_t /g' \
 		-e 's/pub const ETHER_MAX_JUMBO_FRAME_LEN: c_int /pub const ETHER_MAX_JUMBO_FRAME_LEN: size_t /g' \
 		-e 's/pub const RTE_ETH_FLOW_FRAG_IPV4: c_int /pub const RTE_ETH_FLOW_FRAG_IPV4: u64 /g' \
