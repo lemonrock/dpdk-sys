@@ -197,12 +197,12 @@ final_chance_to_tweak()
 	rsync --quiet -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
 	
 	# Fix up enums with bitfields in them; won't work if multiple bitfields are present
-	local enumWithBitfield
-	for enumWithBitfield in rte_eth_rxmode rte_eth_txmode rte_cryptodev_data rte_eth_dev_data rte_eth_link rte_lpm_tbl_entry rte_lpm_tbl_entry_v20
+	local structWithBitfield
+	for structWithBitfield in rte_eth_rxmode rte_eth_txmode rte_cryptodev_data rte_eth_dev_data rte_eth_link rte_lpm_tbl_entry rte_lpm_tbl_entry_v20
 	do
 		sed -i \
 			-e 's/pub _bindgen_bitfield_1_: /pub __bindgen_bitfield: /g' \
 			-e '/pub _bindgen_bitfield_[2-9][0-9]*_/d' \
-			"$outputFolderPath"/enums/"$enumWithBitfield".rs
+			"$outputFolderPath"/structs/"$structWithBitfield".rs
 	done
 }
