@@ -172,6 +172,30 @@ postprocess_after_rustfmt()
 		-e 's/pub const ETH_LINK_SPEED_100G: c_int /pub const ETH_LINK_SPEED_100G: u32 /g' \
 		-e 's/pub const ETH_DCB_PG_SUPPORT: c_int /pub const ETH_DCB_PG_SUPPORT: u32 /g' \
 		-e 's/pub const ETH_DCB_PFC_SUPPORT: c_int /pub const ETH_DCB_PFC_SUPPORT: u32 /g' \
+		-e 's/pub const ETHER_MAX_LEN: c_int /pub const ETHER_MAX_LEN: size_t /g' \
+		-e 's/pub const RTE_ETH_FLOW_FRAG_IPV4: c_int /pub const RTE_ETH_FLOW_FRAG_IPV4: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_FRAG_IPV6: c_int /pub const RTE_ETH_FLOW_FRAG_IPV6: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_GENEVE: c_int /pub const RTE_ETH_FLOW_GENEVE: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_IPV4: c_int /pub const RTE_ETH_FLOW_IPV4: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_IPV6: c_int /pub const RTE_ETH_FLOW_IPV6: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_IPV6_EX: c_int /pub const RTE_ETH_FLOW_IPV6_EX: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_IPV6_TCP_EX: c_int /pub const RTE_ETH_FLOW_IPV6_TCP_EX: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_IPV6_UDP_EX: c_int /pub const RTE_ETH_FLOW_IPV6_UDP_EX: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_L2_PAYLOAD: c_int /pub const RTE_ETH_FLOW_L2_PAYLOAD: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_MAX: c_int /pub const RTE_ETH_FLOW_MAX: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_OTHER: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_OTHER: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_SCTP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_SCTP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_TCP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_TCP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_UDP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_UDP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_OTHER: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_OTHER: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_SCTP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_SCTP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_TCP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_TCP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_UDP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_UDP: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_NVGRE: c_int /pub const RTE_ETH_FLOW_NVGRE: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_PORT: c_int /pub const RTE_ETH_FLOW_PORT: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_RAW: c_int /pub const RTE_ETH_FLOW_RAW: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_UNKNOWN: c_int /pub const RTE_ETH_FLOW_UNKNOWN: u64 /g' \
+		-e 's/pub const RTE_ETH_FLOW_VXLAN: c_int /pub const RTE_ETH_FLOW_VXLAN: u64 /g' \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
