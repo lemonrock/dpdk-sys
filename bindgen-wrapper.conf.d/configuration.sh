@@ -154,6 +154,22 @@ postprocess_after_rustfmt()
 		-e 's/pub const RTE_MAX_LCORE: c_int /pub const RTE_MAX_LCORE: size_t /g' \
 		-e 's/pub const RTE_MAX_ETHPORTS: c_int /pub const RTE_MAX_ETHPORTS: size_t /g' \
 		-e 's/pub const RTE_MAX_NUMA_NODES: c_int /pub const RTE_MAX_NUMA_NODES: size_t /g' \
+		-e 's/pub const ETH_LINK_SPEED_AUTONEG: c_int /pub const ETH_LINK_SPEED_AUTONEG: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_FIXED: c_int /pub const ETH_LINK_SPEED_FIXED: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_10M_HD: c_int /pub const ETH_LINK_SPEED_10M_HD: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_10M: c_int /pub const ETH_LINK_SPEED_10M: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_100M_HD: c_int /pub const ETH_LINK_SPEED_100M_HD: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_100M: c_int /pub const ETH_LINK_SPEED_100M: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_1G: c_int /pub const ETH_LINK_SPEED_1G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_2_5G: c_int /pub const ETH_LINK_SPEED_2_5G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_5G: c_int /pub const ETH_LINK_SPEED_5G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_10G: c_int /pub const ETH_LINK_SPEED_10G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_20G: c_int /pub const ETH_LINK_SPEED_20G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_25G: c_int /pub const ETH_LINK_SPEED_25G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_40G: c_int /pub const ETH_LINK_SPEED_40G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_50G: c_int /pub const ETH_LINK_SPEED_50G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_56G: c_int /pub const ETH_LINK_SPEED_56G: u32 /g' \
+		-e 's/pub const ETH_LINK_SPEED_100G: c_int /pub const ETH_LINK_SPEED_100G: u32 /g' \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
