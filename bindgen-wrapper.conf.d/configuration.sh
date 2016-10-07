@@ -202,7 +202,7 @@ final_chance_to_tweak()
 	do
 		sed -i \
 			-e 's/pub _bindgen_bitfield_1_: /pub __bindgen_bitfield: /g' \
-			-d '/pub _bindgen_bitfield_[2-9][0-9]*_/d' \
+			-e '/pub _bindgen_bitfield_[2-9][0-9]*_/d' \
 			"$outputFolderPath"/enums/"$enumWithBitfield".rs
 	done
 }
