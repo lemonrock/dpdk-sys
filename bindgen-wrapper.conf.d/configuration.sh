@@ -170,6 +170,8 @@ postprocess_after_rustfmt()
 		-e 's/pub const ETH_LINK_SPEED_50G: c_int /pub const ETH_LINK_SPEED_50G: u32 /g' \
 		-e 's/pub const ETH_LINK_SPEED_56G: c_int /pub const ETH_LINK_SPEED_56G: u32 /g' \
 		-e 's/pub const ETH_LINK_SPEED_100G: c_int /pub const ETH_LINK_SPEED_100G: u32 /g' \
+		-e 's/pub const ETH_DCB_PG_SUPPORT: c_int /pub const ETH_DCB_PG_SUPPORT: u32 /g' \
+		-e 's/pub const ETH_DCB_PFC_SUPPORT: c_int /pub const ETH_DCB_PFC_SUPPORT: u32 /g' \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
