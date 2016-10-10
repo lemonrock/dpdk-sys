@@ -85,15 +85,10 @@ preprocess_before_headersFolderPath()
 postprocess_after_rustfmt()
 {
 	# Sed explanations:-
-	# 1 - remove a #derive(Debug)
-	# 2 - unwanted constants from header file parsing
-	# 3 - unwanted private function
-	# 4 - functions that uses va_list (sort of supported, but difficult to use)
-	# 5 - fix incorrect static mut types
-	tac \
-	| sed \
-		-e '/pub struct lcore_config/{n; d;}' \
-	| tac \
+	# 1 - unwanted constants from header file parsing
+	# 2 - unwanted private function
+	# 3 - functions that uses va_list (sort of supported, but difficult to use)
+	# 4 - fix incorrect static mut types
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
@@ -110,12 +105,16 @@ postprocess_after_rustfmt()
 
 final_chance_to_tweak()
 {
-	# Make these compatible with PosixErrorNumber
-	#sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
-	
 	# Make a copy of the headers suitable for use by the rust-c / dpdk crate combination
 	mkdir -m 0750 -p "$outputFolderPath"/headers/
 	rsync --quiet -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
+	
+	
+	# Make these compatible with PosixErrorNumber
+	#sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
+	
+	# Fix up lcore_config - the presence of rte_cpuset_t (in the Linux version) creates problems
+	sed -i -e 's/#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]/#[derive(Copy, Clone)]'"$neline"'#[allow(missing_debug_implementations)]/g' "$outputFolderPath"/structs/lcore_config.rs
 	
 	# Fix up some structs with bitfields in them; won't work if multiple bitfields are present
 	local structWithBitfield
