@@ -89,7 +89,7 @@ postprocess_after_rustfmt()
 	# 2 - unwanted private function
 	# 3 - functions that uses va_list (sort of supported, but difficult to use)
 	# 4 - fix incorrect static mut types
-	| sed \
+	sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
 		-e '/pub const __RESERVED:/d' \
