@@ -84,120 +84,16 @@ preprocess_before_headersFolderPath()
 
 postprocess_after_rustfmt()
 {
-	local newline='\'$'\n'
-	
 	# Sed explanations:-
-	# 0 - get rid of Struct_Unnamed and Union_Unnamed names
 	# 1 - remove a #derive(Debug)
-	# 2 - suppress warnings about missing Debug
-	# 3 - constants would overflow a c_int
-	# 4 - incorrectly typed constants
-	# 5 - unwanted constants from header file parsing
-	# 6 - unwanted private function
-	# 7 - functions that uses va_list (sort of supported, but difficult to use)
-	# 8 - fix incorrect static mut types
+	# 2 - unwanted constants from header file parsing
+	# 3 - unwanted private function
+	# 4 - functions that uses va_list (sort of supported, but difficult to use)
+	# 5 - fix incorrect static mut types
 	tac \
 	| sed \
-		-e 's/Struct_Unnamed/AnonymousStruct/g' \
-		-e 's/Union_Unnamed/AnonymousUnion/g' \
-	| sed \
 		-e '/pub struct lcore_config/{n; d;}' \
-	| sed \
-		-e 's/pub struct lcore_config$/pub struct lcore_config'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rdline$/pub struct rdline'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct cmdline$/pub struct cmdline'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_config$/pub struct rte_config'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_mempool_cache$/pub struct rte_mempool_cache'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_cfgfile_entry$/pub struct rte_cfgfile_entry'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_mem_config$/pub struct rte_mem_config'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_ip_frag_death_row$/pub struct rte_ip_frag_death_row'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_lpm_v20$/pub struct rte_lpm_v20'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_lpm$/pub struct rte_lpm'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_acl_config$/pub struct rte_acl_config'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_table_acl_params$/pub struct rte_table_acl_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_table_acl_rule_add_params$/pub struct rte_table_acl_rule_add_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_table_acl_rule_delete_params$/pub struct rte_table_acl_rule_delete_params'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct mapped_pci_resource$/pub struct mapped_pci_resource'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_conf$/pub struct rte_eth_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_dcb_info$/pub struct rte_eth_dcb_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_dcb_tc_queue_mapping$/pub struct rte_eth_dcb_tc_queue_mapping'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_dev$/pub struct rte_eth_dev'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_dev_data$/pub struct rte_eth_dev_data'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_fdir_filter_info$/pub struct rte_eth_fdir_filter_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_flex_filter$/pub struct rte_eth_flex_filter'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_hash_filter_info$/pub struct rte_eth_hash_filter_info'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_input_set_conf$/pub struct rte_eth_input_set_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_mirror_conf$/pub struct rte_eth_mirror_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_rss_reta_entry64$/pub struct rte_eth_rss_reta_entry64'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_vlan_mirror$/pub struct rte_eth_vlan_mirror'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_vmdq_dcb_conf$/pub struct rte_eth_vmdq_dcb_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_vmdq_rx_conf$/pub struct rte_eth_vmdq_rx_conf'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_eth_xstat_name$/pub struct rte_eth_xstat_name'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct lacpdu$/pub struct lacpdu'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct lacpdu_header$/pub struct lacpdu_header'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct marker$/pub struct marker'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct marker_header$/pub struct marker_header'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct slow_protocol$/pub struct slow_protocol'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct slow_protocol_frame$/pub struct slow_protocol_frame'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_cryptodev_data$/pub struct rte_cryptodev_data'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct rte_cryptodev_global$/pub struct rte_cryptodev_global'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousStruct44$/pub struct AnonymousStruct44'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousUnion39$/pub struct AnonymousUnion39'"$newline"'#[allow(missing_debug_implementations)]/g' \
-		-e 's/pub struct AnonymousUnion40$/pub struct AnonymousUnion40'"$newline"'#[allow(missing_debug_implementations)]/g' \
-	| sed \
-		-e 's/pub const RTE_LOGTYPE_USER8: c_int /pub const RTE_LOGTYPE_USER8: i64 /g' \
-		-e 's/pub const RTE_RING_QUOT_EXCEED: c_int /pub const RTE_RING_QUOT_EXCEED: i64 /g' \
-		-e 's/pub const RTE_JHASH_GOLDEN_RATIO: c_int /pub const RTE_JHASH_GOLDEN_RATIO: i64 /g' \
-		-e 's/pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: c_int /pub const RTE_FBK_HASH_INIT_VAL_DEFAULT: i64 /g' \
-	| sed \
-		-e 's/pub const RTE_ETH_NAME_MAX_LEN: c_int /pub const RTE_ETH_NAME_MAX_LEN: size_t /g' \
-		-e 's/pub const RTE_MAX_LCORE: c_int /pub const RTE_MAX_LCORE: size_t /g' \
-		-e 's/pub const RTE_MAX_ETHPORTS: c_int /pub const RTE_MAX_ETHPORTS: size_t /g' \
-		-e 's/pub const RTE_MAX_NUMA_NODES: c_int /pub const RTE_MAX_NUMA_NODES: size_t /g' \
-		-e 's/pub const ETH_LINK_SPEED_AUTONEG: c_int /pub const ETH_LINK_SPEED_AUTONEG: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_FIXED: c_int /pub const ETH_LINK_SPEED_FIXED: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_10M_HD: c_int /pub const ETH_LINK_SPEED_10M_HD: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_10M: c_int /pub const ETH_LINK_SPEED_10M: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_100M_HD: c_int /pub const ETH_LINK_SPEED_100M_HD: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_100M: c_int /pub const ETH_LINK_SPEED_100M: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_1G: c_int /pub const ETH_LINK_SPEED_1G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_2_5G: c_int /pub const ETH_LINK_SPEED_2_5G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_5G: c_int /pub const ETH_LINK_SPEED_5G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_10G: c_int /pub const ETH_LINK_SPEED_10G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_20G: c_int /pub const ETH_LINK_SPEED_20G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_25G: c_int /pub const ETH_LINK_SPEED_25G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_40G: c_int /pub const ETH_LINK_SPEED_40G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_50G: c_int /pub const ETH_LINK_SPEED_50G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_56G: c_int /pub const ETH_LINK_SPEED_56G: u32 /g' \
-		-e 's/pub const ETH_LINK_SPEED_100G: c_int /pub const ETH_LINK_SPEED_100G: u32 /g' \
-		-e 's/pub const ETH_DCB_PG_SUPPORT: c_int /pub const ETH_DCB_PG_SUPPORT: u32 /g' \
-		-e 's/pub const ETH_DCB_PFC_SUPPORT: c_int /pub const ETH_DCB_PFC_SUPPORT: u32 /g' \
-		-e 's/pub const ETHER_MIN_LEN: c_int /pub const ETHER_MIN_LEN: size_t /g' \
-		-e 's/pub const ETHER_MAX_LEN: c_int /pub const ETHER_MAX_LEN: size_t /g' \
-		-e 's/pub const ETHER_MAX_JUMBO_FRAME_LEN: c_int /pub const ETHER_MAX_JUMBO_FRAME_LEN: size_t /g' \
-		-e 's/pub const RTE_ETH_FLOW_FRAG_IPV4: c_int /pub const RTE_ETH_FLOW_FRAG_IPV4: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_FRAG_IPV6: c_int /pub const RTE_ETH_FLOW_FRAG_IPV6: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_GENEVE: c_int /pub const RTE_ETH_FLOW_GENEVE: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_IPV4: c_int /pub const RTE_ETH_FLOW_IPV4: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_IPV6: c_int /pub const RTE_ETH_FLOW_IPV6: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_IPV6_EX: c_int /pub const RTE_ETH_FLOW_IPV6_EX: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_IPV6_TCP_EX: c_int /pub const RTE_ETH_FLOW_IPV6_TCP_EX: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_IPV6_UDP_EX: c_int /pub const RTE_ETH_FLOW_IPV6_UDP_EX: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_L2_PAYLOAD: c_int /pub const RTE_ETH_FLOW_L2_PAYLOAD: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_MAX: c_int /pub const RTE_ETH_FLOW_MAX: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_OTHER: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_OTHER: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_SCTP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_SCTP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_TCP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_TCP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV4_UDP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV4_UDP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_OTHER: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_OTHER: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_SCTP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_SCTP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_TCP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_TCP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NONFRAG_IPV6_UDP: c_int /pub const RTE_ETH_FLOW_NONFRAG_IPV6_UDP: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_NVGRE: c_int /pub const RTE_ETH_FLOW_NVGRE: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_PORT: c_int /pub const RTE_ETH_FLOW_PORT: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_RAW: c_int /pub const RTE_ETH_FLOW_RAW: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_UNKNOWN: c_int /pub const RTE_ETH_FLOW_UNKNOWN: u64 /g' \
-		-e 's/pub const RTE_ETH_FLOW_VXLAN: c_int /pub const RTE_ETH_FLOW_VXLAN: u64 /g' \
+	| tac \
 	| sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
@@ -209,14 +105,13 @@ postprocess_after_rustfmt()
 	| sed \
 		-e 's/pub static mut per_lcore__rte_errno: c_void;/pub static mut per_lcore__rte_errno: c_int;/g' \
 		-e 's/pub static mut per_lcore__cpuset: c_void;/pub static mut per_lcore__cpuset: rte_cpuset_t;/g' \
-		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g' \
-	| tac
+		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g'
 }
 
 final_chance_to_tweak()
 {
 	# Make these compatible with PosixErrorNumber
-	sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
+	#sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 	
 	# Make a copy of the headers suitable for use by the rust-c / dpdk crate combination
 	mkdir -m 0750 -p "$outputFolderPath"/headers/
