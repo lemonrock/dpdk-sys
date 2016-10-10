@@ -109,9 +109,8 @@ final_chance_to_tweak()
 	mkdir -m 0750 -p "$outputFolderPath"/headers/
 	rsync --quiet -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
 	
-	
-	# Make these compatible with PosixErrorNumber
-	#sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
+	# Make these compatible with PosixErrorNumber; can't be done as constant type mapping as conversion of unnamed enums occurs after constant type mapping
+	sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 	
 	# Fix up lcore_config - the presence of rte_cpuset_t (in the Linux version) creates problems
 	sed -i -e 's/#\[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)\]/#\[derive(Copy, Clone)\]/g' "$outputFolderPath"/structs/lcore_config.rs
