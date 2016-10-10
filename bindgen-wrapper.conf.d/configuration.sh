@@ -156,8 +156,8 @@ final_chance_to_tweak()
 				{
 					rte_timer_status
 					{
-						state: RTE_TIMER_STOP
-						owner: RTE_TIMER_NO_OWNER
+						state: RTE_TIMER_STOP,
+						owner: RTE_TIMER_NO_OWNER,
 					}
 				}
 			}
