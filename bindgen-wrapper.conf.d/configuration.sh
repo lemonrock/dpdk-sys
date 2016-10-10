@@ -114,8 +114,7 @@ final_chance_to_tweak()
 	#sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 	
 	# Fix up lcore_config - the presence of rte_cpuset_t (in the Linux version) creates problems
-	local newline='\'$'\n'
-	sed -i -e 's/#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]/#[derive(Copy, Clone)]'"$newline"'#[allow(missing_debug_implementations)]/g' "$outputFolderPath"/structs/lcore_config.rs
+	sed -i -e 's/#\[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)\]/#\[derive(Copy, Clone)\]/g' "$outputFolderPath"/structs/lcore_config.rs
 	
 	# Fix up some structs with bitfields in them; won't work if multiple bitfields are present
 	local structWithBitfield
