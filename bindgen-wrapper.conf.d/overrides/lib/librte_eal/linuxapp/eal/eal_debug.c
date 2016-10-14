@@ -31,30 +31,67 @@
  *   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
+// RJC: Removed #include <execinfo.h>
+#include <stdarg.h>
+#include <signal.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <sys/types.h>
-#include <syslog.h>
-#include <sys/queue.h>
 
-#include <rte_memory.h>
-#include <rte_memzone.h>
-#include <rte_eal.h>
-#include <rte_launch.h>
-#include <rte_per_lcore.h>
-#include <rte_lcore.h>
-#include <rte_spinlock.h>
 #include <rte_log.h>
+#include <rte_debug.h>
+#include <rte_common.h>
 
-#include "eal_private.h"
+#define BACKTRACE_SIZE 256
 
-int rte_eal_log_init(__attribute__((unused)) const char *id, __attribute__((unused)) int facility)
+/* dump the stack of the calling core */
+void rte_dump_stack(void)
 {
-	return 0;
+	// RJC: Removed code relying on #include <execinfo.h>
 }
 
-int rte_eal_log_early_init(void)
+/* not implemented in this environment */
+void rte_dump_registers(void)
 {
-	return 0;
+	return;
+}
+
+/* call abort(), it will generate a coredump if enabled */
+void __rte_panic(const char *funcname, const char *format, ...)
+{
+	va_list ap;
+
+	rte_log(RTE_LOG_CRIT, RTE_LOGTYPE_EAL, "PANIC in %s():\n", funcname);
+	va_start(ap, format);
+	rte_vlog(RTE_LOG_CRIT, RTE_LOGTYPE_EAL, format, ap);
+	va_end(ap);
+	rte_dump_stack();
+	rte_dump_registers();
+	abort();
+}
+
+/*
+ * Like rte_panic this terminates the application. However, no traceback is
+ * provided and no core-dump is generated.
+ */
+void
+rte_exit(int exit_code, const char *format, ...)
+{
+	va_list ap;
+
+	if (exit_code != 0)
+		RTE_LOG(CRIT, EAL, "Error - exiting with code: %d\n"
+				"  Cause: ", exit_code);
+
+	va_start(ap, format);
+	rte_vlog(RTE_LOG_CRIT, RTE_LOGTYPE_EAL, format, ap);
+	va_end(ap);
+
+#ifndef RTE_EAL_ALWAYS_PANIC_ON_ERROR
+	exit(exit_code);
+#else
+	rte_dump_stack();
+	rte_dump_registers();
+	abort();
+#endif
 }

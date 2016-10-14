@@ -1,0 +1,221 @@
+#!/usr/bin/env sh
+# This file is part of dpdk-sys. It is subject to the license terms in the COPYRIGHT file found in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT. No part of dpdk-sys, including this file, may be copied, modified, propagated, or distributed except according to the terms contained in the COPYRIGHT file.
+# Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
+
+
+set -e
+set -u
+set -f
+
+
+_program_path_find()
+{
+    if [ "${_program_fattening_program_path+set}" = 'set' ]; then
+        printf '%s\n' "$_program_fattening_program_path"
+
+    elif [ "${0%/*}" = "$0" ]; then
+
+        # We've been invoked by the interpreter as, say, bash program
+        if [ -r "$0" ]; then
+            pwd -P
+        # Clutching at straws; probably run via a download, anonymous script, etc, weird execve, etc
+        else
+            printf '\n'
+        fi
+
+    else
+
+        # We've been invoked with a relative or absolute path (also when invoked via PATH in a shell)
+
+        _program_path_find_parentPath()
+        {
+            parentPath="${scriptPath%/*}"
+            if [ -z "$parentPath" ]; then
+                parentPath='/'
+            fi
+            cd "$parentPath" 1>/dev/null
+        }
+
+        # pdksh / mksh have problems with unsetting a variable that was never set...
+        if [ "${CDPATH+set}" = 'set' ]; then
+            unset CDPATH
+        fi
+
+        if command -v realpath 1>/dev/null 2>/dev/null; then
+            (
+                scriptPath="$(realpath "$0")"
+
+                _program_path_find_parentPath
+                pwd -P
+            )
+        elif command -v readlink 1>/dev/null 2>/dev/null; then
+            (
+                scriptPath="$0"
+
+                while [ -L "$scriptPath" ]
+                do
+                    _program_path_find_parentPath
+                    scriptPath="$(readlink "$scriptPath")"
+                done
+
+                _program_path_find_parentPath
+                pwd -P
+            )
+        else
+            # This approach will fail in corner cases where the script itself is a symlink in a path not parallel with the concrete script
+            (
+                scriptPath="$0"
+
+                _program_path_find_parentPath
+                pwd -P
+            )
+        fi
+
+    fi
+}
+
+compile_dpdk_macosx_prepare()
+{
+	brew install gnu-sed
+	brew install make
+	brew install FiloSottile/musl-cross/musl-cross
+}
+
+bindgen_wrapper_ensureRequiredBinariesArePresent()
+{
+	local reason="$1"
+	shift 1
+	
+	local binary
+	local missing=false
+	for binary in "$@"
+	do
+		if ! command -v "$binary" 1>/dev/null 2>/dev/null; then
+			printf '%s\n' "The binary '$binary' needs to be in the path" 1>&2
+			missing=true
+		fi
+	done
+	
+	if $missing; then
+		bindgen_wrapper_fail "Please make sure that the missing binaries are installed because '$reason'"
+	fi
+}
+
+compile_dpdk_macosx_prepareDpdkFolders()
+{
+	# We do not delete the src dir, as we use rsync to populate it
+	rm -rf "$dpdkBuildDir" "$dpdkDestDir" "$dpdkMuslFixesDir"
+	mkdir -m 0755 -p "$dpdkSrcDir"
+	mkdir -m 0755 -p "$dpdkBuildDir"
+	mkdir -m 0755 -p "$dpdkDestDir"
+	mkdir -m 0755 -p "$dpdkMuslFixesDir"/sys "$dpdkMuslFixesDir"/bits
+}
+
+compile_dpdk_macosx_installSourceAndOverrideBrokenStuff()
+{
+	rsync --quiet --archive --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
+	rsync --quiet --archive "$configurationFolderPath"/overrides/ "$dpdkSrcDir"/
+}
+
+compile_dpdk_macosx_muslFixes()
+{
+	# (1) Make an useful io.h
+	(
+		cat /usr/include/bits/io.h
+		cat "$configurationFolderPath"/musl-fixes/io.extra.h
+	) >"$dpdkMuslFixesDir"/bits/io.h
+
+	# (2) Install sys/queue.h
+	cat "$configurationFolderPath"/musl-fixes/queue.h >"$dpdkMuslFixesDir"/sys/queue.h
+}
+
+compile_dpdk_macosx_patchDpdkToWorkWithMuslAndAlpineLinux()
+{
+	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
+	
+		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
+		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_memory.c
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>\n;g' lib/librte_eal/linuxapp/eal/eal_pci_uio.c
+		sed -i -e 's;#define PAGE_SIZE;#undef PAGE_SIZE\n#define PAGE_SIZE;g' lib/librte_eal/linuxapp/eal/eal_pci_vfio.c
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' app/test/test_eal_flags.c
+		sed -i -e 's;uint hash_key_len;uint8_t hash_key_len;g' app/test-pmd/testpmd.c app/test-pmd/testpmd.h app/test-pmd/config.c
+	
+		# Local build assumes glibc
+		sed -i -e 's;-g;-g -I'"$dpdkMuslFixesDir"';g' buildtools/pmdinfogen/Makefile
+	
+		# Assumes GNU tar
+		sed -i -e '/--keep-newer-files/d' -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
+		
+	cd - 1>/dev/null 2>/dev/null
+}
+
+compile_dpdk_macosx_make()
+{
+	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
+	
+		local baseConfiguration=x86_64-native-linuxapp-gcc
+		(
+			printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n'
+			printf '\nCONFIG_RTE_KNI_KMOD=n\n'
+			printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
+		) >>config/defconfig_"$baseConfiguration"
+
+		make \
+			--jobs $numberOfCpus \
+			install \
+			T="$baseConfiguration" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" \
+			CROSS=x86_64-linux-musl- \
+			EXTRA_CFLAGS="-D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
+			#EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
+
+	cd - 1>/dev/null 2>/dev/null
+}
+
+compile_dpdk_macosx_main()
+{
+	local programPath="$(_program_path_find)"
+	local configurationFolderPath="$programPath"/bindgen-wrapper.conf.d
+	local headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
+	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
+	local dpdkSrcDir="$dpdkTempDir"/src
+	local dpdkBuildDir="$dpdkTempDir"/build
+	local dpdkDestDir="$dpdkTempDir"/destdir
+	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
+	
+	if [ -e "$dpdkTempDir"/.do-not-make ]; then
+		return 0
+	fi
+	
+	bindgen_wrapper_ensureRequiredBinariesArePresent uname rm mkdir rsync cat
+	
+	case "$uname" in
+		
+		Darwin)
+			bindgen_wrapper_ensureRequiredBinariesArePresent sysctl brew
+			compile_dpdk_macosx_prepare
+			local numberOfCpus="$(sysctl -n hw.ncpu)"
+			local sed=gsed
+			local muslIncludeFolder="$(brew --prefix musl-cross)"/libexec/x86_64-linux-musl/include
+		;;
+		
+		Linux)
+			bindgen_wrapper_ensureRequiredBinariesArePresent grep make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar
+			local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
+			local muslIncludeFolder='/usr/include'
+		;;
+		
+		*)
+			local numberOfCpus=1
+		;;
+		
+	esac
+	
+	compile_dpdk_macosx_prepareDpdkFolders
+	compile_dpdk_macosx_installSourceAndOverrideBrokenStuff
+	compile_dpdk_macosx_muslFixes
+	compile_dpdk_macosx_patchDpdkToWorkWithMuslAndAlpineLinux
+	
+}
+
+compile_dpdk_macosx_main "$@"
