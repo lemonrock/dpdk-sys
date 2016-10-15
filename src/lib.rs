@@ -48,7 +48,6 @@ pub struct __m128i
 	b: u64,
 }
 
-#[link(name = "dpdk")]
 #[link(name = "ethdev")]
 #[link(name = "rte_acl")]
 #[link(name = "rte_cfgfile")]

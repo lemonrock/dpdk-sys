@@ -2,12 +2,14 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
+#![allow(non_snake_case)]
+#![allow(non_upper_case_globals)]
+
 use std::process::Command;
 use std::env;
 
-const Libraries: [&'static str; 43] =
+const Libraries: [&'static str; 42] =
 [
-	"dpdk",
 	"ethdev",
 	"rte_acl",
 	"rte_cfgfile",
@@ -54,6 +56,12 @@ const Libraries: [&'static str; 43] =
 
 fn main()
 {
+	let target = env::var("TARGET").unwrap();
+	if target != "x86_64-unknown-linux-musl"
+	{
+		return;
+	}
+	
 	let absoluteHomeFolderPath = env::var("CARGO_MANIFEST_DIR").unwrap();
 	let outputFolderPath = env::var("OUT_DIR").unwrap();
 	let dpdkTempPath = format!("{}/dpdk-temp", outputFolderPath);
@@ -78,6 +86,4 @@ fn main()
 		
 	let bindgen_wrapper = format!("{}/tools/bindgen-wrapper/bindgen-wrapper", absoluteHomeFolderPath);
 	Command::new(bindgen_wrapper).status().unwrap();
-	
-	// Run the rust-c build scripts
 }

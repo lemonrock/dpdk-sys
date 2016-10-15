@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_thash_tuple
 {
-	pub _bindgen_data_: [u8; 48usize],
+	pub _bindgen_data_: [u32; 9usize],
 }
 
 impl rte_thash_tuple
