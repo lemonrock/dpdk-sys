@@ -15,11 +15,12 @@ use ::libc::int32_t;
 use ::libc::int64_t;
 use ::libc::off_t;
 use ::libc::FILE;
-use ::libc::in_addr;
-use ::libc::in6_addr;
-use ::libc::termios;
-use ::libc::pthread_t;
-use ::libc::cpu_set_t;
+#[cfg(unix)] use ::libc::in_addr;
+#[cfg(unix)] use ::libc::in6_addr;
+#[cfg(unix)] use ::libc::termios;
+#[cfg(unix)] use ::libc::pthread_t;
+#[cfg(any(target_os = "android", target_os = "linux"))] use ::libc::cpu_set_t;
+#[cfg(target_os = "freebsd")] use ::libc::cpuset_t;
 use ::libc::timespec;
 
 

@@ -74,10 +74,12 @@ _program_path_find()
     fi
 }
 
-compile_dpdk_macosx_prepare()
+compile_dpdk_prepareForMacOSX()
 {
 	brew install gnu-sed
 	brew install make
+	brew install libelf
+	brew install coreutils
 	brew install FiloSottile/musl-cross/musl-cross
 }
 
@@ -101,7 +103,7 @@ bindgen_wrapper_ensureRequiredBinariesArePresent()
 	fi
 }
 
-compile_dpdk_macosx_prepareDpdkFolders()
+compile_dpdk_prepareDpdkFolders()
 {
 	# We do not delete the src dir, as we use rsync to populate it
 	rm -rf "$dpdkBuildDir" "$dpdkDestDir" "$dpdkMuslFixesDir"
@@ -111,17 +113,17 @@ compile_dpdk_macosx_prepareDpdkFolders()
 	mkdir -m 0755 -p "$dpdkMuslFixesDir"/sys "$dpdkMuslFixesDir"/bits
 }
 
-compile_dpdk_macosx_installSourceAndOverrideBrokenStuff()
+compile_dpdk_installSourceAndOverrideBrokenStuff()
 {
 	rsync --quiet --archive --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
 	rsync --quiet --archive "$configurationFolderPath"/overrides/ "$dpdkSrcDir"/
 }
 
-compile_dpdk_macosx_muslFixes()
+compile_dpdk_muslFixes()
 {
 	# (1) Make an useful io.h
 	(
-		cat /usr/include/bits/io.h
+		cat "$muslIncludeFolder"/bits/io.h
 		cat "$configurationFolderPath"/musl-fixes/io.extra.h
 	) >"$dpdkMuslFixesDir"/bits/io.h
 
@@ -129,10 +131,10 @@ compile_dpdk_macosx_muslFixes()
 	cat "$configurationFolderPath"/musl-fixes/queue.h >"$dpdkMuslFixesDir"/sys/queue.h
 }
 
-compile_dpdk_macosx_patchDpdkToWorkWithMuslAndAlpineLinux()
+compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 {
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
-	
+				
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
 		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_memory.c
@@ -141,81 +143,139 @@ compile_dpdk_macosx_patchDpdkToWorkWithMuslAndAlpineLinux()
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' app/test/test_eal_flags.c
 		sed -i -e 's;uint hash_key_len;uint8_t hash_key_len;g' app/test-pmd/testpmd.c app/test-pmd/testpmd.h app/test-pmd/config.c
 	
-		# Local build assumes glibc
-		sed -i -e 's;-g;-g -I'"$dpdkMuslFixesDir"';g' buildtools/pmdinfogen/Makefile
+		# Local build assumes glibc on Linux
+		case "$platform" in
+			
+			Darwin)
+				# -L'"$(brew --prefix libelf)"/lib' -lelf
+				# -isystem/usr/include/machine is for endian.h
+				local libelfPrefix="$(brew --prefix libelf)"
+				local extra="-I${libelfPrefix}/include/libelf -I${libelfPrefix}/include -isystem${dpdkSrcDir}/buildtools/pmdinfogen"
+				sed -i -e 's;-g;-g '"$extra"';g' buildtools/pmdinfogen/Makefile
+				#sed -i -e 's/#include <elf.h>/#include "elf.h"/g' buildtools/pmdinfogen/pmdinfogen.h
+			;;
+			
+			Linux)
+				# Fix for Alpine Linux was:-
+				# sed -i -e 's;-g;-g -I'"$dpdkMuslFixesDir"';g' buildtools/pmdinfogen/Makefile
+			;;
+		
+		esac
 	
 		# Assumes GNU tar
-		sed -i -e '/--keep-newer-files/d' -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
+		sed -i -e '/--keep-newer-files/d' mk/rte.sdkinstall.mk
+		sed -i -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
 		
 	cd - 1>/dev/null 2>/dev/null
 }
 
-compile_dpdk_macosx_make()
+compile_dpdk_make()
 {
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
-	
-		local baseConfiguration=x86_64-native-linuxapp-gcc
+		
 		(
 			printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n'
 			printf '\nCONFIG_RTE_KNI_KMOD=n\n'
 			printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
-		) >>config/defconfig_"$baseConfiguration"
+		) >>config/defconfig_"$configurationName"
 
 		make \
 			--jobs $numberOfCpus \
 			install \
-			T="$baseConfiguration" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" \
+			T="$configurationName" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" \
 			CROSS=x86_64-linux-musl- \
-			EXTRA_CFLAGS="-D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
+			EXTRA_CFLAGS="-msse4.1 -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
 			#EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
 
 	cd - 1>/dev/null 2>/dev/null
 }
 
-compile_dpdk_macosx_main()
+compile_dpdk_finish()
+{
+	# Install musl-fixes; DPDK headers assume they are installed as a system library
+	rsync -a -v "$dpdkMuslFixesDir"/ "$headersFolderPath"/
+
+	# rte_memcpy.h fixes
+	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
+	
+	printf '' >"$builtFilePath"
+}
+
+compile_dpdk_main()
 {
 	local programPath="$(_program_path_find)"
+	local homeFolder="$programPath"
 	local configurationFolderPath="$programPath"/bindgen-wrapper.conf.d
-	local headersFolderPath="$configurationFolderPath"/dpdk-temp/destdir/usr/local/include/dpdk
-	local dpdkTempDir="$configurationFolderPath"/dpdk-temp
+	
+	# Could be affected by env var from cargo called 'TARGET'
+	local configurationName='x86_64-native-linuxapp-gcc'
+	
+	if [ ${OUT_DIR+defined} ]; then
+		local dpdkTempDir="$OUT_DIR"/dpdk-temp		
+	else
+		local dpdkTempDir="$configurationFolderPath"/dpdk-temp
+	fi
+
+	local headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 	local dpdkSrcDir="$dpdkTempDir"/src
 	local dpdkBuildDir="$dpdkTempDir"/build
 	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
+	local builtFilePath="$dpdkTempDir"/.do-not-make
 	
-	if [ -e "$dpdkTempDir"/.do-not-make ]; then
+	if [ -e "$builtFilePath" ]; then
 		return 0
 	fi
 	
-	bindgen_wrapper_ensureRequiredBinariesArePresent uname rm mkdir rsync cat
-	
-	case "$uname" in
+	local platform="$(uname)"
+	case "$platform" in
 		
 		Darwin)
-			bindgen_wrapper_ensureRequiredBinariesArePresent sysctl brew
-			compile_dpdk_macosx_prepare
-			local numberOfCpus="$(sysctl -n hw.ncpu)"
-			local sed=gsed
+			bindgen_wrapper_ensureRequiredBinariesArePresent brew
+			compile_dpdk_prepareForMacOSX
+			export PATH="$(brew --prefix coreutils)"/libexec/gnubin:"$(brew --prefix gnu-sed)"/libexec/gnubin:"$PATH"
+			
 			local muslIncludeFolder="$(brew --prefix musl-cross)"/libexec/x86_64-linux-musl/include
+			
+			if [ ${NUM_JOBS+defined} ]; then
+				local numberOfCpus="$NUM_JOBS"
+			else
+				bindgen_wrapper_ensureRequiredBinariesArePresent sysctl
+				local numberOfCpus="$(sysctl -n hw.ncpu)"
+			fi
+			
 		;;
 		
 		Linux)
-			bindgen_wrapper_ensureRequiredBinariesArePresent grep make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar
-			local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
+			bindgen_wrapper_ensureRequiredBinariesArePresent make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar rm mkdir rsync cat
 			local muslIncludeFolder='/usr/include'
+			
+			if [ ${NUM_JOBS+defined} ]; then
+				local numberOfCpus="$NUM_JOBS"
+			else
+				bindgen_wrapper_ensureRequiredBinariesArePresent grep
+				local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
+			fi
 		;;
 		
 		*)
-			local numberOfCpus=1
+			local muslIncludeFolder="/usr/include"
+			
+			if [ ${NUM_JOBS+defined} ]; then
+				local numberOfCpus="$NUM_JOBS"
+			else
+				local numberOfCpus=1
+			fi
 		;;
 		
 	esac
 	
-	compile_dpdk_macosx_prepareDpdkFolders
-	compile_dpdk_macosx_installSourceAndOverrideBrokenStuff
-	compile_dpdk_macosx_muslFixes
-	compile_dpdk_macosx_patchDpdkToWorkWithMuslAndAlpineLinux
-	
+	compile_dpdk_prepareDpdkFolders
+	compile_dpdk_installSourceAndOverrideBrokenStuff
+	compile_dpdk_muslFixes
+	compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux
+	compile_dpdk_make
+	compile_dpdk_finish
 }
 
-compile_dpdk_macosx_main "$@"
+compile_dpdk_main "$@"

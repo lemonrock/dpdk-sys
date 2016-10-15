@@ -30,11 +30,12 @@ use ::libc::int32_t;
 use ::libc::int64_t;
 use ::libc::off_t;
 use ::libc::FILE;
-use ::libc::in_addr;
-use ::libc::in6_addr;
-use ::libc::termios;
-use ::libc::pthread_t;
-use ::libc::cpu_set_t;
+#[cfg(unix)] use ::libc::in_addr;
+#[cfg(unix)] use ::libc::in6_addr;
+#[cfg(unix)] use ::libc::termios;
+#[cfg(unix)] use ::libc::pthread_t;
+#[cfg(any(target_os = "android", target_os = "linux"))] use ::libc::cpu_set_t;
+#[cfg(target_os = "freebsd")] use ::libc::cpuset_t;
 use ::libc::timespec;
 
 
@@ -58,6 +59,7 @@ pub struct __m128i
 #[link(name = "rte_hash")]
 #[link(name = "rte_ip_frag")]
 #[link(name = "rte_jobstats")]
+#[link(name = "rte_kni")]
 #[link(name = "rte_kvargs")]
 #[link(name = "rte_lpm")]
 #[link(name = "rte_mbuf")]
@@ -66,10 +68,21 @@ pub struct __m128i
 #[link(name = "rte_pdump")]
 #[link(name = "rte_pipeline")]
 #[link(name = "rte_pmd_af_packet")]
+#[link(name = "rte_pmd_bnxt")]
 #[link(name = "rte_pmd_bond")]
+#[link(name = "rte_pmd_cxgbe")]
+#[link(name = "rte_pmd_e1000")]
+#[link(name = "rte_pmd_ena")]
+#[link(name = "rte_pmd_enic")]
+#[link(name = "rte_pmd_fm10k")]
+#[link(name = "rte_pmd_i40e")]
+#[link(name = "rte_pmd_ixgbe")]
 #[link(name = "rte_pmd_null")]
 #[link(name = "rte_pmd_null_crypto")]
 #[link(name = "rte_pmd_ring")]
+#[link(name = "rte_pmd_vhost")]
+#[link(name = "rte_pmd_virtio")]
+#[link(name = "rte_pmd_vmxnet3_uio")]
 #[link(name = "rte_port")]
 #[link(name = "rte_power")]
 #[link(name = "rte_reorder")]
@@ -77,6 +90,7 @@ pub struct __m128i
 #[link(name = "rte_sched")]
 #[link(name = "rte_table")]
 #[link(name = "rte_timer")]
+#[link(name = "rte_vhost")]
 extern "C"
 {
 }
