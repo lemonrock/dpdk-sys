@@ -39,7 +39,6 @@ postprocess_after_rustfmt()
 	# 1 - unwanted constants from header file parsing
 	# 2 - unwanted private function
 	# 3 - functions that uses va_list (sort of supported, but difficult to use)
-	# 4 - fix incorrect static mut types
 	sed \
 		-e '/pub const _RTE_RTM_H_:/d' \
 		-e '/pub const __ELASTERROR:/d' \
@@ -47,11 +46,7 @@ postprocess_after_rustfmt()
 	| sed \
 		-e '/pub fn __rte_panic/d' \
 	| sed \
-		-e '/pub fn rte_vlog/d' \
-	| sed \
-		-e 's/pub static mut per_lcore__rte_errno: c_void;/pub static mut per_lcore__rte_errno: c_int;/g' \
-		-e 's/pub static mut per_lcore__cpuset: c_void;/pub static mut per_lcore__cpuset: rte_cpuset_t;/g' \
-		-e 's/pub static mut per_lcore__lcore_id: c_void;/pub static mut per_lcore__lcore_id: c_uint;/g'
+		-e '/pub fn rte_vlog/d'
 }
 
 final_chance_to_tweak()
@@ -127,4 +122,31 @@ final_chance_to_tweak()
 			}
 		EOF
 	} >"$outputFolderPath"/structs/rte_timer_status.rs
+	
+	# Wrapper functions to make working with thread-local globals correct
+	sed -i \
+		-e 's/pub static mut per_lcore__rte_errno: c_void;/static mut per_lcore__rte_errno: c_int;/g' \
+		-e 's/pub static mut per_lcore__cpuset: c_void;/static mut per_lcore__cpuset: rte_cpuset_t;/g' \
+		-e 's/pub static mut per_lcore__lcore_id: c_void;/static mut per_lcore__lcore_id: c_uint;/g' \
+		"$outputFolderPath"/statics/lcore.rs
+	cat >>"$outputFolderPath"/statics/lcore.rs <<EOF
+		
+#[inline(always)]
+pub fn rte_cpuset() -> rte_cpuset_t
+{
+	unsafe { per_lcore__cpuset }
+}
+
+#[inline(always)]
+pub fn rte_lcore_id() -> c_uint
+{
+	unsafe { per_lcore__lcore_id }
+}
+
+#[inline(always)]
+pub fn rte_errno() -> c_int
+{
+	unsafe { per_lcore__rte_errno }
+}
+EOF
 }

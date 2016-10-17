@@ -5,8 +5,10 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 
-use std::process::Command;
-use std::env;
+
+use ::std::process::Command;
+use ::std::env;
+
 
 const Libraries: [&'static str; 42] =
 [
@@ -64,6 +66,7 @@ fn main()
 	
 	let absoluteHomeFolderPath = env::var("CARGO_MANIFEST_DIR").unwrap();
 	let outputFolderPath = env::var("OUT_DIR").unwrap();
+	
 	let dpdkTempPath = format!("{}/dpdk-temp", outputFolderPath);
 	
 	for library in Libraries.iter()
@@ -86,4 +89,37 @@ fn main()
 		
 	let bindgen_wrapper = format!("{}/tools/bindgen-wrapper/bindgen-wrapper", absoluteHomeFolderPath);
 	Command::new(bindgen_wrapper).status().unwrap();
+	
+	//println!("cargo:rerun-if-changed={}", doNotBuildFilePath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/configuration.sh", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/constant.mapping", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/constant.types", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/function.mapping", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/post-includes.rs", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/pre-includes.rs", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/preamble.rs", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/static.mapping", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/suppress-debug-warnings", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/suppress-debug-warnings", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/header-overrides", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/header-overrides/dpdk.h", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/musl-fixes", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/musl-fixes/io.extra.h", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/musl-fixes/queue.h", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/buildtools", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/buildtools/pmdinfogen", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/buildtools/pmdinfogen/elf.h", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/buildtools/pmdinfogen/endian.h", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp/eal", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp/eal/eal_debug.c", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp/eal/eal_log.c", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp/eal/eal_vfio_mp_sync.c", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/lib", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/lib/dpdk", absoluteHomeFolderPath);
+	println!("cargo:rerun-if-changed={}/lib/dpdk/pkg/dpdk.spec", absoluteHomeFolderPath);
 }
