@@ -10,8 +10,8 @@ pub struct rte_crypto_sym_op
 	pub m_dst: *mut rte_mbuf,
 	pub sess_type: rte_crypto_sym_op_sess_type,
 	pub _bindgen_data_1_: [u64; 1usize],
-	pub cipher: AnonymousStruct10,
-	pub auth: AnonymousStruct13,
+	pub cipher: AnonymousStruct9,
+	pub auth: AnonymousStruct12,
 }
 
 impl rte_crypto_sym_op

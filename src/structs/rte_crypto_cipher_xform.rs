@@ -8,7 +8,7 @@ pub struct rte_crypto_cipher_xform
 {
 	pub op: rte_crypto_cipher_operation,
 	pub algo: rte_crypto_cipher_algorithm,
-	pub key: AnonymousStruct8,
+	pub key: AnonymousStruct7,
 }
 
 impl Default for rte_crypto_cipher_xform

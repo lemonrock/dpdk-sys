@@ -12,7 +12,7 @@ pub struct rte_cryptodev_info
 	pub feature_flags: uint64_t,
 	pub capabilities: *const rte_cryptodev_capabilities,
 	pub max_nb_queue_pairs: c_uint,
-	pub sym: AnonymousStruct29,
+	pub sym: AnonymousStruct28,
 }
 
 impl Default for rte_cryptodev_info

@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct32
 {
-	pub addr: rte_pci_addr,
+	pub drv_name: [c_char; 32usize],
 }
 
 impl Default for AnonymousStruct32

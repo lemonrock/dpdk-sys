@@ -6,8 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct9
 {
-	pub data: *mut uint8_t,
-	pub length: size_t,
+	pub data: AnonymousStruct10,
+	pub iv: AnonymousStruct11,
 }
 
 impl Default for AnonymousStruct9

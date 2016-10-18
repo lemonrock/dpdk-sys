@@ -184,8 +184,7 @@ compile_dpdk_make()
 			install \
 			T="$configurationName" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" \
 			CROSS=x86_64-linux-musl- \
-			EXTRA_CFLAGS="-msse4.1 -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
-			#EXTRA_LDLIBS="-lexecinfo -lunwind-x86_64 -lunwind-ptrace -lunwind-generic -lunwind-coredump -lunwind -lunwind-setjmp"
+			EXTRA_CFLAGS="$sseFlags -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
 
 	cd - 1>/dev/null 2>/dev/null
 }
@@ -213,6 +212,16 @@ compile_dpdk_main()
 	else
 		local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	fi
+	
+	if [ $# -eq 0 ]; then
+		# Must match in any build.rs script
+		local sseFlags='-msse4.1'
+	else
+		local oldIFS="$IFS"
+		local IFS=' '
+		local sseFlags="$*"
+		IFS="$oldIFS"
+	fi	
 
 	local headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 	local dpdkSrcDir="$dpdkTempDir"/src

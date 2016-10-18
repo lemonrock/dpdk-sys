@@ -6,12 +6,17 @@
 #![allow(non_upper_case_globals)]
 
 
+extern crate c;
+
+
 use ::std::env;
 use ::std::fs::metadata;
 use ::std::fs::read_dir;
 use ::std::process::Command;
 use ::std::path::Path;
 
+
+const SupportedTarget: &'static str = "x86_64-unknown-linux-musl";
 
 const Libraries: [&'static str; 42] =
 [
@@ -65,44 +70,58 @@ fn main()
 	let absoluteHomeFolderPath = env::var("CARGO_MANIFEST_DIR").unwrap();
 	let target = env::var("TARGET").unwrap();
 	
-	if target != "x86_64-unknown-linux-musl"
+	if target != SupportedTarget
 	{
+		let message = format!("The target '{}' is unsupported. Currently, the only supported target is '{}'", target, SupportedTarget);
+		println!("cargo:warning={}", message);
 		return;
 	}
 	
-	run(&absoluteHomeFolderPath, "compile-dpdk");
-	run(&absoluteHomeFolderPath, "bindgen-wrapper");
+	let dpdkTempPath = format!("{}/dpdk-temp", outputFolderPath);
+	let rootFolderPath = format!("{}/destdir/usr/local", dpdkTempPath);
+	let includeFolderPath = format!("{}/include/dpdk", rootFolderPath);
+	let libFolderPath = format!("{}/lib", rootFolderPath);
+	
 	
 	for library in Libraries.iter()
 	{
 		println!("cargo:rustc-link-lib=static={}", library);
 	}
-	
-	let dpdkTempPath = format!("{}/dpdk-temp", outputFolderPath);
-	
-	let rootFolderPath = format!("{}/destdir/usr/local", dpdkTempPath);
-	println!("cargo:root={}", rootFolderPath);
-	
-	let libFolderPath = format!("{}/lib", rootFolderPath);
 	println!("cargo:rustc-link-search=native={}", libFolderPath);
-	println!("cargo:libdir={}", libFolderPath);
-	
-	let includeFolderPath = format!("{}/include", rootFolderPath);
+	println!("cargo:root={}", rootFolderPath);
 	println!("cargo:include={}", includeFolderPath);
-	
+	println!("cargo:libdir={}", libFolderPath);
 	reRunIfChanged(&absoluteHomeFolderPath, "src/build.rs");
 	reRunIfChanged(&absoluteHomeFolderPath, "bindgen-wrapper.conf.d");
 	reRunIfChanged(&absoluteHomeFolderPath, "tools/bindgen-wrapper");
 	reRunIfChanged(&absoluteHomeFolderPath, "lib/dpdk");
+	
+		
+	run(&absoluteHomeFolderPath, "compile-dpdk");
+	run(&absoluteHomeFolderPath, "bindgen-wrapper");
+	compileEmbeddedCCode(&includeFolderPath);
 }
 
 fn run(absoluteHomeFolderPath: &str, programName: &'static str) -> String
 {
 	let fullPath = format!("{}/{}", absoluteHomeFolderPath.to_owned(), programName.to_owned());
-	panicIfProcessNotSuccesful(Command::new(fullPath))
+	panicIfProcessNotSuccesful(programName, Command::new(fullPath))
 }
 
-fn panicIfProcessNotSuccesful(mut command: Command) -> String
+fn compileEmbeddedCCode(includeFolderPath: &str)
+{
+	c::build("src/lib.rs", "dpdk_sys_lib", |gcc_config|
+	{
+		gcc_config.flag("-Werror");
+		gcc_config.define("_GNU_SOURCE", None);
+		gcc_config.define("_BSD_SOURCE", None);
+		gcc_config.flag(&format!("-isystem{}", includeFolderPath)); // can't use .include() as warnings then occur in system headers
+		gcc_config.flag("-msse4.1");
+		gcc_config.opt_level(3); // DPDK code only compiles with optimisation enabled; we can't inherit OPT_LEVEL from the environment
+	});
+}
+
+fn panicIfProcessNotSuccesful(programName: &'static str, mut command: Command) -> String
 {
 	let output = command.output().unwrap_or_else(|error|
 	{
@@ -113,15 +132,15 @@ fn panicIfProcessNotSuccesful(mut command: Command) -> String
 	{
 		panic!("Failed to retrieve exit status from command - was it killed by a signal?");
 	});
-	
+
+	let standardOut = String::from_utf8_lossy(&output.stdout);
 	if code == 0
 	{
-		let standardOut = String::from_utf8_lossy(&output.stdout);
 		return standardOut.into_owned();
 	}
 	
 	let standardError = String::from_utf8_lossy(&output.stderr);
-	panic!("Command failed with exit code '{}' (standard error was '{}')", code, standardError.into_owned());
+	panic!("Command '{}' failed with exit code '{}' (standard out was '{}'; standard error was '{}')", programName, code, standardOut.into_owned(), standardError.into_owned());
 }
 
 fn reRunIfChanged(absoluteHomeFolderPath: &str, folderAndContents: &'static str)

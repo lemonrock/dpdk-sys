@@ -27,9 +27,8 @@ preprocess_before_headersFolderPath()
 		local dpdkTempDir="$configurationFolderPath"/dpdk-temp
 	fi
 
-	if [ ! -e "$dpdkTempDir"/.do-not-make ]; then
-		printf '%s\n' "Please run compile-dpdk first"
-		exit 1
+	if [ ! -d "$dpdkTempDir" ]; then
+		bindgen_wrapper_fail "Please run compile-dpdk first"
 	fi
 }
 

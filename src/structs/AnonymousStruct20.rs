@@ -6,8 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct20
 {
-	pub tqe_next: *mut rte_pci_driver,
-	pub tqe_prev: *mut *mut rte_pci_driver,
+	pub tqe_next: *mut mapped_pci_resource,
+	pub tqe_prev: *mut *mut mapped_pci_resource,
 }
 
 impl Default for AnonymousStruct20

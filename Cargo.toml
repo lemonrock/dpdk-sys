@@ -28,4 +28,8 @@ debug-assertions = false
 codegen-units = 1
 
 [dependencies]
+c = { git = "https://github.com/lemonrock/rust-c.git", features = ["macro"] }
 libc = "^0.2"
+
+[build-dependencies]
+c = { git = "https://github.com/lemonrock/rust-c.git", features = ["build"] }

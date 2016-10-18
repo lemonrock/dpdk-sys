@@ -4,12 +4,32 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct36
+pub struct AnonymousStruct5
 {
-	pub lh_first: *mut malloc_elem,
+	pub _bindgen_data_1_: [u32; 1usize],
+	pub hi: uint32_t,
 }
 
-impl Default for AnonymousStruct36
+impl AnonymousStruct5
+{
+	pub unsafe fn hash(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn id(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(2))
+	}
+	pub unsafe fn lo(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for AnonymousStruct5
 {
 	#[inline(always)]
 	fn default() -> Self
