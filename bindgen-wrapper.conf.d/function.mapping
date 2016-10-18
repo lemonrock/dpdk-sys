@@ -1,3 +1,4 @@
+rust_rte_ rust_rte
 cirbuf_ cirbuf
 cmdline_ cmdline
 eth_dev_ eth_dev
@@ -20,7 +21,7 @@ rte_eal_vdev_ rte_eal_vdev
 rte_eal_pci_ rte_eal_pci
 rte_eal_ rte_eal
 rte_epoll_ rte_epoll
-_rte_eth_dev_ rte_eth
+_rte_eth_dev_ rte_eth_dev
 rte_eth_bond_ rte_eth_bond
 rte_eth_dev_ rte_eth_dev
 rte_eth_vhost_ rte_eth_vhost
@@ -37,11 +38,11 @@ rte_keepalive_ rte_keepalive
 rte_kvargs_ rte_kvargs
 rte_log log
 rte_lpm rte_lpm
-rte_malloc_dump_ dump
+rte_malloc_dump_ memory
 rte_malloc memory
 rte_mbuf_ memory
 rte_mem_ memory
-rte_memdump dump
+rte_memdump memory
 rte_memory_ memory
 rte_mempool_ rte_mempool
 rte_memzone_ rte_memzone

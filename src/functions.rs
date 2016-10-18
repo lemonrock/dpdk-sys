@@ -50,6 +50,7 @@ include!("functions/rte_reorder.rs");
 include!("functions/rte_ring.rs");
 include!("functions/rte_sched.rs");
 include!("functions/rte_vhost.rs");
+include!("functions/rust_rte.rs");
 include!("functions/thread.rs");
 include!("functions/timer.rs");
 include!("functions/txrx_ol.rs");

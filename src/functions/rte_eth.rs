@@ -4,7 +4,6 @@
 
 extern "C"
 {
-	pub fn _rte_eth_dev_callback_process(dev: *mut rte_eth_dev, event: rte_eth_event_type);
 	pub fn rte_eth_add_first_rx_callback(port_id: uint8_t, queue_id: uint16_t, fn_: rte_rx_callback_fn, user_param: *mut c_void) -> *mut c_void;
 	pub fn rte_eth_add_rx_callback(port_id: uint8_t, queue_id: uint16_t, fn_: rte_rx_callback_fn, user_param: *mut c_void) -> *mut c_void;
 	pub fn rte_eth_add_tx_callback(port_id: uint8_t, queue_id: uint16_t, fn_: rte_tx_callback_fn, user_param: *mut c_void) -> *mut c_void;

@@ -8,7 +8,7 @@ pub struct rte_cryptodev_config
 {
 	pub socket_id: c_int,
 	pub nb_queue_pairs: uint16_t,
-	pub session_mp: AnonymousStruct29,
+	pub session_mp: AnonymousStruct30,
 }
 
 impl Default for rte_cryptodev_config

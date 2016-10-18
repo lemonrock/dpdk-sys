@@ -6,9 +6,11 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct22
 {
-	pub min: uint16_t,
-	pub max: uint16_t,
-	pub increment: uint16_t,
+	pub algo: rte_crypto_auth_algorithm,
+	pub block_size: uint16_t,
+	pub key_size: AnonymousStruct23,
+	pub digest_size: AnonymousStruct24,
+	pub aad_size: AnonymousStruct25,
 }
 
 impl Default for AnonymousStruct22

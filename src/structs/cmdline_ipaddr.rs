@@ -7,7 +7,7 @@
 pub struct cmdline_ipaddr
 {
 	pub family: uint8_t,
-	pub addr: AnonymousUnion1,
+	pub addr: AnonymousUnion2,
 	pub prefixlen: c_uint,
 }
 

@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct3
 {
-	pub stqe_next: *mut rte_mempool_memhdr,
+	pub stqe_next: *mut rte_mempool_objhdr,
 }
 
 impl Default for AnonymousStruct3

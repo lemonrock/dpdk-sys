@@ -197,8 +197,6 @@ compile_dpdk_finish()
 
 	# rte_memcpy.h fixes
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
-	
-	printf '' >"$builtFilePath"
 }
 
 compile_dpdk_main()
@@ -221,12 +219,7 @@ compile_dpdk_main()
 	local dpdkBuildDir="$dpdkTempDir"/build
 	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
-	local builtFilePath="$dpdkTempDir"/.do-not-make
-	
-	if [ -e "$builtFilePath" ]; then
-		return 0
-	fi
-	
+		
 	local platform="$(uname)"
 	case "$platform" in
 		

@@ -4,36 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion4
+pub struct AnonymousStruct17
 {
-	pub _bindgen_data_: [u32; 2usize],
+	pub tqe_next: *mut rte_driver,
+	pub tqe_prev: *mut *mut rte_driver,
 }
 
-impl AnonymousUnion4
-{
-	pub unsafe fn rss(&mut self) -> *mut uint32_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn fdir(&mut self) -> *mut AnonymousStruct5
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn sched(&mut self) -> *mut AnonymousStruct6
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn usr(&mut self) -> *mut uint32_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Default for AnonymousUnion4
+impl Default for AnonymousStruct17
 {
 	#[inline(always)]
 	fn default() -> Self

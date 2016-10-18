@@ -6,6 +6,8 @@
 #define _BSD_SOURCE
 #undef __SSE2__
 
+#include <rust_rte.h>
+
 #include <cmdline.h>
 #include <cmdline_parse_etheraddr.h>
 #include <cmdline_parse_ipaddr.h>

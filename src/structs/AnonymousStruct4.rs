@@ -4,15 +4,12 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct26
+pub struct AnonymousStruct4
 {
-	pub algo: rte_crypto_cipher_algorithm,
-	pub block_size: uint16_t,
-	pub key_size: AnonymousStruct27,
-	pub iv_size: AnonymousStruct28,
+	pub stqe_next: *mut rte_mempool_memhdr,
 }
 
-impl Default for AnonymousStruct26
+impl Default for AnonymousStruct4
 {
 	#[inline(always)]
 	fn default() -> Self

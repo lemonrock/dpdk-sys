@@ -4,6 +4,7 @@
 
 extern "C"
 {
+	pub fn _rte_eth_dev_callback_process(dev: *mut rte_eth_dev, event: rte_eth_event_type);
 	pub fn rte_eth_dev_allocate(name: *const c_char, type_: rte_eth_dev_type) -> *mut rte_eth_dev;
 	pub fn rte_eth_dev_allocated(name: *const c_char) -> *mut rte_eth_dev;
 	pub fn rte_eth_dev_attach(devargs: *const c_char, port_id: *mut uint8_t) -> c_int;

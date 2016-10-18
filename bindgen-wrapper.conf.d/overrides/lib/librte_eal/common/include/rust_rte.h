@@ -2,21 +2,27 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousStruct26
-{
-	pub algo: rte_crypto_cipher_algorithm,
-	pub block_size: uint16_t,
-	pub key_size: AnonymousStruct27,
-	pub iv_size: AnonymousStruct28,
-}
+#ifndef _RUST_RTE_H_
+#define _RUST_RTE_H_
 
-impl Default for AnonymousStruct26
-{
-	#[inline(always)]
-	fn default() -> Self
-	{
-		unsafe { zeroed() }
-	}
+#include <rte_errno.h>
+#include <rte_lcore.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int rust_rte_errno(void);
+void rust_rte_reset_errno(void);
+rte_cpuset_t rust_rte_cpuset(void);
+unsigned rust_rte_lcore_id(void);
+unsigned rust_rte_get_master_lcore(void);
+unsigned rust_rte_lcore_count(void);
+int rust_rte_lcore_index(unsigned lcore_id);
+unsigned rust_rte_get_next_lcore(unsigned i, int skip_master, int wrap);
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif

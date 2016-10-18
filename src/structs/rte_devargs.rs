@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_devargs
 {
-	pub next: AnonymousStruct30,
+	pub next: AnonymousStruct31,
 	pub type_: rte_devtype,
 	pub _bindgen_data_1_: [u16; 16usize],
 	pub args: *mut c_char,
@@ -14,12 +14,12 @@ pub struct rte_devargs
 
 impl rte_devargs
 {
-	pub unsafe fn pci(&mut self) -> *mut AnonymousStruct31
+	pub unsafe fn pci(&mut self) -> *mut AnonymousStruct32
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn virt(&mut self) -> *mut AnonymousStruct32
+	pub unsafe fn virt(&mut self) -> *mut AnonymousStruct33
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))

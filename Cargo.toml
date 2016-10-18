@@ -16,7 +16,7 @@ include = ["README.md", "LICENSE", "COPYRIGHT", "src/**/*.rs", "benches/**/*.rs"
 readme = "README.md"
 publish = false
 version = "0.0.0"
-build = "build.rs"
+build = "src/build.rs"
 links = "dpdk"
 
 [profile.release]

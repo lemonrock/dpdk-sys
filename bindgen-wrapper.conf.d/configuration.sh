@@ -123,30 +123,6 @@ final_chance_to_tweak()
 		EOF
 	} >"$outputFolderPath"/structs/rte_timer_status.rs
 	
-	# Wrapper functions to make working with thread-local globals correct
-	sed -i \
-		-e 's/pub static mut per_lcore__rte_errno: c_void;/static mut per_lcore__rte_errno: c_int;/g' \
-		-e 's/pub static mut per_lcore__cpuset: c_void;/static mut per_lcore__cpuset: rte_cpuset_t;/g' \
-		-e 's/pub static mut per_lcore__lcore_id: c_void;/static mut per_lcore__lcore_id: c_uint;/g' \
-		"$outputFolderPath"/statics/lcore.rs
-	cat >>"$outputFolderPath"/statics/lcore.rs <<EOF
-		
-#[inline(always)]
-pub fn rte_cpuset() -> rte_cpuset_t
-{
-	unsafe { per_lcore__cpuset }
-}
-
-#[inline(always)]
-pub fn rte_lcore_id() -> c_uint
-{
-	unsafe { per_lcore__lcore_id }
-}
-
-#[inline(always)]
-pub fn rte_errno() -> c_int
-{
-	unsafe { per_lcore__rte_errno }
-}
-EOF
+	# Remove thread-local statics, as there seems to be a problem with them when linking
+	sed -e '/pub static mut per_lcore__/d' "$outputFolderPath"/statics/lcore.rs
 }

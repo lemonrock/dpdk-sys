@@ -6,7 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct35
 {
-	pub lh_first: *mut malloc_elem,
+	pub tqe_next: *mut rte_tailq_elem,
+	pub tqe_prev: *mut *mut rte_tailq_elem,
 }
 
 impl Default for AnonymousStruct35

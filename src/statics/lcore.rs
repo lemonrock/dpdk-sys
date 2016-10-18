@@ -5,25 +5,7 @@
 extern "C"
 {
 	pub static mut lcore_config: [lcore_config; 128usize];
-	static mut per_lcore__cpuset: rte_cpuset_t;
-	static mut per_lcore__lcore_id: c_uint;
-	static mut per_lcore__rte_errno: c_int;
-}
-		
-#[inline(always)]
-pub fn rte_cpuset() -> rte_cpuset_t
-{
-	unsafe { per_lcore__cpuset }
-}
-
-#[inline(always)]
-pub fn rte_lcore_id() -> c_uint
-{
-	unsafe { per_lcore__lcore_id }
-}
-
-#[inline(always)]
-pub fn rte_errno() -> c_int
-{
-	unsafe { per_lcore__rte_errno }
+	pub static mut per_lcore__cpuset: c_void;
+	pub static mut per_lcore__lcore_id: c_void;
+	pub static mut per_lcore__rte_errno: c_void;
 }
