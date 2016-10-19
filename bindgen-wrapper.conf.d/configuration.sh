@@ -13,23 +13,18 @@ clangAdditionalArguments=''
 if [ ${OUT_DIR+defined} ]; then
 	dpdkTempDir="$OUT_DIR"/dpdk-temp		
 else
-	dpdkTempDir="$configurationFolderPath"/dpdk-temp
+	dpdkTempDir="$temporaryFolderPath"/dpdk-temp
 fi
+
 headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 
+if [ ! -d "$headersFolderPath" ]; then
+	bindgen_wrapper_fail "Please run compile-dpdk first"
+fi
 
 preprocess_before_headersFolderPath()
 {
-	# Running under Cargo
-	if [ ${OUT_DIR+defined} ]; then
-		local dpdkTempDir="$OUT_DIR"/dpdk-temp		
-	else
-		local dpdkTempDir="$configurationFolderPath"/dpdk-temp
-	fi
-
-	if [ ! -d "$dpdkTempDir" ]; then
-		bindgen_wrapper_fail "Please run compile-dpdk first"
-	fi
+	:
 }
 
 postprocess_after_rustfmt()

@@ -202,15 +202,15 @@ compile_dpdk_main()
 {
 	local programPath="$(_program_path_find)"
 	local homeFolder="$programPath"
-	local configurationFolderPath="$programPath"/bindgen-wrapper.conf.d
+	local configurationFolderPath="$homeFolder"/bindgen-wrapper.conf.d
 	
 	# Could be affected by env var from cargo called 'TARGET'
 	local configurationName='x86_64-native-linuxapp-gcc'
 	
 	if [ ${OUT_DIR+defined} ]; then
-		local dpdkTempDir="$OUT_DIR"/dpdk-temp		
+		local dpdkTempDir="$OUT_DIR"/dpdk-temp
 	else
-		local dpdkTempDir="$configurationFolderPath"/dpdk-temp
+		local dpdkTempDir="$homeFolder"/tools/bindgen-wrapper/temporary/dpdk-temp
 	fi
 	
 	if [ $# -eq 0 ]; then

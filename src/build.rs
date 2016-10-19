@@ -92,6 +92,7 @@ fn main()
 	println!("cargo:include={}", includeFolderPath);
 	println!("cargo:libdir={}", libFolderPath);
 	reRunIfChanged(&absoluteHomeFolderPath, "src/build.rs");
+	reRunIfChanged(&absoluteHomeFolderPath, "src/lib.rs");
 	reRunIfChanged(&absoluteHomeFolderPath, "bindgen-wrapper.conf.d");
 	reRunIfChanged(&absoluteHomeFolderPath, "tools/bindgen-wrapper");
 	reRunIfChanged(&absoluteHomeFolderPath, "lib/dpdk");
@@ -99,7 +100,7 @@ fn main()
 		
 	run(&absoluteHomeFolderPath, "compile-dpdk");
 	run(&absoluteHomeFolderPath, "bindgen-wrapper");
-	compileEmbeddedCCode(&includeFolderPath);
+	compileEmbeddedCCode(&includeFolderPath, &absoluteHomeFolderPath);
 }
 
 fn run(absoluteHomeFolderPath: &str, programName: &'static str) -> String
@@ -108,9 +109,10 @@ fn run(absoluteHomeFolderPath: &str, programName: &'static str) -> String
 	panicIfProcessNotSuccesful(programName, Command::new(fullPath))
 }
 
-fn compileEmbeddedCCode(includeFolderPath: &str)
+fn compileEmbeddedCCode(includeFolderPath: &str, absoluteHomeFolderPath: &str)
 {
-	c::build("src/lib.rs", "dpdk_sys_lib", |gcc_config|
+	let path = format!("{}/src/lib.rs", absoluteHomeFolderPath);
+	c::build(path, "dpdk_sys_c", |gcc_config|
 	{
 		gcc_config.flag("-Werror");
 		gcc_config.define("_GNU_SOURCE", None);
