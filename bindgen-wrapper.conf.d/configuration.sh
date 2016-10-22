@@ -119,4 +119,6 @@ final_chance_to_tweak()
 	
 	# Remove thread-local statics, as there seems to be a problem with them when linking
 	sed -e '/pub static mut per_lcore__/d' "$outputFolderPath"/statics/lcore.rs
+	
+	sed -i -e 's/0usize/RTE_MAX_ETHPORTS/g' "$outputFolderPath"/statics/rte_eth.rs
 }
