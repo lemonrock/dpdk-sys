@@ -96,6 +96,58 @@ c!
 c!
 {
 	#[inline(always)]
+	fn rust_packetBufferOverhead() -> size_t as "size_t"
+	{
+		sizeof(struct rte_mbuf) + RTE_PKTMBUF_HEADROOM;
+	}
+}
+
+c!
+{
+	#[inline(always)]
+	fn rust_rte_eth_txmode_setBitFields(txmode: *mut rte_eth_txmode as "struct rte_eth_txmode *", hw_vlan_reject_tagged: bool as "bool_", hw_vlan_reject_untagged: bool as "bool_", hw_vlan_insert_pvid: bool as "bool_")
+	{
+		txmode->hw_vlan_reject_tagged = hw_vlan_reject_tagged;
+		txmode->hw_vlan_reject_untagged = hw_vlan_reject_untagged;
+		txmode->hw_vlan_insert_pvid = hw_vlan_insert_pvid;
+	}
+	
+	#[inline(always)]
+	fn rust_rte_eth_rxmode_setBitFields(rxmode: *mut rte_eth_rxmode as "struct rte_eth_rxmode *", header_split: bool as "bool_", hw_ip_checksum: bool as "bool_", hw_vlan_filter: bool as "bool_", hw_vlan_strip: bool as "bool_", hw_vlan_extend: bool as "bool_", jumbo_frame: bool as "bool_", hw_strip_crc: bool as "bool_", enable_scatter: bool as "bool_", enable_lro: bool as "bool_")
+	{
+		rxmode->header_split = header_split;
+		rxmode->hw_ip_checksum = hw_ip_checksum;
+		rxmode->hw_vlan_filter = hw_vlan_filter;
+		rxmode->hw_vlan_strip = hw_vlan_strip;
+		rxmode->hw_vlan_extend = hw_vlan_extend;
+		rxmode->jumbo_frame = jumbo_frame;
+		rxmode->hw_strip_crc = hw_strip_crc;
+		rxmode->enable_scatter = enable_scatter;
+		rxmode->enable_lro = enable_lro;
+	}
+	
+	#[inline(always)]
+	fn rust_rte_eth_link_getBitField_link_duplex(link: *const rte_eth_link as "const struct rte_eth_link *") -> uint16_t as "uint16_t"
+	{
+		return link->link_duplex;
+	}
+	
+	#[inline(always)]
+	fn rust_rte_eth_link_getBitField_link_autoneg(link: *const rte_eth_link as "const struct rte_eth_link *") -> uint16_t as "uint16_t"
+	{
+		return link->link_autoneg;
+	}
+	
+	#[inline(always)]
+	fn rust_rte_eth_link_getBitField_link_status(link: *const rte_eth_link as "const struct rte_eth_link *") -> uint16_t as "uint16_t"
+	{
+		return link->link_status;
+	}
+}
+
+c!
+{
+	#[inline(always)]
 	fn rust_rte_eth_rx_burst(port_id: uint8_t as "uint8_t", queue_id: uint16_t as "uint16_t", rx_pkts: *mut *mut rte_mbuf as "struct rte_mbuf **", nb_pkts: uint16_t as "const uint16_t") -> uint16_t as "uint16_t"
 	{
 		return rte_eth_rx_burst(port_id, queue_id, rx_pkts, nb_pkts);
@@ -135,28 +187,6 @@ c!
 	fn rust_rte_eth_tx_buffer(port_id: uint8_t as "uint8_t", queue_id: uint16_t as "uint16_t", buffer: *mut rte_eth_dev_tx_buffer as "struct rte_eth_dev_tx_buffer *", tx_pkt: *mut rte_mbuf as "struct rte_mbuf *") -> uint16_t as "uint16_t"
 	{
 		return rte_eth_tx_buffer(port_id, queue_id, buffer, tx_pkt);
-	}
-	
-	#[inline(always)]
-	fn rust_rte_eth_txmode_setBitFields(txmode: *mut rte_eth_txmode as "struct rte_eth_txmode *", hw_vlan_reject_tagged: bool as "bool_", hw_vlan_reject_untagged: bool as "bool_", hw_vlan_insert_pvid: bool as "bool_")
-	{
-		txmode->hw_vlan_reject_tagged = hw_vlan_reject_tagged;
-		txmode->hw_vlan_reject_untagged = hw_vlan_reject_untagged;
-		txmode->hw_vlan_insert_pvid = hw_vlan_insert_pvid;
-	}
-	
-	#[inline(always)]
-	fn rust_rte_eth_rxmode_setBitFields(rxmode: *mut rte_eth_rxmode as "struct rte_eth_rxmode *", header_split: bool as "bool_", hw_ip_checksum: bool as "bool_", hw_vlan_filter: bool as "bool_", hw_vlan_strip: bool as "bool_", hw_vlan_extend: bool as "bool_", jumbo_frame: bool as "bool_", hw_strip_crc: bool as "bool_", enable_scatter: bool as "bool_", enable_lro: bool as "bool_")
-	{
-		rxmode->header_split = header_split;
-		rxmode->hw_ip_checksum = hw_ip_checksum;
-		rxmode->hw_vlan_filter = hw_vlan_filter;
-		rxmode->hw_vlan_strip = hw_vlan_strip;
-		rxmode->hw_vlan_extend = hw_vlan_extend;
-		rxmode->jumbo_frame = jumbo_frame;
-		rxmode->hw_strip_crc = hw_strip_crc;
-		rxmode->enable_scatter = enable_scatter;
-		rxmode->enable_lro = enable_lro;
 	}
 
 	#[inline(always)]
