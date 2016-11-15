@@ -87,7 +87,7 @@ bindgen_wrapper_ensureRequiredBinariesArePresent()
 {
 	local reason="$1"
 	shift 1
-	
+
 	local binary
 	local missing=false
 	for binary in "$@"
@@ -97,7 +97,7 @@ bindgen_wrapper_ensureRequiredBinariesArePresent()
 			missing=true
 		fi
 	done
-	
+
 	if $missing; then
 		bindgen_wrapper_fail "Please make sure that the missing binaries are installed because '$reason'"
 	fi
@@ -134,7 +134,7 @@ compile_dpdk_muslFixes()
 compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 {
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
-				
+
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
 		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_memory.c
@@ -142,10 +142,10 @@ compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 		sed -i -e 's;#define PAGE_SIZE;#undef PAGE_SIZE\n#define PAGE_SIZE;g' lib/librte_eal/linuxapp/eal/eal_pci_vfio.c
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' app/test/test_eal_flags.c
 		sed -i -e 's;uint hash_key_len;uint8_t hash_key_len;g' app/test-pmd/testpmd.c app/test-pmd/testpmd.h app/test-pmd/config.c
-	
+
 		# Local build assumes glibc on Linux
 		case "$platform" in
-			
+
 			Darwin)
 				# -L'"$(brew --prefix libelf)"/lib' -lelf
 				# -isystem/usr/include/machine is for endian.h
@@ -154,37 +154,69 @@ compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 				sed -i -e 's;-g;-g '"$extra"';g' buildtools/pmdinfogen/Makefile
 				#sed -i -e 's/#include <elf.h>/#include "elf.h"/g' buildtools/pmdinfogen/pmdinfogen.h
 			;;
-			
+
 			Linux)
 				# Fix for Alpine Linux was:-
 				# sed -i -e 's;-g;-g -I'"$dpdkMuslFixesDir"';g' buildtools/pmdinfogen/Makefile
 			;;
-		
+
 		esac
-	
+
 		# Assumes GNU tar
 		sed -i -e '/--keep-newer-files/d' mk/rte.sdkinstall.mk
 		sed -i -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
-		
+
 	cd - 1>/dev/null 2>/dev/null
 }
 
 compile_dpdk_make()
 {
+	local configurationFilePath=config/defconfig_"$configurationName"
+
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
-		
-		(
-			printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n'
-			printf '\nCONFIG_RTE_KNI_KMOD=n\n'
-			printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
-		) >>config/defconfig_"$configurationName"
+
+		local kernelSourcesPath=''
+		if [ ${RTE_KERNELDIR+defined} ]; then
+			kernelSourcesPath="$RTE_KERNELDIR"
+		else
+			kernelSourcesPath=/lib/modules/"$(uname -r)"/build
+		fi
+
+		if [ -d "$kernelSourcesPath" ]; then
+			(
+				printf '\nCONFIG_RTE_EAL_IGB_UIO=y\n'
+				printf '\nCONFIG_RTE_KNI_KMOD=y\n'
+				printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
+			) >>"$configurationFilePath"
+		else
+			(
+				printf '\nCONFIG_RTE_EAL_IGB_UIO=n\n'
+				printf '\nCONFIG_RTE_KNI_KMOD=n\n'
+				printf '\nCONFIG_RTE_LIBRTE_XEN_DOM0=n\n'
+			) >>"$configurationFilePath"
+		fi
+
+		printf 'CONFIG_RTE_MACHINE=%s\n' "$dpdkMachine" >>"$configurationFilePath"
+		printf 'CONFIG_RTE_LIBEAL_USE_HPET=y\n' >>"$configurationFilePath"
+
+		printf 'CONFIG_RTE_LIBRTE_I40E_16BYTE_RX_DESC=y\n' >>"$configurationFilePath"
+		printf 'CONFIG_RTE_LIBRTE_I40E_ITR_INTERVAL=16\n' >>"$configurationFilePath"
+
+		printf 'CONFIG_RTE_LIBRTE_PMD_BOND=y\n' >>"$configurationFilePath"
+		printf 'CONFIG_RTE_LIBRTE_IP_FRAG=y\n' >>"$configurationFilePath"
+		printf 'CONFIG_RTE_MAX_LCORE=256\n' >>"$configurationFilePath"
 
 		make \
 			--jobs $numberOfCpus \
 			install \
-			T="$configurationName" DESTDIR="$dpdkDestDir" prefix=/usr/local V=1 O="$dpdkBuildDir" \
-			CROSS=x86_64-linux-musl- \
-			EXTRA_CFLAGS="$sseFlags -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast"
+			T="$configurationName" \
+			V=1 \
+			O="$dpdkBuildDir" \
+			DESTDIR="$dpdkDestDir" \
+			prefix=/usr/local \
+			CROSS="$crossCompilerPrefix" \
+			EXTRA_CFLAGS="$optimisationFlags -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast" \
+			RTE_KERNELDIR="$kernelSourcesPath"
 
 	cd - 1>/dev/null 2>/dev/null
 }
@@ -198,60 +230,132 @@ compile_dpdk_finish()
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 }
 
+compile_dpdk_translateGccMArchValuesToDpdkValues()
+{
+	local gccMArchValue="$1"
+
+	case "$gccMArchValue" in
+
+		native)
+			dpdkMachine=native
+		;;
+
+		atom)
+			dpdkMachine=atm
+		;;
+
+		# Nehalem
+		corei7|nehalem)
+			dpdkMachine=nhm
+		;;
+
+		# Westmere
+		westmere)
+			dpdkMachine=wsm
+		;;
+
+		# Sandy Bridge
+		corei7-avx|sandybridge)
+			dpdkMachine=snb
+		;;
+
+		# Ivy Bridge
+		core-avx-i|ivybridge)
+			dpdkMachine=ivb
+		;;
+
+		# Haswell
+		core-avx2|haswell)
+			dpdkMachine=hsw
+		;;
+
+		armv7a)
+			dpdkMachine=armv7a
+		;;
+
+		armv8a)
+			dpdkMachine=armv8a
+		;;
+
+		# others are dpaa2 power8 thunderx tilegx and xgene1
+
+		*)
+			printf '%s\n' "The architecture '$gccMArchValue' is not yet supported (including skylake, bonnell, silvermont, knl, and skylake-avx512)" 1>&2
+			exit 1
+		;;
+
+	esac
+}
+
 compile_dpdk_main()
 {
 	local programPath="$(_program_path_find)"
 	local homeFolder="$programPath"
 	local configurationFolderPath="$homeFolder"/bindgen-wrapper.conf.d
-	
-	# Could be affected by env var from cargo called 'TARGET'
-	local configurationName='x86_64-native-linuxapp-gcc'
-	
+
+	if [ ${TARGET+defined} ]; then
+
+		case "$TARGET" in
+
+			x86_64-unknown-linux-musl)
+				local configurationName='x86_64-native-linuxapp-gcc'
+				local crossCompilerPrefix=x86_64-linux-musl-
+				local optimiseFor='sandybridge'  # Support by my Mac; lowest is nehalem, highest is haswell
+
+				# My Mac Pro cylinder is Sandy Bridge
+				local optimisationFlags="-mfpmath=sse -mvzeroupper -mcx16 -msahf -mmovbe -mcrc32 -minline-all-stringops"
+			;;
+
+			*)
+				printf '%s\n' "Rust cargo TARGET environment variable value '$TARGET' is not supported" 1>&2
+				exit 1
+			;;
+
+		esac
+
+	else
+		printf '%s\n' "Rust cargo TARGET environment variable not set" 1>&2
+		exit 1
+	fi
+
+	local dpdkMachine
+	compile_dpdk_translateGccMArchValuesToDpdkValues "$optimiseFor"
+
 	if [ ${OUT_DIR+defined} ]; then
 		local dpdkTempDir="$OUT_DIR"/dpdk-temp
 	else
 		local dpdkTempDir="$homeFolder"/tools/bindgen-wrapper/temporary/dpdk-temp
 	fi
-	
-	if [ $# -eq 0 ]; then
-		# Must match in any build.rs script
-		local sseFlags='-msse4.1'
-	else
-		local oldIFS="$IFS"
-		local IFS=' '
-		local sseFlags="$*"
-		IFS="$oldIFS"
-	fi	
 
 	local headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 	local dpdkSrcDir="$dpdkTempDir"/src
 	local dpdkBuildDir="$dpdkTempDir"/build
 	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
-		
+
 	local platform="$(uname)"
 	case "$platform" in
-		
+
 		Darwin)
 			bindgen_wrapper_ensureRequiredBinariesArePresent brew
 			compile_dpdk_prepareForMacOSX
 			export PATH="$(brew --prefix coreutils)"/libexec/gnubin:"$(brew --prefix gnu-sed)"/libexec/gnubin:"$PATH"
-			
+
 			local muslIncludeFolder="$(brew --prefix musl-cross)"/libexec/x86_64-linux-musl/include
-			
+
 			if [ ${NUM_JOBS+defined} ]; then
 				local numberOfCpus="$NUM_JOBS"
 			else
 				bindgen_wrapper_ensureRequiredBinariesArePresent sysctl
 				local numberOfCpus="$(sysctl -n hw.ncpu)"
 			fi
-			
+
 		;;
-		
+
 		Linux)
 			bindgen_wrapper_ensureRequiredBinariesArePresent make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar rm mkdir rsync cat
 			local muslIncludeFolder='/usr/include'
-			
+
 			if [ ${NUM_JOBS+defined} ]; then
 				local numberOfCpus="$NUM_JOBS"
 			else
@@ -259,19 +363,19 @@ compile_dpdk_main()
 				local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
 			fi
 		;;
-		
+
 		*)
 			local muslIncludeFolder="/usr/include"
-			
+
 			if [ ${NUM_JOBS+defined} ]; then
 				local numberOfCpus="$NUM_JOBS"
 			else
 				local numberOfCpus=1
 			fi
 		;;
-		
+
 	esac
-	
+
 	compile_dpdk_prepareDpdkFolders
 	compile_dpdk_installSourceAndOverrideBrokenStuff
 	compile_dpdk_muslFixes
