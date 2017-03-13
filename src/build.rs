@@ -23,10 +23,10 @@ fn main()
 	compileEmbeddedCCode(&absoluteHomeFolderPath);
 }
 
-fn tool(absoluteHomeFolderPath: &str, programName: &'static str) -> String
+fn tool(absoluteHomeFolderPath: &str, programName: &'static str)
 {
 	let fullPath = format!("{}/tools/{}", absoluteHomeFolderPath.to_owned(), programName.to_owned());
-	panicIfProcessNotSuccesful(programName, Command::new(fullPath))
+	print!("{}", panicIfProcessNotSuccesful(programName, Command::new(fullPath)));
 }
 
 fn panicIfProcessNotSuccesful(programName: &'static str, mut command: Command) -> String
@@ -48,7 +48,7 @@ fn panicIfProcessNotSuccesful(programName: &'static str, mut command: Command) -
 	}
 	
 	let standardError = String::from_utf8_lossy(&output.stderr);
-	panic!("Command '{}' failed with exit code '{}' (standard out was '{}'; standard error was '{}')", programName, code, standardOut.into_owned(), standardError.into_owned());
+	panic!("Tool '{}' failed with exit code '{}' (standard out was '{}'; standard error was '{}')", programName, code, standardOut.into_owned(), standardError.into_owned());
 }
 
 fn compileEmbeddedCCode(absoluteHomeFolderPath: &str)

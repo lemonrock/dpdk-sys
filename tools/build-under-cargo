@@ -215,7 +215,7 @@ build_under_cargo_outputCargoKeyValuePairs()
 {
 	build_under_cargo_reRunIfAnyChanged "$@"
 	
-	# Linker scripts are not completely supported by all linkers we may encounter, hence we do this (libdpdk.a is a linker script)
+	# Linker scripts are not yet supported by rustc. libdpdk.a is a GROUP linker script, not an archive!
 	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libdpdk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static=%s\n'
 	
 	# Search path

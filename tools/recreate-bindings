@@ -88,11 +88,8 @@ recreate_bindings_main()
 	rm -rf compile-dpdk.conf.d/temporary
 	
 	cargo clean
+	rm -rf .cargo/target
 	
-	cd lib/dpdk 1>/dev/null 2>/dev/null
-	git reset --hard HEAD^
-	
-	cd "$homeFolder" 1>/dev/null 2>/dev/null
 	tools/build-under-cargo
 	
 	tools/compile-on-mac-os-x-using-cargo build

@@ -45,8 +45,7 @@ else
 	fi
 fi
 
-# We no longer specify this. Specify the list of #[link(name = "rte_acl", kind = "static")] causes Cargo to no longer use the output of build.rs... and so there is no link path
-#link="$(sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$libFolderPath"/libdpdk.a)"
+link="$(sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$libFolderPath"/libdpdk.a)"
 link_kind='static'
 
 preprocess_before_headersFolderPath()
