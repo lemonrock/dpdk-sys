@@ -44,9 +44,19 @@ c!
 	#include <rte_ether.h>
 	#include <rte_lcore.h>
 	#include <rte_mbuf.h>
+	#include <rte_pci.h>
 	#include <rte_ring.h>
 	#include <rte_time.h>
 	#include <stdlib.h>
+}
+
+c!
+{
+	#[inline(always)]
+	fn rust_RTE_DEV_TO_PCI(device: *mut rte_device as "struct rte_device *") -> *mut rte_pci_device as "struct rte_pci_device *"
+	{
+		return RTE_DEV_TO_PCI(device);
+	}
 }
 
 c!

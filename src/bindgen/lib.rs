@@ -55,9 +55,19 @@ c!
 	#include <rte_ether.h>
 	#include <rte_lcore.h>
 	#include <rte_mbuf.h>
+	#include <rte_pci.h>
 	#include <rte_ring.h>
 	#include <rte_time.h>
 	#include <stdlib.h>
+}
+
+c!
+{
+	#[inline(always)]
+	fn rust_RTE_DEV_TO_PCI(device: *mut rte_device as "struct rte_device *") -> *mut rte_pci_device as "struct rte_pci_device *"
+	{
+		return RTE_DEV_TO_PCI(device);
+	}
 }
 
 c!
@@ -586,57 +596,6 @@ c!
 	}
 }
 
-#[link(name = "rte_acl")]
-#[link(name = "rte_cfgfile")]
-#[link(name = "rte_cmdline")]
-#[link(name = "rte_cryptodev")]
-#[link(name = "rte_distributor")]
-#[link(name = "rte_eal")]
-#[link(name = "rte_efd")]
-#[link(name = "rte_ethdev")]
-#[link(name = "rte_hash")]
-#[link(name = "rte_ip_frag")]
-#[link(name = "rte_jobstats")]
-#[link(name = "rte_kni")]
-#[link(name = "rte_kvargs")]
-#[link(name = "rte_lpm")]
-#[link(name = "rte_mbuf")]
-#[link(name = "rte_mempool")]
-#[link(name = "rte_meter")]
-#[link(name = "rte_net")]
-#[link(name = "rte_pdump")]
-#[link(name = "rte_pipeline")]
-#[link(name = "rte_pmd_af_packet")]
-#[link(name = "rte_pmd_bnxt")]
-#[link(name = "rte_pmd_bond")]
-#[link(name = "rte_pmd_cxgbe")]
-#[link(name = "rte_pmd_e1000")]
-#[link(name = "rte_pmd_ena")]
-#[link(name = "rte_pmd_enic")]
-#[link(name = "rte_pmd_fm10k")]
-#[link(name = "rte_pmd_i40e")]
-#[link(name = "rte_pmd_ixgbe")]
-#[link(name = "rte_pmd_nfp")]
-#[link(name = "rte_pmd_null")]
-#[link(name = "rte_pmd_null_crypto")]
-#[link(name = "rte_pmd_qede")]
-#[link(name = "rte_pmd_ring")]
-#[link(name = "rte_pmd_sfc_efx")]
-#[link(name = "rte_pmd_tap")]
-#[link(name = "rte_pmd_vhost")]
-#[link(name = "rte_pmd_virtio")]
-#[link(name = "rte_pmd_vmxnet3_uio")]
-#[link(name = "rte_port")]
-#[link(name = "rte_power")]
-#[link(name = "rte_reorder")]
-#[link(name = "rte_ring")]
-#[link(name = "rte_sched")]
-#[link(name = "rte_table")]
-#[link(name = "rte_timer")]
-#[link(name = "rte_vhost")]
-extern "C"
-{
-}
 
 include!("bindgen/constants.rs");
 include!("bindgen/types.rs");
