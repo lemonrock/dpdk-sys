@@ -74,16 +74,34 @@ _program_path_find()
     fi
 }
 
-compile_dpdk_prepareForMacOSX()
+compile_dpdk_fail()
 {
-	brew install gnu-sed
-	brew install make
-	brew install libelf
-	brew install coreutils
-	brew install FiloSottile/musl-cross/musl-cross
+	local message="$1"
+	
+	printf 'compile-dpdk:FAIL:%s\n' "$message" 1>&2
+	exit 1
 }
 
-bindgen_wrapper_ensureRequiredBinariesArePresent()
+_compile_dpdk_prepareForMacOSX_brewInstall()
+{
+	compile_dpdk_ensureRequiredBinariesArePresent brew
+		
+	local packageName
+	if ! brew ls --versions "$packageName" 1>/dev/null 2>/dev/null; then
+		brew install "$packageName"
+	fi
+}
+
+compile_dpdk_prepareForMacOSX()
+{
+	_compile_dpdk_prepareForMacOSX_brewInstall gnu-sed
+	_compile_dpdk_prepareForMacOSX_brewInstall make
+	_compile_dpdk_prepareForMacOSX_brewInstall libelf
+	_compile_dpdk_prepareForMacOSX_brewInstall coreutils
+	_compile_dpdk_prepareForMacOSX_brewInstall FiloSottile/musl-cross/musl-cross
+}
+
+compile_dpdk_ensureRequiredBinariesArePresent()
 {
 	local reason="$1"
 	shift 1
@@ -99,12 +117,14 @@ bindgen_wrapper_ensureRequiredBinariesArePresent()
 	done
 
 	if $missing; then
-		bindgen_wrapper_fail "Please make sure that the missing binaries are installed because '$reason'"
+		compile_dpdk_fail "Please make sure that the missing binaries are installed because '$reason'"
 	fi
 }
 
 compile_dpdk_prepareDpdkFolders()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent rm mkdir
+	
 	# We do not delete the src dir, as we use rsync to populate it
 	rm -rf "$dpdkBuildDir" "$dpdkDestDir" "$dpdkMuslFixesDir"
 	mkdir -m 0755 -p "$dpdkSrcDir"
@@ -115,12 +135,16 @@ compile_dpdk_prepareDpdkFolders()
 
 compile_dpdk_installSourceAndOverrideBrokenStuff()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent rsync
+	
 	rsync --quiet --archive --delete "$homeFolder"/lib/dpdk/ "$dpdkSrcDir"/
 	rsync --quiet --archive "$configurationFolderPath"/overrides/ "$dpdkSrcDir"/
 }
 
 compile_dpdk_muslFixes()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent cat
+	
 	# (1) Make an useful io.h
 	(
 		cat "$muslIncludeFolder"/bits/io.h
@@ -131,8 +155,11 @@ compile_dpdk_muslFixes()
 	cat "$configurationFolderPath"/musl-fixes/queue.h >"$dpdkMuslFixesDir"/sys/queue.h
 }
 
+# These fixes have been incorporated into Libertine Linux's recipe, too, so there is some duplication
 compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent sed
+	
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
 
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
@@ -171,6 +198,8 @@ compile_dpdk_patchDpdkToWorkWithMuslAndAlpineLinux()
 
 compile_dpdk_make()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent make
+	
 	local configurationFilePath=config/defconfig_"$configurationName"
 
 	cd "$dpdkSrcDir" 1>/dev/null 2>/dev/null
@@ -223,6 +252,8 @@ compile_dpdk_make()
 
 compile_dpdk_finish()
 {
+	compile_dpdk_ensureRequiredBinariesArePresent rsync sed
+	
 	# Install musl-fixes; DPDK headers assume they are installed as a system library
 	rsync -a -v "$dpdkMuslFixesDir"/ "$headersFolderPath"/
 
@@ -230,102 +261,48 @@ compile_dpdk_finish()
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
 }
 
-compile_dpdk_translateGccMArchValuesToDpdkValues()
-{
-	local gccMArchValue="$1"
-
-	case "$gccMArchValue" in
-
-		native)
-			dpdkMachine=native
-		;;
-
-		atom)
-			dpdkMachine=atm
-		;;
-
-		# Nehalem
-		corei7|nehalem)
-			dpdkMachine=nhm
-		;;
-
-		# Westmere
-		westmere)
-			dpdkMachine=wsm
-		;;
-
-		# Sandy Bridge
-		corei7-avx|sandybridge)
-			dpdkMachine=snb
-		;;
-
-		# Ivy Bridge
-		core-avx-i|ivybridge)
-			dpdkMachine=ivb
-		;;
-
-		# Haswell
-		core-avx2|haswell)
-			dpdkMachine=hsw
-		;;
-
-		armv7a)
-			dpdkMachine=armv7a
-		;;
-
-		armv8a)
-			dpdkMachine=armv8a
-		;;
-
-		# others are dpaa2 power8 thunderx tilegx and xgene1
-
-		*)
-			printf '%s\n' "The architecture '$gccMArchValue' is not yet supported (including skylake, bonnell, silvermont, knl, and skylake-avx512)" 1>&2
-			exit 1
-		;;
-
-	esac
-}
-
 compile_dpdk_main()
 {
+	case "$#" in
+		
+		0)
+			:
+		;;
+		
+		1)
+			case "$1" in
+				
+				-h|--help)
+					printf './compile-dpdk\n'
+					printf './compile-dpdk -h|--help\n'
+					exit 0
+				;;
+				
+				*)
+					compile_dpdk_fail "Does not take any arguments"
+				;;
+				
+			esac
+		;;
+		
+		*)
+			compile_dpdk_fail "Does not take any arguments"
+		;;
+		
+	esac
+	
 	local programPath="$(_program_path_find)"
-	local homeFolder="$programPath"
+	cd "$programPath"/.. 1>/dev/null 2>/dev/null
+		local homeFolder="$(pwd)"
+	cd - 1>/dev/null 2>/dev/null
 	local configurationFolderPath="$homeFolder"/bindgen-wrapper.conf.d
 
-	if [ ${TARGET+defined} ]; then
-
-		case "$TARGET" in
-
-			x86_64-unknown-linux-musl)
-				local configurationName='x86_64-native-linuxapp-gcc'
-				local crossCompilerPrefix=x86_64-linux-musl-
-				local optimiseFor='sandybridge'  # Support by my Mac; lowest is nehalem, highest is haswell
-
-				# My Mac Pro cylinder is Sandy Bridge
-				local optimisationFlags="-mfpmath=sse -mvzeroupper -mcx16 -msahf -mmovbe -mcrc32 -minline-all-stringops"
-			;;
-
-			*)
-				printf '%s\n' "Rust cargo TARGET environment variable value '$TARGET' is not supported" 1>&2
-				exit 1
-			;;
-
-		esac
-
-	else
-		printf '%s\n' "Rust cargo TARGET environment variable not set" 1>&2
-		exit 1
-	fi
-
-	local dpdkMachine
-	compile_dpdk_translateGccMArchValuesToDpdkValues "$optimiseFor"
-
-	if [ ${OUT_DIR+defined} ]; then
-		local dpdkTempDir="$OUT_DIR"/dpdk-temp
-	else
-		local dpdkTempDir="$homeFolder"/tools/bindgen-wrapper/temporary/dpdk-temp
-	fi
+	local configurationName='x86_64-native-linuxapp-gcc'
+	local crossCompilerPrefix='x86_64-linux-musl-'
+	local optimisationFlags=''
+	local dpdkMachine='default'
+	
+	local dpdkTempDir="$homeFolder"/tools/bindgen-wrapper/temporary
 
 	local headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 	local dpdkSrcDir="$dpdkTempDir"/src
@@ -333,45 +310,35 @@ compile_dpdk_main()
 	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
 
+	compile_dpdk_ensureRequiredBinariesArePresent uname
+	
 	local platform="$(uname)"
 	case "$platform" in
 
 		Darwin)
-			bindgen_wrapper_ensureRequiredBinariesArePresent brew
 			compile_dpdk_prepareForMacOSX
+			
+			compile_dpdk_ensureRequiredBinariesArePresent brew
+			
 			export PATH="$(brew --prefix coreutils)"/libexec/gnubin:"$(brew --prefix gnu-sed)"/libexec/gnubin:"$PATH"
 
 			local muslIncludeFolder="$(brew --prefix musl-cross)"/libexec/x86_64-linux-musl/include
 
-			if [ ${NUM_JOBS+defined} ]; then
-				local numberOfCpus="$NUM_JOBS"
-			else
-				bindgen_wrapper_ensureRequiredBinariesArePresent sysctl
-				local numberOfCpus="$(sysctl -n hw.ncpu)"
-			fi
+			compile_dpdk_ensureRequiredBinariesArePresent sysctl
+			local numberOfCpus="$(sysctl -n hw.ncpu)"
 
 		;;
 
 		Linux)
-			bindgen_wrapper_ensureRequiredBinariesArePresent make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar rm mkdir rsync cat
+			compile_dpdk_ensureRequiredBinariesArePresent make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar rm mkdir rsync cat
 			local muslIncludeFolder='/usr/include'
 
-			if [ ${NUM_JOBS+defined} ]; then
-				local numberOfCpus="$NUM_JOBS"
-			else
-				bindgen_wrapper_ensureRequiredBinariesArePresent grep
-				local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
-			fi
+			compile_dpdk_ensureRequiredBinariesArePresent grep
+			local numberOfCpus="$(grep -c '^processor' /proc/cpuinfo)"
 		;;
 
 		*)
-			local muslIncludeFolder="/usr/include"
-
-			if [ ${NUM_JOBS+defined} ]; then
-				local numberOfCpus="$NUM_JOBS"
-			else
-				local numberOfCpus=1
-			fi
+			compile_dpdk_fail "Only Darwin (Mac OS X) and Linux (specifically, Alpine Linux) are supported at this time"
 		;;
 
 	esac

@@ -8,14 +8,7 @@ link='ethdev rte_acl rte_cfgfile rte_cmdline rte_cryptodev rte_distributor rte_e
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 clangAdditionalArguments=''
-
-# Running under Cargo
-if [ ${OUT_DIR+defined} ]; then
-	dpdkTempDir="$OUT_DIR"/dpdk-temp		
-else
-	dpdkTempDir="$temporaryFolderPath"/dpdk-temp
-fi
-
+dpdkTempDir="$temporaryFolderPath"/dpdk-temp
 headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 
 if [ ! -d "$headersFolderPath" ]; then
