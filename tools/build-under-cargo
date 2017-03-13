@@ -207,7 +207,8 @@ build_under_cargo_generatingRustBindingsToDpdkIfRquired()
 build_under_cargo_linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRust()
 {
 	rm -rf "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
-	ln -s "$dpdkIncludeFolderPath" "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
+	mkdir -m 0700 -p "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
+	rsync --quiet --archive "$dpdkIncludeFolderPath"/ "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"/
 }
 
 build_under_cargo_outputCargoKeyValuePairs()
