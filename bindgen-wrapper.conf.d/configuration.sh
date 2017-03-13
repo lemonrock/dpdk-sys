@@ -4,15 +4,46 @@
 
 bindingsName='dpdk'
 rootIncludeFileName='dpdk.h'
-link='ethdev rte_acl rte_cfgfile rte_cmdline rte_cryptodev rte_distributor rte_eal rte_hash rte_ip_frag rte_jobstats rte_kni rte_kvargs rte_lpm rte_mbuf rte_mempool rte_meter rte_pdump rte_pipeline rte_pmd_af_packet rte_pmd_bnxt rte_pmd_bond rte_pmd_cxgbe rte_pmd_e1000 rte_pmd_ena rte_pmd_enic rte_pmd_fm10k rte_pmd_i40e rte_pmd_ixgbe rte_pmd_null rte_pmd_null_crypto rte_pmd_ring rte_pmd_vhost rte_pmd_virtio rte_pmd_vmxnet3_uio rte_port rte_power rte_reorder rte_ring rte_sched rte_table rte_timer rte_vhost'
+# sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' compile-dpdk.conf.d/temporary/destdir/usr/local/lib/libdpdk.a 
+#link='ethdev rte_acl rte_cfgfile rte_cmdline rte_cryptodev rte_distributor rte_eal rte_hash rte_ip_frag rte_jobstats rte_kni rte_kvargs rte_lpm rte_mbuf rte_mempool rte_meter rte_pdump rte_pipeline rte_pmd_af_packet rte_pmd_bnxt rte_pmd_bond rte_pmd_cxgbe rte_pmd_e1000 rte_pmd_ena rte_pmd_enic rte_pmd_fm10k rte_pmd_i40e rte_pmd_ixgbe rte_pmd_null rte_pmd_null_crypto rte_pmd_ring rte_pmd_vhost rte_pmd_virtio rte_pmd_vmxnet3_uio rte_port rte_power rte_reorder rte_ring rte_sched rte_table rte_timer rte_vhost'
+link='dpdk'
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 clangAdditionalArguments=''
-dpdkTempDir="$temporaryFolderPath"/dpdk-temp
-headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
 
-if [ ! -d "$headersFolderPath" ]; then
-	bindgen_wrapper_fail "Please run compile-dpdk first"
+if [ -z "{RTE_SDK:+defined}" ]; then
+	if [ ! -d "$RTE_SDK" ]; then
+		bindgen_wrapper_fail "Please define the environment variable RTE_SDK ('$RTE_SDK') to an extant folder path"
+	fi
+	if [ ! -r "$RTE_SDK" ]; then
+		bindgen_wrapper_fail "Please define the environment variable RTE_SDK ('$RTE_SDK') to an extant, readable folder path"
+	fi
+	
+	if [ -z "{RTE_TARGET+defined}" ]; then
+		headersFolderPath="$RTE_SDK"/"$RTE_TARGET"/include/dpdk
+
+		if [ ! -d "$headersFolderPath" ]; then
+			bindgen_wrapper_fail "Please define the environment variable RTE_TARGET ('$RTE_TARGET') to an folder under the environment variable RTE_SDK ('$RTE_SDK')"
+		fi
+		if [ ! -r "$headersFolderPath" ]; then
+			bindgen_wrapper_fail "Please define the environment variable RTE_TARGET ('$RTE_TARGET') to an extant, readable folder under the environment variable RTE_SDK ('$RTE_SDK')"
+		fi
+		
+	else
+		bindgen_wrapper_fail "Please define the environment variable RTE_TARGET if defining the environment variable RTE_SDK ('$RTE_SDK')"
+	fi
+else
+	if [ -z "{RTE_TARGET+defined}" ]; then
+		bindgen_wrapper_fail "Please define the environment variable RTE_SDK if defining the environment variable RTE_TARGET ('$RTE_TARGET')"
+	fi
+
+	headersFolderPath="$homeFolder"/compile-dpdk.conf.d/temporary/destdir/usr/local/include/dpdk
+	
+	printf '%s\n' "The RTE_SDK and RTE_TARGET environment variables are not defined; assuming that headers have been compiled previously by tools/compile-dpdk to '$headersFolderPath'"
+	
+	if [ ! -d "$headersFolderPath" ]; then
+		bindgen_wrapper_fail "Please run tools/compile-dpdk first or specify the RTE_SDK and RTE_TARGET environment variables"
+	fi
 fi
 
 preprocess_before_headersFolderPath()
@@ -38,10 +69,6 @@ postprocess_after_rustfmt()
 
 final_chance_to_tweak()
 {
-	# Make a copy of the headers suitable for use by the rust-c / dpdk crate combination
-	mkdir -m 0750 -p "$outputFolderPath"/headers/
-	rsync --quiet -a -v "$headersFolderPath"/ "$outputFolderPath"/headers/
-	
 	# Make these compatible with PosixErrorNumber; can't be done as constant type mapping as conversion of unnamed enums occurs after constant type mapping
 	sed -i -e 's/: u32 /: c_int /g' "$outputFolderPath"/constants/E_RTE.rs
 	

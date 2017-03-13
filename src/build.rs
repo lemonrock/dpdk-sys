@@ -18,95 +18,142 @@ use ::std::path::Path;
 
 const SupportedTarget: &'static str = "x86_64-unknown-linux-musl";
 
-const Libraries: [&'static str; 42] =
-[
-	"ethdev",
-	"rte_acl",
-	"rte_cfgfile",
-	"rte_cmdline",
-	"rte_cryptodev",
-	"rte_distributor",
-	"rte_eal",
-	"rte_hash",
-	"rte_ip_frag",
-	"rte_jobstats",
-	"rte_kni",
-	"rte_kvargs",
-	"rte_lpm",
-	"rte_mbuf",
-	"rte_mempool",
-	"rte_meter",
-	"rte_pdump",
-	"rte_pipeline",
-	"rte_pmd_af_packet",
-	"rte_pmd_bnxt",
-	"rte_pmd_bond",
-	"rte_pmd_cxgbe",
-	"rte_pmd_e1000",
-	"rte_pmd_ena",
-	"rte_pmd_enic",
-	"rte_pmd_fm10k",
-	"rte_pmd_i40e",
-	"rte_pmd_ixgbe",
-	"rte_pmd_null",
-	"rte_pmd_null_crypto",
-	"rte_pmd_ring",
-	"rte_pmd_vhost",
-	"rte_pmd_virtio",
-	"rte_pmd_vmxnet3_uio",
-	"rte_port",
-	"rte_power",
-	"rte_reorder",
-	"rte_ring",
-	"rte_sched",
-	"rte_table",
-	"rte_timer",
-	"rte_vhost",
-];
+// const Libraries: [&'static str; 42] =
+// [
+// 	"ethdev",
+// 	"rte_acl",
+// 	"rte_cfgfile",
+// 	"rte_cmdline",
+// 	"rte_cryptodev",
+// 	"rte_distributor",
+// 	"rte_eal",
+// 	"rte_hash",
+// 	"rte_ip_frag",
+// 	"rte_jobstats",
+// 	"rte_kni",
+// 	"rte_kvargs",
+// 	"rte_lpm",
+// 	"rte_mbuf",
+// 	"rte_mempool",
+// 	"rte_meter",
+// 	"rte_pdump",
+// 	"rte_pipeline",
+// 	"rte_pmd_af_packet",
+// 	"rte_pmd_bnxt",
+// 	"rte_pmd_bond",
+// 	"rte_pmd_cxgbe",
+// 	"rte_pmd_e1000",
+// 	"rte_pmd_ena",
+// 	"rte_pmd_enic",
+// 	"rte_pmd_fm10k",
+// 	"rte_pmd_i40e",
+// 	"rte_pmd_ixgbe",
+// 	"rte_pmd_null",
+// 	"rte_pmd_null_crypto",
+// 	"rte_pmd_ring",
+// 	"rte_pmd_vhost",
+// 	"rte_pmd_virtio",
+// 	"rte_pmd_vmxnet3_uio",
+// 	"rte_port",
+// 	"rte_power",
+// 	"rte_reorder",
+// 	"rte_ring",
+// 	"rte_sched",
+// 	"rte_table",
+// 	"rte_timer",
+// 	"rte_vhost",
+// ];
 
 fn main()
 {
-	let outputFolderPath = env::var("OUT_DIR").unwrap();
 	let absoluteHomeFolderPath = env::var("CARGO_MANIFEST_DIR").unwrap();
-	let target = env::var("TARGET").unwrap();
 	
-	if target != SupportedTarget
-	{
-		let message = format!("The target '{}' is unsupported. Currently, the only supported target is '{}'", target, SupportedTarget);
-		println!("cargo:warning={}", message);
-		return;
-	}
+	reRunIfChanged(&absoluteHomeFolderPath, "bindgen-wrapper.conf.d");
+	reRunIfChanged(&absoluteHomeFolderPath, "compile-dpdk.conf.d");
+	reRunIfChanged(&absoluteHomeFolderPath, "lib/dpdk");
+	reRunIfChanged(&absoluteHomeFolderPath, "src/build.rs");
+	reRunIfChanged(&absoluteHomeFolderPath, "src/lib.rs");
+	reRunIfChanged(&absoluteHomeFolderPath, "tools/bindgen-wrapper");
+	reRunIfChanged(&absoluteHomeFolderPath, "tools/compile-dpdk");
+	reRunIfChanged(&absoluteHomeFolderPath, "tools/generate-bindings");
 	
-	let dpdkTempPath = format!("{}/dpdk-temp", outputFolderPath);
-	let rootFolderPath = format!("{}/destdir/usr/local", dpdkTempPath);
+	let rootFolderPath = compileALocalCopyOfDpdkIfRequired(&absoluteHomeFolderPath);
+	
 	let includeFolderPath = format!("{}/include/dpdk", rootFolderPath);
 	let libFolderPath = format!("{}/lib", rootFolderPath);
 	
-	
-	for library in Libraries.iter()
-	{
-		println!("cargo:rustc-link-lib=static={}", library);
-	}
+	// for library in Libraries.iter()
+	// {
+	// 	println!("cargo:rustc-link-lib=static={}", library);
+	// }
+	println!("cargo:rustc-link-lib=static=dpdk");
 	println!("cargo:rustc-link-search=native={}", libFolderPath);
+	
+	// Not used by us, but useful for downstream potentially
 	println!("cargo:root={}", rootFolderPath);
 	println!("cargo:include={}", includeFolderPath);
 	println!("cargo:libdir={}", libFolderPath);
-	reRunIfChanged(&absoluteHomeFolderPath, "src/build.rs");
-	reRunIfChanged(&absoluteHomeFolderPath, "src/lib.rs");
-	reRunIfChanged(&absoluteHomeFolderPath, "bindgen-wrapper.conf.d");
-	reRunIfChanged(&absoluteHomeFolderPath, "tools/bindgen-wrapper");
-	reRunIfChanged(&absoluteHomeFolderPath, "lib/dpdk");
 	
-		
-	run(&absoluteHomeFolderPath, "compile-dpdk");
-	run(&absoluteHomeFolderPath, "bindgen-wrapper");
+	generatingRustBindingsToDpdkIfRquired(&absoluteHomeFolderPath);
+	
 	compileEmbeddedCCode(&includeFolderPath, &absoluteHomeFolderPath);
 }
 
-fn run(absoluteHomeFolderPath: &str, programName: &'static str) -> String
+fn compileALocalCopyOfDpdkIfRequired(absoluteHomeFolderPath: &str)
 {
-	let fullPath = format!("{}/{}", absoluteHomeFolderPath.to_owned(), programName.to_owned());
-	panicIfProcessNotSuccesful(programName, Command::new(fullPath))
+	// Example values	
+	// RTE_SDK='compile-dpdk.conf.d/temporary/destdir/usr/local/share/dpdk'
+	// RTE_TARGET='x86_64-native-linuxapp-gcc'
+	match env::var("RTE_SDK")
+	{
+		Ok(rteSdkPath) =>
+		{
+			if !Path::new(rteSdkPath).is_dir()
+			{
+				println!("cargo:warning=RTE_SDK environment variable '{}' is not a folder path", rteSdkPath);
+				return;
+			}
+		
+			match env::var("RTE_TARGET")
+			{
+				Err(_) => println!("cargo:warning=Please specify a value for the environment variable RTE_TARGET if RTE_SDK is specified"),
+				Ok(rteTarget) =>
+				{
+					let path = format!("{}", rteSdkPath, rteTarget);
+
+					if !Path::new(path).is_dir()
+					{
+						println!("cargo:warning=RTE_SDK ('{}') with RTE_TARGET ('{}') environment variable is not a folder path", rteSdkPath, rteTarget);
+						return;
+					}
+				
+					path
+				},
+			}
+		},
+		Err(_) =>
+		{
+			let target = env::var("TARGET").unwrap();
+			if target != SupportedTarget
+			{
+				let message = format!("The target '{}' is unsupported by tools/compile-dpdk. Currently, the only supported target is '{}'; override the use of tools/compile-dpdk by setting the environment variables RTE_TARGET and RTE_SDK", target, SupportedTarget);
+				println!("cargo:warning={}", message);
+				return;
+			}
+			run(&absoluteHomeFolderPath, "compile-dpdk");
+			format!("{}/compile-dpdk.conf.d/temporary/destdir/usr/local", absoluteHomeFolderPath.to_owned())
+		},
+	}
+}
+
+// This is extremely brittle, mostly because of bindgen being brittle
+fn generatingRustBindingsToDpdkIfRquired(absoluteHomeFolderPath: &str)
+{
+	let generatedCodeFolderPath = format!("{}/src/bindgen", absoluteHomeFolderPath);
+	if !Path::new(generatedCodeFolderPath).is_dir()
+	{
+		run(&absoluteHomeFolderPath, "bindgen-wrapper/bindgen-wrapper");
+	}
 }
 
 fn compileEmbeddedCCode(includeFolderPath: &str, absoluteHomeFolderPath: &str)
@@ -118,9 +165,14 @@ fn compileEmbeddedCCode(includeFolderPath: &str, absoluteHomeFolderPath: &str)
 		gcc_config.define("_GNU_SOURCE", None);
 		gcc_config.define("_BSD_SOURCE", None);
 		gcc_config.flag(&format!("-isystem{}", includeFolderPath)); // can't use .include() as warnings then occur in system headers
-		gcc_config.flag("-msse4.1");
 		gcc_config.opt_level(3); // DPDK code only compiles with optimisation enabled; we can't inherit OPT_LEVEL from the environment
 	});
+}
+
+fn run(absoluteHomeFolderPath: &str, programName: &'static str) -> String
+{
+	let fullPath = format!("{}/tools/{}", absoluteHomeFolderPath.to_owned(), programName.to_owned());
+	panicIfProcessNotSuccesful(programName, Command::new(fullPath))
 }
 
 fn panicIfProcessNotSuccesful(programName: &'static str, mut command: Command) -> String

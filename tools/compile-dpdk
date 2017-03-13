@@ -295,20 +295,22 @@ compile_dpdk_main()
 	cd "$programPath"/.. 1>/dev/null 2>/dev/null
 		local homeFolder="$(pwd)"
 	cd - 1>/dev/null 2>/dev/null
-	local configurationFolderPath="$homeFolder"/bindgen-wrapper.conf.d
+	local configurationFolderPath="$homeFolder"/compile-dpdk.conf.d
 
 	local configurationName='x86_64-native-linuxapp-gcc'
 	local crossCompilerPrefix='x86_64-linux-musl-'
 	local optimisationFlags=''
 	local dpdkMachine='default'
 	
-	local dpdkTempDir="$homeFolder"/tools/bindgen-wrapper/temporary
+	local dpdkTempDir="$configurationFolderPath"/temporary
+	rm -rf "$dpdkTempDir"
+	mkdir -m 0700 -p "$dpdkTempDir"
 
-	local headersFolderPath="$dpdkTempDir"/destdir/usr/local/include/dpdk
+	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkSrcDir="$dpdkTempDir"/src
 	local dpdkBuildDir="$dpdkTempDir"/build
-	local dpdkDestDir="$dpdkTempDir"/destdir
 	local dpdkMuslFixesDir="$dpdkTempDir"/musl-fixes
+	local headersFolderPath="$dpdkDestDir"/usr/local/include/dpdk
 
 	compile_dpdk_ensureRequiredBinariesArePresent uname
 	
