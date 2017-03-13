@@ -5,7 +5,6 @@
 include!("bindgen/enums/cmdline_numtype.rs");
 include!("bindgen/enums/cmdline_vt100_parser_state.rs");
 include!("bindgen/enums/malloc_elem.rs");
-include!("bindgen/enums/pmd_type.rs");
 include!("bindgen/enums/power_management_env.rs");
 include!("bindgen/enums/rdline_status.rs");
 include!("bindgen/enums/rte_acl_classify_alg.rs");
@@ -27,7 +26,6 @@ include!("bindgen/enums/rte_cryptodev_type.rs");
 include!("bindgen/enums/rte_devtype.rs");
 include!("bindgen/enums/rte_distributor.rs");
 include!("bindgen/enums/rte_eth_dev_callback.rs");
-include!("bindgen/enums/rte_eth_dev_type.rs");
 include!("bindgen/enums/rte_eth_event_type.rs");
 include!("bindgen/enums/rte_eth_fc_mode.rs");
 include!("bindgen/enums/rte_eth_fdir_behavior.rs");

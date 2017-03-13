@@ -12,7 +12,6 @@ extern "C"
 	pub fn rte_eth_allmulticast_get(port_id: uint8_t) -> c_int;
 	pub fn rte_eth_copy_pci_info(eth_dev: *mut rte_eth_dev, pci_dev: *mut rte_pci_device);
 	pub fn rte_eth_dma_zone_reserve(eth_dev: *const rte_eth_dev, name: *const c_char, queue_id: uint16_t, size: size_t, align: c_uint, socket_id: c_int) -> *const rte_memzone;
-	pub fn rte_eth_driver_register(eth_drv: *mut eth_driver);
 	pub fn rte_eth_from_ring(r: *mut rte_ring) -> c_int;
 	pub fn rte_eth_from_rings(name: *const c_char, rx_queues: *mut *mut rte_ring, nb_rx_queues: c_uint, tx_queues: *mut *mut rte_ring, nb_tx_queues: c_uint, numa_node: c_uint) -> c_int;
 	pub fn rte_eth_led_off(port_id: uint8_t) -> c_int;
@@ -30,7 +29,6 @@ extern "C"
 	pub fn rte_eth_rx_queue_info_get(port_id: uint8_t, queue_id: uint16_t, qinfo: *mut rte_eth_rxq_info) -> c_int;
 	pub fn rte_eth_rx_queue_setup(port_id: uint8_t, rx_queue_id: uint16_t, nb_rx_desc: uint16_t, socket_id: c_uint, rx_conf: *const rte_eth_rxconf, mb_pool: *mut rte_mempool) -> c_int;
 	pub fn rte_eth_set_queue_rate_limit(port_id: uint8_t, queue_idx: uint16_t, tx_rate: uint16_t) -> c_int;
-	pub fn rte_eth_set_vf_rate_limit(port_id: uint8_t, vf: uint16_t, tx_rate: uint16_t, q_msk: uint64_t) -> c_int;
 	pub fn rte_eth_speed_bitflag(speed: uint32_t, duplex: c_int) -> uint32_t;
 	pub fn rte_eth_stats_get(port_id: uint8_t, stats: *mut rte_eth_stats) -> c_int;
 	pub fn rte_eth_stats_reset(port_id: uint8_t);

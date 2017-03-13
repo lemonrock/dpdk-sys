@@ -6,10 +6,10 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_pci_driver
 {
-	pub next: AnonymousStruct19,
-	pub name: *const c_char,
-	pub devinit: pci_devinit_t,
-	pub devuninit: pci_devuninit_t,
+	pub next: AnonymousStruct20,
+	pub driver: rte_driver,
+	pub probe: pci_probe_t,
+	pub remove: pci_remove_t,
 	pub id_table: *const rte_pci_id,
 	pub drv_flags: uint32_t,
 }

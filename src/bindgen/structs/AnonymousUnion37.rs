@@ -3,23 +3,38 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
 pub struct AnonymousUnion37
 {
-	pub _bindgen_data_: [u32; 4usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
 impl AnonymousUnion37
 {
-	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
+	pub unsafe fn enable(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
+	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
+	}
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Clone for AnonymousUnion37
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
+	{
+		*self
 	}
 }
 

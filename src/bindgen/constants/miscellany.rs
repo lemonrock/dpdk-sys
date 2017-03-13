@@ -2,12 +2,12 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
+pub const ALIGNMENT_MASK: c_int = 15;
 pub const CTRL_MBUF_FLAG: c_longlong = -9223372036854775808;
 pub const IND_ATTACHED_MBUF: c_longlong = 4611686018427387904;
 pub const MAX_SKIPLIST_DEPTH: c_int = 10;
 pub const RTE_2TUPLE_FLAGS: c_int = 20;
 pub const RTE_5TUPLE_FLAGS: c_int = 31;
-pub const RTE_APP_TEST: c_int = 1;
 pub const RTE_BIG_ENDIAN: c_int = 1;
 pub const RTE_BYTE_ORDER: c_int = 2;
 pub const RTE_CLASS_ANY_ID: c_int = 16777215;
@@ -40,6 +40,5 @@ pub const RTE_RETA_GROUP_SIZE: size_t = 64;
 pub const RTE_RTM_MAX_RETRIES: size_t = 10;
 pub const RTE_TABLE_HASH_LRU_STRATEGY: c_int = 1;
 pub const RTE_TAILQ_NAMESIZE: size_t = 32;
-pub const RTE_TEST_PMD: c_int = 1;
 pub const RTE_TOOLCHAIN_GCC: c_int = 1;
 pub const SOCKET_ID_ANY: c_int = -1;

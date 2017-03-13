@@ -9,6 +9,8 @@ pub struct rte_eth_desc_lim
 	pub nb_max: uint16_t,
 	pub nb_min: uint16_t,
 	pub nb_align: uint16_t,
+	pub nb_seg_max: uint16_t,
+	pub nb_mtu_seg_max: uint16_t,
 }
 
 impl Default for rte_eth_desc_lim

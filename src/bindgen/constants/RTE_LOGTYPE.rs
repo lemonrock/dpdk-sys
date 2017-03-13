@@ -5,6 +5,7 @@
 pub const RTE_LOGTYPE_ACL: c_int = 512;
 pub const RTE_LOGTYPE_CRYPTODEV: c_int = 131072;
 pub const RTE_LOGTYPE_EAL: c_int = 1;
+pub const RTE_LOGTYPE_EFD: c_int = 262144;
 pub const RTE_LOGTYPE_HASH: c_int = 64;
 pub const RTE_LOGTYPE_KNI: c_int = 256;
 pub const RTE_LOGTYPE_LPM: c_int = 128;

@@ -6,9 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct27
 {
-	pub min: uint16_t,
-	pub max: uint16_t,
-	pub increment: uint16_t,
+	pub tqe_next: *mut rte_devargs,
+	pub tqe_prev: *mut *mut rte_devargs,
 }
 
 impl Default for AnonymousStruct27

@@ -54,7 +54,7 @@ int rte_eal_log_init(__attribute__((unused)) const char *id, __attribute__((unus
 	return 0;
 }
 
-int rte_eal_log_early_init(void)
-{
-	return 0;
-}
+// int rte_eal_log_early_init(void)
+// {
+// 	return 0;
+// }

@@ -4,6 +4,5 @@
 
 extern "C"
 {
-	pub static mut eal_default_log_stream: *mut FILE;
 	pub static mut rte_logs: rte_logs;
 }

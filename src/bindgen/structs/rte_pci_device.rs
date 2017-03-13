@@ -6,15 +6,14 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_pci_device
 {
-	pub next: AnonymousStruct18,
+	pub next: AnonymousStruct19,
+	pub device: rte_device,
 	pub addr: rte_pci_addr,
 	pub id: rte_pci_id,
-	pub mem_resource: [rte_pci_resource; 6usize],
+	pub mem_resource: [rte_mem_resource; 6usize],
 	pub intr_handle: rte_intr_handle,
 	pub driver: *mut rte_pci_driver,
 	pub max_vfs: uint16_t,
-	pub numa_node: c_int,
-	pub devargs: *mut rte_devargs,
 	pub kdrv: rte_kernel_driver,
 }
 

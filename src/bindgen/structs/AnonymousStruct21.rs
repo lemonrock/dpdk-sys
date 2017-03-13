@@ -6,11 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct21
 {
-	pub algo: rte_crypto_auth_algorithm,
-	pub block_size: uint16_t,
-	pub key_size: AnonymousStruct22,
-	pub digest_size: AnonymousStruct23,
-	pub aad_size: AnonymousStruct24,
+	pub tqe_next: *mut mapped_pci_resource,
+	pub tqe_prev: *mut *mut mapped_pci_resource,
 }
 
 impl Default for AnonymousStruct21

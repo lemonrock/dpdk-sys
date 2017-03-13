@@ -7,7 +7,7 @@
 pub struct rte_eth_global_cfg
 {
 	pub cfg_type: rte_eth_global_cfg_type,
-	pub cfg: AnonymousUnion38,
+	pub cfg: AnonymousUnion35,
 }
 
 impl Default for rte_eth_global_cfg

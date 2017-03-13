@@ -4,7 +4,11 @@
 
 extern "C"
 {
+	pub fn rte_eal_dev_attach(name: *const c_char, devargs: *const c_char) -> c_int;
+	pub fn rte_eal_dev_detach(name: *const c_char) -> c_int;
 	pub fn rte_eal_dev_init() -> c_int;
+	pub fn rte_eal_device_insert(dev: *mut rte_device);
+	pub fn rte_eal_device_remove(dev: *mut rte_device);
 	pub fn rte_eal_get_configuration() -> *mut rte_config;
 	pub fn rte_eal_get_lcore_state(slave_id: c_uint) -> rte_lcore_state_t;
 	pub fn rte_eal_get_physmem_layout() -> *const rte_memseg;

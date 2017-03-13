@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct28
 {
-	pub max_nb_sessions: c_uint,
+	pub addr: rte_pci_addr,
 }
 
 impl Default for AnonymousStruct28

@@ -9,15 +9,16 @@ pub struct rte_eth_dev
 {
 	pub rx_pkt_burst: eth_rx_burst_t,
 	pub tx_pkt_burst: eth_tx_burst_t,
+	pub tx_pkt_prepare: eth_tx_prep_t,
 	pub data: *mut rte_eth_dev_data,
 	pub driver: *const eth_driver,
 	pub dev_ops: *const eth_dev_ops,
-	pub pci_dev: *mut rte_pci_device,
+	pub device: *mut rte_device,
+	pub intr_handle: *mut rte_intr_handle,
 	pub link_intr_cbs: rte_eth_dev_cb_list,
 	pub post_rx_burst_cbs: [*mut rte_eth_rxtx_callback; 1024usize],
 	pub pre_tx_burst_cbs: [*mut rte_eth_rxtx_callback; 1024usize],
 	pub attached: uint8_t,
-	pub dev_type: rte_eth_dev_type,
 }
 
 impl Clone for rte_eth_dev

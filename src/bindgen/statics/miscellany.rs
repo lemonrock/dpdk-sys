@@ -5,6 +5,11 @@
 extern "C"
 {
 	pub static mut devargs_list: rte_devargs_list;
+	pub static mut rte_crypto_auth_algorithm_strings: [*const c_char; 0usize];
+	pub static mut rte_crypto_auth_operation_strings: [*const c_char; 0usize];
+	pub static mut rte_crypto_cipher_algorithm_strings: [*const c_char; 0usize];
+	pub static mut rte_crypto_cipher_operation_strings: [*const c_char; 0usize];
 	pub static mut rte_cyptodev_names: *mut *const c_char;
+	pub static mut rte_delay_us: Option<extern "C" fn(us: c_uint)>;
 	pub static mut rte_rtm_supported: uint8_t;
 }

@@ -2,7 +2,6 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const RTE_ACL_INVALID_USERDATA: c_int = 0;
 pub const RTE_ACL_MAX_CATEGORIES: c_int = 16;
 pub const RTE_ACL_MAX_FIELDS: c_int = 64;
 pub const RTE_ACL_MAX_INDEX: u32 = 536870911;

@@ -13,7 +13,7 @@ pub struct rte_eth_vmdq_rx_conf
 	pub enable_loop_back: uint8_t,
 	pub nb_pool_maps: uint8_t,
 	pub rx_mode: uint32_t,
-	pub pool_map: [AnonymousStruct43; 64usize],
+	pub pool_map: [AnonymousStruct40; 64usize],
 }
 
 impl Clone for rte_eth_vmdq_rx_conf

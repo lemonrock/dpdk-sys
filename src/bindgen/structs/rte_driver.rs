@@ -6,11 +6,9 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_driver
 {
-	pub next: AnonymousStruct16,
-	pub type_: pmd_type,
+	pub next: AnonymousStruct17,
 	pub name: *const c_char,
-	pub init: rte_dev_init_t,
-	pub uninit: rte_dev_uninit_t,
+	pub alias: *const c_char,
 }
 
 impl Default for rte_driver

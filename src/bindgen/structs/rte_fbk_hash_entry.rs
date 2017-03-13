@@ -16,7 +16,7 @@ impl rte_fbk_hash_entry
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn entry(&mut self) -> *mut AnonymousStruct49
+	pub unsafe fn entry(&mut self) -> *mut AnonymousStruct46
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))

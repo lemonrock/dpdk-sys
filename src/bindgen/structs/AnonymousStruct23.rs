@@ -6,9 +6,10 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct23
 {
-	pub min: uint16_t,
-	pub max: uint16_t,
-	pub increment: uint16_t,
+	pub algo: rte_crypto_cipher_algorithm,
+	pub block_size: uint16_t,
+	pub key_size: rte_crypto_param_range,
+	pub iv_size: rte_crypto_param_range,
 }
 
 impl Default for AnonymousStruct23

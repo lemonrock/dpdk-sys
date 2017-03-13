@@ -3,4 +3,5 @@
 
 
 pub const RTE_VHOST_USER_CLIENT: c_int = 1;
+pub const RTE_VHOST_USER_DEQUEUE_ZERO_COPY: c_int = 4;
 pub const RTE_VHOST_USER_NO_RECONNECT: c_int = 2;

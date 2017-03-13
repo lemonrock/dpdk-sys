@@ -22,6 +22,7 @@ use ::libc::uint8_t;
 use ::libc::uint16_t;
 use ::libc::uint32_t;
 use ::libc::uint64_t;
+use ::libc::int8_t;
 use ::libc::int16_t;
 use ::libc::int32_t;
 use ::libc::int64_t;
@@ -585,13 +586,14 @@ c!
 	}
 }
 
-#[link(name = "ethdev")]
 #[link(name = "rte_acl")]
 #[link(name = "rte_cfgfile")]
 #[link(name = "rte_cmdline")]
 #[link(name = "rte_cryptodev")]
 #[link(name = "rte_distributor")]
 #[link(name = "rte_eal")]
+#[link(name = "rte_efd")]
+#[link(name = "rte_ethdev")]
 #[link(name = "rte_hash")]
 #[link(name = "rte_ip_frag")]
 #[link(name = "rte_jobstats")]
@@ -601,6 +603,7 @@ c!
 #[link(name = "rte_mbuf")]
 #[link(name = "rte_mempool")]
 #[link(name = "rte_meter")]
+#[link(name = "rte_net")]
 #[link(name = "rte_pdump")]
 #[link(name = "rte_pipeline")]
 #[link(name = "rte_pmd_af_packet")]
@@ -613,9 +616,13 @@ c!
 #[link(name = "rte_pmd_fm10k")]
 #[link(name = "rte_pmd_i40e")]
 #[link(name = "rte_pmd_ixgbe")]
+#[link(name = "rte_pmd_nfp")]
 #[link(name = "rte_pmd_null")]
 #[link(name = "rte_pmd_null_crypto")]
+#[link(name = "rte_pmd_qede")]
 #[link(name = "rte_pmd_ring")]
+#[link(name = "rte_pmd_sfc_efx")]
+#[link(name = "rte_pmd_tap")]
 #[link(name = "rte_pmd_vhost")]
 #[link(name = "rte_pmd_virtio")]
 #[link(name = "rte_pmd_vmxnet3_uio")]

@@ -4,8 +4,9 @@
 
 extern "C"
 {
-	pub fn _rte_eth_dev_callback_process(dev: *mut rte_eth_dev, event: rte_eth_event_type);
-	pub fn rte_eth_dev_allocate(name: *const c_char, type_: rte_eth_dev_type) -> *mut rte_eth_dev;
+	pub fn _rte_eth_dev_callback_process(dev: *mut rte_eth_dev, event: rte_eth_event_type, cb_arg: *mut c_void);
+	pub fn _rte_eth_dev_reset(dev: *mut rte_eth_dev);
+	pub fn rte_eth_dev_allocate(name: *const c_char) -> *mut rte_eth_dev;
 	pub fn rte_eth_dev_allocated(name: *const c_char) -> *mut rte_eth_dev;
 	pub fn rte_eth_dev_attach(devargs: *const c_char, port_id: *mut uint8_t) -> c_int;
 	pub fn rte_eth_dev_bypass_event_show(port: uint8_t, event: uint32_t, state: *mut uint32_t) -> c_int;
@@ -27,6 +28,7 @@ extern "C"
 	pub fn rte_eth_dev_filter_supported(port_id: uint8_t, filter_type: rte_filter_type) -> c_int;
 	pub fn rte_eth_dev_flow_ctrl_get(port_id: uint8_t, fc_conf: *mut rte_eth_fc_conf) -> c_int;
 	pub fn rte_eth_dev_flow_ctrl_set(port_id: uint8_t, fc_conf: *mut rte_eth_fc_conf) -> c_int;
+	pub fn rte_eth_dev_fw_version_get(port_id: uint8_t, fw_version: *mut c_char, fw_size: size_t) -> c_int;
 	pub fn rte_eth_dev_get_dcb_info(port_id: uint8_t, dcb_info: *mut rte_eth_dcb_info) -> c_int;
 	pub fn rte_eth_dev_get_eeprom(port_id: uint8_t, info: *mut rte_dev_eeprom_info) -> c_int;
 	pub fn rte_eth_dev_get_eeprom_length(port_id: uint8_t) -> c_int;
@@ -42,6 +44,8 @@ extern "C"
 	pub fn rte_eth_dev_l2_tunnel_offload_set(port_id: uint8_t, l2_tunnel: *mut rte_eth_l2_tunnel_conf, mask: uint32_t, en: uint8_t) -> c_int;
 	pub fn rte_eth_dev_mac_addr_add(port: uint8_t, mac_addr: *mut ether_addr, pool: uint32_t) -> c_int;
 	pub fn rte_eth_dev_mac_addr_remove(port: uint8_t, mac_addr: *mut ether_addr) -> c_int;
+	pub fn rte_eth_dev_pci_probe(pci_drv: *mut rte_pci_driver, pci_dev: *mut rte_pci_device) -> c_int;
+	pub fn rte_eth_dev_pci_remove(pci_dev: *mut rte_pci_device) -> c_int;
 	pub fn rte_eth_dev_priority_flow_ctrl_set(port_id: uint8_t, pfc_conf: *mut rte_eth_pfc_conf) -> c_int;
 	pub fn rte_eth_dev_release_port(eth_dev: *mut rte_eth_dev) -> c_int;
 	pub fn rte_eth_dev_rss_hash_conf_get(port_id: uint8_t, rss_conf: *mut rte_eth_rss_conf) -> c_int;
@@ -61,10 +65,6 @@ extern "C"
 	pub fn rte_eth_dev_set_mtu(port_id: uint8_t, mtu: uint16_t) -> c_int;
 	pub fn rte_eth_dev_set_rx_queue_stats_mapping(port_id: uint8_t, rx_queue_id: uint16_t, stat_idx: uint8_t) -> c_int;
 	pub fn rte_eth_dev_set_tx_queue_stats_mapping(port_id: uint8_t, tx_queue_id: uint16_t, stat_idx: uint8_t) -> c_int;
-	pub fn rte_eth_dev_set_vf_rx(port: uint8_t, vf: uint16_t, on: uint8_t) -> c_int;
-	pub fn rte_eth_dev_set_vf_rxmode(port: uint8_t, vf: uint16_t, rx_mode: uint16_t, on: uint8_t) -> c_int;
-	pub fn rte_eth_dev_set_vf_tx(port: uint8_t, vf: uint16_t, on: uint8_t) -> c_int;
-	pub fn rte_eth_dev_set_vf_vlan_filter(port: uint8_t, vlan_id: uint16_t, vf_mask: uint64_t, vlan_on: uint8_t) -> c_int;
 	pub fn rte_eth_dev_set_vlan_ether_type(port_id: uint8_t, vlan_type: rte_vlan_type, tag_type: uint16_t) -> c_int;
 	pub fn rte_eth_dev_set_vlan_offload(port_id: uint8_t, offload_mask: c_int) -> c_int;
 	pub fn rte_eth_dev_set_vlan_pvid(port_id: uint8_t, pvid: uint16_t, on: c_int) -> c_int;

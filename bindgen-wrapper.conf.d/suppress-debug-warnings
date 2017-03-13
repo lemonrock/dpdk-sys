@@ -39,3 +39,7 @@ rte_cryptodev_global
 AnonymousStruct44
 AnonymousUnion39
 AnonymousUnion40
+AnonymousStruct41
+AnonymousUnion36
+AnonymousUnion37
+rte_crypto_vdev_init_params

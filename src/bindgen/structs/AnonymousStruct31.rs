@@ -6,7 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct31
 {
-	pub addr: rte_pci_addr,
+	pub tqe_next: *mut rte_tailq_elem,
+	pub tqe_prev: *mut *mut rte_tailq_elem,
 }
 
 impl Default for AnonymousStruct31

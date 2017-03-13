@@ -3,6 +3,6 @@
 
 
 pub const RTE_VER_MINOR: c_int = 0;
-pub const RTE_VER_MONTH: c_int = 11;
-pub const RTE_VER_RELEASE: c_int = 0;
-pub const RTE_VER_YEAR: c_int = 16;
+pub const RTE_VER_MONTH: c_int = 2;
+pub const RTE_VER_RELEASE: c_int = 3;
+pub const RTE_VER_YEAR: c_int = 17;

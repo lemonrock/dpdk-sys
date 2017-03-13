@@ -3,6 +3,7 @@
 
 
 pub const DEV_RX_OFFLOAD_IPV4_CKSUM: u32 = 2;
+pub const DEV_RX_OFFLOAD_MACSEC_STRIP: c_int = 128;
 pub const DEV_RX_OFFLOAD_OUTER_IPV4_CKSUM: u32 = 64;
 pub const DEV_RX_OFFLOAD_QINQ_STRIP: u32 = 32;
 pub const DEV_RX_OFFLOAD_TCP_CKSUM: u32 = 8;

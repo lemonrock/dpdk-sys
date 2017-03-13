@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_port_sink_params
 {
-	pub file_name: *mut c_char,
+	pub file_name: *const c_char,
 	pub max_n_pkts: uint32_t,
 }
 

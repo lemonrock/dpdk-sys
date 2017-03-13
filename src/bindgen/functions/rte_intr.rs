@@ -5,14 +5,14 @@
 extern "C"
 {
 	pub fn rte_intr_allow_others(intr_handle: *mut rte_intr_handle) -> c_int;
-	pub fn rte_intr_callback_register(intr_handle: *mut rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
-	pub fn rte_intr_callback_unregister(intr_handle: *mut rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_intr_callback_register(intr_handle: *const rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
+	pub fn rte_intr_callback_unregister(intr_handle: *const rte_intr_handle, cb: rte_intr_callback_fn, cb_arg: *mut c_void) -> c_int;
 	pub fn rte_intr_cap_multiple(intr_handle: *mut rte_intr_handle) -> c_int;
-	pub fn rte_intr_disable(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_disable(intr_handle: *const rte_intr_handle) -> c_int;
 	pub fn rte_intr_dp_is_en(intr_handle: *mut rte_intr_handle) -> c_int;
 	pub fn rte_intr_efd_disable(intr_handle: *mut rte_intr_handle);
 	pub fn rte_intr_efd_enable(intr_handle: *mut rte_intr_handle, nb_efd: uint32_t) -> c_int;
-	pub fn rte_intr_enable(intr_handle: *mut rte_intr_handle) -> c_int;
+	pub fn rte_intr_enable(intr_handle: *const rte_intr_handle) -> c_int;
 	pub fn rte_intr_rx_ctl(intr_handle: *mut rte_intr_handle, epfd: c_int, op: c_int, vec: c_uint, data: *mut c_void) -> c_int;
 	pub fn rte_intr_tls_epfd() -> c_int;
 }

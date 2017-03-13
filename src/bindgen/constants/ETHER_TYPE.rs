@@ -7,6 +7,7 @@ pub const ETHER_TYPE_ARP: uint16_t = 2054;
 pub const ETHER_TYPE_IPv4: uint16_t = 2048;
 pub const ETHER_TYPE_IPv6: uint16_t = 34525;
 pub const ETHER_TYPE_LEN: uint16_t = 2;
+pub const ETHER_TYPE_QINQ: c_int = 34984;
 pub const ETHER_TYPE_RARP: uint16_t = 32821;
 pub const ETHER_TYPE_SLOW: uint16_t = 34825;
 pub const ETHER_TYPE_TEB: uint16_t = 25944;

@@ -3,12 +3,23 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
 pub struct rte_crypto_vdev_init_params
 {
 	pub max_nb_queue_pairs: c_uint,
 	pub max_nb_sessions: c_uint,
 	pub socket_id: uint8_t,
+	pub name: [c_char; 64usize],
+}
+
+impl Clone for rte_crypto_vdev_init_params
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
+	{
+		*self
+	}
 }
 
 impl Default for rte_crypto_vdev_init_params

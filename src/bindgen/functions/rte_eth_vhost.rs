@@ -8,4 +8,5 @@ extern "C"
 	pub fn rte_eth_vhost_feature_enable(feature_mask: uint64_t) -> c_int;
 	pub fn rte_eth_vhost_feature_get() -> uint64_t;
 	pub fn rte_eth_vhost_get_queue_event(port_id: uint8_t, event: *mut rte_eth_vhost_queue_event) -> c_int;
+	pub fn rte_eth_vhost_get_vid_from_port_id(port_id: uint8_t) -> c_int;
 }

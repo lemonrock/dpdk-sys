@@ -3,23 +3,12 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
 #[allow(missing_debug_implementations)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct44
 {
-	pub rss_conf: rte_eth_rss_conf,
-	pub vmdq_dcb_conf: rte_eth_vmdq_dcb_conf,
-	pub dcb_rx_conf: rte_eth_dcb_rx_conf,
-	pub vmdq_rx_conf: rte_eth_vmdq_rx_conf,
-}
-
-impl Clone for AnonymousStruct44
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
+	pub base: uint8_t,
+	pub nb_queue: uint8_t,
 }
 
 impl Default for AnonymousStruct44

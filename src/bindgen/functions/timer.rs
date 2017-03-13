@@ -4,7 +4,8 @@
 
 extern "C"
 {
-	pub fn rte_delay_us(us: c_uint);
+	pub fn rte_delay_us_block(us: c_uint);
+	pub fn rte_delay_us_callback_register(userfunc: Option<extern "C" fn(arg1: c_uint)>);
 	pub fn rte_eal_alarm_cancel(cb_fn: rte_eal_alarm_callback, cb_arg: *mut c_void) -> c_int;
 	pub fn rte_eal_alarm_set(us: uint64_t, cb: rte_eal_alarm_callback, cb_arg: *mut c_void) -> c_int;
 	pub fn rte_get_tsc_hz() -> uint64_t;

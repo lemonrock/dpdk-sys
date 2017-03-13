@@ -6,8 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct30
 {
-	pub tqe_next: *mut rte_devargs,
-	pub tqe_prev: *mut *mut rte_devargs,
+	pub tqe_next: *mut rte_tailq_entry,
+	pub tqe_prev: *mut *mut rte_tailq_entry,
 }
 
 impl Default for AnonymousStruct30

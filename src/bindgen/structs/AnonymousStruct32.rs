@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct32
 {
-	pub drv_name: [c_char; 32usize],
+	pub lh_first: *mut malloc_elem,
 }
 
 impl Default for AnonymousStruct32

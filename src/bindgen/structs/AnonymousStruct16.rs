@@ -6,8 +6,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AnonymousStruct16
 {
-	pub tqe_next: *mut rte_driver,
-	pub tqe_prev: *mut *mut rte_driver,
+	pub tqe_next: *mut rte_device,
+	pub tqe_prev: *mut *mut rte_device,
 }
 
 impl Default for AnonymousStruct16
