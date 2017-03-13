@@ -82,25 +82,6 @@ compile_dpdk_fail()
 	exit 1
 }
 
-_compile_dpdk_prepareForMacOSX_brewInstall()
-{
-	compile_dpdk_ensureRequiredBinariesArePresent brew
-		
-	local packageName
-	if ! brew ls --versions "$packageName" 1>/dev/null 2>/dev/null; then
-		brew install "$packageName"
-	fi
-}
-
-compile_dpdk_prepareForMacOSX()
-{
-	_compile_dpdk_prepareForMacOSX_brewInstall gnu-sed
-	_compile_dpdk_prepareForMacOSX_brewInstall make
-	_compile_dpdk_prepareForMacOSX_brewInstall libelf
-	_compile_dpdk_prepareForMacOSX_brewInstall coreutils
-	_compile_dpdk_prepareForMacOSX_brewInstall FiloSottile/musl-cross/musl-cross
-}
-
 compile_dpdk_ensureRequiredBinariesArePresent()
 {
 	local reason="$1"
@@ -111,7 +92,7 @@ compile_dpdk_ensureRequiredBinariesArePresent()
 	for binary in "$@"
 	do
 		if ! command -v "$binary" 1>/dev/null 2>/dev/null; then
-			printf '%s\n' "The binary '$binary' needs to be in the path" 1>&2
+			printf 'compile-dpdk:%s\n' "The binary '$binary' needs to be in the path" 1>&2
 			missing=true
 		fi
 	done
@@ -119,6 +100,25 @@ compile_dpdk_ensureRequiredBinariesArePresent()
 	if $missing; then
 		compile_dpdk_fail "Please make sure that the missing binaries are installed because '$reason'"
 	fi
+}
+
+_compile_dpdk_prepareForMacOSX_brewInstall()
+{
+	compile_dpdk_ensureRequiredBinariesArePresent brew
+		
+	local packageName="$1"
+	if ! brew ls --versions "$packageName" 1>/dev/null 2>/dev/null; then
+		brew install "$packageName" 1>&2
+	fi
+}
+
+compile_dpdk_prepareForMacOSX()
+{
+	_compile_dpdk_prepareForMacOSX_brewInstall gnu-sed
+	_compile_dpdk_prepareForMacOSX_brewInstall make
+	_compile_dpdk_prepareForMacOSX_brewInstall libelf
+	_compile_dpdk_prepareForMacOSX_brewInstall coreutils
+	_compile_dpdk_prepareForMacOSX_brewInstall FiloSottile/musl-cross/musl-cross
 }
 
 compile_dpdk_prepareDpdkFolders()
@@ -245,7 +245,8 @@ compile_dpdk_make()
 			prefix=/usr/local \
 			CROSS="$crossCompilerPrefix" \
 			EXTRA_CFLAGS="$optimisationFlags -O3 -D_GNU_SOURCE -D_BSD_SOURCE -I$muslIncludeFolder -I$dpdkMuslFixesDir -Wno-pointer-to-int-cast" \
-			RTE_KERNELDIR="$kernelSourcesPath"
+			RTE_KERNELDIR="$kernelSourcesPath" \
+			1>&2
 
 	cd - 1>/dev/null 2>/dev/null
 }
@@ -255,7 +256,7 @@ compile_dpdk_finish()
 	compile_dpdk_ensureRequiredBinariesArePresent rsync sed
 	
 	# Install musl-fixes; DPDK headers assume they are installed as a system library
-	rsync -a -v "$dpdkMuslFixesDir"/ "$headersFolderPath"/
+	rsync --quiet --archive "$dpdkMuslFixesDir"/ "$headersFolderPath"/
 
 	# rte_memcpy.h fixes
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$headersFolderPath"/rte_memcpy.h
