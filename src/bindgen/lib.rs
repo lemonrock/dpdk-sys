@@ -65,6 +65,100 @@ c!
 
 c!
 {
+	#include <tle_dring.h>
+	
+	#[inline(always)]
+	fn rust_tle_dring_count(dr: *const tle_dring as "const struct tle_dring *") -> uint32_t as "uint32_t"
+	{
+		return tle_dring_count(dr);
+	}
+
+	#[inline(always)]
+	fn rust_tle_dring_reset(dr: *mut tle_dring as "struct tle_dring *")
+	{
+		tle_dring_reset(dr);
+	}
+
+	#[inline(always)]
+	fn rust_tle_drb_calc_size(num: uint32_t as "uint32_t") -> size_t as "size_t"
+	{
+		return rust_tle_drb_calc_size(num);
+	}
+
+	#[inline(always)]
+	fn rust_tle_dring_mc_dequeue(dr: *mut tle_dring as "struct tle_dring *", objs: *mut *const c_void as "const void **", nb_obj: uint32_t as "uint32_t", drbs: *mut *mut tle_drb as "struct tle_drb **", nb_drb: *mut uint32_t as "uint32_t *") -> uint32_t as "uint32_t"
+	{
+		return tle_dring_mp_enqueue(dr, objs, nb_obj, drbs, nb_drb);
+	}
+
+	#[inline(always)]
+	fn rust_tle_dring_mp_enqueue(dr: *mut tle_dring as "struct tle_dring *", objs: *mut *const c_void as "const void **", nb_obj: uint32_t as "uint32_t", drbs: *mut *mut tle_drb as "struct tle_drb **", nb_drb: *mut uint32_t as "uint32_t *") -> uint32_t as "uint32_t"
+	{
+		return tle_dring_mp_enqueue(dr, objs, nb_obj, drbs, nb_drb);
+	}
+
+	#[inline(always)]
+	fn rust_tle_dring_sc_dequeue(dr: *mut tle_dring as "struct tle_dring *", objs: *mut *const c_void as "const void **", nb_obj: uint32_t as "uint32_t", drbs: *mut *mut tle_drb as "struct tle_drb **", nb_drb: *mut uint32_t as "uint32_t *") -> uint32_t as "uint32_t"
+	{
+		return tle_dring_sc_dequeue(dr, objs, nb_obj, drbs, nb_drb);
+	}
+
+	#[inline(always)]
+	fn rust_tle_dring_sp_enqueue(dr: *mut tle_dring as "struct tle_dring *", objs: *mut *const c_void as "const void **", nb_obj: uint32_t as "uint32_t", drbs: *mut *mut tle_drb as "struct tle_drb **", nb_drb: *mut uint32_t as "uint32_t *") -> uint32_t as "uint32_t"
+	{
+		return tle_dring_sp_enqueue(dr, objs, nb_obj, drbs, nb_drb);
+	}
+}
+
+c!
+{
+	#include <tle_event.h>
+
+	#[inline(always)]
+	fn rust_tle_event_state(ev: *const tle_event as "const struct tle_event *") -> tle_ev_state as "enum tle_ev_state"
+	{
+		return tle_event_state(ev);
+	}
+
+	#[inline(always)]
+	fn rust_tle_event_raise(ev: *mut tle_event as "struct tle_event *")
+	{
+		tle_event_raise(ev);
+	}
+
+	#[inline(always)]
+	fn rust_tle_event_down(ev: *mut tle_event as "struct tle_event *")
+	{
+		tle_event_down(ev);
+	}
+
+	#[inline(always)]
+	fn rust_tle_event_active(ev: *mut tle_event as "struct tle_event *", st: tle_ev_state as "enum tle_ev_state")
+	{
+		tle_event_active(ev, st);
+	}
+
+	#[inline(always)]
+	fn rust_tle_event_idle(ev: *mut tle_event as "struct tle_event *")
+	{
+		tle_event_idle(ev);
+	}
+
+	#[inline(always)]
+	fn rust_tle_evq_idle(evq: *mut tle_evq as "struct tle_evq *", ev: *mut *mut tle_event as "struct tle_event **", num: uint32_t as "uint32_t")
+	{
+		tle_evq_idle(evq, ev, num);
+	}
+
+	#[inline(always)]
+	fn rust_tle_evq_get(evq: *mut tle_evq as "struct tle_evq *", evd: *mut *const c_void as "const void **", num: uint32_t as "uint32_t") -> uint32_t as "uint32_t"
+	{
+		return tle_evq_get(evq, evd, num);
+	}
+}
+
+c!
+{
 	#[inline(always)]
 	fn rust_RTE_DEV_TO_PCI(device: *mut rte_device as "struct rte_device *") -> *mut rte_pci_device as "struct rte_pci_device *"
 	{
