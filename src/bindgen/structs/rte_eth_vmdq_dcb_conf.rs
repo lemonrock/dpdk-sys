@@ -11,7 +11,7 @@ pub struct rte_eth_vmdq_dcb_conf
 	pub enable_default_pool: uint8_t,
 	pub default_pool: uint8_t,
 	pub nb_pool_maps: uint8_t,
-	pub pool_map: [AnonymousStruct39; 64usize],
+	pub pool_map: [rte_eth_vmdq_dcb_conf_AnonymousStruct_pool_map; 64usize],
 	pub dcb_tc: [uint8_t; 8usize],
 }
 

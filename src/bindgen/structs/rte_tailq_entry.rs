@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_tailq_entry
 {
-	pub next: AnonymousStruct30,
+	pub next: rte_tailq_entry_AnonymousStruct_next,
 	pub data: *mut c_void,
 }
 

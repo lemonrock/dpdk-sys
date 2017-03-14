@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_mempool_objhdr
 {
-	pub next: AnonymousStruct2,
+	pub next: rte_mempool_objhdr_AnonymousStruct_next,
 	pub mp: *mut rte_mempool,
 	pub physaddr: phys_addr_t,
 }

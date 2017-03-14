@@ -10,8 +10,8 @@ pub struct tle_evq
 	pub nb_events: uint32_t,
 	pub nb_armed: uint32_t,
 	pub nb_free: uint32_t,
-	pub armed: AnonymousStruct56,
-	pub free: AnonymousStruct57,
+	pub armed: tle_evq_AnonymousStruct_armed,
+	pub free: tle_evq_AnonymousStruct_free,
 	_bindgen_padding_0_: [u8; 16usize],
 	pub events: [tle_event; 0usize],
 }

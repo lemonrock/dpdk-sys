@@ -7,8 +7,8 @@
 pub struct tle_dring
 {
 	pub flags: uint32_t,
-	pub prod: AnonymousStruct53,
-	pub cons: AnonymousStruct54,
+	pub prod: tle_dring_AnonymousStruct_prod,
+	pub cons: tle_dring_AnonymousStruct_cons,
 	_bindgen_padding_0_: [u8; 24usize],
 	pub dummy: tle_drb,
 	_bindgen_padding_1_: [u64; 16usize],

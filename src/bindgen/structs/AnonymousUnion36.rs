@@ -4,7 +4,6 @@
 
 #[repr(C)]
 #[derive(Copy)]
-#[allow(missing_debug_implementations)]
 pub struct AnonymousUnion36
 {
 	pub _bindgen_data_: [u32; 130usize],

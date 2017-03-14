@@ -7,7 +7,7 @@
 pub struct malloc_heap
 {
 	pub lock: rte_spinlock_t,
-	pub free_head: [AnonymousStruct32; 13usize],
+	pub free_head: [malloc_heap_AnonymousStruct_free_head; 13usize],
 	pub alloc_count: c_uint,
 	pub total_size: size_t,
 }

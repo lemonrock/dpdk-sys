@@ -36,15 +36,10 @@ slow_protocol
 slow_protocol_frame
 rte_cryptodev_data
 rte_cryptodev_global
-AnonymousStruct44
-AnonymousUnion39
-AnonymousUnion40
-AnonymousStruct41
-AnonymousUnion36
-AnonymousUnion37
 rte_crypto_vdev_init_params
 tle_dest
 tle_dev_param
 tle_tcp_stream_addr
 tle_tcp_stream_param
 tle_udp_stream_param
+rte_eth_conf_AnonymousStruct_rx_adv_conf

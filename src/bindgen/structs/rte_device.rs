@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct rte_device
 {
-	pub next: AnonymousStruct16,
+	pub next: rte_device_AnonymousStruct_next,
 	pub driver: *const rte_driver,
 	pub numa_node: c_int,
 	pub devargs: *mut rte_devargs,

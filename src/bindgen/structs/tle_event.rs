@@ -6,7 +6,7 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct tle_event
 {
-	pub ql: AnonymousStruct55,
+	pub ql: tle_event_AnonymousStruct_ql,
 	pub head: *mut tle_evq,
 	pub data: *const c_void,
 	pub state: tle_ev_state,

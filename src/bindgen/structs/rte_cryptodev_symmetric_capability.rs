@@ -12,12 +12,12 @@ pub struct rte_cryptodev_symmetric_capability
 
 impl rte_cryptodev_symmetric_capability
 {
-	pub unsafe fn auth(&mut self) -> *mut AnonymousStruct22
+	pub unsafe fn auth(&mut self) -> *mut rte_cryptodev_symmetric_capability_AnonymousStruct_auth
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn cipher(&mut self) -> *mut AnonymousStruct23
+	pub unsafe fn cipher(&mut self) -> *mut rte_cryptodev_symmetric_capability_AnonymousStruct_cipher
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))

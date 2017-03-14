@@ -11,7 +11,7 @@ pub struct rte_eth_conf
 	pub rxmode: rte_eth_rxmode,
 	pub txmode: rte_eth_txmode,
 	pub lpbk_mode: uint32_t,
-	pub rx_adv_conf: AnonymousStruct41,
+	pub rx_adv_conf: rte_eth_conf_AnonymousStruct_rx_adv_conf,
 	pub tx_adv_conf: AnonymousUnion42,
 	pub dcb_capability_en: uint32_t,
 	pub fdir_conf: rte_fdir_conf,

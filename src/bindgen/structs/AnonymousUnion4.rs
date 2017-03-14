@@ -16,12 +16,12 @@ impl AnonymousUnion4
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn fdir(&mut self) -> *mut AnonymousStruct5
+	pub unsafe fn fdir(&mut self) -> *mut AnonymousUnion4_AnonymousStruct_fdir
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn sched(&mut self) -> *mut AnonymousStruct6
+	pub unsafe fn sched(&mut self) -> *mut AnonymousUnion4_AnonymousStruct_sched
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
