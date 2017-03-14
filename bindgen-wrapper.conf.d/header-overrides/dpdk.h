@@ -2,9 +2,6 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
-//#undef __SSE2__
 #include <cmdline.h>
 #include <cmdline_parse_etheraddr.h>
 #include <cmdline_parse_ipaddr.h>

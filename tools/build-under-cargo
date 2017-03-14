@@ -144,6 +144,8 @@ build_under_cargo_determineDpdkRootFolderPath()
 	# RTE_SDK='compile-dpdk.conf.d/temporary/destdir/usr/local/share/dpdk'
 	# RTE_TARGET='x86_64-native-linuxapp-gcc'
 	
+	# There isn't a value for tldk, but there ought to be something we insist on. Perhaps TLE_ROOT=?
+	
 	if [ -z "{RTE_SDK:+defined}" ]; then
 		if [ ! -d "$RTE_SDK" ]; then
 			build_under_cargo_fail "Please define the environment variable RTE_SDK ('$RTE_SDK') to an extant folder path"
@@ -180,10 +182,17 @@ build_under_cargo_determineDpdkRootFolderPath()
 	fi
 }
 
-build_under_cargo_compileDpdkIfRequired()
+build_under_cargo_compileDpdkWithTldkIfRequired()
 {
 	if $dpdkNeedsCompilation; then
-		"$homeFolder"/tools/compile-dpdk
+		"$homeFolder"/tools/compile-dpdk-with-tldk
+	fi
+}
+
+build_under_cargo_compileTldkIfRequired()
+{
+	if $dpdkNeedsCompilation; then
+		"$homeFolder"/tools/compile-tldk
 	fi
 }
 
@@ -194,7 +203,7 @@ build_under_cargo_generatingRustBindingsToDpdkIfRquired()
 	
 	if [ ! -d "$rustBindingsFolderPath" ]; then
 		rebuildBindings='true'
-	elif ! diff "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath" "$dpdkIncludeFolderPath" 1>/dev/null 2>/dev/null; then
+	elif ! diff "$copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath" "$dpdkIncludeFolderPath" 1>/dev/null 2>/dev/null; then
 		rebuildBindings='true'
 	fi
 	
@@ -204,11 +213,11 @@ build_under_cargo_generatingRustBindingsToDpdkIfRquired()
 	fi
 }
 
-build_under_cargo_linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRust()
+build_under_cargo_copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRust()
 {
-	rm -rf "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
-	mkdir -m 0700 -p "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
-	rsync --quiet --archive "$dpdkIncludeFolderPath"/ "$linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"/
+	rm -rf "$copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
+	mkdir -m 0700 -p "$copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"
+	rsync --quiet --archive "$dpdkIncludeFolderPath"/ "$copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath"/
 }
 
 build_under_cargo_outputCargoKeyValuePairs()
@@ -237,11 +246,11 @@ build_under_cargo_steps()
 	local dpdkIncludeFolderPath="$dpdkRootFolderPath"/include/dpdk
 	local srcFolderPath="$homeFolder"/src
 	local rustBindingsFolderPath="$srcFolderPath"/bindgen
-	local linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath="$srcFolderPath"/include
+	local copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRustIncludeFolderPath="$srcFolderPath"/include
 	
-	build_under_cargo_compileDpdkIfRequired
+	build_under_cargo_compileDpdkWithTldkIfRequired
 	
-	build_under_cargo_linkDpdkHeadersToKnownLocationForEmbeddedCCodeInRust
+	build_under_cargo_copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRust
 	
 	build_under_cargo_generatingRustBindingsToDpdkIfRquired
 

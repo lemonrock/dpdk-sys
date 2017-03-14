@@ -3,7 +3,7 @@
 
 
 bindingsName='dpdk'
-rootIncludeFileName='dpdk.h'
+rootIncludeFileName='dpdk-with-tldk.h'
 macosXHomebrewPackageNames=''
 alpineLinuxPackageNames='rsync make gcc linux-headers libunwind-dev linux-grsec-dev'
 clangAdditionalArguments=''
@@ -35,17 +35,24 @@ else
 		bindgen_wrapper_fail "Please define the environment variable RTE_SDK if defining the environment variable RTE_TARGET ('$RTE_TARGET')"
 	fi
 
-	headersFolderPath="$homeFolder"/compile-dpdk.conf.d/temporary/destdir/usr/local/include/dpdk
-	libFolderPath="$homeFolder"/compile-dpdk.conf.d/temporary/destdir/usr/local/lib
+	headersFolderPath="$homeFolder"/compile-dpdk-with-tldk.conf.d/temporary/destdir/usr/local/include/dpdk
+	libFolderPath="$homeFolder"/compile-dpdk-with-tldk.conf.d/temporary/destdir/usr/local/lib
 	
-	printf 'bindgen-wrapper:bindgen-wrapper.conf.d/configuration.sh:%s\n' "The RTE_SDK and RTE_TARGET environment variables are not defined; assuming that headers have been compiled previously by tools/compile-dpdk to '$headersFolderPath'" 1>&2
+	printf 'bindgen-wrapper:bindgen-wrapper.conf.d/configuration.sh:%s\n' "The RTE_SDK and RTE_TARGET environment variables are not defined; assuming that headers have been compiled previously by tools/compile-dpdk-with-tldk to '$headersFolderPath'" 1>&2
 	
 	if [ ! -d "$headersFolderPath" ]; then
-		bindgen_wrapper_fail "Please run tools/compile-dpdk first or specify the RTE_SDK and RTE_TARGET environment variables"
+		bindgen_wrapper_fail "Please run tools/compile-dpdk-with-tldk first or specify the RTE_SDK and RTE_TARGET environment variables"
 	fi
 fi
 
-link="$(sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$libFolderPath"/libdpdk.a)"
+_extract_from_linker_script()
+{
+	local linkerScript="$1"
+	
+	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$linkerScript"
+}
+
+link="$(_extract_from_linker_script "$libFolderPath"/libtldk.a) $(_extract_from_linker_script "$libFolderPath"/libdpdk.a)"
 link_kind='static'
 
 preprocess_before_headersFolderPath()
@@ -142,5 +149,6 @@ final_chance_to_tweak()
 	# Remove thread-local statics, as there seems to be a problem with them when linking
 	sed -e '/pub static mut per_lcore__/d' "$outputFolderPath"/statics/lcore.rs
 	
+	# Use the correct definition
 	sed -i -e 's/0usize/RTE_MAX_ETHPORTS/g' "$outputFolderPath"/statics/rte_eth.rs
 }

@@ -49,7 +49,7 @@ License: MIT
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 
-Files: bindgen-wrapper.conf.d/overrides/lib/librte_eal/linuxapp/eal/*
+Files: compile-dpdk-with-tldk.conf.d/dpdk-fixes/lib/librte_eal/linuxapp/eal/* compile-dpdk-with-tldk.conf.d/tldk-fixes/lib/libtle_l4p/*
 Copyright: Copyright © 2010-2014 Intel Corporation
  Copyright © 2016, Raphael Cohn <raphael.cohn@stormmq.com>
 License: BSD

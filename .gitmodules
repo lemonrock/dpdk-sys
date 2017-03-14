@@ -7,3 +7,7 @@
 [submodule "lib/dpdk"]
 	path = lib/dpdk
 	url = http://dpdk.org/git/dpdk
+[submodule "lib/tldk"]
+	path = lib/tldk
+	url = https://gerrit.fd.io/r/tldk
+	branch = master
