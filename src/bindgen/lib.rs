@@ -659,3 +659,4 @@ include!("bindgen/enums.rs");
 include!("bindgen/structs.rs");
 include!("bindgen/statics.rs");
 include!("bindgen/functions.rs");
+include!("bindgen/opaques.rs");
