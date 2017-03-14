@@ -4,12 +4,12 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion24
+pub struct rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 {
 	pub _bindgen_data_: [u32; 1usize],
 }
 
-impl AnonymousUnion24
+impl rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 {
 	pub unsafe fn cipher(&mut self) -> *mut rte_crypto_cipher_algorithm
 	{
@@ -23,7 +23,7 @@ impl AnonymousUnion24
 	}
 }
 
-impl Default for AnonymousUnion24
+impl Default for rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 {
 	#[inline(always)]
 	fn default() -> Self

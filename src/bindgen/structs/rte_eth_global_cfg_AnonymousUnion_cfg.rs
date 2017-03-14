@@ -4,36 +4,26 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion4
+pub struct rte_eth_global_cfg_AnonymousUnion_cfg
 {
-	pub _bindgen_data_: [u32; 2usize],
+	pub _bindgen_data_: [u64; 1usize],
 }
 
-impl AnonymousUnion4
+impl rte_eth_global_cfg_AnonymousUnion_cfg
 {
-	pub unsafe fn rss(&mut self) -> *mut uint32_t
+	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn fdir(&mut self) -> *mut AnonymousUnion4_AnonymousStruct_fdir
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn sched(&mut self) -> *mut AnonymousUnion4_AnonymousStruct_sched
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn usr(&mut self) -> *mut uint32_t
+	pub unsafe fn reserved(&mut self) -> *mut uint64_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion4
+impl Default for rte_eth_global_cfg_AnonymousUnion_cfg
 {
 	#[inline(always)]
 	fn default() -> Self

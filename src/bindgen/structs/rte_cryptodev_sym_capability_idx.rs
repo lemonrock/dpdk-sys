@@ -7,7 +7,7 @@
 pub struct rte_cryptodev_sym_capability_idx
 {
 	pub type_: rte_crypto_sym_xform_type,
-	pub algo: AnonymousUnion24,
+	pub algo: rte_cryptodev_sym_capability_idx_AnonymousUnion_algo,
 }
 
 impl Default for rte_cryptodev_sym_capability_idx

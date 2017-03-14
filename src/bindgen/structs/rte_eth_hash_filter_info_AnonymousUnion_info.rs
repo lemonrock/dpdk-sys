@@ -3,27 +3,42 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion34
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_eth_hash_filter_info_AnonymousUnion_info
 {
-	pub _bindgen_data_: [u32; 4usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
-impl AnonymousUnion34
+impl rte_eth_hash_filter_info_AnonymousUnion_info
 {
-	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
+	pub unsafe fn enable(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
+	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion34
+impl Clone for rte_eth_hash_filter_info_AnonymousUnion_info
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_eth_hash_filter_info_AnonymousUnion_info
 {
 	#[inline(always)]
 	fn default() -> Self

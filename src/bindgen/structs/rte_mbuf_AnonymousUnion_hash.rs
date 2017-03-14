@@ -4,32 +4,36 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion4_AnonymousStruct_fdir
+pub struct rte_mbuf_AnonymousUnion_hash
 {
-	pub _bindgen_data_1_: [u32; 1usize],
-	pub hi: uint32_t,
+	pub _bindgen_data_: [u32; 2usize],
 }
 
-impl AnonymousUnion4_AnonymousStruct_fdir
+impl rte_mbuf_AnonymousUnion_hash
 {
-	pub unsafe fn hash(&mut self) -> *mut uint16_t
+	pub unsafe fn rss(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn id(&mut self) -> *mut uint16_t
+	pub unsafe fn fdir(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(2))
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
 	}
-	pub unsafe fn lo(&mut self) -> *mut uint32_t
+	pub unsafe fn sched(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_sched
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn usr(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion4_AnonymousStruct_fdir
+impl Default for rte_mbuf_AnonymousUnion_hash
 {
 	#[inline(always)]
 	fn default() -> Self

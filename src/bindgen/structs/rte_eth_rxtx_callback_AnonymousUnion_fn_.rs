@@ -4,26 +4,26 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion1
+pub struct rte_eth_rxtx_callback_AnonymousUnion_fn_
 {
-	pub _bindgen_data_: [u32; 4usize],
+	pub _bindgen_data_: [u64; 1usize],
 }
 
-impl AnonymousUnion1
+impl rte_eth_rxtx_callback_AnonymousUnion_fn_
 {
-	pub unsafe fn ipv4(&mut self) -> *mut in_addr
+	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn ipv6(&mut self) -> *mut in6_addr
+	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion1
+impl Default for rte_eth_rxtx_callback_AnonymousUnion_fn_
 {
 	#[inline(always)]
 	fn default() -> Self

@@ -4,13 +4,26 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion4_AnonymousStruct_sched
+pub struct rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 {
-	pub lo: uint32_t,
-	pub hi: uint32_t,
+	pub _bindgen_data_: [u32; 4usize],
 }
 
-impl Default for AnonymousUnion4_AnonymousStruct_sched
+impl rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
+{
+	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		transmute(raw.offset(0))
+	}
+}
+
+impl Default for rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 {
 	#[inline(always)]
 	fn default() -> Self

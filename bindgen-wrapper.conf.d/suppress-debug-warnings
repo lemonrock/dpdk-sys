@@ -43,3 +43,5 @@ tle_tcp_stream_addr
 tle_tcp_stream_param
 tle_udp_stream_param
 rte_eth_conf_AnonymousStruct_rx_adv_conf
+rte_eth_fdir_filter_info_AnonymousUnion_info
+rte_eth_hash_filter_info_AnonymousUnion_info

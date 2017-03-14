@@ -3,31 +3,33 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-pub struct AnonymousUnion36
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 {
-	pub _bindgen_data_: [u32; 130usize],
+	pub _bindgen_data_1_: [u32; 1usize],
+	pub hi: uint32_t,
 }
 
-impl AnonymousUnion36
+impl rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 {
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
+	pub unsafe fn hash(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(0))
+	}
+	pub unsafe fn id(&mut self) -> *mut uint16_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
+		transmute(raw.offset(2))
+	}
+	pub unsafe fn lo(&mut self) -> *mut uint32_t
+	{
+		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Clone for AnonymousUnion36
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousUnion36
+impl Default for rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 {
 	#[inline(always)]
 	fn default() -> Self

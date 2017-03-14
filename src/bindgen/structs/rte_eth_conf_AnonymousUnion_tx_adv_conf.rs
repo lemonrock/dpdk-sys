@@ -3,41 +3,32 @@
 
 
 #[repr(C)]
-#[derive(Copy)]
-pub struct AnonymousUnion37
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct rte_eth_conf_AnonymousUnion_tx_adv_conf
 {
-	pub _bindgen_data_: [u32; 130usize],
+	pub _bindgen_data_: [u32; 3usize],
 }
 
-impl AnonymousUnion37
+impl rte_eth_conf_AnonymousUnion_tx_adv_conf
 {
-	pub unsafe fn enable(&mut self) -> *mut uint8_t
+	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
+	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
+	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Clone for AnonymousUnion37
-{
-	#[inline(always)]
-	fn clone(&self) -> Self
-	{
-		*self
-	}
-}
-
-impl Default for AnonymousUnion37
+impl Default for rte_eth_conf_AnonymousUnion_tx_adv_conf
 {
 	#[inline(always)]
 	fn default() -> Self

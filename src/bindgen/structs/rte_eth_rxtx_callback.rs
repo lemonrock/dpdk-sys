@@ -7,7 +7,7 @@
 pub struct rte_eth_rxtx_callback
 {
 	pub next: *mut rte_eth_rxtx_callback,
-	pub fn_: AnonymousUnion45,
+	pub fn_: rte_eth_rxtx_callback_AnonymousUnion_fn_,
 	pub param: *mut c_void,
 }
 

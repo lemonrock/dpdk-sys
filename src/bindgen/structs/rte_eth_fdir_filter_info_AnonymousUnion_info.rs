@@ -3,27 +3,32 @@
 
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion35
+#[derive(Copy)]
+#[allow(missing_debug_implementations)]
+pub struct rte_eth_fdir_filter_info_AnonymousUnion_info
 {
-	pub _bindgen_data_: [u64; 1usize],
+	pub _bindgen_data_: [u32; 130usize],
 }
 
-impl AnonymousUnion35
+impl rte_eth_fdir_filter_info_AnonymousUnion_info
 {
-	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn reserved(&mut self) -> *mut uint64_t
+	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion35
+impl Clone for rte_eth_fdir_filter_info_AnonymousUnion_info
+{
+	#[inline(always)]
+	fn clone(&self) -> Self
+	{
+		*self
+	}
+}
+
+impl Default for rte_eth_fdir_filter_info_AnonymousUnion_info
 {
 	#[inline(always)]
 	fn default() -> Self

@@ -4,26 +4,13 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion45
+pub struct rte_mbuf_AnonymousUnion_hash_AnonymousStruct_sched
 {
-	pub _bindgen_data_: [u64; 1usize],
+	pub lo: uint32_t,
+	pub hi: uint32_t,
 }
 
-impl AnonymousUnion45
-{
-	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-}
-
-impl Default for AnonymousUnion45
+impl Default for rte_mbuf_AnonymousUnion_hash_AnonymousStruct_sched
 {
 	#[inline(always)]
 	fn default() -> Self

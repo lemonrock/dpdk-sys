@@ -4,31 +4,26 @@
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct AnonymousUnion42
+pub struct cmdline_ipaddr_AnonymousUnion_addr
 {
-	pub _bindgen_data_: [u32; 3usize],
+	pub _bindgen_data_: [u32; 4usize],
 }
 
-impl AnonymousUnion42
+impl cmdline_ipaddr_AnonymousUnion_addr
 {
-	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
+	pub unsafe fn ipv4(&mut self) -> *mut in_addr
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
-	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
-	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
-	}
-	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
+	pub unsafe fn ipv6(&mut self) -> *mut in6_addr
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
 		transmute(raw.offset(0))
 	}
 }
 
-impl Default for AnonymousUnion42
+impl Default for cmdline_ipaddr_AnonymousUnion_addr
 {
 	#[inline(always)]
 	fn default() -> Self
