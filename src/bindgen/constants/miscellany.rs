@@ -42,3 +42,5 @@ pub const RTE_TABLE_HASH_LRU_STRATEGY: c_int = 1;
 pub const RTE_TAILQ_NAMESIZE: size_t = 32;
 pub const RTE_TOOLCHAIN_GCC: c_int = 1;
 pub const SOCKET_ID_ANY: c_int = -1;
+pub const TLE_DST_MAX_HDR: c_int = 96;
+pub const TLE_TCP_DEFAULT_RETRIES: c_int = 3;

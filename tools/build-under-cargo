@@ -172,9 +172,9 @@ build_under_cargo_determineDpdkRootFolderPath()
 			build_under_cargo_fail "Please define the environment variable RTE_SDK if defining the environment variable RTE_TARGET ('$RTE_TARGET')"
 		fi
 
-		dpdkRootFolderPath="$homeFolder"/compile-dpdk.conf.d/temporary/destdir/usr/local
+		dpdkRootFolderPath="$homeFolder"/compile-dpdk-with-tldk.conf.d/temporary/destdir/usr/local
 	
-		printf 'build-under-cargo:%s\n' "The RTE_SDK and RTE_TARGET environment variables are not defined; assuming that compile-dpdk needs to be run" 1>&2
+		printf 'build-under-cargo:%s\n' "The RTE_SDK and RTE_TARGET environment variables are not defined; assuming that compile-dpdk-with-tldk needs to be run" 1>&2
 		
 		if [ ! -d "$dpdkRootFolderPath" ]; then
 			dpdkNeedsCompilation='true'
@@ -226,6 +226,9 @@ build_under_cargo_outputCargoKeyValuePairs()
 	
 	# Linker scripts are not yet supported by rustc. libdpdk.a is a GROUP linker script, not an archive!
 	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libdpdk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static=%s\n'
+	
+	# This is something we made to make life easier
+	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libtldk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static=%s\n'
 	
 	# Search path
 	printf 'cargo:rustc-link-search=native=%s\n' "$dpdkLibFolderPath"

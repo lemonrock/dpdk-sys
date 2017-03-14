@@ -151,4 +151,7 @@ final_chance_to_tweak()
 	
 	# Use the correct definition
 	sed -i -e 's/0usize/RTE_MAX_ETHPORTS/g' "$outputFolderPath"/statics/rte_eth.rs
+	
+	# Fix duplicate padding name
+	sed -i -e 's/_bindgen_padding_0_: \[u64; 16usize\]/_bindgen_padding_1_: [u64; 16usize]/g' "$outputFolderPath"/structs/tle_dring.rs	
 }

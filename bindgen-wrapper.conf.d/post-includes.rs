@@ -17,6 +17,8 @@ use ::libc::int32_t;
 use ::libc::int64_t;
 use ::libc::off_t;
 use ::libc::FILE;
+use ::libc::sockaddr_storage;
+use ::libc::sockaddr;
 #[cfg(unix)] use ::libc::in_addr;
 #[cfg(unix)] use ::libc::in6_addr;
 #[cfg(unix)] use ::libc::termios;

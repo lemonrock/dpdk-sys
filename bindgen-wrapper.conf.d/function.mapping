@@ -71,3 +71,12 @@ vt100_ cmdline
 rte_reciprocal_value math
 rte_approx math
 pci_ pci
+tle_ctx_ tle_ctx
+tle_dring_ tle_dring
+tle_event_ tle_event
+tle_evq_ tle_evq
+tle_tcp_ tle_tcp
+tle_timer_ tle_timer
+tle_udp_ tle_udp
+tle_add_dev tle_ctx
+tle_del_dev tle_ctx

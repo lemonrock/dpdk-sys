@@ -73,3 +73,8 @@ include!("bindgen/enums/rte_timer_type.rs");
 include!("bindgen/enums/rte_tunnel_iptype.rs");
 include!("bindgen/enums/rte_vlan_type.rs");
 include!("bindgen/enums/timer_source.rs");
+include!("bindgen/enums/tle_ctx.rs");
+include!("bindgen/enums/tle_dev.rs");
+include!("bindgen/enums/tle_ev_state.rs");
+include!("bindgen/enums/tle_stream.rs");
+include!("bindgen/enums/tle_timer_wheel.rs");
