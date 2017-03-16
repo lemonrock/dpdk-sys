@@ -222,13 +222,17 @@ build_under_cargo_copyDpdkHeadersToKnownLocationForEmbeddedCCodeInRust()
 
 build_under_cargo_outputCargoKeyValuePairs()
 {
-	build_under_cargo_reRunIfAnyChanged "$@"
+	#build_under_cargo_reRunIfAnyChanged "$@"
 	
 	# Linker scripts are not yet supported by rustc. libdpdk.a is a GROUP linker script, not an archive!
-	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libdpdk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static=%s\n'
+	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libdpdk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static-nobundle=%s\n'
+	#printf 'cargo:rustc-link-lib=static-nobundle=dpdk\n'
 	
-	# This is something we made to make life easier
-	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libtldk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static=%s\n'
+	# There is no such thing as libtldk.a; it's something we created for ease
+	sed -e 's;^GROUP ( ;;g' -e 's; )$;;g' -e 's;\.a ; ;g' -e 's;\.a$;;g' -e 's;^lib;;g' -e 's; lib; ;g' "$dpdkLibFolderPath"/libtldk.a | xargs -n 1 printf 'cargo:rustc-link-lib=static-nobundle=%s\n'
+	#printf 'cargo:rustc-link-lib=static=dring\n'
+	#printf 'cargo:rustc-link-lib=static=timer\n'
+	#printf 'cargo:rustc-link-lib=static=l4p\n'
 	
 	# Search path
 	printf 'cargo:rustc-link-search=native=%s\n' "$dpdkLibFolderPath"
