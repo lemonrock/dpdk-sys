@@ -29,7 +29,7 @@ codegen-units = 1
 
 [dependencies]
 c = { git = "https://github.com/lemonrock/rust-c.git", features = ["macro"] }
-libc = "^0.2"
+libc = "0.2.21"
 
 [build-dependencies]
 c = { git = "https://github.com/lemonrock/rust-c.git", features = ["build"] }
