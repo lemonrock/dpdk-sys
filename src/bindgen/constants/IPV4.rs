@@ -2,5 +2,5 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const IPV4_IHL_MULTIPLIER: c_int = 4;
+pub const IPV4_IHL_MULTIPLIER: uint8_t = 4;
 pub const IPV4_MAX_PKT_LEN: c_int = 65535;

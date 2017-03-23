@@ -93,6 +93,7 @@ include!("bindgen/constants/SLOW_SUBTYPE.rs");
 include!("bindgen/constants/STATE.rs");
 include!("bindgen/constants/STR.rs");
 include!("bindgen/constants/TCP.rs");
+include!("bindgen/constants/TLE.rs");
 include!("bindgen/constants/TLE_PROTO.rs");
 include!("bindgen/constants/TLV_TYPE.rs");
 include!("bindgen/constants/VIRTIO.rs");

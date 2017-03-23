@@ -3,6 +3,6 @@
 
 
 pub const RTE_MBUF_DEFAULT_BUF_SIZE: uint16_t = 2176;
-pub const RTE_MBUF_DEFAULT_DATAROOM: c_int = 2048;
+pub const RTE_MBUF_DEFAULT_DATAROOM: uint16_t = 2048;
 pub const RTE_MBUF_PRIV_ALIGN: c_int = 8;
 pub const RTE_MBUF_REFCNT_ATOMIC: c_int = 1;
