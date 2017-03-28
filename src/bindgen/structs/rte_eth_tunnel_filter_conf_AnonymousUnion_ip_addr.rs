@@ -11,15 +11,17 @@ pub struct rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 
 impl rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 {
+	#[inline(always)]
 	pub unsafe fn ipv4_addr(&mut self) -> *mut uint32_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

@@ -17,10 +17,11 @@ pub struct rte_crypto_op
 
 impl rte_crypto_op
 {
+	#[inline(always)]
 	pub unsafe fn sym(&mut self) -> *mut *mut rte_crypto_sym_op
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

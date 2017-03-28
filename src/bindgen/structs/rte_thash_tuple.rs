@@ -11,15 +11,17 @@ pub struct rte_thash_tuple
 
 impl rte_thash_tuple
 {
+	#[inline(always)]
 	pub unsafe fn v4(&mut self) -> *mut rte_ipv4_tuple
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn v6(&mut self) -> *mut rte_ipv6_tuple
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

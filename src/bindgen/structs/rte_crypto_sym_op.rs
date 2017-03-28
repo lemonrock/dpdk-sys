@@ -16,15 +16,17 @@ pub struct rte_crypto_sym_op
 
 impl rte_crypto_sym_op
 {
+	#[inline(always)]
 	pub unsafe fn session(&mut self) -> *mut *mut rte_cryptodev_sym_session
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn xform(&mut self) -> *mut *mut rte_crypto_sym_xform
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

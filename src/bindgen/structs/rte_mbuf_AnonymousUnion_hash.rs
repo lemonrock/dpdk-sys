@@ -11,25 +11,29 @@ pub struct rte_mbuf_AnonymousUnion_hash
 
 impl rte_mbuf_AnonymousUnion_hash
 {
+	#[inline(always)]
 	pub unsafe fn rss(&mut self) -> *mut uint32_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn fdir(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn sched(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_sched
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn usr(&mut self) -> *mut uint32_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

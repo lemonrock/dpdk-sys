@@ -18,15 +18,17 @@ pub struct rte_intr_handle
 
 impl rte_intr_handle
 {
+	#[inline(always)]
 	pub unsafe fn vfio_dev_fd(&mut self) -> *mut c_int
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn uio_cfg_fd(&mut self) -> *mut c_int
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

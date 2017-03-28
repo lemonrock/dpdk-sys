@@ -13,15 +13,17 @@ pub struct rte_crypto_sym_xform
 
 impl rte_crypto_sym_xform
 {
+	#[inline(always)]
 	pub unsafe fn auth(&mut self) -> *mut rte_crypto_auth_xform
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn cipher(&mut self) -> *mut rte_crypto_cipher_xform
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

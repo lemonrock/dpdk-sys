@@ -13,20 +13,23 @@ pub struct rte_ipv6_tuple
 
 impl rte_ipv6_tuple
 {
+	#[inline(always)]
 	pub unsafe fn dport(&mut self) -> *mut uint16_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn sport(&mut self) -> *mut uint16_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(2))
 	}
+	#[inline(always)]
 	pub unsafe fn sctp_tag(&mut self) -> *mut uint32_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

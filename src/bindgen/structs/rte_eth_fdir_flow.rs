@@ -11,60 +11,71 @@ pub struct rte_eth_fdir_flow
 
 impl rte_eth_fdir_flow
 {
+	#[inline(always)]
 	pub unsafe fn l2_flow(&mut self) -> *mut rte_eth_l2_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn udp4_flow(&mut self) -> *mut rte_eth_udpv4_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn tcp4_flow(&mut self) -> *mut rte_eth_tcpv4_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn sctp4_flow(&mut self) -> *mut rte_eth_sctpv4_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn ip4_flow(&mut self) -> *mut rte_eth_ipv4_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn udp6_flow(&mut self) -> *mut rte_eth_udpv6_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn tcp6_flow(&mut self) -> *mut rte_eth_tcpv6_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn sctp6_flow(&mut self) -> *mut rte_eth_sctpv6_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn ipv6_flow(&mut self) -> *mut rte_eth_ipv6_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn mac_vlan_flow(&mut self) -> *mut rte_eth_mac_vlan_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn tunnel_flow(&mut self) -> *mut rte_eth_tunnel_flow
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

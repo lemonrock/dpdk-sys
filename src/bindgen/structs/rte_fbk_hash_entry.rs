@@ -11,15 +11,17 @@ pub struct rte_fbk_hash_entry
 
 impl rte_fbk_hash_entry
 {
+	#[inline(always)]
 	pub unsafe fn whole_entry(&mut self) -> *mut uint64_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn entry(&mut self) -> *mut rte_fbk_hash_entry_AnonymousStruct_entry
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

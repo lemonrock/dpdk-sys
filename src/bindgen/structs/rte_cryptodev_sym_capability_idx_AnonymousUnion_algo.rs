@@ -11,15 +11,17 @@ pub struct rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 
 impl rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 {
+	#[inline(always)]
 	pub unsafe fn cipher(&mut self) -> *mut rte_crypto_cipher_algorithm
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn auth(&mut self) -> *mut rte_crypto_auth_algorithm
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

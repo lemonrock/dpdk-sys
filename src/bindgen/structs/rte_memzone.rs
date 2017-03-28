@@ -18,15 +18,17 @@ pub struct rte_memzone
 
 impl rte_memzone
 {
+	#[inline(always)]
 	pub unsafe fn addr(&mut self) -> *mut *mut c_void
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn addr_64(&mut self) -> *mut uint64_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

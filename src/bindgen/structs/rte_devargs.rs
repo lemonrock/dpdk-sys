@@ -14,15 +14,17 @@ pub struct rte_devargs
 
 impl rte_devargs
 {
+	#[inline(always)]
 	pub unsafe fn pci(&mut self) -> *mut rte_devargs_AnonymousStruct_pci
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn virt(&mut self) -> *mut rte_devargs_AnonymousStruct_virt
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

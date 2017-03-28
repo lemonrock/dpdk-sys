@@ -11,15 +11,17 @@ pub struct rte_eth_global_cfg_AnonymousUnion_cfg
 
 impl rte_eth_global_cfg_AnonymousUnion_cfg
 {
+	#[inline(always)]
 	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn reserved(&mut self) -> *mut uint64_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

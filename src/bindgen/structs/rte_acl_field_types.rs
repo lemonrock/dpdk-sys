@@ -11,25 +11,29 @@ pub struct rte_acl_field_types
 
 impl rte_acl_field_types
 {
+	#[inline(always)]
 	pub unsafe fn u8_(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn u16_(&mut self) -> *mut uint16_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn u32_(&mut self) -> *mut uint32_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn u64_(&mut self) -> *mut uint64_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
 }
 

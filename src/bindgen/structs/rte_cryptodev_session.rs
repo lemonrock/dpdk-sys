@@ -12,16 +12,19 @@ pub struct rte_cryptodev_session
 
 impl rte_cryptodev_session
 {
+	#[inline(always)]
 	pub unsafe fn dev_id(&mut self) -> *mut uint8_t
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(0))
+		transmute(raw)
 	}
+	#[inline(always)]
 	pub unsafe fn type_(&mut self) -> *mut rte_cryptodev_type
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
 		transmute(raw.offset(1))
 	}
+	#[inline(always)]
 	pub unsafe fn mp(&mut self) -> *mut *mut rte_mempool
 	{
 		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
