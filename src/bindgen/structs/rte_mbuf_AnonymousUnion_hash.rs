@@ -12,7 +12,7 @@ pub struct rte_mbuf_AnonymousUnion_hash
 impl rte_mbuf_AnonymousUnion_hash
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn rss(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_mbuf_AnonymousUnion_hash
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn fdir(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -28,7 +28,7 @@ impl rte_mbuf_AnonymousUnion_hash
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn sched(&mut self) -> *mut rte_mbuf_AnonymousUnion_hash_AnonymousStruct_sched
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -36,7 +36,7 @@ impl rte_mbuf_AnonymousUnion_hash
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn usr(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

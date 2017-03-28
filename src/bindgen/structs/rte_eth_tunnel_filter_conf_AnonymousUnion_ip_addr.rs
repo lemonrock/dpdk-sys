@@ -12,7 +12,7 @@ pub struct rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 impl rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn ipv4_addr(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_eth_tunnel_filter_conf_AnonymousUnion_ip_addr
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn ipv6_addr(&mut self) -> *mut [uint32_t; 4usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

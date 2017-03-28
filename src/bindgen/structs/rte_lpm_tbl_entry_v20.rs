@@ -13,7 +13,7 @@ pub struct rte_lpm_tbl_entry_v20
 impl rte_lpm_tbl_entry_v20
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn next_hop(&mut self) -> *mut uint8_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -21,7 +21,7 @@ impl rte_lpm_tbl_entry_v20
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn group_idx(&mut self) -> *mut uint8_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

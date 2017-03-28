@@ -525,24 +525,6 @@ c!
 	}
 }
 
-// These functions exist because we can not generate a good-quality struct wrapper for rte_mbuf with bindgen
-c!
-{
-	#include <rte_mbuf.h>
-
-	#[inline(always)]
-	fn rust_rte_mbuf_get_packet_type(m: *mut rte_mbuf as "struct rte_mbuf *") -> uint32_t as "uint32_t"
-	{
-		return m->packet_type;
-	}
-	
-	#[inline(always)]
-	fn rust_rte_mbuf_set_packet_type_to_unknown(m: *mut rte_mbuf as "struct rte_mbuf *")
-	{
-		m->packet_type = RTE_PTYPE_UNKNOWN;
-	}
-}
-
 c!
 {
 	#include <rte_net.h>

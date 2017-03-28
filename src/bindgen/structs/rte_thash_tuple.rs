@@ -12,7 +12,7 @@ pub struct rte_thash_tuple
 impl rte_thash_tuple
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn v4(&mut self) -> *mut rte_ipv4_tuple
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_thash_tuple
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn v6(&mut self) -> *mut rte_ipv6_tuple
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

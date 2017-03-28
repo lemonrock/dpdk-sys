@@ -12,7 +12,7 @@ pub struct rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 impl rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn cipher(&mut self) -> *mut rte_crypto_cipher_algorithm
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_cryptodev_sym_capability_idx_AnonymousUnion_algo
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn auth(&mut self) -> *mut rte_crypto_auth_algorithm
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

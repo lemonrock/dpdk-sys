@@ -12,7 +12,7 @@ pub struct cmdline_ipaddr_AnonymousUnion_addr
 impl cmdline_ipaddr_AnonymousUnion_addr
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn ipv4(&mut self) -> *mut in_addr
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl cmdline_ipaddr_AnonymousUnion_addr
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn ipv6(&mut self) -> *mut in6_addr
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

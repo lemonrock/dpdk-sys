@@ -18,7 +18,7 @@ pub struct rte_memseg
 impl rte_memseg
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn addr(&mut self) -> *mut *mut c_void
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -26,7 +26,7 @@ impl rte_memseg
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn addr_64(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

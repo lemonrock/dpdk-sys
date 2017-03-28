@@ -107,10 +107,6 @@ final_chance_to_tweak()
 	# Fix up an union whose size changes depending on SSE options
 	sed -i -e 's/u8; 48usize/u32; 9usize/g' "$outputFolderPath"/structs/rte_thash_tuple.rs
 
-	# Name bitfields for rte_mbuf
-	# sed -i
-#	} >"$outputFolderPath"/structs/rte_mbuf.rs
-
 	# rte_timer_status isn't used as a union; the _u32 'field' exists to allow code to atomically set states and owner
 	{
 		cat "$configurationFolderPath"/preamble.rs

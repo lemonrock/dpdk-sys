@@ -19,7 +19,7 @@ pub struct rte_intr_handle
 impl rte_intr_handle
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn vfio_dev_fd(&mut self) -> *mut c_int
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -27,7 +27,7 @@ impl rte_intr_handle
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn uio_cfg_fd(&mut self) -> *mut c_int
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

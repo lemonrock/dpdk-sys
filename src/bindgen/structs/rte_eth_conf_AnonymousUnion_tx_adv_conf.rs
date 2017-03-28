@@ -12,7 +12,7 @@ pub struct rte_eth_conf_AnonymousUnion_tx_adv_conf
 impl rte_eth_conf_AnonymousUnion_tx_adv_conf
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_eth_conf_AnonymousUnion_tx_adv_conf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -28,7 +28,7 @@ impl rte_eth_conf_AnonymousUnion_tx_adv_conf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

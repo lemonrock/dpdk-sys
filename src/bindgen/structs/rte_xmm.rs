@@ -12,7 +12,7 @@ pub struct rte_xmm
 impl rte_xmm
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn x(&mut self) -> *mut xmm_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_xmm
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn u8_(&mut self) -> *mut [uint8_t; 16usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -28,7 +28,7 @@ impl rte_xmm
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn u16_(&mut self) -> *mut [uint16_t; 8usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -36,7 +36,7 @@ impl rte_xmm
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn u32_(&mut self) -> *mut [uint32_t; 4usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -44,7 +44,7 @@ impl rte_xmm
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn u64_(&mut self) -> *mut [uint64_t; 2usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -52,7 +52,7 @@ impl rte_xmm
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn pd(&mut self) -> *mut [f64; 2usize]
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

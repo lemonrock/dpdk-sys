@@ -14,7 +14,7 @@ pub struct rte_crypto_sym_xform
 impl rte_crypto_sym_xform
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn auth(&mut self) -> *mut rte_crypto_auth_xform
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -22,7 +22,7 @@ impl rte_crypto_sym_xform
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn cipher(&mut self) -> *mut rte_crypto_cipher_xform
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

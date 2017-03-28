@@ -17,7 +17,7 @@ pub struct rte_crypto_sym_op
 impl rte_crypto_sym_op
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn session(&mut self) -> *mut *mut rte_cryptodev_sym_session
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -25,7 +25,7 @@ impl rte_crypto_sym_op
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn xform(&mut self) -> *mut *mut rte_crypto_sym_xform
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

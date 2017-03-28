@@ -13,7 +13,7 @@ pub struct rte_cryptodev_session
 impl rte_cryptodev_session
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn dev_id(&mut self) -> *mut uint8_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -21,7 +21,7 @@ impl rte_cryptodev_session
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn type_(&mut self) -> *mut rte_cryptodev_type
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -29,7 +29,7 @@ impl rte_cryptodev_session
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn mp(&mut self) -> *mut *mut rte_mempool
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

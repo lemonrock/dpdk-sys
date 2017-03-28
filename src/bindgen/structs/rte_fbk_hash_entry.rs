@@ -12,7 +12,7 @@ pub struct rte_fbk_hash_entry
 impl rte_fbk_hash_entry
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn whole_entry(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_fbk_hash_entry
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn entry(&mut self) -> *mut rte_fbk_hash_entry_AnonymousStruct_entry
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

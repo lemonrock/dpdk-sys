@@ -29,7 +29,7 @@ pub struct rte_mempool
 impl rte_mempool
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn pool_data(&mut self) -> *mut *mut c_void
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -37,7 +37,7 @@ impl rte_mempool
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn pool_id(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

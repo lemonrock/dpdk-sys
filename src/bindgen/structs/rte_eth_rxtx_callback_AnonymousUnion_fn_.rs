@@ -12,7 +12,7 @@ pub struct rte_eth_rxtx_callback_AnonymousUnion_fn_
 impl rte_eth_rxtx_callback_AnonymousUnion_fn_
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn rx(&mut self) -> *mut rte_rx_callback_fn
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_eth_rxtx_callback_AnonymousUnion_fn_
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn tx(&mut self) -> *mut rte_tx_callback_fn
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

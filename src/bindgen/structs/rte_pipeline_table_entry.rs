@@ -14,7 +14,7 @@ pub struct rte_pipeline_table_entry
 impl rte_pipeline_table_entry
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn port_id(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -22,7 +22,7 @@ impl rte_pipeline_table_entry
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn table_id(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

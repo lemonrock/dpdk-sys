@@ -14,7 +14,7 @@ pub struct rte_ipv4_tuple
 impl rte_ipv4_tuple
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn dport(&mut self) -> *mut uint16_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -22,7 +22,7 @@ impl rte_ipv4_tuple
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn sport(&mut self) -> *mut uint16_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -30,7 +30,7 @@ impl rte_ipv4_tuple
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn sctp_tag(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

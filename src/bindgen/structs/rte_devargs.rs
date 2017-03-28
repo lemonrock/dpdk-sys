@@ -15,7 +15,7 @@ pub struct rte_devargs
 impl rte_devargs
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn pci(&mut self) -> *mut rte_devargs_AnonymousStruct_pci
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -23,7 +23,7 @@ impl rte_devargs
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn virt(&mut self) -> *mut rte_devargs_AnonymousStruct_virt
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

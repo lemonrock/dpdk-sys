@@ -13,7 +13,7 @@ pub struct rte_eth_hash_filter_info_AnonymousUnion_info
 impl rte_eth_hash_filter_info_AnonymousUnion_info
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn enable(&mut self) -> *mut uint8_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -21,7 +21,7 @@ impl rte_eth_hash_filter_info_AnonymousUnion_info
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn global_conf(&mut self) -> *mut rte_eth_hash_global_conf
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -29,7 +29,7 @@ impl rte_eth_hash_filter_info_AnonymousUnion_info
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;

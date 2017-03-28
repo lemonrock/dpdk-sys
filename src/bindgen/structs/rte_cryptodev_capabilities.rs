@@ -13,7 +13,7 @@ pub struct rte_cryptodev_capabilities
 impl rte_cryptodev_capabilities
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn sym(&mut self) -> *mut rte_cryptodev_symmetric_capability
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;

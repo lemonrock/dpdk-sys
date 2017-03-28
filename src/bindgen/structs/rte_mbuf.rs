@@ -37,7 +37,7 @@ pub struct rte_mbuf
 impl rte_mbuf
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn refcnt_atomic(&mut self) -> *mut rte_atomic16_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -45,7 +45,7 @@ impl rte_mbuf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn refcnt(&mut self) -> *mut uint16_t
 	{
 		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
@@ -53,7 +53,7 @@ impl rte_mbuf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn packet_type(&mut self) -> *mut uint32_t
 	{
 		let raw = &mut self._bindgen_data_2_ as *mut _ as *mut u8;
@@ -61,7 +61,7 @@ impl rte_mbuf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn userdata(&mut self) -> *mut *mut c_void
 	{
 		let raw = &mut self._bindgen_data_3_ as *mut _ as *mut u8;
@@ -69,7 +69,7 @@ impl rte_mbuf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn udata64(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_3_ as *mut _ as *mut u8;
@@ -77,7 +77,7 @@ impl rte_mbuf
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn tx_offload(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_4_ as *mut _ as *mut u8;

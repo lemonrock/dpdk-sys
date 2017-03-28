@@ -12,7 +12,7 @@ pub struct rte_eth_global_cfg_AnonymousUnion_cfg
 impl rte_eth_global_cfg_AnonymousUnion_cfg
 {
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn gre_key_len(&mut self) -> *mut uint8_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
@@ -20,7 +20,7 @@ impl rte_eth_global_cfg_AnonymousUnion_cfg
 	}
 
 	#[inline(always)]
-#[allow(trivial_casts)]
+	#[allow(trivial_casts)]
 	pub fn reserved(&mut self) -> *mut uint64_t
 	{
 		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
