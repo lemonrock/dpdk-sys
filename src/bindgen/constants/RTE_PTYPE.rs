@@ -2,7 +2,7 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const RTE_PTYPE_ALL_MASK: c_int = 268435455;
+pub const RTE_PTYPE_ALL_MASK: uint32_t = 268435455;
 pub const RTE_PTYPE_INNER_L2_ETHER: uint32_t = 65536;
 pub const RTE_PTYPE_INNER_L2_ETHER_QINQ: uint32_t = 196608;
 pub const RTE_PTYPE_INNER_L2_ETHER_VLAN: uint32_t = 131072;
