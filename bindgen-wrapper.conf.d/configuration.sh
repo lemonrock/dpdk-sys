@@ -107,6 +107,13 @@ final_chance_to_tweak()
 	# Fix up an union whose size changes depending on SSE options
 	sed -i -e 's/u8; 48usize/u32; 9usize/g' "$outputFolderPath"/structs/rte_thash_tuple.rs
 
+	# Replace generated rte_mbuf. This isn't ideal
+	printf '\n\n\nWARNING: %s\n\n\n\n' "Overriding definition of rte_mbuf. Not ideal, but necessary probably"
+	{
+		cat "$configurationFolderPath"/preamble.rs
+		cat "$configurationFolderPath"/rte_mbuf.fragment.rs
+	} >"$outputFolderPath"/structs/rte_mbuf.rs
+
 	# rte_timer_status isn't used as a union; the _u32 'field' exists to allow code to atomically set states and owner
 	{
 		cat "$configurationFolderPath"/preamble.rs
