@@ -3,11 +3,10 @@
 
 
 
-use ::core::default::Default;
-use ::core::option::Option;
-use ::core::mem::zeroed;
-use ::core::mem::transmute;
 use ::core::clone::Clone;
+use ::core::default::Default;
+use ::core::mem::zeroed;
+use ::core::option::Option;
 
 #[allow(unused_extern_crates)] #[macro_use] extern crate c;
 extern crate libc;

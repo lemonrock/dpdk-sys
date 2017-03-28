@@ -13,10 +13,11 @@ pub struct rte_cryptodev_capabilities
 impl rte_cryptodev_capabilities
 {
 	#[inline(always)]
-	pub unsafe fn sym(&mut self) -> *mut rte_cryptodev_symmetric_capability
+#[allow(trivial_casts)]
+	pub fn sym(&mut self) -> *mut rte_cryptodev_symmetric_capability
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

@@ -13,22 +13,27 @@ pub struct rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 impl rte_mbuf_AnonymousUnion_hash_AnonymousStruct_fdir
 {
 	#[inline(always)]
-	pub unsafe fn hash(&mut self) -> *mut uint16_t
+#[allow(trivial_casts)]
+	pub fn hash(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn id(&mut self) -> *mut uint16_t
+#[allow(trivial_casts)]
+	pub fn id(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(2))
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		(unsafe { raw.offset(2) }) as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn lo(&mut self) -> *mut uint32_t
+#[allow(trivial_casts)]
+	pub fn lo(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

@@ -13,16 +13,19 @@ pub struct rte_lpm_tbl_entry_v20
 impl rte_lpm_tbl_entry_v20
 {
 	#[inline(always)]
-	pub unsafe fn next_hop(&mut self) -> *mut uint8_t
+#[allow(trivial_casts)]
+	pub fn next_hop(&mut self) -> *mut uint8_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn group_idx(&mut self) -> *mut uint8_t
+#[allow(trivial_casts)]
+	pub fn group_idx(&mut self) -> *mut uint8_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

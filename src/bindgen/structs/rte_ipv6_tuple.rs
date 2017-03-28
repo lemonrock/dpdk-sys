@@ -14,22 +14,27 @@ pub struct rte_ipv6_tuple
 impl rte_ipv6_tuple
 {
 	#[inline(always)]
-	pub unsafe fn dport(&mut self) -> *mut uint16_t
+#[allow(trivial_casts)]
+	pub fn dport(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn sport(&mut self) -> *mut uint16_t
+#[allow(trivial_casts)]
+	pub fn sport(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(2))
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		(unsafe { raw.offset(2) }) as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn sctp_tag(&mut self) -> *mut uint32_t
+#[allow(trivial_casts)]
+	pub fn sctp_tag(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

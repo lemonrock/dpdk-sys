@@ -13,10 +13,11 @@ pub struct rte_eth_fdir_filter_info_AnonymousUnion_info
 impl rte_eth_fdir_filter_info_AnonymousUnion_info
 {
 	#[inline(always)]
-	pub unsafe fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
+#[allow(trivial_casts)]
+	pub fn input_set_conf(&mut self) -> *mut rte_eth_input_set_conf
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

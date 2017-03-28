@@ -12,16 +12,19 @@ pub struct cmdline_ipaddr_AnonymousUnion_addr
 impl cmdline_ipaddr_AnonymousUnion_addr
 {
 	#[inline(always)]
-	pub unsafe fn ipv4(&mut self) -> *mut in_addr
+#[allow(trivial_casts)]
+	pub fn ipv4(&mut self) -> *mut in_addr
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn ipv6(&mut self) -> *mut in6_addr
+#[allow(trivial_casts)]
+	pub fn ipv6(&mut self) -> *mut in6_addr
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

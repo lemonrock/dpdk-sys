@@ -12,16 +12,19 @@ pub struct rte_eth_rxtx_callback_AnonymousUnion_fn_
 impl rte_eth_rxtx_callback_AnonymousUnion_fn_
 {
 	#[inline(always)]
-	pub unsafe fn rx(&mut self) -> *mut rte_rx_callback_fn
+#[allow(trivial_casts)]
+	pub fn rx(&mut self) -> *mut rte_rx_callback_fn
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn tx(&mut self) -> *mut rte_tx_callback_fn
+#[allow(trivial_casts)]
+	pub fn tx(&mut self) -> *mut rte_tx_callback_fn
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

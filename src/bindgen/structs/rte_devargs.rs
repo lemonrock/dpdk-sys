@@ -15,16 +15,19 @@ pub struct rte_devargs
 impl rte_devargs
 {
 	#[inline(always)]
-	pub unsafe fn pci(&mut self) -> *mut rte_devargs_AnonymousStruct_pci
+#[allow(trivial_casts)]
+	pub fn pci(&mut self) -> *mut rte_devargs_AnonymousStruct_pci
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn virt(&mut self) -> *mut rte_devargs_AnonymousStruct_virt
+#[allow(trivial_casts)]
+	pub fn virt(&mut self) -> *mut rte_devargs_AnonymousStruct_virt
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

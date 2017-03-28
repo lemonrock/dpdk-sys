@@ -29,16 +29,19 @@ pub struct rte_mempool
 impl rte_mempool
 {
 	#[inline(always)]
-	pub unsafe fn pool_data(&mut self) -> *mut *mut c_void
+#[allow(trivial_casts)]
+	pub fn pool_data(&mut self) -> *mut *mut c_void
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn pool_id(&mut self) -> *mut uint64_t
+#[allow(trivial_casts)]
+	pub fn pool_id(&mut self) -> *mut uint64_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

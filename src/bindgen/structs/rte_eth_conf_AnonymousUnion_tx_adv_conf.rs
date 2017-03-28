@@ -12,22 +12,27 @@ pub struct rte_eth_conf_AnonymousUnion_tx_adv_conf
 impl rte_eth_conf_AnonymousUnion_tx_adv_conf
 {
 	#[inline(always)]
-	pub unsafe fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
+#[allow(trivial_casts)]
+	pub fn vmdq_dcb_tx_conf(&mut self) -> *mut rte_eth_vmdq_dcb_tx_conf
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
+#[allow(trivial_casts)]
+	pub fn dcb_tx_conf(&mut self) -> *mut rte_eth_dcb_tx_conf
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
+#[allow(trivial_casts)]
+	pub fn vmdq_tx_conf(&mut self) -> *mut rte_eth_vmdq_tx_conf
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

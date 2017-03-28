@@ -12,16 +12,19 @@ pub struct rte_eth_global_cfg_AnonymousUnion_cfg
 impl rte_eth_global_cfg_AnonymousUnion_cfg
 {
 	#[inline(always)]
-	pub unsafe fn gre_key_len(&mut self) -> *mut uint8_t
+#[allow(trivial_casts)]
+	pub fn gre_key_len(&mut self) -> *mut uint8_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn reserved(&mut self) -> *mut uint64_t
+#[allow(trivial_casts)]
+	pub fn reserved(&mut self) -> *mut uint64_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

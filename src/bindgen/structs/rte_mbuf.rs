@@ -37,40 +37,51 @@ pub struct rte_mbuf
 impl rte_mbuf
 {
 	#[inline(always)]
-	pub unsafe fn refcnt_atomic(&mut self) -> *mut rte_atomic16_t
+#[allow(trivial_casts)]
+	pub fn refcnt_atomic(&mut self) -> *mut rte_atomic16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn refcnt(&mut self) -> *mut uint16_t
+#[allow(trivial_casts)]
+	pub fn refcnt(&mut self) -> *mut uint16_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn packet_type(&mut self) -> *mut uint32_t
+#[allow(trivial_casts)]
+	pub fn packet_type(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_2_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_2_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn userdata(&mut self) -> *mut *mut c_void
+#[allow(trivial_casts)]
+	pub fn userdata(&mut self) -> *mut *mut c_void
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_3_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_3_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn udata64(&mut self) -> *mut uint64_t
+#[allow(trivial_casts)]
+	pub fn udata64(&mut self) -> *mut uint64_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_3_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_3_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn tx_offload(&mut self) -> *mut uint64_t
+#[allow(trivial_casts)]
+	pub fn tx_offload(&mut self) -> *mut uint64_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_4_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_4_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

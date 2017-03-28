@@ -14,16 +14,19 @@ pub struct rte_pipeline_table_entry
 impl rte_pipeline_table_entry
 {
 	#[inline(always)]
-	pub unsafe fn port_id(&mut self) -> *mut uint32_t
+#[allow(trivial_casts)]
+	pub fn port_id(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn table_id(&mut self) -> *mut uint32_t
+#[allow(trivial_casts)]
+	pub fn table_id(&mut self) -> *mut uint32_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

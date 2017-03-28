@@ -12,16 +12,19 @@ pub struct rte_fbk_hash_entry
 impl rte_fbk_hash_entry
 {
 	#[inline(always)]
-	pub unsafe fn whole_entry(&mut self) -> *mut uint64_t
+#[allow(trivial_casts)]
+	pub fn whole_entry(&mut self) -> *mut uint64_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn entry(&mut self) -> *mut rte_fbk_hash_entry_AnonymousStruct_entry
+#[allow(trivial_casts)]
+	pub fn entry(&mut self) -> *mut rte_fbk_hash_entry_AnonymousStruct_entry
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
 }
 

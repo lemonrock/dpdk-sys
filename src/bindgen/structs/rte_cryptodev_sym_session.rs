@@ -13,22 +13,27 @@ pub struct rte_cryptodev_sym_session
 impl rte_cryptodev_sym_session
 {
 	#[inline(always)]
-	pub unsafe fn dev_id(&mut self) -> *mut uint8_t
+#[allow(trivial_casts)]
+	pub fn dev_id(&mut self) -> *mut uint8_t
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw)
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		raw as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn dev_type(&mut self) -> *mut rte_cryptodev_type
+#[allow(trivial_casts)]
+	pub fn dev_type(&mut self) -> *mut rte_cryptodev_type
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(1))
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		(unsafe { raw.offset(1) }) as *mut _
 	}
+
 	#[inline(always)]
-	pub unsafe fn mp(&mut self) -> *mut *mut rte_mempool
+#[allow(trivial_casts)]
+	pub fn mp(&mut self) -> *mut *mut rte_mempool
 	{
-		let raw: *mut u8 = transmute(&self._bindgen_data_1_);
-		transmute(raw.offset(5))
+		let raw = &mut self._bindgen_data_1_ as *mut _ as *mut u8;
+		(unsafe { raw.offset(5) }) as *mut _
 	}
 }
 
