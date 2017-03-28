@@ -41,6 +41,7 @@ include!("bindgen/functions/rte_lpm.rs");
 include!("bindgen/functions/rte_mempool.rs");
 include!("bindgen/functions/rte_memzone.rs");
 include!("bindgen/functions/rte_meter.rs");
+include!("bindgen/functions/rte_net.rs");
 include!("bindgen/functions/rte_pdump.rs");
 include!("bindgen/functions/rte_pipeline.rs");
 include!("bindgen/functions/rte_pktmbuf.rs");

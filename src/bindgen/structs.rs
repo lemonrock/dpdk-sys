@@ -250,6 +250,7 @@ include!("bindgen/structs/rte_meter_srtcm.rs");
 include!("bindgen/structs/rte_meter_srtcm_params.rs");
 include!("bindgen/structs/rte_meter_trtcm.rs");
 include!("bindgen/structs/rte_meter_trtcm_params.rs");
+include!("bindgen/structs/rte_net_hdr_lens.rs");
 include!("bindgen/structs/rte_pci_addr.rs");
 include!("bindgen/structs/rte_pci_device.rs");
 include!("bindgen/structs/rte_pci_device_AnonymousStruct_next.rs");

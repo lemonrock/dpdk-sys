@@ -2,5 +2,7 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const IPV4_IHL_MULTIPLIER: uint8_t = 4;
-pub const IPV4_MAX_PKT_LEN: usize = 65535;
+extern "C"
+{
+	pub fn rte_net_get_ptype(m: *const rte_mbuf, hdr_lens: *mut rte_net_hdr_lens, layers: uint32_t) -> uint32_t;
+}

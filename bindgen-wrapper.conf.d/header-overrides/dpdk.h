@@ -61,6 +61,7 @@
 #include <rte_mempool.h>
 #include <rte_memzone.h>
 #include <rte_meter.h>
+#include <rte_net.h>
 #include <rte_pci_dev_feature_defs.h>
 #include <rte_pci_dev_features.h>
 #include <rte_pdump.h>

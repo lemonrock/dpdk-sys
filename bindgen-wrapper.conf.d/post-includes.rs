@@ -252,8 +252,7 @@ c!
 	}
 }
 
-c!
-{
+c! {
 	#[inline(always)]
 	fn rust_rte_eth_rx_burst(port_id: uint8_t as "uint8_t", queue_id: uint16_t as "uint16_t", rx_pkts: *mut *mut rte_mbuf as "struct rte_mbuf **", nb_pkts: uint16_t as "const uint16_t") -> uint16_t as "uint16_t"
 	{
@@ -295,7 +294,10 @@ c!
 	{
 		return rte_eth_tx_buffer(port_id, queue_id, buffer, tx_pkt);
 	}
+}
 
+c!
+{
 	#[inline(always)]
 	fn rust_is_zero_ether_addr(ea: *const ether_addr as "const struct ether_addr *") -> c_int as "int"
 	{
@@ -343,7 +345,9 @@ c!
 	{
 		eth_random_addr(addr);
 	}
+}
 
+c! {
 	#[inline(always)]
 	fn rust_rte_pktmbuf_data_room_size(mp: *mut rte_mempool as "struct rte_mempool *") -> uint16_t as "uint16_t"
 	{
@@ -361,7 +365,7 @@ c!
 	{
 		return rte_pktmbuf_alloc_bulk(pool, mbufs, count);
 	}
-		
+	
 	#[inline(always)]
 	fn rust_rte_pktmbuf_clone(md: *mut rte_mbuf as "struct rte_mbuf *", mp: *mut rte_mempool as "struct rte_mempool *") -> *mut rte_mbuf as "struct rte_mbuf *"
 	{
@@ -493,7 +497,61 @@ c!
 	{
 		return rte_pktmbuf_data_len(m);
 	}
+}
+
+// Wrappers for inconvenient macros
+c!
+{
+	#[inline(always)]
+	fn rust_rte_pktmbuf_mtod(m: *mut rte_mbuf as "struct rte_mbuf *") -> *mut c_void as "void *"
+	{
+		return rte_pktmbuf_mtod(m, void *);
+	}
 	
+	#[inline(always)]
+	fn rust_rte_pktmbuf_mtod_offset(m: *mut rte_mbuf as "struct rte_mbuf *", o: uint16_t as "uint16_t") -> *mut c_void as "void *"
+	{
+		return rte_pktmbuf_mtod_offset(m, void *, o);
+	}
+}
+
+// These functions exist because we can not generate a good-quality struct wrapper for rte_mbuf with bindgen
+c!
+{
+	#include <rte_mbuf.h>
+
+	#[inline(always)]
+	fn rust_rte_mbuf_get_packet_type(m: *mut rte_mbuf as "struct rte_mbuf *") -> uint32_t as "uint32_t"
+	{
+		return m->packet_type;
+	}
+	
+	#[inline(always)]
+	fn rust_rte_mbuf_set_packet_type_to_unknown(m: *mut rte_mbuf as "struct rte_mbuf *")
+	{
+		m->packet_type = RTE_PTYPE_UNKNOWN;
+	}
+}
+
+c!
+{
+	#include <rte_net.h>
+
+	#[inline(always)]
+	fn rust_rte_net_intel_cksum_flags_prepare(m: *mut rte_mbuf as "struct rte_mbuf *", ol_flags: uint64_t as "uint64_t") -> c_int as "int"
+	{
+		return rte_net_intel_cksum_flags_prepare(m, ol_flags);
+	}
+	
+	#[inline(always)]
+	fn rust_rte_net_intel_cksum_prepare(m: *mut rte_mbuf as "struct rte_mbuf *") -> c_int as "int"
+	{
+		return rte_net_intel_cksum_prepare(m);
+	}
+}
+
+c!
+{
 	#[inline(always)]
 	fn rust_rte_timespec_to_ns(ts: *const timespec as "const struct timespec *") -> uint64_t as "uint64_t"
 	{
@@ -529,7 +587,7 @@ c!
 	{
 		return rte_get_timer_cycles();
 	}
-		
+	
 	#[inline(always)]
 	fn rust_rte_get_timer_hz() -> uint64_t as "uint64_t"
 	{
@@ -574,7 +632,7 @@ c!
 	{
 		return rte_ring_mp_enqueue(r, obj);
 	}
-		  
+	
 	#[inline(always)]
 	fn rust_rte_ring_sp_enqueue(r: *mut rte_ring as "struct rte_ring *", obj: *mut c_void as "void *") -> c_int as "int"
 	{

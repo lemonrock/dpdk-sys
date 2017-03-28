@@ -4,7 +4,7 @@
 
 pub const RTE_PTYPE_ALL_MASK: c_int = 268435455;
 pub const RTE_PTYPE_INNER_L2_ETHER: uint32_t = 65536;
-pub const RTE_PTYPE_INNER_L2_ETHER_QINQ: c_int = 196608;
+pub const RTE_PTYPE_INNER_L2_ETHER_QINQ: uint32_t = 196608;
 pub const RTE_PTYPE_INNER_L2_ETHER_VLAN: uint32_t = 131072;
 pub const RTE_PTYPE_INNER_L2_MASK: uint32_t = 983040;
 pub const RTE_PTYPE_INNER_L3_IPV4: uint32_t = 1048576;
@@ -25,9 +25,9 @@ pub const RTE_PTYPE_L2_ETHER: uint32_t = 1;
 pub const RTE_PTYPE_L2_ETHER_ARP: uint32_t = 3;
 pub const RTE_PTYPE_L2_ETHER_LLDP: uint32_t = 4;
 pub const RTE_PTYPE_L2_ETHER_NSH: uint32_t = 5;
-pub const RTE_PTYPE_L2_ETHER_QINQ: c_int = 7;
+pub const RTE_PTYPE_L2_ETHER_QINQ: uint32_t = 7;
 pub const RTE_PTYPE_L2_ETHER_TIMESYNC: uint32_t = 2;
-pub const RTE_PTYPE_L2_ETHER_VLAN: c_int = 6;
+pub const RTE_PTYPE_L2_ETHER_VLAN: uint32_t = 6;
 pub const RTE_PTYPE_L2_MASK: uint32_t = 15;
 pub const RTE_PTYPE_L3_IPV4: uint32_t = 16;
 pub const RTE_PTYPE_L3_IPV4_EXT: uint32_t = 48;
