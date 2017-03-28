@@ -507,6 +507,23 @@ c! {
 	{
 		return rte_pktmbuf_data_len(m);
 	}
+	
+	#[inline(always)]
+	fn rust_rte_pktmbuf_read(m: *mut rte_mbuf as "struct rte_mbuf *", off: uint32_t as "uint32_t", len: uint32_t as "uint32_t", buf: *mut c_void as "void *") -> *const c_void as "const void *"
+	{
+		return rte_pktmbuf_read(m, off, len, buf);
+	}
+}
+
+// Wrappers for bitfields
+c!
+{
+	#[inline(always)]
+	fn rust_rte_pktmbuf_setMajorLengthBitfields(m: *mut rte_mbuf as "struct rte_mbuf *", layer2HeaderLength: uint8_t as "uint8_t", layer3HeaderLength: uint8_t as "uint8_t", layer4HeaderLength: uint8_t as "uint8_t")
+	{
+		// See also _mbuf_tx_offload in TLDK example l4fwd pkt.c
+		m->tx_offload = (uint64_t) layer2HeaderLength | ((uint64_t) layer3HeaderLength) << 7 | ((uint64_t) layer4HeaderLength) << 16;
+	}
 }
 
 // Wrappers for inconvenient macros
