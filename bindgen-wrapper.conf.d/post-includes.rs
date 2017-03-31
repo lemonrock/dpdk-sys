@@ -505,6 +505,76 @@ c! {
 	}
 }
 
+// Functions not formally accepted for use by DPDK but essential for correct operation
+c!
+{
+	#include <rte_memcpy.h>
+	
+	// This code derived from that originally proposed in a patch and rejected for a reason I do not know; it is essential to work correctly with mbufs with more than one segment
+	// See http://dpdk.org/dev/patchwork/patch/17226/
+	#[inline(always)]
+	fn rust_rte_pktmbuf_write(m: *mut rte_mbuf as "const struct rte_mbuf *", off: uint32_t as "uint32_t", len: uint32_t as "uint32_t", buf: *const c_void as "const void *") -> c_int as "int"
+	{
+		char *dstA = rte_pktmbuf_mtod_offset(m, char *, off);
+	
+		if (buf == dstA)
+		{
+			return 0;
+		}
+		
+		if (off + len <= rte_pktmbuf_data_len(m))
+		{
+			rte_memcpy(dstA, buf, len);
+			return 0;
+		}
+		
+		const struct rte_mbuf *seg = m;
+		uint32_t buf_off = 0, copy_len;
+		char *dst;
+	
+		if (off + len > rte_pktmbuf_pkt_len(m))
+		{
+			return -1;
+		}
+		
+		// Find first relevant segment
+		while (off >= rte_pktmbuf_data_len(seg))
+		{
+			off -= rte_pktmbuf_data_len(seg);
+			seg = seg->next;
+		}
+	
+		dst = rte_pktmbuf_mtod_offset(seg, char *, off);
+		if (buf == dst)
+		{
+			return 0;
+		}
+		
+		if (off + len <= rte_pktmbuf_data_len(seg))
+		{
+			rte_memcpy(dst, buf, len);
+			return 0;
+		}
+		
+		while (len > 0)
+		{
+			copy_len = rte_pktmbuf_data_len(seg) - off;
+			if (copy_len > len)
+			{
+				copy_len = len;
+			}
+			dst = rte_pktmbuf_mtod_offset(seg, char *, off);
+			rte_memcpy(dst, (const char *)buf + buf_off, copy_len);
+			off = 0;
+			buf_off += copy_len;
+			len -= copy_len;
+			seg = seg->next;
+		}
+	
+		return 0;
+	}
+}
+
 // Wrappers for bitfields
 c!
 {
@@ -546,6 +616,17 @@ c!
 	fn rust_rte_net_intel_cksum_prepare(m: *mut rte_mbuf as "struct rte_mbuf *") -> c_int as "int"
 	{
 		return rte_net_intel_cksum_prepare(m);
+	}
+}
+
+c!
+{
+	#include <rte_ip.h>
+	
+	#[inline(always)]
+	fn rust_rte_ipv4_cksum(ipv4_hdr: *const ipv4_hdr as "const struct ipv4_hdr *") -> uint16_t as "uint16_t"
+	{
+		return rte_ipv4_cksum(ipv4_hdr);
 	}
 }
 

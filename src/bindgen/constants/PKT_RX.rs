@@ -2,25 +2,25 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const PKT_RX_EIP_CKSUM_BAD: c_int = 32;
-pub const PKT_RX_FDIR: c_int = 4;
-pub const PKT_RX_FDIR_FLX: c_int = 16384;
-pub const PKT_RX_FDIR_ID: c_int = 8192;
-pub const PKT_RX_IEEE1588_PTP: c_int = 512;
-pub const PKT_RX_IEEE1588_TMST: c_int = 1024;
-pub const PKT_RX_IP_CKSUM_BAD: c_int = 16;
-pub const PKT_RX_IP_CKSUM_GOOD: c_int = 128;
-pub const PKT_RX_IP_CKSUM_MASK: c_int = 144;
-pub const PKT_RX_IP_CKSUM_NONE: c_int = 144;
-pub const PKT_RX_IP_CKSUM_UNKNOWN: c_int = 0;
-pub const PKT_RX_L4_CKSUM_BAD: c_int = 8;
-pub const PKT_RX_L4_CKSUM_GOOD: c_int = 256;
-pub const PKT_RX_L4_CKSUM_MASK: c_int = 264;
-pub const PKT_RX_L4_CKSUM_NONE: c_int = 264;
-pub const PKT_RX_L4_CKSUM_UNKNOWN: c_int = 0;
-pub const PKT_RX_LRO: c_int = 65536;
-pub const PKT_RX_QINQ_PKT: c_int = 32768;
-pub const PKT_RX_QINQ_STRIPPED: c_int = 32768;
-pub const PKT_RX_RSS_HASH: c_int = 2;
-pub const PKT_RX_VLAN_PKT: c_int = 1;
-pub const PKT_RX_VLAN_STRIPPED: c_int = 64;
+pub const PKT_RX_EIP_CKSUM_BAD: uint64_t = 32;
+pub const PKT_RX_FDIR: uint64_t = 4;
+pub const PKT_RX_FDIR_FLX: uint64_t = 16384;
+pub const PKT_RX_FDIR_ID: uint64_t = 8192;
+pub const PKT_RX_IEEE1588_PTP: uint64_t = 512;
+pub const PKT_RX_IEEE1588_TMST: uint64_t = 1024;
+pub const PKT_RX_IP_CKSUM_BAD: uint64_t = 16;
+pub const PKT_RX_IP_CKSUM_GOOD: uint64_t = 128;
+pub const PKT_RX_IP_CKSUM_MASK: uint64_t = 144;
+pub const PKT_RX_IP_CKSUM_NONE: uint64_t = 144;
+pub const PKT_RX_IP_CKSUM_UNKNOWN: uint64_t = 0;
+pub const PKT_RX_L4_CKSUM_BAD: uint64_t = 8;
+pub const PKT_RX_L4_CKSUM_GOOD: uint64_t = 256;
+pub const PKT_RX_L4_CKSUM_MASK: uint64_t = 264;
+pub const PKT_RX_L4_CKSUM_NONE: uint64_t = 264;
+pub const PKT_RX_L4_CKSUM_UNKNOWN: uint64_t = 0;
+pub const PKT_RX_LRO: uint64_t = 65536;
+pub const PKT_RX_QINQ_PKT: uint64_t = 32768;
+pub const PKT_RX_QINQ_STRIPPED: uint64_t = 32768;
+pub const PKT_RX_RSS_HASH: uint64_t = 2;
+pub const PKT_RX_VLAN_PKT: uint64_t = 1;
+pub const PKT_RX_VLAN_STRIPPED: uint64_t = 64;
