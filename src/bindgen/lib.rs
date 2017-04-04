@@ -158,6 +158,17 @@ c!
 
 c!
 {
+	#include <rte_lpm.h>
+	
+	#[inline(always)]
+	fn rust_rte_lpm_lookup(lpm: *mut rte_lpm as "struct rte_lpm *", ip: u32 as "uint32_t", next_hop: *mut u32 as "uint32_t *") -> c_int as "int"
+	{
+		return rte_lpm_lookup(lpm, ip, next_hop);
+	}
+}
+
+c!
+{
 	#[inline(always)]
 	fn rust_RTE_DEV_TO_PCI(device: *mut rte_device as "struct rte_device *") -> *mut rte_pci_device as "struct rte_pci_device *"
 	{

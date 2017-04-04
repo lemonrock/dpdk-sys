@@ -169,7 +169,7 @@ compile_dpdk_with_tldk_platformSpecificPreparation()
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent uname
 	platform="$(uname)"
 
-	if [ -z "${NUM_JOBS+undefined}"]; then
+	if [ -z "${NUM_JOBS+undefined}" ]; then
 		numberOfMakeJobs=0
 	else
 		numberOfMakeJobs="$NUM_JOBS"
@@ -263,7 +263,7 @@ compile_dpdk_with_tldk_patchDpdkSourceToWorkWithMusl()
 		sed -i -e 's;#include <errno.h>;#include <errno.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_memory.c
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <sys/sysmacros.h>\n;g' lib/librte_eal/linuxapp/eal/eal_pci_uio.c
 		sed -i -e 's;#define PAGE_SIZE;#undef PAGE_SIZE\n#define PAGE_SIZE;g' lib/librte_eal/linuxapp/eal/eal_pci_vfio.c
-		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' app/test/test_eal_flags.c
+		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' test/test/test_eal_flags.c
 		sed -i -e 's;uint hash_key_len;uint8_t hash_key_len;g' app/test-pmd/testpmd.c app/test-pmd/testpmd.h app/test-pmd/config.c
 		sed -i -e 's;u_int32_t;uint32_t;g' drivers/net/enic/base/vnic_devcmd.h
 		

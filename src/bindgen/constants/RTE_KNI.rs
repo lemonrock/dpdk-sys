@@ -3,4 +3,3 @@
 
 
 pub const RTE_KNI_PREEMPT_DEFAULT: c_int = 1;
-pub const RTE_KNI_VHOST_MAX_CACHE_SIZE: c_int = 1024;
