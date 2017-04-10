@@ -12,5 +12,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Rust &lt;dpdk&gt;" level="project" />
     <orderEntry type="library" name="Cargo &lt;dpdk&gt;" level="project" />
+    <orderEntry type="library" name="Rust &lt;dpdk-sys&gt;" level="project" />
+    <orderEntry type="library" name="Cargo &lt;dpdk-sys&gt;" level="project" />
   </component>
 </module>
