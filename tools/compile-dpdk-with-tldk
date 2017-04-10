@@ -77,7 +77,7 @@ _program_path_find()
 compile_dpdk_with_tldk_fail()
 {
 	local message="$1"
-	
+
 	printf 'compile-dpdk-with-tldk:FAIL:%s\n' "$message" 1>&2
 	exit 1
 }
@@ -105,7 +105,7 @@ compile_dpdk_with_tldk_ensureRequiredBinariesArePresent()
 _compile_dpdk_with_tldk_prepareForMacOSX_brewInstall()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent brew
-		
+
 	local packageName="$1"
 	if ! brew ls --versions "$packageName" 1>/dev/null 2>/dev/null; then
 		brew install "$packageName" 1>&2
@@ -124,43 +124,43 @@ compile_dpdk_with_tldk_prepareForMacOSX()
 compile_dpdk_with_tldk_parseCommandLine()
 {
 	case "$#" in
-		
+
 		0)
 			:
 		;;
-		
+
 		1)
 			case "$1" in
-				
+
 				-h|--help)
 					printf './compile-dpdk-with-tldk\n'
 					printf './compile-dpdk-with-tldk -h|--help\n'
 					printf 'Pass the environment variable NUM_JOBS to control the number of make jobs\n'
 					exit 0
 				;;
-				
+
 				*)
 					compile_dpdk_with_tldk_fail "Does not take any arguments"
 				;;
-				
+
 			esac
 		;;
-		
+
 		*)
 			compile_dpdk_with_tldk_fail "Does not take any arguments"
 		;;
-		
+
 	esac
 }
 
 compile_dpdk_with_tldk_findFolderPaths()
 {
 	programFolderPath="$(_program_path_find)"
-	
+
 	cd "$programFolderPath"/.. 1>/dev/null 2>/dev/null
 		homeFolderPath="$(pwd)"
 	cd - 1>/dev/null 2>/dev/null
-	
+
 	configurationFolderPath="$homeFolderPath"/compile-dpdk-with-tldk.conf.d
 }
 
@@ -174,18 +174,21 @@ compile_dpdk_with_tldk_platformSpecificPreparation()
 	else
 		numberOfMakeJobs="$NUM_JOBS"
 	fi
-		
+
+	# Temporary hack because there seems to be an on-again, off-again bug in DPDK compilation
+	numberOfMakeJobs=1
+
 	case "$platform" in
 
 		Darwin)
 			compile_dpdk_with_tldk_prepareForMacOSX
-		
+
 			compile_dpdk_with_tldk_ensureRequiredBinariesArePresent brew
-		
+
 			export PATH="$(brew --prefix coreutils)"/libexec/gnubin:"$(brew --prefix gnu-sed)"/libexec/gnubin:"$PATH"
 
 			muslIncludeFolderPath="$(brew --prefix musl-cross)"/libexec/x86_64-linux-musl/include
-			
+
 			if [ $numberOfMakeJobs -eq 0 ]; then
 				compile_dpdk_with_tldk_ensureRequiredBinariesArePresent sysctl
 				numberOfMakeJobs="$(sysctl -n hw.ncpu)"
@@ -196,7 +199,7 @@ compile_dpdk_with_tldk_platformSpecificPreparation()
 		Linux)
 			compile_dpdk_with_tldk_ensureRequiredBinariesArePresent make sed x86_64-linux-musl-gcc x86_64-linux-musl-ar rm mkdir rsync cat
 			muslIncludeFolderPath='/usr/include'
-			
+
 			if [ $numberOfMakeJobs -eq 0 ]; then
 				compile_dpdk_with_tldk_ensureRequiredBinariesArePresent grep
 				numberOfMakeJobs="$(grep -c '^processor' /proc/cpuinfo)"
@@ -220,11 +223,11 @@ compile_dpdk_with_tldk_createTemporaryFolder()
 compile_dpdk_with_tldk_muslReplacementHeaders()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent rm mkdir cat
-	
+
 	muslReplacementHeadersIncludeFolderPath="$temporaryFolderPath"/musl-fixes
-	
+
 	rm -rf "$muslReplacementHeadersIncludeFolderPath"
-	
+
 	# (1) Make an useful io.h
 	mkdir -m 0700 -p "$muslReplacementHeadersIncludeFolderPath"/bits
 	{
@@ -240,11 +243,11 @@ compile_dpdk_with_tldk_muslReplacementHeaders()
 compile_dpdk_with_tldk_copyDpdkSourceSoWeCanPatchIt()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent mkdir rsync
-	
+
 	copyOfDpdkSourceWhichCanBePatchedFolderPath="$temporaryFolderPath"/dpdk
-	
+
 	mkdir -m 0700 -p "$copyOfDpdkSourceWhichCanBePatchedFolderPath"
-	
+
 	rsync --quiet --archive --delete "$homeFolderPath"/lib/dpdk/ "$copyOfDpdkSourceWhichCanBePatchedFolderPath"/
 }
 
@@ -252,11 +255,11 @@ compile_dpdk_with_tldk_copyDpdkSourceSoWeCanPatchIt()
 compile_dpdk_with_tldk_patchDpdkSourceToWorkWithMusl()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent rsync sed
-	
+
 	rsync --quiet --archive "$configurationFolderPath"/dpdk-fixes/ "$copyOfDpdkSourceWhichCanBePatchedFolderPath"/
-	
+
 	cd "$copyOfDpdkSourceWhichCanBePatchedFolderPath" 1>/dev/null 2>/dev/null
-	
+
 		# Assumes glibc
 		sed -i -e 's;#include <rte_per_lcore.h>;#include <sched.h>\n#include <rte_per_lcore.h>;g' lib/librte_eal/common/include/rte_lcore.h
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' lib/librte_eal/linuxapp/eal/eal_hugepage_info.c
@@ -266,7 +269,7 @@ compile_dpdk_with_tldk_patchDpdkSourceToWorkWithMusl()
 		sed -i -e 's;#include <string.h>;#include <string.h>\n#include <fcntl.h>;g' test/test/test_eal_flags.c
 		sed -i -e 's;uint hash_key_len;uint8_t hash_key_len;g' app/test-pmd/testpmd.c app/test-pmd/testpmd.h app/test-pmd/config.c
 		sed -i -e 's;u_int32_t;uint32_t;g' drivers/net/enic/base/vnic_devcmd.h
-		
+
 	cd - 1>/dev/null 2>/dev/null
 }
 
@@ -278,7 +281,7 @@ compile_dpdk_with_tldk_patchDpdkSourceToCrossCompileOnMacOsXAndAlpineLinux()
 		# Assumes GNU tar (Busybox tar on Alpine, BSD tar on Mac OS X)
 		sed -i -e '/--keep-newer-files/d' mk/rte.sdkinstall.mk
 		sed -i -e 's;--strip-components=1 \\;--strip-components=1;g' mk/rte.sdkinstall.mk
-		
+
 		case "$platform" in
 
 			Darwin)
@@ -295,50 +298,50 @@ compile_dpdk_with_tldk_patchDpdkSourceToCrossCompileOnMacOsXAndAlpineLinux()
 			;;
 
 		esac
-	
+
 	cd - 1>/dev/null 2>/dev/null
 }
 
 compile_dpdk_with_tldk_copyTldkSourceSoWeCanPatchIt()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent mkdir rsync
-	
+
 	copyOfTldkSourceWhichCanBePatchedFolderPath="$temporaryFolderPath"/tldk
-	
+
 	mkdir -m 0700 -p "$copyOfTldkSourceWhichCanBePatchedFolderPath"
-	
+
 	rsync --quiet --archive --delete "$homeFolderPath"/lib/tldk/ "$copyOfTldkSourceWhichCanBePatchedFolderPath"/
 }
 
 compile_dpdk_with_tldk_patchTldkToWorkWithMusl()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent rsync sed
-	
+
 	rsync --quiet --archive "$configurationFolderPath"/tldk-fixes/ "$copyOfTldkSourceWhichCanBePatchedFolderPath"/
-	
+
 	cd "$copyOfTldkSourceWhichCanBePatchedFolderPath" 1>/dev/null 2>/dev/null
-		
+
 		# If gtest (Google Test) is not installed, the build mostly works but can fail with a non-zero exit code we can not distinguish from a build error
 		sed -i -e '/DIRS-y += test/d' Makefile
-		
+
 		# l4fwd does not compile currently
 		sed -i -e '/DIRS-y += examples/d' Makefile
-		
+
 	cd - 1>/dev/null 2>/dev/null
 }
 
 compile_dpdk_with_tldk_makeAndInstallDpdk()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent mkdir cat make
-	
+
 	destinationFolderPath="$temporaryFolderPath"/destdir
 	mkdir -m 0700 -p "$destinationFolderPath"
-	
+
 	dpdkHeadersFolderPath="$destinationFolderPath"/usr/local/include/dpdk
-	
+
 	local dpdkBuildFolderPath="$temporaryFolderPath"/dpdk-build
 	mkdir -m 0700 -p "$dpdkBuildFolderPath"
-	
+
 	local configurationFilePath=config/defconfig_"$configurationName"
 
 	cd "$copyOfDpdkSourceWhichCanBePatchedFolderPath" 1>/dev/null 2>/dev/null
@@ -350,20 +353,20 @@ compile_dpdk_with_tldk_makeAndInstallDpdk()
 			compile_dpdk_with_tldk_ensureRequiredBinariesArePresent uname
 			kernelSourcesPath=/lib/modules/"$(uname -r)"/build
 		fi
-		
+
 		cat >>"$configurationFilePath" <<-EOF
 			# Do not build kernel modules
 			CONFIG_RTE_EAL_IGB_UIO=n
 			CONFIG_RTE_KNI_KMOD=n
 			CONFIG_RTE_LIBRTE_XEN_DOM0=n
-		
+
 			# Sensible configuration overrides
 			CONFIG_RTE_LIBEAL_USE_HPET=y
 			CONFIG_RTE_LIBRTE_I40E_16BYTE_RX_DESC=y
 			CONFIG_RTE_LIBRTE_I40E_ITR_INTERVAL=16
 			CONFIG_RTE_LIBRTE_IP_FRAG=y
 			CONFIG_RTE_MAX_LCORE=256
-		
+
 			# Disable test apps
 			CONFIG_RTE_APP_TEST=n
 			CONFIG_RTE_TEST_PMD=n
@@ -372,7 +375,7 @@ compile_dpdk_with_tldk_makeAndInstallDpdk()
 			#CONFIG_RTE_LIBRTE_PIPELINE=n
 			#CONFIG_RTE_LIBRTE_CMDLINE=n
 			#CONFIG_RTE_LIBRTE_PDUMP=n
-		
+
 			# Enable functionality
 			CONFIG_RTE_LIBRTE_PMD_BOND=y
 			CONFIG_RTE_LIBRTE_CMDLINE=y
@@ -396,12 +399,12 @@ compile_dpdk_with_tldk_makeAndInstallDpdk()
 compile_dpdk_with_tldk_makeTldk()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent mkdir make
-	
+
 	tldkBuildFolderPath="$temporaryFolderPath"/tldk-build
 	mkdir -m 0700 -p "$tldkBuildFolderPath"
-	
+
 	cd "$copyOfTldkSourceWhichCanBePatchedFolderPath" 1>/dev/null 2>/dev/null
-		
+
 		RTE_SDK="$destinationFolderPath"/usr/local/share/dpdk RTE_TARGET="$configurationName" make \
 			--jobs $numberOfMakeJobs \
 			all \
@@ -418,16 +421,16 @@ compile_dpdk_with_tldk_makeTldk()
 compile_dpdk_with_tldk_installTldkIntoDpdkDestination()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent cat cp
-	
+
 	{
 		cat <<-'EOF'
 			// This file is part of dpdk-sys. It is subject to the license terms in the COPYRIGHT file found in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT. No part of dpdk-sys, including this file, may be copied, modified, propagated, or distributed except according to the terms contained in the COPYRIGHT file.
 			// Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
-			
-			
+
+
 		EOF
 		cd "$tldkBuildFolderPath"/include 1>/dev/null 2>/dev/null
-		
+
 			local headerFile
 			set +f
 			for headerFile in *.h
@@ -437,16 +440,16 @@ compile_dpdk_with_tldk_installTldkIntoDpdkDestination()
 				printf '#include <%s>\n' "$headerFile"
 			done
 			set -f
-		
+
 		cd - 1>/dev/null 2>/dev/null
 	} >"$dpdkHeadersFolderPath"/tldk.h
-	
+
 	local libFolderPath="$destinationFolderPath"/usr/local/lib
 	{
 		printf 'GROUP ( '
-		
+
 		cd "$tldkBuildFolderPath"/lib 1>/dev/null 2>/dev/null
-			
+
 			local libFile
 			set +f
 			for libFile in *.a
@@ -454,9 +457,9 @@ compile_dpdk_with_tldk_installTldkIntoDpdkDestination()
 				cp "$libFile" "$libFolderPath"
 				printf '%s ' "$libFile"
 			done
-			
+
 		cd - 1>/dev/null 2>/dev/null
-		
+
 		printf ')\n'
 	} >"$libFolderPath"/libtldk.a
 }
@@ -464,7 +467,7 @@ compile_dpdk_with_tldk_installTldkIntoDpdkDestination()
 compile_dpdk_with_tldk_installMuslReplacementHeadersSoBindgenCanWork()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent rsync
-	
+
 	# Install musl replacement headers so bindgen can work; DPDK headers assume they are installed as a system library
 	rsync --quiet --archive "$muslReplacementHeadersIncludeFolderPath"/ "$dpdkHeadersFolderPath"/
 }
@@ -472,54 +475,54 @@ compile_dpdk_with_tldk_installMuslReplacementHeadersSoBindgenCanWork()
 compile_dpdk_with_tldk_changeRteMemCpyHeaderSoBindgenCanWork()
 {
 	compile_dpdk_with_tldk_ensureRequiredBinariesArePresent sed
-	
+
 	sed -i -e 's;#include <stdio.h>;#include <stdio.h>\n#include <tmmintrin.h>;g' "$dpdkHeadersFolderPath"/rte_memcpy.h
 }
 
 compile_dpdk_with_tldk_main()
 {
 	compile_dpdk_with_tldk_parseCommandLine "$@"
-	
+
 	local crossCompilerPrefix='x86_64-linux-musl-'
 	local configurationName='x86_64-native-linuxapp-gcc'
 	local dpdkMachine='default'
-	
+
 	local programFolderPath
 	local homeFolderPath
 	local configurationFolderPath
 	compile_dpdk_with_tldk_findFolderPaths
-	
+
 	local platform
 	local muslIncludeFolderPath
 	local numberOfMakeJobs
 	compile_dpdk_with_tldk_platformSpecificPreparation
-	
+
 	local temporaryFolderPath
 	compile_dpdk_with_tldk_createTemporaryFolder
 
 	local muslReplacementHeadersIncludeFolderPath
 	compile_dpdk_with_tldk_muslReplacementHeaders
-	
+
 	local copyOfDpdkSourceWhichCanBePatchedFolderPath
 	compile_dpdk_with_tldk_copyDpdkSourceSoWeCanPatchIt
 	compile_dpdk_with_tldk_patchDpdkSourceToWorkWithMusl
 	compile_dpdk_with_tldk_patchDpdkSourceToCrossCompileOnMacOsXAndAlpineLinux
-	
+
 	local copyOfTldkSourceWhichCanBePatchedFolderPath
 	compile_dpdk_with_tldk_copyTldkSourceSoWeCanPatchIt
 	compile_dpdk_with_tldk_patchTldkToWorkWithMusl
-	
+
 	local destinationFolderPath
 	local dpdkHeadersFolderPath
 	compile_dpdk_with_tldk_makeAndInstallDpdk
-	
+
 	local tldkBuildFolderPath
 	compile_dpdk_with_tldk_makeTldk
 	compile_dpdk_with_tldk_installTldkIntoDpdkDestination
-	
+
 	compile_dpdk_with_tldk_installMuslReplacementHeadersSoBindgenCanWork
 	compile_dpdk_with_tldk_changeRteMemCpyHeaderSoBindgenCanWork
-	
+
 	printf '\n\n\nFINISHED\n\n\n' 1>&2
 }
 
