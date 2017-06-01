@@ -11,7 +11,7 @@ documentation = "https://github.com/lemonrock/dpdk-sys/blob/master/README.md"
 homepage = "https://github.com/lemonrock/dpdk-sys"
 repository = "https://github.com/lemonrock/dpdk-sys.git"
 exclude = ["*"]
-include = ["README.md", "LICENSE", "COPYRIGHT", "src/**/*.rs", "benches/**/*.rs", "examples/**/*.rs", "tests/**/*.rs", "Cargo.toml", "rustfmt.toml", "clippy.toml", "bindgen-wrapper.conf.d/**", "compile-dpdk", "lib/**", "tools/**"]
+include = ["README.md", "LICENSE", "COPYRIGHT", "src/**/*.rs", "benches/**/*.rs", "examples/**/*.rs", "tests/**/*.rs", "Cargo.toml", "rustfmt.toml", "clippy.toml", "bindgen-wrapper.conf.d/**", "lib/**", "tools/**"]
 # Relative to Cargo.toml
 readme = "README.md"
 publish = true
