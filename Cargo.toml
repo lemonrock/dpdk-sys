@@ -10,9 +10,7 @@ authors = ["Raphael Cohn <raphael.cohn@stormmq.com>"]
 documentation = "https://github.com/lemonrock/dpdk-sys/blob/master/README.md"
 homepage = "https://github.com/lemonrock/dpdk-sys"
 repository = "https://github.com/lemonrock/dpdk-sys.git"
-exclude = ["*"]
-include = ["README.md", "LICENSE", "COPYRIGHT", "src/**/*.rs", "benches/**/*.rs", "examples/**/*.rs", "tests/**/*.rs", "Cargo.toml", "rustfmt.toml", "clippy.toml", "bindgen-wrapper.conf.d/**", "lib/**", "tools/**"]
-# Relative to Cargo.toml
+exclude = ["compile-dpdk-with-tldk.conf.d/temporary", "tools/bindgen-wrapper/temporary", "lib/dpdk/doc/**", "lib/dpdk/test/**", "lib/dpdk/examples/**", "lib/tldk/doc/**", "lib/tldk/test/**", "lib/tldk/examples/**"]
 readme = "README.md"
 publish = true
 version = "0.0.1"
