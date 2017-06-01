@@ -2,4 +2,4 @@
 // Copyright © 2016 The developers of dpdk-sys. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/lemonrock/dpdk-sys/master/COPYRIGHT.
 
 
-pub const IP_FRAG_DEATH_ROW_LEN: c_int = 32;
+pub const IP_FRAG_DEATH_ROW_LEN: usize = 32;

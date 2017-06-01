@@ -6,7 +6,7 @@
 #![allow(non_upper_case_globals)]
 
 
-extern crate c;
+extern crate rust_c;
 
 
 use ::std::env;
@@ -66,7 +66,7 @@ fn compileEmbeddedCCode(absoluteHomeFolderPath: &str)
 	let includeFolderPath = format!("{}/src/include", absoluteHomeFolderPath.to_owned());
 	
 	let path = format!("{}/src/lib.rs", absoluteHomeFolderPath);
-	c::build(path, "dpdk_sys_c", |gcc_config|
+	rust_c::build(path, "dpdk_sys_c", |gcc_config|
 	{
 		gcc_config.flag("-Werror");
 		gcc_config.define("_GNU_SOURCE", None);

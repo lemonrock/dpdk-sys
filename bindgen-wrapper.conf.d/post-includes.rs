@@ -1,4 +1,4 @@
-#[allow(unused_extern_crates)] #[macro_use] extern crate c;
+#[allow(unused_extern_crates)] #[macro_use] extern crate rust_c;
 extern crate libc;
 use ::libc::c_char;
 use ::libc::c_int;
@@ -163,6 +163,29 @@ c!
 	fn rust_RTE_DEV_TO_PCI(device: *mut rte_device as "struct rte_device *") -> *mut rte_pci_device as "struct rte_pci_device *"
 	{
 		return RTE_DEV_TO_PCI(device);
+	}
+}
+
+c!
+{
+	#include <rte_ip_frag.h>
+	
+	#[inline(always)]
+	fn rust_rte_ip_frag_table_destroy(tbl: *mut rte_ip_frag_tbl as "struct rte_ip_frag_tbl *")
+	{
+		rte_ip_frag_table_destroy(tbl);
+	}
+	
+	#[inline(always)]
+	fn rust_rte_ipv4_frag_pkt_is_fragmented(hdr: *const ipv4_hdr as "const struct ipv4_hdr *") -> c_int as "int"
+	{
+		return rte_ipv4_frag_pkt_is_fragmented(hdr);
+	}
+	
+	#[inline(always)]
+	fn rust_rte_ipv6_frag_get_ipv6_fragment_header(hdr: *mut ipv6_hdr as "struct ipv6_hdr *") -> *mut ipv6_extension_fragment as "struct ipv6_extension_fragment *"
+	{
+		return rte_ipv6_frag_get_ipv6_fragment_header(hdr);
 	}
 }
 

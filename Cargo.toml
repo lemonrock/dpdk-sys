@@ -14,22 +14,14 @@ exclude = ["*"]
 include = ["README.md", "LICENSE", "COPYRIGHT", "src/**/*.rs", "benches/**/*.rs", "examples/**/*.rs", "tests/**/*.rs", "Cargo.toml", "rustfmt.toml", "clippy.toml", "bindgen-wrapper.conf.d/**", "compile-dpdk", "lib/**", "tools/**"]
 # Relative to Cargo.toml
 readme = "README.md"
-publish = false
-version = "0.0.0"
+publish = true
+version = "0.0.1"
 build = "src/build.rs"
 links = "dpdk"
 
-[profile.release]
-opt-level = 3
-debug = false
-rpath = false
-lto = true
-debug-assertions = false
-codegen-units = 1
-
 [dependencies]
-c = { git = "https://github.com/lemonrock/rust-c.git", features = ["macro"] }
+rust_c = { version = "0.1.1", features = ["macro"] }
 libc = "0.2.21"
 
 [build-dependencies]
-c = { git = "https://github.com/lemonrock/rust-c.git", features = ["build"] }
+rust_c = { version = "0.1.1", features = ["build"] }
